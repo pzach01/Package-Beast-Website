@@ -1,0 +1,30 @@
+.bricks {
+    height: 100%;
+    width: 100%;
+    background-image: url(background-brick-brickwork-cement-268966.jpg);
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+  
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+}
+.half-width {
+    width: 50%
+}
+.full-width {
+    width: 100%
+}
+.opacity-50 {
+    opacity: 50%;
+}
+
+.example-header-image {
+    background-image: url('./peace.png');
+    background-size: cover;
+  }

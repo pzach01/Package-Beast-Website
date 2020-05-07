@@ -1,0 +1,4 @@
+<h1>Your items</h1>
+<mat-action-list>
+    <button *ngFor="let item of items" mat-list-item (click)="hello()"> {{item.width}}x{{item.length}}x{{item.height}} </button>
+</mat-action-list>
