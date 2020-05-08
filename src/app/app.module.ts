@@ -24,6 +24,7 @@ import { MatListModule } from '@angular/material/list';
 import { ItemsComponent } from './_components/items/items.component';
 import { ContainersComponent } from './_components/containers/containers.component';
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
+import { SettingsComponent } from './_components/settings/settings.component';
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ItemsComponent, ContainersComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ItemsComponent, ContainersComponent, DashboardComponent, SettingsComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

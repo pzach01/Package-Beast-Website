@@ -11,7 +11,7 @@
             <a mat-list-item (click)="snav.toggle()">New Shipment</a>
             <a mat-list-item (click)="snav.toggle(); activateItems()">My Items</a>
             <a mat-list-item (click)="snav.toggle(); activateContainers()">My Containers</a>
-            <a mat-list-item (click)="snav.toggle()">Settings</a>
+            <a mat-list-item (click)="snav.toggle(); activateSettings()">Settings</a>
             <a mat-list-item (click)="logout()">Logout</a>
         </mat-nav-list>
     </mat-sidenav>
@@ -19,5 +19,6 @@
     <mat-sidenav-content>
         <app-items *ngIf="itemsActive"></app-items>
         <app-containers *ngIf="containersActive"></app-containers>
+        <app-settings *ngIf="settingsActive"></app-settings>
     </mat-sidenav-content>
 </mat-sidenav-container>

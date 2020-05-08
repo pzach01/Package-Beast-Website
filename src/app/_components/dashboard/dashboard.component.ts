@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   title = "The Packaging Optimizer";
   itemsActive = true;
   containersActive = false;
+  settingsActive = false;
   currentUser: User;
 
   constructor(
@@ -39,6 +40,10 @@ export class DashboardComponent implements OnInit {
   activateContainers() {
     this.decactivateAllComponents()
     this.containersActive = true;
+  }
+  activateSettings() {
+    this.decactivateAllComponents()
+    this.settingsActive = true;
   }
 
 }
