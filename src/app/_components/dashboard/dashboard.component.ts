@@ -11,7 +11,8 @@ import { AuthenticationService } from 'src/app/_services';
 export class DashboardComponent implements OnInit {
 
   title = "The Packaging Optimizer";
-  itemsActive = true;
+  shipmentsActive = true;
+  itemsActive = false;
   containersActive = false;
   settingsActive = false;
   currentUser: User;
@@ -30,8 +31,14 @@ export class DashboardComponent implements OnInit {
   }
 
   decactivateAllComponents() {
+    this.shipmentsActive = false;
     this.itemsActive = false;
     this.containersActive = false;
+    this.shipmentsActive = false;
+  }
+  activateShipments() {
+    this.decactivateAllComponents()
+    this.shipmentsActive = true;
   }
   activateItems() {
     this.decactivateAllComponents()
