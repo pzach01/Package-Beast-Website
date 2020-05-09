@@ -26,6 +26,8 @@ import { ContainersComponent } from './_components/containers/containers.compone
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
 import { SettingsComponent } from './_components/settings/settings.component';
 import { ShipmentsComponent } from './_components/shipments/shipments.component';
+import { NewItemComponent } from './_components/new-item/new-item.component';
+import { MatDialogModule } from '@angular/material/dialog'
 
 
 const appRoutes: Routes = [
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ItemsComponent, ContainersComponent, DashboardComponent, SettingsComponent, ShipmentsComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ItemsComponent, ContainersComponent, DashboardComponent, SettingsComponent, ShipmentsComponent, NewItemComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -55,7 +57,11 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    NewItemComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
