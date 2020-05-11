@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { NewContainerComponent } from './_components/new-container/new-container.component';
 
 
 const appRoutes: Routes = [
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     SettingsComponent,
     ShipmentsComponent,
-    NewItemComponent],
+    NewItemComponent,
+    NewContainerComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

@@ -1,10 +1,10 @@
 export class Container {
-    public height: String;
-    public width: String;
-    public depth: String;
-    constructor(width, depth, height) {
-        this.width = width;
-        this.depth = depth;
-        this.height = height;
-      }
+  public height: number;
+  public width: number;
+  public length: number;
+  constructor(width, depth, height) {
+    this.width = width;
+    this.length = depth;
+    this.height = height;
+  }
 }

@@ -32,6 +32,7 @@ export class ItemsComponent implements OnInit {
       if (newItem) {
         console.log("new item", newItem);
         this.items.unshift(newItem)
+        this.dataSource = new MatTableDataSource(this.items);
       }
     });
   }

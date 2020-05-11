@@ -1,24 +1,24 @@
-<h2 mat-dialog-title>New Item</h2>
-<form [formGroup]="newItemForm" (ngSubmit)="save()">
+<h2 mat-dialog-title>New Container</h2>
+<form [formGroup]="newContainerForm" (ngSubmit)="save()">
     <mat-dialog-content>
         <mat-form-field>
             <mat-label>Width</mat-label>
-            <input matInput [formControl]="newItemForm.get('width')" placeholder="Width">
-            <mat-error *ngIf="newItemForm.get('width').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('width')" placeholder="Width">
+            <mat-error *ngIf="newContainerForm.get('width').hasError('required') && submitted">
                 Width is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Length</mat-label>
-            <input matInput [formControl]="newItemForm.get('length')" placeholder="Length">
-            <mat-error *ngIf="newItemForm.get('length').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('length')" placeholder="Length">
+            <mat-error *ngIf="newContainerForm.get('length').hasError('required') && submitted">
                 Length is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Height</mat-label>
-            <input matInput [formControl]="newItemForm.get('height')" placeholder="Height">
-            <mat-error *ngIf="newItemForm.get('height').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('height')" placeholder="Height">
+            <mat-error *ngIf="newContainerForm.get('height').hasError('required') && submitted">
                 Height is <strong>required</strong>
             </mat-error>
         </mat-form-field>
