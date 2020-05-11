@@ -5,13 +5,9 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../../_services';
 
-@Component({selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
+@Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
 export class LoginComponent implements OnInit {
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]);
 
     loginForm: FormGroup;
     loading = false;
@@ -43,9 +39,6 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
-
     onSubmit() {
         console.log('sup')
         this.submitted = true;
@@ -59,12 +52,11 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        console.log("hi", this.emailFormControl.value)
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first())
             .subscribe(
                 token => {
-                    this.authenticationService.getUser(token).pipe(first()).subscribe(()=>this.router.navigate([this.returnUrl]))
+                    this.authenticationService.getUser(token).pipe(first()).subscribe(() => this.router.navigate([this.returnUrl]))
                 },
                 error => {
                     this.alertService.error(error);

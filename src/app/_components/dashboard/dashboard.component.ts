@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     this.shipmentsActive = false;
     this.itemsActive = false;
     this.containersActive = false;
-    this.shipmentsActive = false;
+    this.settingsActive = false;
   }
   activateShipments() {
     this.decactivateAllComponents()

@@ -1,2 +1,38 @@
-<p>new-item dialog works!</p>
-<p>create new item here</p>
+<h2 mat-dialog-title>New Item</h2>
+<form [formGroup]="newItemForm" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input matInput [formControl]="newItemForm.get('width')" placeholder="width">
+            <mat-error *ngIf="newItemForm.get('width').hasError('required') && submitted">
+                Width is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Length</mat-label>
+            <input matInput [formControl]="newItemForm.get('length')" placeholder="length">
+            <mat-error *ngIf="newItemForm.get('length').hasError('required') && submitted">
+                Length is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input matInput [formControl]="newItemForm.get('height')" placeholder="height">
+            <mat-error *ngIf="newItemForm.get('height').hasError('required') && submitted">
+                Height is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Units</mat-label>
+            <mat-select [(value)]="units">
+                <mat-option value="Inches">Inches</mat-option>
+                <mat-option value="Millimeters">Millimeters</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button class="mat-raised-button" (click)="close()">Close</button>
+        <button class="mat-raised-button mat-primary" type="submit">Save</button>
+    </mat-dialog-actions>
+</form>

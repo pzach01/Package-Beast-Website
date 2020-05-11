@@ -1,6 +1,55 @@
-<h1>Your items</h1>
-<button class="btn btn-primary" (click)="openDialog()">New Item</button>
-<mat-action-list>
-    <button *ngFor="let item of items" mat-list-item> {{item.width}}x{{item.length}}x{{item.height}}
-    </button>
-</mat-action-list>
+<div class="container">
+    <div class="d-flex justify-content-center mb-3">
+        <h1>Your items</h1>
+    </div>
+
+    <div class="d-flex justify-content-center mb-3">
+        <button mat-icon-button (click)="openDialog()">
+            <mat-icon class="add-circle-button">add_circle_outline</mat-icon>
+        </button>
+    </div>
+
+    <!-- <button class="btn btn-primary" (click)="openDialog()">New Item</button> -->
+
+    <div class="d-flex justify-content-center mb-3">
+        <div class="flex-fill">
+            <div class="d-flex justify-content-center mb-3">
+                <mat-form-field class="flex-fill">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="20 x 20 x 20, Item Name, or SKU">
+                </mat-form-field>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 flex-fill">
+
+                    <!-- Width Column -->
+                    <ng-container matColumnDef="width">
+                        <th mat-header-cell *matHeaderCellDef> Width </th>
+                        <td mat-cell *matCellDef="let item"> {{item.width}} </td>
+                    </ng-container>
+
+                    <!-- Length Column -->
+                    <ng-container matColumnDef="length">
+                        <th mat-header-cell *matHeaderCellDef> Length </th>
+                        <td mat-cell *matCellDef="let item"> {{item.length}} </td>
+                    </ng-container>
+
+                    <!-- Height Column -->
+                    <ng-container matColumnDef="height">
+                        <th mat-header-cell *matHeaderCellDef> Height </th>
+                        <td mat-cell *matCellDef="let item"> {{item.height}} </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

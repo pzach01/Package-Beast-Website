@@ -9,7 +9,11 @@ import { Item } from '../_models/item'
 export class ItemsService {
 
   constructor(private http: HttpClient) { }
-  getAll(): Observable<Item[]>{
+  getAll(): Observable<Item[]> {
     return this.http.get<Item[]>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/boxes/`);
+  }
+
+  postItem(item: Item): Observable<Item> {
+    return this.http.post<Item>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/boxes/`, item);
   }
 }

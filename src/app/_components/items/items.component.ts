@@ -3,6 +3,7 @@ import { ItemsService } from 'src/app/_services/items.service';
 import { Item } from 'src/app/_models/item';
 import { MatDialog } from '@angular/material/dialog';
 import { NewItemComponent } from 'src/app/_components/new-item/new-item.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -12,22 +13,32 @@ import { NewItemComponent } from 'src/app/_components/new-item/new-item.componen
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
+  dataSource;
+  displayedColumns: string[] = ['width', 'height', 'length'];
+
   constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.itemsservice.getAll().subscribe(items => { this.items = items; console.log(items) })
+    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items) })
   }
 
 
   openDialog(): void {
     const dialogRef = this.newItemDialog.open(NewItemComponent, {
-      width: '70%',
-      data: { name: "hello", animal: "world" }
+      width: '100%',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(newItem => {
+      if (newItem) {
+        console.log("new item", newItem);
+        this.items.unshift(newItem)
+      }
     });
+  }
 
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

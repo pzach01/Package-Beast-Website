@@ -28,6 +28,9 @@ import { SettingsComponent } from './_components/settings/settings.component';
 import { ShipmentsComponent } from './_components/shipments/shipments.component';
 import { NewItemComponent } from './_components/new-item/new-item.component';
 import { MatDialogModule } from '@angular/material/dialog'
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 const appRoutes: Routes = [
@@ -38,7 +41,17 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ItemsComponent, ContainersComponent, DashboardComponent, SettingsComponent, ShipmentsComponent, NewItemComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertComponent,
+    ItemsComponent,
+    ContainersComponent,
+    DashboardComponent,
+    SettingsComponent,
+    ShipmentsComponent,
+    NewItemComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -58,7 +71,10 @@ const appRoutes: Routes = [
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule
   ],
   entryComponents: [
     NewItemComponent
