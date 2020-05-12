@@ -5,7 +5,7 @@
         <h2>Welcome to Package Beast</h2>
 
         <mat-card-header class="d-flex justify-content-center">
-          <div mat-card-sm-image class="example-header-image"></div>
+          <div mat-card-sm-image class="peace-sign"></div>
 
           <mat-card-title></mat-card-title>
         </mat-card-header>
@@ -14,7 +14,8 @@
           <div>
             <mat-form-field class="full-width">
               <mat-label>Email</mat-label>
-              <input type="email" matInput [formControl]="loginForm.get('email')" placeholder="Ex. pat@example.com">
+              <input type="email" autocomplete="email" matInput [formControl]="loginForm.get('email')"
+                placeholder="Ex. pat@example.com">
               <mat-error *ngIf="loginForm.get('email').hasError('pattern') && submitted">
                 Please enter a valid email address
               </mat-error>

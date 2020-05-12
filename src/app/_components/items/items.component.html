@@ -14,7 +14,8 @@
             <div class="d-flex justify-content-center mb-3">
                 <mat-form-field class="flex-fill">
                     <mat-label>Filter</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="20 x 20 x 20, Item Name, or SKU">
+                    <input matInput (keyup)="applyFilter($event)" autocomplete="off"
+                        placeholder="20 x 20 x 20, Item Name, or SKU">
                 </mat-form-field>
             </div>
 

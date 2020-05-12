@@ -24,7 +24,6 @@ export class ItemsComponent implements OnInit {
 
   }
 
-
   openDialog(): void {
     const dialogRef = this.newItemDialog.open(NewItemComponent, {
       width: '100%',
