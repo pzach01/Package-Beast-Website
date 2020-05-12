@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemsService } from 'src/app/_services/items.service';
 import { Item } from 'src/app/_models/item';
 import { MatDialog } from '@angular/material/dialog';
 import { NewItemComponent } from 'src/app/_components/new-item/new-item.component';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-items',
@@ -16,10 +16,12 @@ export class ItemsComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['width', 'height', 'length'];
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items) })
+    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items); this.dataSource.sort = this.sort; })
+
   }
 
 

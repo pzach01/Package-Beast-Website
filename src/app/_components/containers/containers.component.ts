@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ContainersService } from 'src/app/_services/containers.service';
 import { Container } from 'src/app/_models/container';
 import { MatDialog } from '@angular/material/dialog';
 import { NewContainerComponent } from 'src/app/_components/new-container/new-container.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -16,10 +17,13 @@ export class ContainersComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['width', 'height', 'length'];
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+
   constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers) })
+    this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers); this.dataSource.sort = this.sort; })
   }
 
 
