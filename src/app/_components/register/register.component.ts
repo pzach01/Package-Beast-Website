@@ -25,11 +25,13 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
+            first_name: ['', Validators.required],
+            last_name: ['', Validators.required],
+            password1: ['', Validators.required],
+            password2: ['', Validators.required],
         });
     }
 
@@ -48,12 +50,11 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
+        this.authenticationService.register(this.registerForm.get('email').value, this.registerForm.get('first_name').value, this.registerForm.get('last_name').value, this.registerForm.get('password1').value, this.registerForm.get('password2').value)
             .pipe(first())
             .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                () => {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['/']))
                 },
                 error => {
                     this.alertService.error(error);

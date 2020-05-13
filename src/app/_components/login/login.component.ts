@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log('sup')
         this.submitted = true;
 
         // reset alerts on submit
@@ -55,8 +54,8 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first())
             .subscribe(
-                token => {
-                    this.authenticationService.getUser(token).pipe(first()).subscribe(() => this.router.navigate([this.returnUrl]))
+                () => {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate([this.returnUrl]))
                 },
                 error => {
                     this.alertService.error(error);

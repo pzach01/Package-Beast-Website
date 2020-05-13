@@ -28,6 +28,19 @@ export class AuthenticationService {
         return this.currentTokenSubject.value;
     }
 
+    register(email, first_name, last_name, password1, password2) {
+        console.log("login,hi")
+        console.log(email, first_name, last_name, password1, password2)
+        return this.http.post<any>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/accounts/registration/`, { email, first_name, last_name, password1, password2 })
+            .pipe(map(token => {
+                console.log("your token:", token);
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentToken', JSON.stringify(token));
+                this.currentTokenSubject.next(token);
+                return token;
+            }));
+    }
+
     login(email, password) {
         console.log("login,hi")
         console.log(email, password)
@@ -50,18 +63,9 @@ export class AuthenticationService {
         this.currentTokenSubject.next(null);
     }
 
-    getUser(token) {
-        console.log("hello from getuser")
-        // const httpOptions = {
-        //     headers: new HttpHeaders({
-        //       'Content-Type': 'application/json',
-        //       'Authorization': `Token ${token.key}`
-        //     })
-        //   };
+    getUser() {
         return this.http.get<User>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/accounts/user/`)
             .pipe(map(user => {
-                console.log("Sup, User")
-                console.log(user);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
