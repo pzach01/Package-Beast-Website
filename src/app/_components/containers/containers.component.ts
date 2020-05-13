@@ -6,7 +6,6 @@ import { NewContainerComponent } from 'src/app/_components/new-container/new-con
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-
 @Component({
   selector: 'app-containers',
   templateUrl: './containers.component.html',
@@ -19,13 +18,11 @@ export class ContainersComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-
   constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers); this.dataSource.sort = this.sort; })
   }
-
 
   openDialog(): void {
     const dialogRef = this.newContainerDialog.open(NewContainerComponent, {
@@ -40,7 +37,6 @@ export class ContainersComponent implements OnInit {
       }
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
