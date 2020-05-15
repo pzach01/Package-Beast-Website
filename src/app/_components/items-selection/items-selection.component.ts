@@ -14,7 +14,7 @@ export class ItemsSelectionComponent implements OnInit {
 
   items: Item[];
   dataSource;
-  displayedColumns: string[] = ['select', 'width', 'height', 'length'];
+  displayedColumns: string[] = ['select', 'width', 'length', 'height'];
 
   selection = new SelectionModel<Item>(true, []);
 
