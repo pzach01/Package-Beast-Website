@@ -10,10 +10,10 @@ export class ItemsService {
 
   constructor(private http: HttpClient) { }
   getAll(): Observable<Item[]> {
-    return this.http.get<Item[]>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/boxes/`);
+    return this.http.get<Item[]>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/items/`);
   }
 
   postItem(item: Item): Observable<Item> {
-    return this.http.post<Item>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/boxes/`, item);
+    return this.http.post<Item>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/items/`, item);
   }
 }
