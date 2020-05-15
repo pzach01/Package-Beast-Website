@@ -21,7 +21,6 @@ export class ItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items); this.dataSource.sort = this.sort; })
-
   }
 
   openDialog(): void {
@@ -37,7 +36,6 @@ export class ItemsComponent implements OnInit {
       }
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

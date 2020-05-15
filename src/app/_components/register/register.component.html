@@ -29,7 +29,7 @@
                             <input type="text" matInput [formControl]="registerForm.get('first_name')"
                                 placeholder="First Name">
                             <mat-error *ngIf="registerForm.get('first_name').hasError('required') && submitted">
-                                Please your first name
+                                First name is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                         <br />
@@ -60,15 +60,12 @@
                                 Password is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
-
-
-
                         <mat-card-actions class="d-flex justify-content-left">
                             <button [disabled]="loading" class="btn btn-primary">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                 Register
                             </button>
-                            <a routerLink="/register" class="btn btn-link">Forgot Password?</a>
+                            <a routerLink="/login" class="btn btn-link">Already registered? Login!</a>
                         </mat-card-actions>
                     </div>
                 </form>

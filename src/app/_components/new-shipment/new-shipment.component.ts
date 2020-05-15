@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ItemsSelectionComponent } from '../items-selection/items-selection.component';
+import { Item } from 'src/app/_models/item';
 
 @Component({
   selector: 'app-new-shipment',
@@ -8,19 +9,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NewShipmentComponent implements OnInit {
 
-  isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) { }
+  @ViewChild(ItemsSelectionComponent) itemsSelectionComponent: ItemsSelectionComponent;
+  selectedItems: Item[];
 
-  ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+  constructor() { }
+
+  ngOnInit() { }
+
+  selectionChange() {
+    this.selectedItems = this.itemsSelectionComponent.selection.selected;
   }
-
 }

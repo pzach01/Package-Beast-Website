@@ -34,6 +34,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { NewContainerComponent } from './_components/new-container/new-container.component';
 import { NewShipmentComponent } from './_components/new-shipment/new-shipment.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { ItemsSelectionComponent } from './_components/items-selection/items-selection.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -55,7 +58,8 @@ const appRoutes: Routes = [
     ShipmentsComponent,
     NewItemComponent,
     NewContainerComponent,
-    NewShipmentComponent],
+    NewShipmentComponent,
+    ItemsSelectionComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -79,7 +83,8 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatSortModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     NewItemComponent

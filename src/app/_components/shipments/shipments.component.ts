@@ -26,7 +26,9 @@ export class ShipmentsComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.newShipmentDialog.open(NewShipmentComponent, {
+      panelClass: 'custom-dialog-container',
       width: '100%',
+      height: '90%'
     });
 
     dialogRef.afterClosed().subscribe(newShipment => {
