@@ -1,9 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models';
 import { Token } from '../_models';
+import { Constants } from 'src/app/_models/constants'
 
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +32,7 @@ export class AuthenticationService {
     register(email, first_name, last_name, password1, password2) {
         console.log("login,hi")
         console.log(email, first_name, last_name, password1, password2)
-        return this.http.post<any>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/accounts/registration/`, { email, first_name, last_name, password1, password2 })
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
             .pipe(map(token => {
                 console.log("your token:", token);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -44,7 +45,7 @@ export class AuthenticationService {
     login(email, password) {
         console.log("login,hi")
         console.log(email, password)
-        return this.http.post<any>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/accounts/login/`, { email, password })
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/login/`, { email, password })
             .pipe(map(token => {
                 console.log("your token:", token);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -64,7 +65,7 @@ export class AuthenticationService {
     }
 
     getUser() {
-        return this.http.get<User>(`http://packageapp-env.pumdxt3sbe.us-east-1.elasticbeanstalk.com/accounts/user/`)
+        return this.http.get<User>(`${Constants.API_BASE_URI}/accounts/user/`)
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));

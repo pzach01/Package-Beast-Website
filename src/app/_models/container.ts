@@ -3,9 +3,7 @@ export class Container {
   public width: number;
   public length: number;
   public volume: number;
-  constructor(width, depth, height) {
-    this.width = width;
-    this.length = depth;
-    this.height = height;
+  public constructor(init?: Partial<Container>) {
+    Object.assign(this, init);
   }
 }

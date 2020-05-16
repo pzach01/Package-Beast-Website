@@ -42,7 +42,7 @@ export class NewItemComponent implements OnInit {
       return;
     }
 
-    this.newItem = new Item(this.newItemForm.get('width').value, this.newItemForm.get('length').value, this.newItemForm.get('height').value, 0)
+    this.newItem = new Item(this.newItemForm.value)
     this.loading = true;
     this.itemsService.postItem(this.newItem).subscribe(newItem => { console.log(newItem); this.newItemRef.close(newItem); })
 

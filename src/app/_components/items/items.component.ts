@@ -30,7 +30,6 @@ export class ItemsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newItem => {
       if (newItem) {
-        console.log("new item", newItem);
         this.items.unshift(newItem)
         this.dataSource = new MatTableDataSource(this.items);
       }

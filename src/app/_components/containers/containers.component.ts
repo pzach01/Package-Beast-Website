@@ -31,7 +31,6 @@ export class ContainersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newContainer => {
       if (newContainer) {
-        console.log("new container", newContainer);
         this.containers.unshift(newContainer)
         this.dataSource = new MatTableDataSource(this.containers);
       }

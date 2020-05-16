@@ -5,7 +5,7 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Select Shipping Containers</ng-template>
-        <app-containers></app-containers>
+        <app-containers-selection></app-containers-selection>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
@@ -13,6 +13,9 @@
         <ul>
             <li *ngFor="let item of selectedItems">
                 {{ item.height }}
+            </li>
+            <li *ngFor="let container of selectedContainers">
+                {{ container.height }}
             </li>
         </ul>
         <div>

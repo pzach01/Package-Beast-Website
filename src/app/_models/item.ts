@@ -8,10 +8,7 @@ export class Item {
   public length: number;
   public volume: number;
   public qty: number;
-  constructor(width, length, height, volume) {
-    this.width = width;
-    this.length = length;
-    this.height = height;
-    this.volume = volume;
+  public constructor(init?: Partial<Item>) {
+    Object.assign(this, init);
   }
 }

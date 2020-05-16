@@ -36,6 +36,7 @@ import { NewShipmentComponent } from './_components/new-shipment/new-shipment.co
 import { MatStepperModule } from '@angular/material/stepper';
 import { ItemsSelectionComponent } from './_components/items-selection/items-selection.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ContainersSelectionComponent } from './_components/containers-selection/containers-selection.component';
 
 
 const appRoutes: Routes = [
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     NewItemComponent,
     NewContainerComponent,
     NewShipmentComponent,
-    ItemsSelectionComponent],
+    ItemsSelectionComponent,
+    ContainersSelectionComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

@@ -42,9 +42,9 @@ export class NewContainerComponent implements OnInit {
       return;
     }
 
-    this.newContainer = new Container(this.newContainerForm.get('width').value, this.newContainerForm.get('length').value, this.newContainerForm.get('height').value)
+    this.newContainer = new Container(this.newContainerForm.value)
     this.loading = true;
-    this.containersService.postContainer(this.newContainer).subscribe(newContainer => { console.log(newContainer); this.newContainerRef.close(newContainer); })
+    this.containersService.postContainer(this.newContainer).subscribe(newContainer => this.newContainerRef.close(newContainer))
   }
 
   close() {
