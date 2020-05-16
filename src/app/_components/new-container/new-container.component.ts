@@ -28,6 +28,8 @@ export class NewContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.newContainerForm = this.formBuilder.group({
+      sku: ['', []],
+      description: ['', [Validators.required]],
       width: ['', [Validators.required]],
       length: ['', [Validators.required]],
       height: ['', [Validators.required]]

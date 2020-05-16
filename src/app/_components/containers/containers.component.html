@@ -22,6 +22,18 @@
             <div class="d-flex justify-content-center mb-3">
                 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
 
+                    <!-- SKU Column -->
+                    <ng-container matColumnDef="sku">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SKU </th>
+                        <td mat-cell *matCellDef="let container"> {{container.sku}} </td>
+                    </ng-container>
+
+                    <!-- Description Column -->
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                        <td mat-cell *matCellDef="let container"> {{container.description}} </td>
+                    </ng-container>
+
                     <!-- Width Column -->
                     <ng-container matColumnDef="width">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Width </th>

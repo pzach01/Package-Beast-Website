@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 export class ContainersComponent implements OnInit {
   containers: Container[];
   dataSource;
-  displayedColumns: string[] = ['width', 'length', 'height', 'volume'];
+  displayedColumns: string[] = ['sku', 'description', 'width', 'length', 'height', 'volume'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

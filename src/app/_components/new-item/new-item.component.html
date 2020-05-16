@@ -2,6 +2,17 @@
 <form [formGroup]="newItemForm" (ngSubmit)="save()">
     <mat-dialog-content>
         <mat-form-field>
+            <mat-label>SKU</mat-label>
+            <input matInput [formControl]="newItemForm.get('sku')" placeholder="SKU (Optional)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput [formControl]="newItemForm.get('description')" placeholder="Description">
+            <mat-error *ngIf="newItemForm.get('description').hasError('required') && submitted">
+                Description is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>Width</mat-label>
             <input matInput [formControl]="newItemForm.get('width')" placeholder="Width">
             <mat-error *ngIf="newItemForm.get('width').hasError('required') && submitted">
