@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemsService } from 'src/app/_services/items.service';
 import { Item } from 'src/app/_models/item';
+import { EditItemComponent } from 'src/app/_components/edit-item/edit-item.component'
 import { MatDialog } from '@angular/material/dialog';
 import { NewItemComponent } from 'src/app/_components/new-item/new-item.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -39,5 +40,19 @@ export class ItemsComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openEditItemDialog(item, i): void {
+    const dialogRef = this.newItemDialog.open(EditItemComponent, {
+      width: '100%',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(editedItem => {
+      if (editedItem) {
+        this.items[i] = editedItem
+        this.dataSource = new MatTableDataSource(this.items);
+      }
+    });
   }
 }

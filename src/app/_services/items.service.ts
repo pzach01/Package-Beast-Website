@@ -17,4 +17,9 @@ export class ItemsService {
   postItem(item: Item): Observable<Item> {
     return this.http.post<Item>(`${Constants.API_BASE_URI}/items/`, item);
   }
+
+  putItem(item: Item): Observable<Item> {
+    console.log(item)
+    return this.http.put<Item>(`${Constants.API_BASE_URI}/items/${item.id}/`, item);
+  }
 }

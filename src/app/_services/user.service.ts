@@ -16,6 +16,6 @@ export class UserService {
     }
 
     delete(id: number) {
-        return this.http.delete(`${Constants.API_BASE_URI}/users/${id}`);
+        return this.http.delete(`${Constants.API_BASE_URI}/users/${id}/`);
     }
 }
