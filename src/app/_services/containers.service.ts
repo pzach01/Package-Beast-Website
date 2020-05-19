@@ -17,4 +17,9 @@ export class ContainersService {
   postContainer(container: Container): Observable<Container> {
     return this.http.post<Container>(`${Constants.API_BASE_URI}/containers/`, container);
   }
+
+  putContainer(container: Container): Observable<Container> {
+    console.log(container)
+    return this.http.put<Container>(`${Constants.API_BASE_URI}/containers/${container.id}/`, container);
+  }
 }

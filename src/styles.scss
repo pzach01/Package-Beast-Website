@@ -37,4 +37,8 @@ input:-webkit-autofill:active  {
 }
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
-  }
+}
+.mat-row:hover {
+background-color: lightgray;
+cursor: pointer;
+}

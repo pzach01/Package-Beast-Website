@@ -38,6 +38,7 @@ import { ItemsSelectionComponent } from './_components/items-selection/items-sel
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ContainersSelectionComponent } from './_components/containers-selection/containers-selection.component';
 import { EditItemComponent } from './_components/edit-item/edit-item.component';
+import { EditContainerComponent } from './_components/edit-container/edit-container.component';
 
 
 const appRoutes: Routes = [
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     NewShipmentComponent,
     ItemsSelectionComponent,
     ContainersSelectionComponent,
-    EditItemComponent],
+    EditItemComponent,
+    EditContainerComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

@@ -1,4 +1,5 @@
 export class Container {
+  public id: number;
   public sku: string;
   public description: string;
   public height: number;

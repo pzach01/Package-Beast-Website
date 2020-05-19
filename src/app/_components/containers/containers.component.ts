@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewContainerComponent } from 'src/app/_components/new-container/new-container.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { EditContainerComponent } from 'src/app/_components/edit-container/edit-container.component';
 
 @Component({
   selector: 'app-containers',
@@ -41,4 +42,18 @@ export class ContainersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  openEditContainerDialog(item, i): void {
+    const dialogRef = this.newContainerDialog.open(EditContainerComponent, {
+      width: '100%',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(editedContainer => {
+      if (editedContainer) {
+        this.containers[i] = editedContainer
+        this.dataSource = new MatTableDataSource(this.containers);
+      }
+    });
+  }
 }
+
