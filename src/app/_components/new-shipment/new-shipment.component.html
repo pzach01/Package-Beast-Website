@@ -2,10 +2,22 @@
     <mat-step>
         <ng-template matStepLabel>Select Items to Ship</ng-template>
         <app-items-selection></app-items-selection>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Select Shipping Containers</ng-template>
+
         <app-containers-selection></app-containers-selection>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <button mat-button matStepperPrevious type="button">Back</button>
+                <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Review</ng-template>

@@ -18,10 +18,16 @@ export class ItemsComponent implements OnInit {
   displayedColumns: string[] = ['sku', 'description', 'width', 'length', 'height'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items); this.dataSource.sort = this.sort; })
+    this.itemsservice.getAll().subscribe(items => {
+      this.items = items;
+      this.dataSource = new MatTableDataSource(items);
+      console.log(items);
+      this.dataSource.sort = this.sort;
+    })
   }
 
   openDialog(): void {
@@ -50,8 +56,9 @@ export class ItemsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(editedItem => {
       if (editedItem) {
-        this.items[i] = editedItem
-        this.dataSource = new MatTableDataSource(this.items);
+        this.dataSource.data = this.dataSource.data.filter(item => item.id !== editedItem.id);
+        this.dataSource.data.unshift(editedItem);
+        this.dataSource._updateChangeSubscription();
       }
     });
   }

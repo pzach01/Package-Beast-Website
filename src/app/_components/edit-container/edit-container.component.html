@@ -7,10 +7,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Description</mat-label>
-            <input matInput [formControl]="editContainerForm.get('description')" placeholder="Description">
-            <mat-error *ngIf="editContainerForm.get('description').hasError('required') && submitted">
-                Description is <strong>required</strong>
-            </mat-error>
+            <input matInput [formControl]="editContainerForm.get('description')" placeholder="Description (Optional)">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Width</mat-label>

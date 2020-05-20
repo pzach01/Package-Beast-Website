@@ -29,7 +29,7 @@ export class EditContainerComponent implements OnInit {
   ngOnInit(): void {
     this.editContainerForm = this.formBuilder.group({
       sku: [this.editContainer.sku, []],
-      description: [this.editContainer.description, [Validators.required]],
+      description: [this.editContainer.description, []],
       width: [this.editContainer.width, [Validators.required]],
       length: [this.editContainer.length, [Validators.required]],
       height: [this.editContainer.height, [Validators.required]]
@@ -40,12 +40,9 @@ export class EditContainerComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.editContainerForm.invalid) {
-      return;
-    }
+    if (this.editContainerForm.invalid) { return; }
 
     this.editContainer = { ...this.editContainer, ...this.editContainerForm.value }
-
     this.loading = true;
     this.containersService.putContainer(this.editContainer).subscribe(editContainer => this.editContainerRef.close(editContainer))
   }

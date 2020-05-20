@@ -42,6 +42,7 @@ export class ContainersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   openEditContainerDialog(item, i): void {
     const dialogRef = this.newContainerDialog.open(EditContainerComponent, {
       width: '100%',
@@ -50,10 +51,10 @@ export class ContainersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(editedContainer => {
       if (editedContainer) {
-        this.containers[i] = editedContainer
-        this.dataSource = new MatTableDataSource(this.containers);
+        this.dataSource.data = this.dataSource.data.filter(container => container.id !== editedContainer.id);
+        this.dataSource.data.unshift(editedContainer);
+        this.dataSource._updateChangeSubscription();
       }
     });
   }
 }
-

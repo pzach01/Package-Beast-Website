@@ -25,6 +25,5 @@ export class NewShipmentComponent implements OnInit {
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
-
   }
 }

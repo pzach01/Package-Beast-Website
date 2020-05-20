@@ -22,7 +22,12 @@ export class ContainersSelectionComponent implements OnInit {
   constructor(private containersservice: ContainersService) { }
 
   ngOnInit(): void {
-    this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers); this.dataSource.sort = this.sort; })
+    this.containersservice.getAll().subscribe(containers => {
+      this.containers = containers;
+      this.dataSource = new MatTableDataSource(containers);
+      this.dataSource.sort = this.sort;
+      this.masterToggle()
+    })
   }
 
   applyFilter(event: Event) {
