@@ -18,6 +18,7 @@ export class ItemsComponent implements OnInit {
   displayedColumns: string[] = ['sku', 'description', 'width', 'length', 'height'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('table', { static: true }) table;
 
   constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog) { }
 
@@ -37,8 +38,8 @@ export class ItemsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newItem => {
       if (newItem) {
-        this.items.unshift(newItem)
-        this.dataSource = new MatTableDataSource(this.items);
+        this.dataSource.data.unshift(newItem);
+        this.dataSource._updateChangeSubscription();
       }
     });
   }

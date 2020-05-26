@@ -32,8 +32,8 @@ export class ContainersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newContainer => {
       if (newContainer) {
-        this.containers.unshift(newContainer)
-        this.dataSource = new MatTableDataSource(this.containers);
+        this.dataSource.data.unshift(newContainer);
+        this.dataSource._updateChangeSubscription();
       }
     });
   }
