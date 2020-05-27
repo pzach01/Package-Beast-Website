@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="d-flex justify-content-center mb-3">
+        <h1>Review your shipment!&nbsp;&nbsp;</h1>
+    </div>
+
+    <div class="d-flex justify-content-center mb-3">
+
+        <ul>
+            <p>Items to ship</p>
+            <li *ngFor="let item of selectedItems">
+                {{ item.description }}
+            </li>
+            <p>Containers to optimize</p>
+            <li *ngFor="let container of selectedContainers">
+                {{ container.description }}
+            </li>
+        </ul>
+    </div>
+</div>
+<mat-checkbox (change)="multiBinPack=!multiBinPack">Pack items in multiple containers?</mat-checkbox>

@@ -21,20 +21,12 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Review</ng-template>
-        <p>Review</p>
-        <ul>
-            <p>Items to ship</p>
-            <li *ngFor="let item of selectedItems">
-                {{ item.description }}
-            </li>
-            <p>Containers to optimize</p>
-            <li *ngFor="let container of selectedContainers">
-                {{ container.description }}
-            </li>
-        </ul>
+        <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
+        </app-review-shipment>
+
         <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button (click)="analyze()">Analyze</button>
         </div>
     </mat-step>
 </mat-horizontal-stepper>

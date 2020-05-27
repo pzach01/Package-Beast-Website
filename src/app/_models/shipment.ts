@@ -1,9 +1,13 @@
 import { Container } from './container';
+import { Item } from './item';
 
 export class Shipment {
     public id: number;
     public owner: string;
-    public containers: string;
-    public items: string;
-    public binLayout: [Container];
+    public containers: Container[];
+    public items: Item[];
+    public multiBinPack: boolean;
+    public constructor(init?: Partial<Shipment>) {
+        Object.assign(this, init);
+    }
 }
