@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemsSelectionComponent } from '../items-selection/items-selection.component';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
@@ -6,6 +6,7 @@ import { ContainersSelectionComponent } from 'src/app/_components/containers-sel
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-shipment',
@@ -22,7 +23,8 @@ export class NewShipmentComponent implements OnInit {
   selectedContainers: Container[];
   multiBinPack: boolean;
 
-  constructor(private shipmentsService: ShipmentsService) { }
+  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
+  ) { }
 
   ngOnInit() { }
 
@@ -39,6 +41,7 @@ export class NewShipmentComponent implements OnInit {
     shipment.multiBinPack = this.multiBinPack;
     this.shipmentsService.postArrangement(shipment).subscribe(shipment => {
       console.log(shipment)
+      this.newShipmentRef.close(shipment)
     })
   }
 }

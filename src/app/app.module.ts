@@ -40,6 +40,7 @@ import { ContainersSelectionComponent } from './_components/containers-selection
 import { EditItemComponent } from './_components/edit-item/edit-item.component';
 import { EditContainerComponent } from './_components/edit-container/edit-container.component';
 import { ReviewShipmentComponent } from './_components/review-shipment/review-shipment.component';
+import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
 
 
 const appRoutes: Routes = [
@@ -67,7 +68,8 @@ const appRoutes: Routes = [
     ContainersSelectionComponent,
     EditItemComponent,
     EditContainerComponent,
-    ReviewShipmentComponent],
+    ReviewShipmentComponent,
+    ShipmentDetailComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

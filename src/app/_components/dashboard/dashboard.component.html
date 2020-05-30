@@ -17,10 +17,11 @@
                 </button>
                 <h1>Package Beast</h1>
             </mat-toolbar>
-            <app-shipments *ngIf="shipmentsActive"></app-shipments>
+            <app-shipments (shipmentDetail)="activateShipmentDetail($event)" *ngIf="shipmentsActive"></app-shipments>
             <app-items *ngIf="itemsActive"></app-items>
             <app-containers *ngIf="containersActive"></app-containers>
             <app-settings *ngIf="settingsActive"></app-settings>
+            <app-shipment-detail *ngIf="shipmentDetailActive"></app-shipment-detail>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

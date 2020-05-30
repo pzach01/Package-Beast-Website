@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/_models'
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
+import { Shipment } from 'src/app/_models/shipment';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ export class DashboardComponent implements OnInit {
   itemsActive = false;
   containersActive = false;
   settingsActive = false;
+  shipmentDetailActive = false
   currentUser: User;
 
   constructor(
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.itemsActive = false;
     this.containersActive = false;
     this.settingsActive = false;
+    this.shipmentDetailActive = false
   }
   activateShipments() {
     this.decactivateAllComponents()
@@ -52,5 +55,8 @@ export class DashboardComponent implements OnInit {
     this.decactivateAllComponents()
     this.settingsActive = true;
   }
-
+  activateShipmentDetail(shipment: Shipment) {
+    this.decactivateAllComponents()
+    this.shipmentDetailActive = true;
+  }
 }

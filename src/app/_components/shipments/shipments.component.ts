@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,11 +12,13 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./shipments.component.scss']
 })
 export class ShipmentsComponent implements OnInit {
+
   shipments: Shipment[];
   dataSource;
   displayedColumns: string[] = ['id', 'owner', 'created'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @Output() shipmentDetail = new EventEmitter<Shipment>();
 
   constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog) { }
 
@@ -33,9 +35,10 @@ export class ShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
+        this.shipmentDetail.emit(newShipment)
         console.log("new shipment", newShipment);
-        this.shipments.unshift(newShipment)
-        this.dataSource = new MatTableDataSource(this.shipments);
+        // this.shipments.unshift(newShipment)
+        // this.dataSource = new MatTableDataSource(this.shipments);
       }
     });
   }
