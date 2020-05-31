@@ -15,7 +15,7 @@ export class ShipmentsComponent implements OnInit {
 
   shipments: Shipment[];
   dataSource;
-  displayedColumns: string[] = ['id', 'owner', 'created'];
+  displayedColumns: string[] = ['id', 'created'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Output() shipmentDetail = new EventEmitter<Shipment>();
