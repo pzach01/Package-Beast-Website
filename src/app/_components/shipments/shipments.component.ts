@@ -47,4 +47,8 @@ export class ShipmentsComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  openShipmentDetail(shipment: Shipment) {
+    this.shipmentDetail.emit(shipment)
+  }
 }

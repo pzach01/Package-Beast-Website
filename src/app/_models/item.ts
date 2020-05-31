@@ -1,5 +1,6 @@
 export class Item {
   public id: number;
+  public container: number;
   public sku: string;
   public description: string;
   public xCenter: number;

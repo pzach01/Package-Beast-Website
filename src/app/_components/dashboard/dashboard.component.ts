@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/_models'
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
@@ -18,11 +18,14 @@ export class DashboardComponent implements OnInit {
   settingsActive = false;
   shipmentDetailActive = false
   currentUser: User;
+  shipment: Shipment;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
   ) { }
+
+
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -56,6 +59,7 @@ export class DashboardComponent implements OnInit {
     this.settingsActive = true;
   }
   activateShipmentDetail(shipment: Shipment) {
+    this.shipment = shipment
     this.decactivateAllComponents()
     this.shipmentDetailActive = true;
   }
