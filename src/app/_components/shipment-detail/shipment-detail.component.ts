@@ -59,7 +59,15 @@ export class ShipmentDetailComponent {
       this.mesh.position.x = item.xCenter
       this.mesh.position.y = item.yCenter
       this.mesh.position.z = item.zCenter
-      this.scene.add(this.mesh);
+
+      const edges = new THREE.BoxHelper(this.mesh, 'white');
+
+      const group = new THREE.Group();
+      group.add(this.mesh);
+      group.add(edges);
+
+
+      this.scene.add(group);
 
 
     });
@@ -74,6 +82,7 @@ export class ShipmentDetailComponent {
     this.mesh.position.x = container.width / 2
     this.mesh.position.y = container.height / 2
     this.mesh.position.z = container.length / 2
+
     this.scene.add(this.mesh);
 
 
