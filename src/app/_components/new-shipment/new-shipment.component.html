@@ -1,32 +1,44 @@
-<mat-horizontal-stepper #stepper (selectionChange)="selectionChange()">
-    <mat-step>
-        <ng-template matStepLabel>Select Items to Ship</ng-template>
-        <app-items-selection></app-items-selection>
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                <button mat-button matStepperNext type="button">Next</button>
-            </div>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Select Shipping Containers</ng-template>
+<h2 mat-dialog-title>New Shipment</h2>
+<mat-dialog-content>
 
-        <app-containers-selection></app-containers-selection>
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                <button mat-button matStepperPrevious type="button">Back</button>
-                <button mat-button matStepperNext type="button">Next</button>
-            </div>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Review</ng-template>
-        <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
-        </app-review-shipment>
+    <mat-horizontal-stepper #stepper (selectionChange)="selectionChange()">
+        <mat-step>
+            <ng-template matStepLabel>Select Items to Ship</ng-template>
 
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="analyze()">Analyze</button>
-        </div>
-    </mat-step>
-</mat-horizontal-stepper>
+            <div class="container-fluid">
+                <div class="d-flex flex-column justify-content-center">
+                    <app-items-selection></app-items-selection>
+                    <button mat-button matStepperNext type="button">Next</button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Select Shipping Containers</ng-template>
+            <div class="container-fluid">
+                <div class="d-flex flex-column justify-content-center">
+                    <app-containers-selection></app-containers-selection>
+                    <div>
+                        <button mat-button matStepperPrevious type="button">Back</button>
+                        <button mat-button matStepperNext type="button">Next</button>
+                    </div>
+
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Review</ng-template>
+            <div class="container-fluid">
+                <div class="d-flex flex-column justify-content-center">
+                    <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
+                    </app-review-shipment>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="analyze()">Analyze</button>
+                    </div>
+                </div>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+</mat-dialog-content>

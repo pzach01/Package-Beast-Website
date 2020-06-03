@@ -1,13 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
 button:focus {
     outline: none !important;
 }
 .debug {
     background-color: red;
 }
+
+.debug2 {
+    background-color: blue;
+}
+
 .add-circle-button {
     transform: scale(1.5);
 }
@@ -28,6 +33,7 @@ input:-webkit-autofill:active  {
 .full-width {
     width: 100%
 }
+
 .opacity-50 {
     opacity: 50%;
 }
@@ -42,6 +48,39 @@ input:-webkit-autofill:active  {
 background-color: lightgray;
 cursor: pointer;
 }
+
+.mat-table {
+  width:100%;
+}
+
+.scrolly {
+    z-index: -10;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    // background-color: blueviolet;
+    // flex: 1;
+    min-height: 500 px;
+    padding: 0;
+    margin: 0;
+}
+
+
+.spacer {
+    height: 100 px;
+    min-height: 100 px;
+    margin: 0;
+    padding: 0;
+}
+
+.fixedy {
+    position: sticky;
+    width: 100%;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 100; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
 
 // Use this to style menu hover color
 // .mat-list-item-content:hover {
