@@ -16,8 +16,8 @@ export class ShipmentsComponent implements OnInit {
 
   shipments: Shipment[];
   dataSource;
-  displayedColumns: string[] = ['id', 'created'];
-  dateFormat: string = 'MMM d, yyyy, h:m aa';
+  displayedColumns: string[] = ['created'];
+  dateFormat: string = 'MMM d, yyyy, h:mm aa';
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Output() shipmentDetail = new EventEmitter<Shipment>();
@@ -32,7 +32,7 @@ export class ShipmentsComponent implements OnInit {
     this.shipmentsservice.getAll().subscribe(shipments => {
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); console.log(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
-        (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter) || data.id.includes(filter)
+        (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
     })
   }
 
