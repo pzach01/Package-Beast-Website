@@ -56,8 +56,8 @@
 
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row (click)="openEditContainerDialog(container, i)" *matRowDef=" let container; columns:
-                        displayedColumns; let i = index;">
+            <tr mat-row (click)="openEditContainerDialog(container)" *matRowDef=" let container; columns:
+                        displayedColumns;">
             </tr>
         </table>
 

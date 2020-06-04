@@ -44,11 +44,17 @@ export class EditContainerComponent implements OnInit {
 
     this.editContainer = { ...this.editContainer, ...this.editContainerForm.value }
     this.loading = true;
-    this.containersService.putContainer(this.editContainer).subscribe(editContainer => this.editContainerRef.close(editContainer))
+    this.containersService.putContainer(this.editContainer).subscribe(editContainer => this.editContainerRef.close({ deletedContainer: null, editedContainer: editContainer }))
   }
 
   close() {
-    this.editContainerRef.close();
+    this.editContainerRef.close({ deletedContainer: null, editedContainer: null });
+  }
+
+  delete() {
+    this.submitted = true;
+    this.loading = true;
+    this.containersService.deleteItem(this.editContainer).subscribe(() => this.editContainerRef.close({ deletedContainer: this.editContainer, editedContainer: null }))
   }
 
 }

@@ -81,7 +81,9 @@ cursor: pointer;
     z-index: 100; /* Ensure that your app's content doesn't overlap the toolbar */
 }
 
-
+.empty-space {
+    flex: 1;
+}
 // Use this to style menu hover color
 // .mat-list-item-content:hover {
 //       background-color: green;

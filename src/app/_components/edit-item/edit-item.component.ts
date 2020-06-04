@@ -47,11 +47,17 @@ export class EditItemComponent implements OnInit {
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
 
     this.loading = true;
-    this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close(editItem))
+    this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close({ deletedItem: null, editedItem: editItem }))
   }
 
   close() {
-    this.editItemRef.close();
+    this.editItemRef.close({ deletedItem: null, editedItem: null });
+  }
+
+  delete() {
+    this.submitted = true;
+    this.loading = true;
+    this.itemsService.deleteItem(this.editItem).subscribe(() => this.editItemRef.close({ deletedItem: this.editItem, editedItem: null }))
   }
 
 }

@@ -53,8 +53,7 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                    <tr mat-row (click)="openEditItemDialog(item, i)"
-                        *matRowDef="let item; columns: displayedColumns; let i = index;">
+                    <tr mat-row (click)="openEditItemDialog(item)" *matRowDef="let item; columns: displayedColumns;">
                     </tr>
                 </table>
             </div>

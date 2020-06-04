@@ -43,16 +43,23 @@ export class ContainersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openEditContainerDialog(item, i): void {
+  openEditContainerDialog(item): void {
     const dialogRef = this.newContainerDialog.open(EditContainerComponent, {
       width: '100%',
       data: item
     });
 
-    dialogRef.afterClosed().subscribe(editedContainer => {
-      if (editedContainer) {
+    dialogRef.afterClosed().subscribe(data => {
+      if (data.editedContainer) {
+        const editedContainer = data.editedContainer;
         this.dataSource.data = this.dataSource.data.filter(container => container.id !== editedContainer.id);
         this.dataSource.data.unshift(editedContainer);
+        this.dataSource._updateChangeSubscription();
+      }
+
+      if (data.deletedContainer) {
+        const deletedContainer = data.deletedContainer
+        this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedContainer.id);
         this.dataSource._updateChangeSubscription();
       }
     });

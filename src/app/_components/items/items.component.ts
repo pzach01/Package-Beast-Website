@@ -49,18 +49,27 @@ export class ItemsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openEditItemDialog(item, i): void {
+  openEditItemDialog(item): void {
     const dialogRef = this.newItemDialog.open(EditItemComponent, {
       width: '100%',
-      data: item
+      data: item,
     });
 
-    dialogRef.afterClosed().subscribe(editedItem => {
-      if (editedItem) {
+    dialogRef.afterClosed().subscribe(data => {
+
+      if (data.editedItem) {
+        const editedItem = data.editedItem
         this.dataSource.data = this.dataSource.data.filter(item => item.id !== editedItem.id);
         this.dataSource.data.unshift(editedItem);
         this.dataSource._updateChangeSubscription();
+
       }
+      if (data.deletedItem) {
+        const deletedItem = data.deletedItem
+        this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedItem.id);
+        this.dataSource._updateChangeSubscription();
+      }
+
     });
   }
 }
