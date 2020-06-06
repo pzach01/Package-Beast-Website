@@ -47,7 +47,33 @@ const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: "*", redirectTo: '' }
+  {
+    path: 'shipments',
+    outlet: 'view',
+    component: ShipmentsComponent,
+  },
+  {
+    path: 'shipments/:id',
+    outlet: 'view',
+    component: ShipmentDetailComponent,
+  },
+  {
+    path: 'items',
+    outlet: 'view',
+    component: ItemsComponent
+  },
+  {
+    path: 'containers',
+    outlet: 'view',
+    component: ContainersComponent,
+  },
+  {
+    path: 'settings',
+    outlet: 'view',
+    component: SettingsComponent
+  },
+  { path: "*", redirectTo: '' },
+
 ];
 
 @NgModule({

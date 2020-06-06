@@ -13,6 +13,9 @@ export class ShipmentsService {
   getAll(): Observable<Shipment[]> {
     return this.http.get<Shipment[]>(`${Constants.API_BASE_URI}/arrangements/`);
   }
+  getShipmentById(shipmentId: number): Observable<Shipment> {
+    return this.http.get<Shipment>(`${Constants.API_BASE_URI}/arrangements/${shipmentId}/`);
+  }
   postArrangement(shipment: Shipment): Observable<Shipment> {
     return this.http.post<Shipment>(`${Constants.API_BASE_URI}/arrangements/`, shipment);
   }

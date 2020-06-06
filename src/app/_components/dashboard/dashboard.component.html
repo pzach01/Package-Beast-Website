@@ -1,13 +1,13 @@
 <div class="">
-
-
     <mat-sidenav-container fullscreen>
-        <mat-sidenav #snav position="start" mode="over" fixedTopGap="0" fixedInViewport="true">
+        <mat-sidenav class="green-edge" #snav position="start" mode="over" fixedTopGap="0" fixedInViewport="true">
             <mat-nav-list>
-                <a mat-list-item (click)="snav.close(); activateShipments()">My Shipments</a>
-                <a mat-list-item (click)="snav.close(); activateItems()">My Items</a>
-                <a mat-list-item (click)="snav.close(); activateContainers()">MyContainers</a>
-                <a mat-list-item (click)="snav.close(); activateSettings()">Settings</a>
+                <a mat-list-item [routerLink]="[{ outlets: { view: 'shipments' } }]" (click)="snav.close()">My
+                    Shipments</a>
+                <a mat-list-item [routerLink]="[{ outlets: { view: 'items' } }]" (click)="snav.close()">My Items</a>
+                <a mat-list-item [routerLink]="[{ outlets: { view: 'containers' } }]" (click)="snav.close()">My
+                    Containers</a>
+                <a mat-list-item [routerLink]="[{ outlets: { view: 'settings' } }]" (click)="snav.close()">Settings</a>
                 <a mat-list-item (click)="logout()">Logout</a>
             </mat-nav-list>
         </mat-sidenav>
@@ -22,12 +22,7 @@
                 </mat-toolbar>
             </div>
             <div class="scrolly">
-                <app-shipments (shipmentDetail)="activateShipmentDetail($event)" *ngIf="shipmentsActive">
-                </app-shipments>
-                <app-items *ngIf="itemsActive"></app-items>
-                <app-containers *ngIf="containersActive"></app-containers>
-                <app-settings *ngIf="settingsActive"></app-settings>
-                <app-shipment-detail [shipment]="shipment" *ngIf="shipmentDetailActive"></app-shipment-detail>
+                <router-outlet name="view"></router-outlet>
             </div>
 
         </mat-sidenav-content>

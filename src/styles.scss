@@ -84,6 +84,12 @@ cursor: pointer;
 .empty-space {
     flex: 1;
 }
+
+.green-edge {
+    border-style: solid;
+    border-color: greenyellow;
+    border-width: 0 3px 0 0;
+}
 // Use this to style menu hover color
 // .mat-list-item-content:hover {
 //       background-color: green;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { NewShipmentComponent } from 'src/app/_components/new-shipment/new-shipm
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shipments',
@@ -20,9 +21,8 @@ export class ShipmentsComponent implements OnInit {
   dateFormat: string = 'MMM d, yyyy, h:mm aa';
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @Output() shipmentDetail = new EventEmitter<Shipment>();
 
-  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe) { }
+  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router) { }
 
   transformDate(date) {
     console.log("date:", this.datePipe.transform(date, this.dateFormat).trim().toLowerCase());
@@ -45,11 +45,8 @@ export class ShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
-        this.shipmentDetail.emit(newShipment)
+        this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id] } }]);
         console.log("new shipment", newShipment);
-
-        // this.shipments.unshift(newShipment)
-        // this.dataSource = new MatTableDataSource(this.shipments);
       }
     });
   }
@@ -60,6 +57,6 @@ export class ShipmentsComponent implements OnInit {
   }
 
   openShipmentDetail(shipment: Shipment) {
-    this.shipmentDetail.emit(shipment)
+    this.router.navigate(['./', { outlets: { view: ['shipments', shipment.id] } }]);
   }
 }

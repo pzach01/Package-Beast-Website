@@ -1,26 +1,43 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Shipment } from 'src/app/_models/shipment';
+import { ActivatedRoute } from '@angular/router';
+import { ShipmentsService } from 'src/app/_services/shipments.service';
 
 @Component({
   selector: 'app-shipment-detail',
   templateUrl: './shipment-detail.component.html',
   styleUrls: ['./shipment-detail.component.scss']
 })
-export class ShipmentDetailComponent {
+export class ShipmentDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
-  @Input() shipment: Shipment;
+  shipment: Shipment;
 
-  renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = null;
   camera = null;
   mesh = null;
   controls = null;
+  shipmentId: number;
 
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService) {
 
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.shipmentId = +params['id']; // (+) converts string 'id' to a number
+      console.log("shipmentId", this.shipmentId)
+      this.shipmentsService.getShipmentById(this.shipmentId).subscribe(shipment => {
+        console.log("sss", shipment); this.shipment = shipment;
+        this.generateItemCubes();
+        this.generateContainerCubes();
+        this.animate();
+      }
+      )
+    })
   }
 
   ngAfterViewInit() {
@@ -30,14 +47,6 @@ export class ShipmentDetailComponent {
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-
-    this.generateItemCubes()
-    this.generateContainerCubes()
-
-    this.renderer.setSize(window.innerWidth, 9 * window.innerHeight / 10);
-    this.renderer.setClearColor(0xffffff, 1);
-    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
-    this.animate();
   }
 
   animate() {
@@ -48,6 +57,10 @@ export class ShipmentDetailComponent {
   }
 
   generateItemCubes() {
+    this.renderer.setSize(window.innerWidth, 9 * window.innerHeight / 10);
+    this.renderer.setClearColor(0xffffff, 1);
+    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
+
     this.shipment.items.forEach(item => {
       console.log("shippy", item)
       const geometry = new THREE.BoxGeometry(item.width, item.height, item.length);

@@ -11,12 +11,7 @@ import { Shipment } from 'src/app/_models/shipment';
 })
 export class DashboardComponent implements OnInit {
 
-  title = "The Packaging Optimizer";
-  shipmentsActive = true;
-  itemsActive = false;
-  containersActive = false;
-  settingsActive = false;
-  shipmentDetailActive = false
+  title = "Package Beast Dashboard";
   currentUser: User;
   shipment: Shipment;
 
@@ -33,34 +28,5 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
-  }
-
-  decactivateAllComponents() {
-    this.shipmentsActive = false;
-    this.itemsActive = false;
-    this.containersActive = false;
-    this.settingsActive = false;
-    this.shipmentDetailActive = false
-  }
-  activateShipments() {
-    this.decactivateAllComponents()
-    this.shipmentsActive = true;
-  }
-  activateItems() {
-    this.decactivateAllComponents()
-    this.itemsActive = true;
-  }
-  activateContainers() {
-    this.decactivateAllComponents()
-    this.containersActive = true;
-  }
-  activateSettings() {
-    this.decactivateAllComponents()
-    this.settingsActive = true;
-  }
-  activateShipmentDetail(shipment: Shipment) {
-    this.shipment = shipment
-    this.decactivateAllComponents()
-    this.shipmentDetailActive = true;
   }
 }
