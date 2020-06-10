@@ -19,11 +19,13 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = new THREE.Scene();;
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / (.7 * window.innerHeight), 1, 10000);
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
   controls = new OrbitControls(this.camera, this.renderer.domElement);
   shipmentId: number;
+  threeJSitems = [];
+  itemColors: string[] = ["#FFFF00", "#FB9404", "#ED0F71", "#742E8F", "#5987C5", "#02C3F3", "#00A55D", "#1B4279"];
 
   constructor(private route: ActivatedRoute) {
 
@@ -48,7 +50,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(window.innerWidth, .7 * window.innerHeight);
     this.renderer.setClearColor(0xffffff, 1);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
     this.generateItemCubes();
@@ -57,7 +59,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.setCameraAndControls();
     this.animate();
     this.rendererContainer.nativeElement
-      .addEventListener('click', this.onClick.bind(this));
+      .addEventListener('mousedown', this.onMouseOrTouch.bind(this));
+    this.rendererContainer.nativeElement
+      .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
 
   }
 
@@ -72,12 +76,11 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   generateItemCubes() {
-    this.items.forEach(item => {
+    this.items.forEach((item, index) => {
       console.log("shippy", item)
       const geometry = new THREE.BoxGeometry(item.width, item.height, item.length);
 
-      var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
-      // const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+      var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
       mesh.position.x = item.xCenter
@@ -85,12 +88,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       mesh.position.z = item.zCenter
 
       const edges = new THREE.BoxHelper(mesh, 'white');
-      // const group = new THREE.Group();
-      // group.add(mesh);
-      // group.add(edges);
 
-      mesh.name = item.description;
+      mesh.name = item.id.toString();
       this.scene.add(mesh);
+      this.threeJSitems.push(mesh)
       this.scene.add(edges)
     });
   }
@@ -130,20 +131,39 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.controls.update();
   }
 
-  onClick(event) {
-    console.log(event);
-    this.mouse.x = (event.layerX / window.innerWidth) * 2 - 1;
-    this.mouse.y = - (event.layerY / window.innerHeight) * 2 + 1;
+  onMouseOrTouch(event) {
+    console.log(event.type);
+
+    if (event.type == "touchstart") {
+      var rect = event.target.getBoundingClientRect();
+      var x = event.targetTouches[0].pageX - rect.left;
+      var y = event.targetTouches[0].pageY - rect.top;
+      this.mouse.x = (x / window.innerWidth) * 2 - 1;
+      this.mouse.y = - (y / (.7 * window.innerHeight)) * 2 + 1;
+    } else if (event.type == "mousedown") {
+      this.mouse.x = (event.offsetX / window.innerWidth) * 2 - 1;
+      this.mouse.y = - (event.offsetY / (.7 * window.innerHeight)) * 2 + 1;
+    }
+
     console.log(this.mouse)
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     // calculate objects intersecting the picking ray
-    var intersects = this.raycaster.intersectObjects(this.scene.children);
+    // var intersects = this.raycaster.intersectObjects(this.scene.children);
+    var intersects = this.raycaster.intersectObjects(this.threeJSitems);
+    let clickedObject = intersects[0];
 
-    for (var i = 0; i < intersects.length; i++) {
-      console.log(intersects[i].object)
-      // intersects[ i ].object.material.color.set( 0xff0000 );
+    if (intersects.length != 0) {
+      this.threeJSitems.forEach((threeJSitem, index) => {
+        threeJSitem.material.color.set(this.itemColors[index])
+      });
 
+      //@ts-ignore
+      clickedObject.object.material.color.set("#ff0000");
+
+      const clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
+      console.log("clicked item:", clickedItem)
     }
   }
+
 }
