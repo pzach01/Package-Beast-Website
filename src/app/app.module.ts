@@ -34,6 +34,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { NewContainerComponent } from './_components/new-container/new-container.component';
 import { NewShipmentComponent } from './_components/new-shipment/new-shipment.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ItemsSelectionComponent } from './_components/items-selection/items-selection.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ContainersSelectionComponent } from './_components/containers-selection/containers-selection.component';
@@ -41,6 +42,7 @@ import { EditItemComponent } from './_components/edit-item/edit-item.component';
 import { EditContainerComponent } from './_components/edit-container/edit-container.component';
 import { ReviewShipmentComponent } from './_components/review-shipment/review-shipment.component';
 import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
+import { RenderingComponent } from './_components/rendering/rendering.component';
 
 
 const appRoutes: Routes = [
@@ -95,7 +97,8 @@ const appRoutes: Routes = [
     EditItemComponent,
     EditContainerComponent,
     ReviewShipmentComponent,
-    ShipmentDetailComponent],
+    ShipmentDetailComponent,
+    RenderingComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -120,7 +123,8 @@ const appRoutes: Routes = [
     MatTableModule,
     MatSortModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ],
   entryComponents: [
     NewItemComponent

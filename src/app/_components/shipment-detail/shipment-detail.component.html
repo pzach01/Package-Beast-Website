@@ -1,1 +1,10 @@
-<div class="f" #rendererContainer></div>
+<mat-tab-group>
+    <ng-container *ngFor="let c of containers">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                {{c.description}}
+            </ng-template>
+            <app-rendering [items]="items" [container]="c"></app-rendering>
+        </mat-tab>
+    </ng-container>
+</mat-tab-group>
