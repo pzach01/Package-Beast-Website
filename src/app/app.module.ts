@@ -53,26 +53,31 @@ const appRoutes: Routes = [
     path: 'shipments',
     outlet: 'view',
     component: ShipmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'shipments/:id',
     outlet: 'view',
     component: ShipmentDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'items',
     outlet: 'view',
-    component: ItemsComponent
+    component: ItemsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'containers',
     outlet: 'view',
     component: ContainersComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'settings',
     outlet: 'view',
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
   },
   { path: "*", redirectTo: '' },
 

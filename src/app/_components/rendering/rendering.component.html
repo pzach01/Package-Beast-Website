@@ -1,2 +1,7 @@
 <div #rendererContainer></div>
-<h2>Hover details to go here</h2>
+
+<ng-container *ngIf="clickedItem">
+    <h2>SKU: {{clickedItem.sku}}</h2>
+    <p>Description: {{clickedItem.description}}</p>
+    <p>Dimensions: {{clickedItem.width}}x{{clickedItem.length}}x{{clickedItem.height}}</p>
+</ng-container>

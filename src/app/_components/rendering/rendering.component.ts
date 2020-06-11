@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input, Output } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Shipment } from 'src/app/_models/shipment';
@@ -15,6 +15,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @Input() items: Item[];
   @Input() container: Container;
+  clickedItem: Item;
   shipment: Shipment;
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -161,8 +162,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       //@ts-ignore
       clickedObject.object.material.color.set("#ff0000");
 
-      const clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
-      console.log("clicked item:", clickedItem)
+      this.clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
+      console.log("clicked item:", this.clickedItem)
     }
   }
 
