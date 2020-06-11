@@ -43,6 +43,9 @@ export class ItemsSelectionComponent implements OnInit {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
+  toggle(toggledRow) {
+    this.selection.toggle(toggledRow)
+  }
 }
 
 
