@@ -22,6 +22,7 @@ export class NewShipmentComponent implements OnInit {
   selectedItems: Item[];
   selectedContainers: Container[];
   multiBinPack: boolean;
+  shipment: Shipment = new Shipment();
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
   ) { }
@@ -34,12 +35,20 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
   }
   analyze() {
-    let shipment = new Shipment();
-    shipment.containers = this.selectedContainers;
-    shipment.items = this.selectedItems;
+    this.shipment.containers = this.selectedContainers;
+
+    let shipmentItems: Item[] = []
+    this.selectedItems.forEach(selectedItem => {
+      console.log("qty", selectedItem.qty)
+      for (let index = 0; index < selectedItem.qty; index++) {
+        shipmentItems.push(selectedItem)
+      }
+    });
+    this.shipment.items = shipmentItems;
+
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
-    shipment.multiBinPack = this.multiBinPack;
-    this.shipmentsService.postArrangement(shipment).subscribe(shipment => {
+    this.shipment.multiBinPack = this.multiBinPack;
+    this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       console.log(shipment)
       this.newShipmentRef.close(shipment)
     })

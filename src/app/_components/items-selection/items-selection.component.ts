@@ -14,8 +14,7 @@ export class ItemsSelectionComponent implements OnInit {
 
   items: Item[];
   dataSource;
-  displayedColumns: string[] = ['select', 'sku', 'description'];
-
+  displayedColumns: string[] = ['select', 'sku', 'description', 'qty'];
   selection = new SelectionModel<Item>(true, []);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -39,13 +38,25 @@ export class ItemsSelectionComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+
+    if (this.isAllSelected()) {
+      this.selection.clear()
+      this.dataSource.data.forEach(row => row.qty = "0");
+
+    } else {
+      this.dataSource.data.forEach(row => { this.selection.select(row); row.qty = "1" });
+    }
+
   }
   toggle(toggledRow) {
     this.selection.toggle(toggledRow)
+    if (this.selection.isSelected(toggledRow)) { toggledRow.qty = "1" } else (toggledRow.qty = "")
   }
+
+  qtySelectionOpened(row) {
+    this.selection.select(row);
+  }
+
 }
 
 

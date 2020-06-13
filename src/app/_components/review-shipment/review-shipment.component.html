@@ -8,7 +8,7 @@
         <ul>
             <p>Items to ship</p>
             <li *ngFor="let item of selectedItems">
-                {{ item.description }}
+                {{ item.description }} qty: {{item.qty}}
             </li>
             <p>Containers to optimize</p>
             <li *ngFor="let container of selectedContainers">
