@@ -150,18 +150,18 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     // calculate objects intersecting the picking ray
-    // var intersects = this.raycaster.intersectObjects(this.scene.children);
-    var intersects = this.raycaster.intersectObjects(this.threeJSitems);
+    let intersects = this.raycaster.intersectObjects(this.threeJSitems);
     let clickedObject = intersects[0];
 
-    if (intersects.length != 0) {
-      this.threeJSitems.forEach((threeJSitem, index) => {
-        threeJSitem.material.color.set(this.itemColors[index])
-      });
 
+    this.threeJSitems.forEach((threeJSitem, index) => {
+      threeJSitem.material.color.set(this.itemColors[index % this.itemColors.length])
+      this.clickedItem = null;
+    });
+
+    if (intersects.length != 0) {
       //@ts-ignore
       clickedObject.object.material.color.set("#ff0000");
-
       this.clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
       console.log("clicked item:", this.clickedItem)
     }
