@@ -19,4 +19,8 @@ export class ShipmentsService {
   postArrangement(shipment: Shipment): Observable<Shipment> {
     return this.http.post<Shipment>(`${Constants.API_BASE_URI}/arrangements/`, shipment);
   }
+  deleteArrangement(shipment: Shipment): Observable<Shipment> {
+    console.log(shipment)
+    return this.http.delete<Shipment>(`${Constants.API_BASE_URI}/arrangements/${shipment.id}/`);
+  }
 }

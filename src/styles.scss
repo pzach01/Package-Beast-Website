@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import 'theme';
 html, body { height: 100%; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
 button:focus {
@@ -85,12 +85,19 @@ cursor: pointer;
     flex: 1;
 }
 
-.green-edge {
+.drawer-edge {
     border-style: solid;
-    border-color: greenyellow;
+    border-color: mat-color($app-accent);
     border-width: 0 3px 0 0;
 }
+
 // Use this to style menu hover color
 // .mat-list-item-content:hover {
 //       background-color: green;
 //  }
+
+// To use color="success" in angular directive, do something like below
+// .mat-success {
+//     background-color: mat-color($app-accent);
+//     color: black;
+//   }

@@ -23,6 +23,7 @@ export class NewShipmentComponent implements OnInit {
   selectedContainers: Container[];
   multiBinPack: boolean;
   shipment: Shipment = new Shipment();
+  loading = false;
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
   ) { }
@@ -35,6 +36,7 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
   }
   analyze() {
+    this.loading = true;
     this.shipment.containers = this.selectedContainers;
 
     let shipmentItems: Item[] = []
@@ -50,7 +52,11 @@ export class NewShipmentComponent implements OnInit {
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       console.log(shipment)
+      this.loading = false;
       this.newShipmentRef.close(shipment)
     })
+  }
+  close() {
+    this.newShipmentRef.close();
   }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as THREE from 'three';
 import { Shipment } from 'src/app/_models/shipment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
@@ -13,19 +13,19 @@ import { Container } from 'src/app/_models/container';
   // encapsulation: ViewEncapsulation.None
 })
 export class ShipmentDetailComponent implements OnInit, AfterViewInit {
-  @ViewChild('rendererContainer') rendererContainer: ElementRef;
   shipment: Shipment;
   items: Item[];
   containers: Container[];
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = null;
   camera = null;
   mesh = null;
   controls = null;
   shipmentId: number;
+  submitted = false;
+  loading = false;
 
-  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService) { }
+  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,7 +35,6 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
         this.shipment = shipment;
         this.containers = shipment.containers;
         this.items = shipment.items;
-        console.log("items from shipment detail", this.shipment.items)
 
         //the code below filters out empty containers so we don't render them
         this.containers = this.containers.filter((container) => {
@@ -51,4 +50,11 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
     })
   }
   ngAfterViewInit() { }
+
+  delete() {
+    this.submitted = true;
+    this.loading = true;
+    this.shipmentsService.deleteArrangement(this.shipment).subscribe(() => this.router.navigate(['./', { outlets: { view: ['shipments'] } }], { replaceUrl: true })
+    )
+  }
 }

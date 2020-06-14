@@ -43,6 +43,7 @@ import { EditContainerComponent } from './_components/edit-container/edit-contai
 import { ReviewShipmentComponent } from './_components/review-shipment/review-shipment.component';
 import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
 import { RenderingComponent } from './_components/rendering/rendering.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const appRoutes: Routes = [
@@ -129,7 +130,8 @@ const appRoutes: Routes = [
     MatSortModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     NewItemComponent

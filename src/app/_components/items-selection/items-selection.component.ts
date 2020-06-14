@@ -41,16 +41,16 @@ export class ItemsSelectionComponent implements OnInit {
 
     if (this.isAllSelected()) {
       this.selection.clear()
-      this.dataSource.data.forEach(row => row.qty = "0");
+      this.dataSource.data.forEach(row => row.qty = 0);
 
     } else {
-      this.dataSource.data.forEach(row => { this.selection.select(row); row.qty = "1" });
+      this.dataSource.data.forEach(row => { this.selection.select(row); row.qty = 1 });
     }
 
   }
   toggle(toggledRow) {
     this.selection.toggle(toggledRow)
-    if (this.selection.isSelected(toggledRow)) { toggledRow.qty = "1" } else (toggledRow.qty = "")
+    if (this.selection.isSelected(toggledRow)) { toggledRow.qty = 1 } else (toggledRow.qty = "")
   }
 
   qtySelectionOpened(row) {
