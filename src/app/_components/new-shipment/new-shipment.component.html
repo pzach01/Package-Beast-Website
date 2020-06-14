@@ -26,7 +26,6 @@
                     <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
                     </app-review-shipment>
 
-                    <mat-spinner *ngIf="loading"></mat-spinner>
                 </div>
 
             </div>
@@ -45,4 +44,5 @@
     <button *ngIf="stepper.selectedIndex == 2" class="empty-space" color="primary" mat-raised-button (click)="analyze()"
         type="button">Analyze</button>
     <button mat-raised-button color="warn" (click)="close()" type="button">Close</button>
+    <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
 </mat-dialog-actions>
