@@ -43,7 +43,16 @@ input:-webkit-autofill:active  {
 }
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
+    position: relative!important;
 }
+.close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    min-width: auto;
+    font-size: 36px;
+  }
+
 .mat-row:hover {
 background-color: lightgray;
 cursor: pointer;
@@ -96,6 +105,8 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
   }
+
+
 // Use this to style menu hover color
 // .mat-list-item-content:hover {
 //       background-color: green;

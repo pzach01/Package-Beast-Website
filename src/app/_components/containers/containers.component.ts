@@ -27,6 +27,7 @@ export class ContainersComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.newContainerDialog.open(NewContainerComponent, {
+      panelClass: 'custom-dialog-container',
       width: '100%',
     });
 
@@ -45,6 +46,7 @@ export class ContainersComponent implements OnInit {
 
   openEditContainerDialog(item): void {
     const dialogRef = this.newContainerDialog.open(EditContainerComponent, {
+      panelClass: 'custom-dialog-container',
       width: '100%',
       data: item
     });

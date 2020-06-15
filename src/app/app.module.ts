@@ -44,6 +44,7 @@ import { ReviewShipmentComponent } from './_components/review-shipment/review-sh
 import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
 import { RenderingComponent } from './_components/rendering/rendering.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BillingComponent } from './_components/billing/billing.component';
 
 
 const appRoutes: Routes = [
@@ -80,6 +81,12 @@ const appRoutes: Routes = [
     component: SettingsComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'billing',
+    outlet: 'view',
+    component: BillingComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "*", redirectTo: '' },
 
 ];
@@ -104,7 +111,8 @@ const appRoutes: Routes = [
     EditContainerComponent,
     ReviewShipmentComponent,
     ShipmentDetailComponent,
-    RenderingComponent],
+    RenderingComponent,
+    BillingComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

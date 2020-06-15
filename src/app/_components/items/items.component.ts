@@ -33,6 +33,7 @@ export class ItemsComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.newItemDialog.open(NewItemComponent, {
+      panelClass: 'custom-dialog-container',
       width: '100%',
     });
 
@@ -51,6 +52,7 @@ export class ItemsComponent implements OnInit {
 
   openEditItemDialog(item): void {
     const dialogRef = this.newItemDialog.open(EditItemComponent, {
+      panelClass: 'custom-dialog-container',
       width: '100%',
       data: item,
     });
