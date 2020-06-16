@@ -74,7 +74,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   generateItemCubes() {
     this.items.forEach((item, index) => {
       console.log("shippy", item)
-      const geometry = new THREE.BoxGeometry(item.height, item.width, item.length);
+      const geometry = new THREE.BoxGeometry(item.width, item.height, item.length);
 
       var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
@@ -94,14 +94,14 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   generateContainerCube() {
 
-    const geometry = new THREE.BoxGeometry(this.container.length, this.container.height, this.container.width);
+    const geometry = new THREE.BoxGeometry(this.container.width, this.container.length, this.container.height);
     const material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
     let mesh = new THREE.Mesh(geometry, material);
     console.log("generateContainer: this.container =", this.container)
     mesh.name = this.container.description;
-    mesh.position.x = this.container.length / 2
-    mesh.position.y = this.container.height / 2
-    mesh.position.z = this.container.width / 2
+    mesh.position.x = this.container.width / 2
+    mesh.position.y = this.container.length / 2
+    mesh.position.z = this.container.height / 2
     this.scene.add(mesh);
   }
 
@@ -121,9 +121,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   setCameraAndControls() {
     const cameraZPosition = Math.max(this.container.length, this.container.height, this.container.width)
     this.camera.position.z = 1.5 * cameraZPosition;
-    this.camera.position.x = this.container.length;
-    this.camera.position.y = this.container.width;
-    this.controls.target = new THREE.Vector3(this.container.length / 2, this.container.height / 2, this.container.width / 2);
+    this.camera.position.x = this.container.width;
+    this.camera.position.y = this.container.length;
+    this.controls.target = new THREE.Vector3(this.container.width / 2, this.container.length / 2, this.container.height / 2);
     this.controls.update();
   }
 

@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="d-flex justify-content-center mb-3">
+    <div class="d-flex justify-content-between mb-3">
+        <div></div>
         <h1>Your Shipments&nbsp;&nbsp;</h1>
-
-        <button mat-icon-button (click)="openDialog()">
-            <mat-icon class="add-circle-button">add_circle_outline</mat-icon>
-        </button>
+        <p class="flex-column d-flex justify-content-end">
+            <button color="accent" mat-raised-button (click)="openDialog()" type="button">New Shipment</button>
+        </p>
     </div>
 
     <!-- <button class="btn btn-primary" (click)="openDialog()">New Item</button> -->

@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 () => {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['shipments'] } }])
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['items'] } }])
                     )
                 },
                 error => {
