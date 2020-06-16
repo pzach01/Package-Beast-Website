@@ -30,7 +30,7 @@ export class NewContainerComponent implements OnInit {
   ngOnInit(): void {
     this.newContainerForm = this.formBuilder.group({
       sku: ['', []],
-      description: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      description: ['', [Validators.required]],
       width: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
       length: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
       height: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
