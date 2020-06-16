@@ -1,6 +1,6 @@
 <div class="fixActionRow">
     <button type="button" class="close" (click)="close()" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h2 mat-dialog-title>New Shipment</h2>
+    <h1 mat-dialog-title>New Shipment</h1>
     <mat-dialog-content>
 
         <mat-horizontal-stepper #stepper (selectionChange)="selectionChange()">
@@ -28,8 +28,6 @@
                         <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
                         </app-review-shipment>
                     </div>
-
-
                 </div>
             </mat-step>
         </mat-horizontal-stepper>
@@ -37,8 +35,8 @@
     <div class="empty-space"></div>
     <mat-dialog-actions>
 
-        <button *ngIf="stepper.selectedIndex > 0" class="empty-space" (click)="stepper.previous()" mat-raised-button
-            type="button">Back</button>
+        <button *ngIf="stepper.selectedIndex > 0" class="empty-space" color="primary" (click)="stepper.previous()"
+            mat-raised-button type="button">Back</button>
         <button *ngIf="stepper.selectedIndex < 2" class="empty-space" color="primary" mat-raised-button
             (click)="stepper.next()" type="button">Next</button>
 

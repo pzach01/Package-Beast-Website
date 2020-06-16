@@ -15,7 +15,7 @@ import { EditContainerComponent } from 'src/app/_components/edit-container/edit-
 export class ContainersComponent implements OnInit {
   containers: Container[];
   dataSource;
-  displayedColumns: string[] = ['sku', 'description', 'width', 'length', 'height', 'volume'];
+  displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'volume'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

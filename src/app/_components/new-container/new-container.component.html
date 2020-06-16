@@ -15,21 +15,21 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Width</mat-label>
-            <input matInput [formControl]="newContainerForm.get('width')" placeholder="Width">
+            <input matInput [formControl]="newContainerForm.get('width')" placeholder="10.125, or 10+1/8">
             <mat-error *ngIf="newContainerForm.get('width').hasError('required') && submitted">
                 Width is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Length</mat-label>
-            <input matInput [formControl]="newContainerForm.get('length')" placeholder="Length">
+            <input matInput [formControl]="newContainerForm.get('length')" placeholder="10.125, or 10+1/8">
             <mat-error *ngIf="newContainerForm.get('length').hasError('required') && submitted">
                 Length is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Height</mat-label>
-            <input matInput [formControl]="newContainerForm.get('height')" placeholder="Height">
+            <input matInput [formControl]="newContainerForm.get('height')" placeholder="10.125, or 10+1/8">
             <mat-error *ngIf="newContainerForm.get('height').hasError('required') && submitted">
                 Height is <strong>required</strong>
             </mat-error>
@@ -37,8 +37,8 @@
         <mat-form-field>
             <mat-label>Units</mat-label>
             <mat-select [(value)]="units">
-                <mat-option value="Inches">Inches</mat-option>
-                <mat-option value="Millimeters">Millimeters</mat-option>
+                <mat-option value="in">Inches</mat-option>
+                <mat-option value="mm">Millimeters</mat-option>
             </mat-select>
         </mat-form-field>
     </mat-dialog-content>

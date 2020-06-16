@@ -14,7 +14,7 @@ export class ContainersSelectionComponent implements OnInit {
 
   containers: Container[];
   dataSource;
-  displayedColumns: string[] = ['select', 'sku', 'description'];
+  displayedColumns: string[] = ['select', 'sku', 'description', 'length', 'width', 'height', 'volume'];
 
   selection = new SelectionModel<Container>(true, []);
 
