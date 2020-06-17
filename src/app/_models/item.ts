@@ -6,9 +6,9 @@ export class Item {
   public xCenter: number;
   public yCenter: number;
   public zCenter: number;
-  public width: number;
-  public height: number;
-  public length: number;
+  public xDim: number;
+  public yDim: number;
+  public zDim: number;
   public volume: number;
   public units: string;
   public qty: number;

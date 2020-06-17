@@ -11,23 +11,23 @@
             <input matInput [formControl]="editContainerForm.get('description')" placeholder="Description (Optional)">
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Width</mat-label>
-            <input matInput [formControl]="editContainerForm.get('width')" placeholder="Width">
-            <mat-error *ngIf="editContainerForm.get('width').hasError('required') && submitted">
-                Width is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
             <mat-label>Length</mat-label>
-            <input matInput [formControl]="editContainerForm.get('length')" placeholder="Length">
-            <mat-error *ngIf="editContainerForm.get('length').hasError('required') && submitted">
+            <input matInput [formControl]="editContainerForm.get('yDim')" placeholder="Length">
+            <mat-error *ngIf="editContainerForm.get('yDim').hasError('required') && submitted">
                 Length is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input matInput [formControl]="editContainerForm.get('zDim')" placeholder="Width">
+            <mat-error *ngIf="editContainerForm.get('zDim').hasError('required') && submitted">
+                Width is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>Height</mat-label>
-            <input matInput [formControl]="editContainerForm.get('height')" placeholder="Height">
-            <mat-error *ngIf="editContainerForm.get('height').hasError('required') && submitted">
+            <input matInput [formControl]="editContainerForm.get('xDim')" placeholder="Height">
+            <mat-error *ngIf="editContainerForm.get('xDim').hasError('required') && submitted">
                 Height is <strong>required</strong>
             </mat-error>
         </mat-form-field>

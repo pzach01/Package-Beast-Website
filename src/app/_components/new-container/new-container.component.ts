@@ -31,9 +31,9 @@ export class NewContainerComponent implements OnInit {
     this.newContainerForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],
-      width: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      length: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      height: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+      xDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      yDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      zDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
     });
   }
 
@@ -46,13 +46,13 @@ export class NewContainerComponent implements OnInit {
     }
 
     //evaluate expression
-    this.newContainerForm.controls.width.setValue(evaluate(this.newContainerForm.controls.width.value))
-    this.newContainerForm.controls.length.setValue(evaluate(this.newContainerForm.controls.length.value))
-    this.newContainerForm.controls.height.setValue(evaluate(this.newContainerForm.controls.height.value))
+    this.newContainerForm.controls.xDim.setValue(evaluate(this.newContainerForm.controls.xDim.value))
+    this.newContainerForm.controls.yDim.setValue(evaluate(this.newContainerForm.controls.yDim.value))
+    this.newContainerForm.controls.zDim.setValue(evaluate(this.newContainerForm.controls.zDim.value))
     //remove errors
-    this.newContainerForm.controls.width.setErrors(null)
-    this.newContainerForm.controls.length.setErrors(null)
-    this.newContainerForm.controls.height.setErrors(null)
+    this.newContainerForm.controls.xDim.setErrors(null)
+    this.newContainerForm.controls.yDim.setErrors(null)
+    this.newContainerForm.controls.zDim.setErrors(null)
 
     this.newContainer = new Container(this.newContainerForm.value)
     this.loading = true;

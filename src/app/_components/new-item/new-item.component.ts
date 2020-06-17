@@ -31,9 +31,9 @@ export class NewItemComponent implements OnInit {
     this.newItemForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],
-      width: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      length: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      height: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+      xDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      yDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      zDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
     });
   }
 
@@ -47,15 +47,16 @@ export class NewItemComponent implements OnInit {
     }
 
     //evaluate expression
-    this.newItemForm.controls.width.setValue(evaluate(this.newItemForm.controls.width.value))
-    this.newItemForm.controls.length.setValue(evaluate(this.newItemForm.controls.length.value))
-    this.newItemForm.controls.height.setValue(evaluate(this.newItemForm.controls.height.value))
+    this.newItemForm.controls.xDim.setValue(evaluate(this.newItemForm.controls.xDim.value))
+    this.newItemForm.controls.yDim.setValue(evaluate(this.newItemForm.controls.yDim.value))
+    this.newItemForm.controls.zDim.setValue(evaluate(this.newItemForm.controls.zDim.value))
     //remove errors
-    this.newItemForm.controls.width.setErrors(null)
-    this.newItemForm.controls.length.setErrors(null)
-    this.newItemForm.controls.height.setErrors(null)
+    this.newItemForm.controls.xDim.setErrors(null)
+    this.newItemForm.controls.yDim.setErrors(null)
+    this.newItemForm.controls.zDim.setErrors(null)
 
     this.newItem = new Item(this.newItemForm.value)
+    console.log(this.newItem)
     this.itemsService.postItem(this.newItem).subscribe(newItem => {
       console.log(newItem);
       this.newItemRef.close(newItem);

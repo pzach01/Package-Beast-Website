@@ -50,6 +50,9 @@ export class NewShipmentComponent implements OnInit {
 
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
+    console.log("containers from new shipment", this.shipment.containers)
+    console.log("shipment from new shipment", this.shipment)
+
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       console.log(shipment)
       this.loading = false;

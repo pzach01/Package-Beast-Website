@@ -14,8 +14,7 @@ export class ContainersSelectionComponent implements OnInit {
 
   containers: Container[];
   dataSource;
-  displayedColumns: string[] = ['select', 'sku', 'description', 'length', 'width', 'height', 'volume'];
-
+  displayedColumns: string[] = ['select', 'sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
   selection = new SelectionModel<Container>(true, []);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

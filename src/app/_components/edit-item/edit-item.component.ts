@@ -30,9 +30,9 @@ export class EditItemComponent implements OnInit {
     this.editItemForm = this.formBuilder.group({
       sku: [this.editItem.sku, []],
       description: [this.editItem.description, [Validators.required]],
-      width: [this.editItem.width, [Validators.required]],
-      length: [this.editItem.length, [Validators.required]],
-      height: [this.editItem.height, [Validators.required]]
+      xDim: [this.editItem.xDim, [Validators.required]],
+      yDim: [this.editItem.yDim, [Validators.required]],
+      zDim: [this.editItem.zDim, [Validators.required]]
     });
   }
 

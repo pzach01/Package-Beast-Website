@@ -15,22 +15,22 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Length</mat-label>
-            <input matInput [formControl]="newContainerForm.get('length')" placeholder="10.125, or 10+1/8">
-            <mat-error *ngIf="newContainerForm.get('length').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('yDim')" placeholder="10.125, or 10+1/8">
+            <mat-error *ngIf="newContainerForm.get('yDim').hasError('required') && submitted">
                 Length is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Width</mat-label>
-            <input matInput [formControl]="newContainerForm.get('width')" placeholder="10.125, or 10+1/8">
-            <mat-error *ngIf="newContainerForm.get('width').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('zDim')" placeholder="10.125, or 10+1/8">
+            <mat-error *ngIf="newContainerForm.get('zDim').hasError('required') && submitted">
                 Width is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Height</mat-label>
-            <input matInput [formControl]="newContainerForm.get('height')" placeholder="10.125, or 10+1/8">
-            <mat-error *ngIf="newContainerForm.get('height').hasError('required') && submitted">
+            <input matInput [formControl]="newContainerForm.get('xDim')" placeholder="10.125, or 10+1/8">
+            <mat-error *ngIf="newContainerForm.get('xDim').hasError('required') && submitted">
                 Height is <strong>required</strong>
             </mat-error>
         </mat-form-field>

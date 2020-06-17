@@ -30,9 +30,9 @@ export class EditContainerComponent implements OnInit {
     this.editContainerForm = this.formBuilder.group({
       sku: [this.editContainer.sku, []],
       description: [this.editContainer.description, []],
-      width: [this.editContainer.width, [Validators.required]],
-      length: [this.editContainer.length, [Validators.required]],
-      height: [this.editContainer.height, [Validators.required]]
+      xDim: [this.editContainer.xDim, [Validators.required]],
+      yDim: [this.editContainer.yDim, [Validators.required]],
+      zDim: [this.editContainer.zDim, [Validators.required]]
     });
   }
 
