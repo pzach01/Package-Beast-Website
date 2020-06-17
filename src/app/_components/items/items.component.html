@@ -1,7 +1,7 @@
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
         <div></div>
-        <h1>Your Items&nbsp;&nbsp;</h1>
+        <h1>Inventory&nbsp;&nbsp;</h1>
         <p class="flex-column d-flex justify-content-end">
             <button mat-raised-button color="accent" (click)="openDialog()" type="button">New Item</button>
         </p>
@@ -37,7 +37,7 @@
                     <!-- Length Column -->
                     <ng-container matColumnDef="length">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
-                        <td mat-cell *matCellDef="let item"> {{item.xDim}} </td>
+                        <td mat-cell *matCellDef="let item"> {{item.yDim}} </td>
                     </ng-container>
 
                     <!-- Width Column -->
@@ -49,7 +49,7 @@
                     <!-- Height Column -->
                     <ng-container matColumnDef="height">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Height </th>
-                        <td mat-cell *matCellDef="let item"> {{item.yDim}} </td>
+                        <td mat-cell *matCellDef="let item"> {{item.xDim}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
