@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 () => {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['/']))
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['items'] } }]))
                 },
                 error => {
                     this.alertService.error(error);
