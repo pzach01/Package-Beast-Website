@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_services';
 
 @Component({
   selector: 'app-shipments',
@@ -18,17 +19,19 @@ export class ShipmentsComponent implements OnInit {
   shipments: Shipment[];
   dataSource;
   displayedColumns: string[] = ['created'];
-  dateFormat: string = 'MMM d, yyyy, h:mm aa';
+  currentUser = this.authenticationService.currentUserValue;
+  dateTimeFormat = this.currentUser.dateTimeFormat
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router) { }
+  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService) { }
 
   transformDate(date) {
-    console.log("date:", this.datePipe.transform(date, this.dateFormat).trim().toLowerCase());
-    return this.datePipe.transform(date, this.dateFormat).trim().toLowerCase();
+    console.log("date:", this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase());
+    return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
   }
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.shipmentsservice.getAll().subscribe(shipments => {
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); console.log(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
