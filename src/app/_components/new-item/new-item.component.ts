@@ -4,6 +4,7 @@ import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
 import { evaluate } from 'mathjs'
+import { AuthenticationService } from 'src/app/_services';
 
 
 @Component({
@@ -15,19 +16,22 @@ export class NewItemComponent implements OnInit {
   newItemForm: FormGroup;
   submitted = false;
   loading = false;
-  units = 'Inches';
+  currentUser = this.authenticationService.currentUserValue;
+  units = this.currentUser.units
 
   constructor(
     private formBuilder: FormBuilder,
     public newItemRef: MatDialogRef<NewItemComponent>,
     private itemsService: ItemsService,
-    @Inject(MAT_DIALOG_DATA) public newItem: Item) { }
+    @Inject(MAT_DIALOG_DATA) public newItem: Item,
+    private authenticationService: AuthenticationService) { }
 
   onNoClick(): void {
     this.newItemRef.close();
   }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.newItemForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],

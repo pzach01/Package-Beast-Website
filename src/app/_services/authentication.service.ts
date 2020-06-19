@@ -73,4 +73,14 @@ export class AuthenticationService {
                 return user;
             }));
     }
+
+    updateUser(user: Partial<User>) {
+        return this.http.put(`${Constants.API_BASE_URI}/accounts/user/`, user)
+            .pipe(map((u: User) => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(u));
+                this.currentUserSubject.next(u);
+                return u;
+            }));
+    }
 }

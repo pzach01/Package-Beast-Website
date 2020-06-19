@@ -74,13 +74,13 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.scene.add(axesHelper)
     this.items.forEach((item, index) => {
       console.log("shippy", item)
-      const geometry = new THREE.BoxGeometry(item.xDim, item.yDim, item.zDim);
+      const geometry = new THREE.BoxGeometry(item.yDim, item.xDim, item.zDim);
 
       var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
-      mesh.position.x = item.xCenter
-      mesh.position.y = item.yCenter
+      mesh.position.x = item.yCenter
+      mesh.position.y = item.xCenter
       mesh.position.z = item.zCenter
 
       const edges = new THREE.BoxHelper(mesh, 'white');
@@ -94,20 +94,20 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   generateContainerCube() {
 
-    const geometry = new THREE.BoxGeometry(this.container.xDim, this.container.yDim, this.container.zDim);
+    const geometry = new THREE.BoxGeometry(this.container.yDim, this.container.xDim, this.container.zDim);
     const material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
     let mesh = new THREE.Mesh(geometry, material);
     console.log("generateContainer: this.container =", this.container)
     mesh.name = this.container.description;
-    mesh.position.x = this.container.xDim / 2
-    mesh.position.y = this.container.yDim / 2
+    mesh.position.x = this.container.yDim / 2
+    mesh.position.y = this.container.xDim / 2
     mesh.position.z = this.container.zDim / 2
     this.scene.add(mesh);
   }
 
   generateLights() {
     var light = new THREE.DirectionalLight(0xffffff, .1);
-    light.position.set(this.container.xDim, this.container.yDim, this.container.zDim).normalize();
+    light.position.set(this.container.yDim, this.container.xDim, this.container.zDim).normalize();
     this.scene.add(light);
 
     var light3 = new THREE.DirectionalLight(0xffffff, .1);
@@ -119,11 +119,11 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   setCameraAndControls() {
-    const cameraZPosition = Math.max(this.container.xDim, this.container.yDim, this.container.zDim)
+    const cameraZPosition = Math.max(this.container.yDim, this.container.xDim, this.container.zDim)
     this.camera.position.z = 1.5 * cameraZPosition;
-    this.camera.position.x = this.container.xDim;
-    this.camera.position.y = this.container.yDim;
-    this.controls.target = new THREE.Vector3(this.container.xDim / 2, this.container.yDim / 2, this.container.zDim / 2);
+    this.camera.position.x = this.container.yDim;
+    this.camera.position.y = this.container.xDim;
+    this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
     this.controls.update();
   }
 

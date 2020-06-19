@@ -4,6 +4,7 @@ import { Container } from 'src/app/_models/container';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
 import { evaluate } from 'mathjs'
+import { AuthenticationService } from 'src/app/_services';
 
 
 @Component({
@@ -15,19 +16,22 @@ export class NewContainerComponent implements OnInit {
   newContainerForm: FormGroup;
   submitted = false;
   loading = false;
-  units = 'mm';
+  currentUser = this.authenticationService.currentUserValue;
+  units = this.currentUser.units
 
   constructor(
     private formBuilder: FormBuilder,
     public newContainerRef: MatDialogRef<NewContainerComponent>,
     private containersService: ContainersService,
-    @Inject(MAT_DIALOG_DATA) public newContainer: Container) { }
+    @Inject(MAT_DIALOG_DATA) public newContainer: Container,
+    private authenticationService: AuthenticationService) { }
 
   onNoClick(): void {
     this.newContainerRef.close();
   }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.newContainerForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],

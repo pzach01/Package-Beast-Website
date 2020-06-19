@@ -5,11 +5,11 @@
 
     <mat-form-field class="full-width" appearance="standard">
         <mat-label>Units</mat-label>
-        <mat-select>
-            <mat-option>
+        <mat-select [(value)]="units">
+            <mat-option value="in">
                 Inches
             </mat-option>
-            <mat-option>
+            <mat-option value="mm">
                 Millimeters
             </mat-option>
         </mat-select>
@@ -17,11 +17,11 @@
 
     <mat-form-field class="full-width" appearance="standard">
         <mat-label>Date/Time Format</mat-label>
-        <mat-select>
-            <mat-option>
+        <mat-select [(value)]="dateTimeFormat">
+            <mat-option value="MMM d, yyyy, h:mm aa">
                 Jan 1, 2020, 1:00 PM
             </mat-option>
-            <mat-option>
+            <mat-option value="MMM d, yyyy, HHmm">
                 Jan 1, 2020, 1300
             </mat-option>
         </mat-select>
@@ -29,4 +29,6 @@
 
     <button color="accent" (click)="goToBilling()" mat-raised-button>Billing</button>
     <a [routerLink]="" (click)="goToBilling()">Billing</a>
+    <button color="accent" (click)="save()" mat-raised-button>Save</button>
+
 </div>
