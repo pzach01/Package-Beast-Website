@@ -2,12 +2,16 @@
     <div class="d-flex justify-content-end mb-3">
         <div class="row pt-3">
             <div class="pl-3 pr-3">
-                <button mat-raised-button color="accent" (click)="setCameraAndControls()">Reset
+                <button mat-raised-button color="accent" (click)="resetView()">Reset
                     View</button>
             </div>
-            <button mat-raised-button color="accent" (click)="minus()">-</button>
+            <button mat-raised-button color="accent" (click)="previousItem()">
+                <mat-icon aria-hidden="false" aria-label="Previous">skip_previous</mat-icon>
+            </button>
             <p class="pl-3 pr-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
-            <button mat-raised-button color="accent" (click)="plus()">+</button>
+            <button mat-raised-button color="accent" (click)="nextItem()">
+                <mat-icon aria-hidden="false" aria-label="Previous">skip_next</mat-icon>
+            </button>
         </div>
     </div>
 </div>

@@ -70,7 +70,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
-      console.log(hiddenMesh)
       if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
         hiddenMesh.position.y = hiddenMesh.position.y + .1
       } else {
@@ -161,25 +160,47 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.camera.position.y = this.container.xDim;
     this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
     this.controls.update();
+
   }
 
-  minus() {
-    if (this.step > 0) {
+  resetView() {
+    this.setCameraAndControls()
+    this.shownMeshes = this.shownMeshes.concat(this.hiddenMeshes)
+    this.hiddenMeshes = []
+    this.shownMeshes.forEach(mesh => mesh.position.y = mesh.userData.xCenter)
+    this.step = this.totalSteps;
+  }
+
+  previousItem() {
+    if (this.step > 1) {
       this.step--
       const poppedMesh = this.shownMeshes.pop()
-      this.hiddenMeshes.push(poppedMesh)
+      this.hiddenMeshes.unshift(poppedMesh)
       const poppedEdges = this.shownEdges.pop()
-      this.hiddenEdges.push(poppedEdges)
+      this.hiddenEdges.unshift(poppedEdges)
+      console.log("mm", poppedMesh)
+    } else {
+      this.step = this.totalSteps
+      const poppedMesh = this.shownMeshes.pop()
+      this.hiddenMeshes.unshift(poppedMesh)
+      const poppedEdges = this.shownEdges.pop()
+      this.hiddenEdges.unshift(poppedEdges)
+      this.shownMeshes = this.hiddenMeshes
+      this.hiddenMeshes = []
     }
   }
 
-  plus() {
+  nextItem() {
     if (this.step < this.totalSteps) {
       this.step++
-      const poppedMesh = this.hiddenMeshes.pop()
+      const poppedMesh = this.hiddenMeshes.shift()
       this.shownMeshes.push(poppedMesh)
-      const poppedEdges = this.hiddenEdges.pop()
+      const poppedEdges = this.hiddenEdges.shift()
       this.shownEdges.push(poppedEdges)
+    } else {
+      this.step = 1
+      this.hiddenMeshes = this.shownMeshes
+      this.shownMeshes = [this.hiddenMeshes.shift()]
     }
   }
 
@@ -201,7 +222,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     // calculate objects intersecting the picking ray
-    let intersects = this.raycaster.intersectObjects(this.threeJSItemMeshes);
+    let intersects = this.raycaster.intersectObjects(this.shownMeshes);
     let clickedObject = intersects[0];
 
     // set all items back to original color
@@ -225,15 +246,13 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       console.log("userdata", clickedObject.object.userData)
 
       // set similar item colors to red
-      this.threeJSitemEdges.forEach(threeJSItemEdge => {
+      this.shownEdges.forEach(threeJSItemEdge => {
         if (threeJSItemEdge.object.userData.masterItemId == this.clickedItem.masterItemId) {
           threeJSItemEdge.material.color.set("#ff0000")
           console.log("lw", threeJSItemEdge.material.lineWidth)
           console.log("material", threeJSItemEdge.material)
         }
       });
-
     }
   }
-
 }
