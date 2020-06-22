@@ -113,9 +113,14 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
   }
-  .newButton {
+.newButton {
       width: 10vw;
-  }
+}
+
+.verticalCenter {
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
 
 // Use this to style menu hover color

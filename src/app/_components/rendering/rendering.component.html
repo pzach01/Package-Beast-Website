@@ -1,7 +1,21 @@
+<div class="container">
+    <div class="d-flex justify-content-end mb-3">
+        <div class="row pt-3">
+            <div class="pl-3 pr-3">
+                <button mat-raised-button color="accent" (click)="setCameraAndControls()">Reset
+                    View</button>
+            </div>
+            <button mat-raised-button color="accent" (click)="minus()">-</button>
+            <p class="pl-3 pr-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
+            <button mat-raised-button color="accent" (click)="plus()">+</button>
+        </div>
+    </div>
+</div>
+
 <div #rendererContainer></div>
 
 <ng-container *ngIf="clickedItem">
     <h2>SKU: {{clickedItem.sku}}</h2>
     <p>Description: {{clickedItem.description}}</p>
-    <p>Dimensions: {{clickedItem.xDim}}x{{clickedItem.yDim}}x{{clickedItem.zDim}}</p>
+    <p>Dimensions: {{clickedItem.xDim}} x {{clickedItem.yDim}} x {{clickedItem.zDim}}</p>
 </ng-container>

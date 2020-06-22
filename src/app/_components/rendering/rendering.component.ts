@@ -25,14 +25,23 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   mouse = new THREE.Vector2();
   controls = new OrbitControls(this.camera, this.renderer.domElement);
   shipmentId: number;
-  threeJSitems = [];
+  threeJSItemMeshes = [];
   itemColors: string[] = ["#FFFF00", "#FB9404", "#ED0F71", "#742E8F", "#5987C5", "#02C3F3", "#00A55D", "#1B4279"];
+  threeJSitemEdges = [];
+  step: number;
+  totalSteps: number;
+  shownMeshes = [];
+  hiddenMeshes = [];
+  shownEdges = [];
+  hiddenEdges = [];
 
   constructor(private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    this.step = this.items.length
+    this.totalSteps = this.items.length;
     console.log("items from renderingComponent", this.items)
 
     //this.items = this.items.filter(item => item.container == this.container.id)
@@ -60,7 +69,26 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   animate() {
-    // update the picking ray with the camera and mouse position
+    this.hiddenMeshes.forEach(hiddenMesh => {
+      console.log(hiddenMesh)
+      if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
+        hiddenMesh.position.y = hiddenMesh.position.y + .1
+      } else {
+        hiddenMesh.visible = false
+      }
+    });
+
+    this.shownMeshes.forEach(shownMesh => {
+      shownMesh.visible = true
+      if (shownMesh.position.y >= shownMesh.userData.xCenter + .1) {
+        shownMesh.position.y = shownMesh.position.y - .1
+      } else {
+        shownMesh.position.y = shownMesh.userData.xCenter
+      }
+    });
+
+    this.threeJSitemEdges.forEach(e => e.update())
+
 
 
     window.requestAnimationFrame(() => this.animate());
@@ -80,15 +108,23 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
       mesh.position.x = item.yCenter
-      mesh.position.y = item.xCenter
+      mesh.position.y = item.xCenter + item.xDim / 2 * index
       mesh.position.z = item.zCenter
 
       const edges = new THREE.BoxHelper(mesh, 'white');
 
       mesh.name = item.id.toString();
+      mesh.userData = item;
       this.scene.add(mesh);
-      this.threeJSitems.push(mesh)
+      this.threeJSItemMeshes.push(mesh)
+      this.shownMeshes.push(mesh)
+
+      edges.name = item.id.toString();
+      edges.userData = edges;
       this.scene.add(edges)
+      this.threeJSitemEdges.push(edges)
+      this.shownEdges.push(edges)
+      console.log("edges", edges)
     });
   }
 
@@ -127,6 +163,26 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.controls.update();
   }
 
+  minus() {
+    if (this.step > 0) {
+      this.step--
+      const poppedMesh = this.shownMeshes.pop()
+      this.hiddenMeshes.push(poppedMesh)
+      const poppedEdges = this.shownEdges.pop()
+      this.hiddenEdges.push(poppedEdges)
+    }
+  }
+
+  plus() {
+    if (this.step < this.totalSteps) {
+      this.step++
+      const poppedMesh = this.hiddenMeshes.pop()
+      this.shownMeshes.push(poppedMesh)
+      const poppedEdges = this.hiddenEdges.pop()
+      this.shownEdges.push(poppedEdges)
+    }
+  }
+
   onMouseOrTouch(event) {
     console.log(event.type);
 
@@ -145,20 +201,38 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     // calculate objects intersecting the picking ray
-    let intersects = this.raycaster.intersectObjects(this.threeJSitems);
+    let intersects = this.raycaster.intersectObjects(this.threeJSItemMeshes);
     let clickedObject = intersects[0];
 
-
-    this.threeJSitems.forEach((threeJSitem, index) => {
-      threeJSitem.material.color.set(this.itemColors[index % this.itemColors.length])
+    // set all items back to original color
+    this.threeJSItemMeshes.forEach((threeJSitemMesh, index) => {
+      threeJSitemMesh.material.color.set(this.itemColors[index % this.itemColors.length])
       this.clickedItem = null;
     });
 
+    //set edges back to original color
+    this.threeJSitemEdges.forEach((threeJSitemEdges) => {
+      threeJSitemEdges.material.color.set("white")
+    })
+
+
     if (intersects.length != 0) {
+      // set clicked item to color
       //@ts-ignore
       clickedObject.object.material.color.set("#ff0000");
       this.clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
       console.log("clicked item:", this.clickedItem)
+      console.log("userdata", clickedObject.object.userData)
+
+      // set similar item colors to red
+      this.threeJSitemEdges.forEach(threeJSItemEdge => {
+        if (threeJSItemEdge.object.userData.masterItemId == this.clickedItem.masterItemId) {
+          threeJSItemEdge.material.color.set("#ff0000")
+          console.log("lw", threeJSItemEdge.material.lineWidth)
+          console.log("material", threeJSItemEdge.material)
+        }
+      });
+
     }
   }
 

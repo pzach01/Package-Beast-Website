@@ -12,6 +12,7 @@ export class Item {
   public volume: number;
   public units: string;
   public qty: number;
+  public masterItemId: number;
   public constructor(init?: Partial<Item>) {
     Object.assign(this, init);
   }

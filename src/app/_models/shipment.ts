@@ -7,6 +7,8 @@ export class Shipment {
     public containers: Container[];
     public items: Item[];
     public multiBinPack: boolean;
+    public arrangementPossible: boolean;
+    public timeout: boolean;
     public constructor(init?: Partial<Shipment>) {
         Object.assign(this, init);
     }
