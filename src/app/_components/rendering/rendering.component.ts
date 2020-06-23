@@ -13,6 +13,7 @@ import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
   styleUrls: ['./rendering.component.scss']
 })
 export class RenderingComponent implements OnInit, AfterViewInit {
+  vhPercent = .6
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @Input() items: Item[];
   @Input() container: Container;
@@ -21,7 +22,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = new THREE.Scene();;
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / (.7 * window.innerHeight), 1, 10000);
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / (this.vhPercent * window.innerHeight), 1, 10000);
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
   controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -54,7 +55,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.renderer.setSize(window.innerWidth, .7 * window.innerHeight);
+    this.renderer.setSize(window.innerWidth, this.vhPercent * window.innerHeight);
     this.renderer.setClearColor(0xffffff, 1);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
     this.generateItemCubes();
@@ -131,24 +132,24 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     const v7 = new THREE.Vector3(mesh.position.x - item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z + item.zDim / 2)
     const v8 = new THREE.Vector3(mesh.position.x + item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z + item.zDim / 2)
 
-    mesh.add(this.drawLineFromVertices(v1, v3))
-    mesh.add(this.drawLineFromVertices(v1, v4))
-    mesh.add(this.drawLineFromVertices(v2, v5))
-    mesh.add(this.drawLineFromVertices(v2, v6))
-    mesh.add(this.drawLineFromVertices(v3, v5))
-    mesh.add(this.drawLineFromVertices(v3, v7))
-    mesh.add(this.drawLineFromVertices(v4, v6))
-    mesh.add(this.drawLineFromVertices(v4, v7))
-    mesh.add(this.drawLineFromVertices(v5, v8))
-    mesh.add(this.drawLineFromVertices(v7, v8))
-    mesh.add(this.drawLineFromVertices(v6, v8))
+    mesh.add(this.drawLineFromVertices(v1, v3, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v1, v4, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v2, v5, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v2, v6, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v3, v5, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v3, v7, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v4, v6, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v4, v7, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v5, v8, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v7, v8, "white", 0.05))
+    mesh.add(this.drawLineFromVertices(v6, v8, "white", 0.05))
   }
 
-  drawLineFromVertices(v1, v2) {
+  drawLineFromVertices(v1, v2, color, lineWidth) {
     const vertices = [v1, v2]
     const line = new MeshLine();
     line.setVertices(vertices);
-    const lineMaterial = new MeshLineMaterial({ color: new THREE.Color("white"), useMap: 0, lineWidth: 0.05 })
+    const lineMaterial = new MeshLineMaterial({ color: new THREE.Color(color), useMap: 0, lineWidth: lineWidth })
     return new THREE.Mesh(line, lineMaterial)
 
   }
@@ -156,13 +157,39 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   generateContainerCube() {
 
     const geometry = new THREE.BoxGeometry(this.container.yDim, this.container.xDim, this.container.zDim);
-    const material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
+    const material = new THREE.MeshBasicMaterial({ color: "white", wireframe: true, transparent: true, opacity: 0 });
     let mesh = new THREE.Mesh(geometry, material);
     mesh.name = this.container.description;
+
+
     mesh.position.x = this.container.yDim / 2
     mesh.position.y = this.container.xDim / 2
     mesh.position.z = this.container.zDim / 2
-    this.scene.add(mesh);
+
+    const v1 = new THREE.Vector3(0, 0, 0)
+    const v2 = new THREE.Vector3(this.container.yDim, 0, 0)
+    const v3 = new THREE.Vector3(0, this.container.xDim, 0)
+    const v4 = new THREE.Vector3(0, 0, this.container.zDim)
+    const v5 = new THREE.Vector3(this.container.yDim, this.container.xDim, 0)
+    const v6 = new THREE.Vector3(this.container.yDim, 0, this.container.zDim)
+    const v7 = new THREE.Vector3(0, this.container.xDim, this.container.zDim)
+    const v8 = new THREE.Vector3(this.container.yDim, this.container.xDim, this.container.zDim)
+
+    const lineWidth = .1
+    this.scene.add(this.drawLineFromVertices(v1, v2, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v1, v3, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v1, v4, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v2, v5, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v2, v6, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v3, v5, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v3, v7, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v4, v6, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v4, v7, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v5, v8, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v6, v8, "black", lineWidth))
+    this.scene.add(this.drawLineFromVertices(v7, v8, "black", lineWidth))
+
+
   }
 
   generateLights() {
@@ -229,10 +256,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       var x = event.targetTouches[0].pageX - rect.left;
       var y = event.targetTouches[0].pageY - rect.top;
       this.mouse.x = (x / window.innerWidth) * 2 - 1;
-      this.mouse.y = - (y / (.7 * window.innerHeight)) * 2 + 1;
+      this.mouse.y = - (y / (this.vhPercent * window.innerHeight)) * 2 + 1;
     } else if (event.type == "mousedown") {
       this.mouse.x = (event.offsetX / window.innerWidth) * 2 - 1;
-      this.mouse.y = - (event.offsetY / (.7 * window.innerHeight)) * 2 + 1;
+      this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }
 
     console.log(this.mouse)
