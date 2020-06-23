@@ -155,17 +155,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   generateContainerCube() {
-
-    const geometry = new THREE.BoxGeometry(this.container.yDim, this.container.xDim, this.container.zDim);
-    const material = new THREE.MeshBasicMaterial({ color: "white", wireframe: true, transparent: true, opacity: 0 });
-    let mesh = new THREE.Mesh(geometry, material);
-    mesh.name = this.container.description;
-
-
-    mesh.position.x = this.container.yDim / 2
-    mesh.position.y = this.container.xDim / 2
-    mesh.position.z = this.container.zDim / 2
-
+    const lineWidth = .1
     const v1 = new THREE.Vector3(0, 0, 0)
     const v2 = new THREE.Vector3(this.container.yDim, 0, 0)
     const v3 = new THREE.Vector3(0, this.container.xDim, 0)
@@ -174,8 +164,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     const v6 = new THREE.Vector3(this.container.yDim, 0, this.container.zDim)
     const v7 = new THREE.Vector3(0, this.container.xDim, this.container.zDim)
     const v8 = new THREE.Vector3(this.container.yDim, this.container.xDim, this.container.zDim)
-
-    const lineWidth = .1
     this.scene.add(this.drawLineFromVertices(v1, v2, "black", lineWidth))
     this.scene.add(this.drawLineFromVertices(v1, v3, "black", lineWidth))
     this.scene.add(this.drawLineFromVertices(v1, v4, "black", lineWidth))
@@ -188,8 +176,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.scene.add(this.drawLineFromVertices(v5, v8, "black", lineWidth))
     this.scene.add(this.drawLineFromVertices(v6, v8, "black", lineWidth))
     this.scene.add(this.drawLineFromVertices(v7, v8, "black", lineWidth))
-
-
   }
 
   generateLights() {
