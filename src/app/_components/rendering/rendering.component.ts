@@ -5,6 +5,7 @@ import { Shipment } from 'src/app/_models/shipment';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
+import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
 
 @Component({
   selector: 'app-rendering',
@@ -27,13 +28,12 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   shipmentId: number;
   threeJSItemMeshes = [];
   itemColors: string[] = ["#FFFF00", "#FB9404", "#ED0F71", "#742E8F", "#5987C5", "#02C3F3", "#00A55D", "#1B4279"];
-  threeJSitemEdges = [];
   step: number;
   totalSteps: number;
   shownMeshes = [];
   hiddenMeshes = [];
-  shownEdges = [];
-  hiddenEdges = [];
+  shownMeshLines = [];
+  hiddenMeshLines = [];
 
   constructor(private route: ActivatedRoute) {
 
@@ -50,6 +50,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
       console.log("shipmentId", this.shipmentId)
     })
+
   }
 
   ngAfterViewInit() {
@@ -67,6 +68,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
 
   }
+
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
@@ -86,10 +88,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.threeJSitemEdges.forEach(e => e.update())
-
-
-
     window.requestAnimationFrame(() => this.animate());
     // this.mesh.rotation.x += 0.01;
     // this.mesh.rotation.y += 0.02;
@@ -106,25 +104,53 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
+      this.generateLine(mesh, item);
       mesh.position.x = item.yCenter
       mesh.position.y = item.xCenter + item.xDim / 2 * index
       mesh.position.z = item.zCenter
 
-      const edges = new THREE.BoxHelper(mesh, 'white');
-
       mesh.name = item.id.toString();
       mesh.userData = item;
+
+      console.log("mmm", mesh)
+
       this.scene.add(mesh);
       this.threeJSItemMeshes.push(mesh)
       this.shownMeshes.push(mesh)
 
-      edges.name = item.id.toString();
-      edges.userData = edges;
-      this.scene.add(edges)
-      this.threeJSitemEdges.push(edges)
-      this.shownEdges.push(edges)
-      console.log("edges", edges)
     });
+  }
+
+  generateLine(mesh, item) {
+    const v1 = new THREE.Vector3(mesh.position.x - item.yDim / 2, mesh.position.y - item.xDim / 2, mesh.position.z - item.zDim / 2)
+    const v2 = new THREE.Vector3(mesh.position.x + item.yDim / 2, mesh.position.y - item.xDim / 2, mesh.position.z - item.zDim / 2)
+    const v3 = new THREE.Vector3(mesh.position.x - item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z - item.zDim / 2)
+    const v4 = new THREE.Vector3(mesh.position.x - item.yDim / 2, mesh.position.y - item.xDim / 2, mesh.position.z + item.zDim / 2)
+    const v5 = new THREE.Vector3(mesh.position.x + item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z - item.zDim / 2)
+    const v6 = new THREE.Vector3(mesh.position.x + item.yDim / 2, mesh.position.y - item.xDim / 2, mesh.position.z + item.zDim / 2)
+    const v7 = new THREE.Vector3(mesh.position.x - item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z + item.zDim / 2)
+    const v8 = new THREE.Vector3(mesh.position.x + item.yDim / 2, mesh.position.y + item.xDim / 2, mesh.position.z + item.zDim / 2)
+
+    mesh.add(this.drawLineFromVertices(v1, v3))
+    mesh.add(this.drawLineFromVertices(v1, v4))
+    mesh.add(this.drawLineFromVertices(v2, v5))
+    mesh.add(this.drawLineFromVertices(v2, v6))
+    mesh.add(this.drawLineFromVertices(v3, v5))
+    mesh.add(this.drawLineFromVertices(v3, v7))
+    mesh.add(this.drawLineFromVertices(v4, v6))
+    mesh.add(this.drawLineFromVertices(v4, v7))
+    mesh.add(this.drawLineFromVertices(v5, v8))
+    mesh.add(this.drawLineFromVertices(v7, v8))
+    mesh.add(this.drawLineFromVertices(v6, v8))
+  }
+
+  drawLineFromVertices(v1, v2) {
+    const vertices = [v1, v2]
+    const line = new MeshLine();
+    line.setVertices(vertices);
+    const lineMaterial = new MeshLineMaterial({ color: new THREE.Color("white"), useMap: 0, lineWidth: 0.05 })
+    return new THREE.Mesh(line, lineMaterial)
+
   }
 
   generateContainerCube() {
@@ -132,7 +158,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     const geometry = new THREE.BoxGeometry(this.container.yDim, this.container.xDim, this.container.zDim);
     const material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
     let mesh = new THREE.Mesh(geometry, material);
-    console.log("generateContainer: this.container =", this.container)
     mesh.name = this.container.description;
     mesh.position.x = this.container.yDim / 2
     mesh.position.y = this.container.xDim / 2
@@ -160,7 +185,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.camera.position.y = this.container.xDim;
     this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
     this.controls.update();
-
   }
 
   resetView() {
@@ -176,15 +200,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.step--
       const poppedMesh = this.shownMeshes.pop()
       this.hiddenMeshes.unshift(poppedMesh)
-      const poppedEdges = this.shownEdges.pop()
-      this.hiddenEdges.unshift(poppedEdges)
-      console.log("mm", poppedMesh)
     } else {
       this.step = this.totalSteps
       const poppedMesh = this.shownMeshes.pop()
       this.hiddenMeshes.unshift(poppedMesh)
-      const poppedEdges = this.shownEdges.pop()
-      this.hiddenEdges.unshift(poppedEdges)
       this.shownMeshes = this.hiddenMeshes
       this.hiddenMeshes = []
     }
@@ -195,8 +214,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.step++
       const poppedMesh = this.hiddenMeshes.shift()
       this.shownMeshes.push(poppedMesh)
-      const poppedEdges = this.hiddenEdges.shift()
-      this.shownEdges.push(poppedEdges)
     } else {
       this.step = 1
       this.hiddenMeshes = this.shownMeshes
@@ -231,9 +248,11 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.clickedItem = null;
     });
 
-    //set edges back to original color
-    this.threeJSitemEdges.forEach((threeJSitemEdges) => {
-      threeJSitemEdges.material.color.set("white")
+    // //set edges back to original color
+    this.shownMeshes.forEach((shownMesh) => {
+      shownMesh.children.forEach(meshline => {
+        meshline.material.color.set("white")
+      });
     })
 
 
@@ -246,11 +265,11 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       console.log("userdata", clickedObject.object.userData)
 
       // set similar item colors to red
-      this.shownEdges.forEach(threeJSItemEdge => {
-        if (threeJSItemEdge.object.userData.masterItemId == this.clickedItem.masterItemId) {
-          threeJSItemEdge.material.color.set("#ff0000")
-          console.log("lw", threeJSItemEdge.material.lineWidth)
-          console.log("material", threeJSItemEdge.material)
+      this.shownMeshes.forEach(shownMesh => {
+        if (shownMesh.userData.masterItemId == this.clickedItem.masterItemId) {
+          shownMesh.children.forEach(meshline => {
+            meshline.material.color.set("#ff0000")
+          });
         }
       });
     }
