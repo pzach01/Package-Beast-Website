@@ -8,9 +8,14 @@ import { AuthenticationService } from 'src/app/_services';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  saveButtonText: string = "Save"
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
   dateTimeFormat = this.currentUser.dateTimeFormat
+  multiBinPack = this.currentUser.multiBinPack
+  disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
+  disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
+
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
@@ -21,9 +26,19 @@ export class SettingsComponent implements OnInit {
   goToBilling() {
     this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
   }
+  unsaved() {
+    this.saveButtonText = "Make sure to save"
+  }
 
   save() {
-    this.authenticationService.updateUser({ units: this.units, dateTimeFormat: this.dateTimeFormat }).subscribe(() => console.log("saved"))
+    this.saveButtonText = "saving"
+    console.log(this.multiBinPack)
+    this.authenticationService.updateUser({
+      units: this.units, dateTimeFormat: this.dateTimeFormat,
+      multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
+      disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation
+    })
+      .subscribe(() => this.saveButtonText = "saved!")
   }
 
 }

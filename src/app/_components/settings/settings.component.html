@@ -27,8 +27,32 @@
         </mat-select>
     </mat-form-field>
 
-    <button color="accent" (click)="goToBilling()" mat-raised-button>Billing</button>
-    <a [routerLink]="" (click)="goToBilling()">Billing</a>
-    <button color="accent" (click)="save()" mat-raised-button>Save</button>
+    <div class="full-width">
+        <mat-checkbox [checked]="multiBinPack" (change)="multiBinPack=!multiBinPack">Pack items in multiple containers
+            to
+            minimize total shipping
+            volume
+        </mat-checkbox>
+    </div>
 
+    <div class="full-width">
+        <mat-checkbox [checked]="disableFillContainerAnimation"
+            (change)="disableFillContainerAnimation=!disableFillContainerAnimation">Disable container fill animation
+        </mat-checkbox>
+    </div>
+
+    <div class="full-width">
+        <mat-checkbox [checked]="disablePreviousNextItemAnimation"
+            (change)="disablePreviousNextItemAnimation=!disablePreviousNextItemAnimation">Disable previous/next item
+            animation
+        </mat-checkbox>
+    </div>
+
+
+    <div class="d-flex justify-content-start mb-3">
+        <button color="accent" (click)="save()" mat-raised-button>{{saveButtonText}}</button>
+    </div>
+    <div class="d-flex justify-content-start mb-3">
+        <a [routerLink]="" (click)="goToBilling()">Billing</a>
+    </div>
 </div>

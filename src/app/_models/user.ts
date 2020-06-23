@@ -5,4 +5,7 @@
     last_name: string;
     units: string;
     dateTimeFormat: string;
+    multiBinPack: boolean;
+    disableFillContainerAnimation: boolean;
+    disablePreviousNextItemAnimation: boolean;
 }

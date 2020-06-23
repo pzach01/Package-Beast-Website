@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
 import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
+import { AuthenticationService } from 'src/app/_services';
 
 @Component({
   selector: 'app-rendering',
@@ -13,6 +14,7 @@ import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
   styleUrls: ['./rendering.component.scss']
 })
 export class RenderingComponent implements OnInit, AfterViewInit {
+  currentUser = this.authenticationService.currentUserValue;
   vhPercent = .6
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @Input() items: Item[];
@@ -36,11 +38,12 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   shownMeshLines = [];
   hiddenMeshLines = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) {
 
   }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.step = this.items.length
     this.totalSteps = this.items.length;
     console.log("items from renderingComponent", this.items)
@@ -73,8 +76,12 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
-      if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
-        hiddenMesh.position.y = hiddenMesh.position.y + .1
+      if (!this.currentUser.disableFillContainerAnimation) {
+        if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
+          hiddenMesh.position.y = hiddenMesh.position.y + .1
+        } else {
+          hiddenMesh.visible = false
+        }
       } else {
         hiddenMesh.visible = false
       }
@@ -101,20 +108,22 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.items.forEach((item, index) => {
       console.log("shippy", item)
       const geometry = new THREE.BoxGeometry(item.yDim, item.xDim, item.zDim);
-
       var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
       this.generateLine(mesh, item);
-      mesh.position.x = item.yCenter
-      mesh.position.y = item.xCenter + item.xDim / 2 * index
-      mesh.position.z = item.zCenter
 
+
+      mesh.position.x = item.yCenter
+      if (!this.currentUser.disableFillContainerAnimation) {
+        mesh.position.y = item.xCenter + item.xDim / 2 * index
+      } else {
+        mesh.position.y = item.xCenter
+      }
+
+      mesh.position.z = item.zCenter
       mesh.name = item.id.toString();
       mesh.userData = item;
-
-      console.log("mmm", mesh)
-
       this.scene.add(mesh);
       this.threeJSItemMeshes.push(mesh)
       this.shownMeshes.push(mesh)
