@@ -122,11 +122,10 @@ cursor: pointer;
     margin-bottom: auto;
 }
 
-
-// Use this to style menu hover color
-// .mat-list-item-content:hover {
-//       background-color: green;
-//  }
+a.mat-list-item.active {
+    background: mat-color($app-accent, lighter) !important;
+    border-radius: 0 50px 50px 0;
+}
 
 // To use color="success" in angular directive, do something like below
 // .mat-success {

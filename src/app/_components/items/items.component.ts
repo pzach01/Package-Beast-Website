@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewItemComponent } from 'src/app/_components/new-item/new-item.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { AuthenticationService } from 'src/app/_services';
 
 @Component({
   selector: 'app-items',

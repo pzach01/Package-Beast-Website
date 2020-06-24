@@ -13,13 +13,14 @@ import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt } from '@fortawesome/fr
 export class DashboardComponent implements OnInit {
 
   title = "Package Beast Dashboard";
-  currentUser: User;
+  currentUser: User = this.authenticationService.currentUserValue;
   shipment: Shipment;
   faCube = faCube;
   faBoxOpen = faBoxOpen;
   faCog = faCog;
   faTruck = faTruck;
   faSignOutAlt = faSignOutAlt
+  firstName = this.currentUser.first_name
 
   constructor(
     private router: Router,

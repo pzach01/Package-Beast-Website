@@ -3,19 +3,19 @@
         <mat-sidenav class="drawer-edge" #snav position="start" mode="side" opened="true" fixedTopGap="0"
             fixedInViewport="true">
             <mat-nav-list>
-                <a mat-list-item [routerLink]="[{ outlets: { view: 'items' } }]">
+                <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'items' } }]">
                     <fa-icon class="p-1" [icon]="faCube"></fa-icon> Inventory
                 </a>
-                <a mat-list-item [routerLink]="[{ outlets: { view: 'containers' } }]">
+                <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'containers' } }]">
                     <fa-icon class="p-1" [icon]="faBoxOpen"></fa-icon>Containers
                 </a>
-                <a mat-list-item [routerLink]="[{ outlets: { view: 'shipments' } }]">
+                <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'shipments' } }]">
                     <fa-icon class="p-1" [icon]="faTruck"></fa-icon>Shipments
                 </a>
-                <a mat-list-item [routerLink]="[{ outlets: { view: 'settings' } }]">
+                <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'settings' } }]">
                     <fa-icon class="p-1" [icon]="faCog"></fa-icon>Settings
                 </a>
-                <a mat-list-item (click)="logout()">
+                <a mat-list-item routerLinkActive="active" (click)="logout()">
                     <fa-icon class="p-1" [icon]="faSignOutAlt"></fa-icon>Logout
                 </a>
             </mat-nav-list>
@@ -28,6 +28,8 @@
                         <mat-icon>menu</mat-icon>
                     </button>
                     <h1>Package Beast Beta 0.60</h1>
+                    <div class="empty-space"></div>
+                    <h3>{{firstName}}</h3>
                 </mat-toolbar>
             </div>
             <div class="scrolly">

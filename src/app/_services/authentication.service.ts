@@ -75,7 +75,7 @@ export class AuthenticationService {
     }
 
     updateUser(user: Partial<User>) {
-        return this.http.put(`${Constants.API_BASE_URI}/accounts/user/`, user)
+        return this.http.patch(`${Constants.API_BASE_URI}/accounts/user/`, user)
             .pipe(map((u: User) => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(u));
