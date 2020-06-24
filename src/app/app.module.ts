@@ -45,6 +45,7 @@ import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-
 import { RenderingComponent } from './_components/rendering/rendering.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BillingComponent } from './_components/billing/billing.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const appRoutes: Routes = [
@@ -139,7 +140,8 @@ const appRoutes: Routes = [
     MatStepperModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FontAwesomeModule
   ],
   entryComponents: [
     NewItemComponent
