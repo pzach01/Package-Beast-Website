@@ -28,10 +28,8 @@
     </mat-form-field>
 
     <div class="full-width">
-        <mat-checkbox [checked]="multiBinPack" (change)="multiBinPack=!multiBinPack">Pack items in multiple containers
-            to
-            minimize total shipping
-            volume
+        <mat-checkbox [checked]="multiBinPack" (change)="multiBinPack=!multiBinPack">
+            Pack items in multiple containers to minimize total shipping volume
         </mat-checkbox>
     </div>
 
@@ -47,7 +45,6 @@
             animation
         </mat-checkbox>
     </div>
-
 
     <div class="d-flex justify-content-start mb-3">
         <button color="accent" (click)="save()" mat-raised-button>{{saveButtonText}}</button>
