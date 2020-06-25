@@ -78,7 +78,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.hiddenMeshes.forEach(hiddenMesh => {
       if (!this.currentUser.disableFillContainerAnimation) {
         if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
-          hiddenMesh.position.y = hiddenMesh.position.y + .1
+          hiddenMesh.position.y = hiddenMesh.position.y + .05 + this.currentUser.animationSpeed / 100
         } else {
           hiddenMesh.visible = false
         }
@@ -90,7 +90,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.shownMeshes.forEach(shownMesh => {
       shownMesh.visible = true
       if (shownMesh.position.y >= shownMesh.userData.xCenter + .1) {
-        shownMesh.position.y = shownMesh.position.y - .1
+        shownMesh.position.y = shownMesh.position.y - .05 - this.currentUser.animationSpeed / 100
       } else {
         shownMesh.position.y = shownMesh.userData.xCenter
       }

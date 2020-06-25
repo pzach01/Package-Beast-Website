@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   multiBinPack = this.currentUser.multiBinPack
   disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
   disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
+  animationSpeed = this.currentUser.animationSpeed
 
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
@@ -36,7 +37,8 @@ export class SettingsComponent implements OnInit {
     this.authenticationService.updateUser({
       units: this.units, dateTimeFormat: this.dateTimeFormat,
       multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
-      disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation
+      disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
+      animationSpeed: this.animationSpeed
     })
       .subscribe(() => this.saveButtonText = "saved!")
   }

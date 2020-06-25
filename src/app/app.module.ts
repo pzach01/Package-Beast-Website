@@ -46,7 +46,7 @@ import { RenderingComponent } from './_components/rendering/rendering.component'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BillingComponent } from './_components/billing/billing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { MatSliderModule } from '@angular/material/slider';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -141,7 +141,8 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatSliderModule
   ],
   entryComponents: [
     NewItemComponent

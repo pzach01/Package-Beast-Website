@@ -46,6 +46,16 @@
         </mat-checkbox>
     </div>
 
+    <div class="full-width pt-2 pb-2">
+        <span>Animation speed:<span *ngIf="disableFillContainerAnimation && disablePreviousNextItemAnimation">
+                disabled</span><span *ngIf="!disableFillContainerAnimation || !disablePreviousNextItemAnimation">
+                {{animationSpeed}}</span>
+            <mat-slider [disabled]="disableFillContainerAnimation && disablePreviousNextItemAnimation" [max]="100"
+                [min]="1" [step]="1" [thumbLabel]="true" [(ngModel)]="animationSpeed">
+            </mat-slider>
+        </span>
+    </div>
+
     <div class="d-flex justify-content-start mb-3">
         <button color="accent" (click)="save()" mat-raised-button>{{saveButtonText}}</button>
     </div>

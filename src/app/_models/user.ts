@@ -8,4 +8,5 @@
     multiBinPack: boolean;
     disableFillContainerAnimation: boolean;
     disablePreviousNextItemAnimation: boolean;
+    animationSpeed: number;
 }
