@@ -76,7 +76,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
-      if (!this.currentUser.disableFillContainerAnimation) {
+      if (!this.currentUser.disablePreviousNextItemAnimation) {
         if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
           hiddenMesh.position.y = hiddenMesh.position.y + .05 + this.currentUser.animationSpeed / 100
         } else {

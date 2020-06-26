@@ -33,7 +33,8 @@ export class ShipmentsComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.shipmentsservice.getAll().subscribe(shipments => {
-      this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); console.log(shipments); this.dataSource.sort = this.sort;
+      console.log("ssss", shipments);
+      this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
     })
