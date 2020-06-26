@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -15,12 +16,16 @@ import { Container } from 'src/app/_models/container';
 export class ShipmentDetailComponent implements OnInit, AfterViewInit {
   shipment: Shipment;
   items: Item[];
+  groupedItemsByMasterIdAndContainer: Item[] = [];
   containers: Container[];
+  nonEmptyContainers: Container[] = [];
 
-  scene = null;
-  camera = null;
-  mesh = null;
-  controls = null;
+  multiBinPack: boolean;
+  itemsDataSource = new MatTableDataSource(this.items);
+  containersDataSource = new MatTableDataSource(this.containers);
+  itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
+  containersDisplayedColumns: string[] = ['sku', 'description'];
+
   shipmentId: number;
   submitted = false;
   loading = false;
@@ -35,17 +40,38 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
         this.shipment = shipment;
         this.containers = shipment.containers;
         this.items = shipment.items;
+        this.multiBinPack = shipment.multiBinPack
 
         //the code below filters out empty containers so we don't render them
-        this.containers = this.containers.filter((container) => {
-          let containerContainersItem = false;
+        this.nonEmptyContainers = this.containers.filter((container) => {
+          let containerContainsItem = false;
           this.items.forEach(item => {
             if (item.container == container.id) {
-              containerContainersItem = true
+              containerContainsItem = true
             }
           })
-          return containerContainersItem
+          return containerContainsItem
         });
+
+        //Many items. The code below groups the items by masterItemId and assigns a qty to the items
+        //so we can show qty in the table
+
+        this.groupedItemsByMasterIdAndContainer = [...this.shipment.items.reduce((r, o) => {
+          const key = o.masterItemId + '-' + o.container;
+
+          const item = r.get(key) || Object.assign({}, o, {
+            qty: 0,
+          });
+
+          item.qty += 1;
+
+          return r.set(key, item);
+        }, new Map).values()];
+
+        console.log("result", this.groupedItemsByMasterIdAndContainer);
+
+        this.itemsDataSource.data = this.groupedItemsByMasterIdAndContainer;
+        this.containersDataSource.data = this.containers;
       })
     })
   }
