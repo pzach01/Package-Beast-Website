@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from 'src/app/_models/container';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
+import { evaluate } from 'mathjs'
 
 
 @Component({
@@ -14,7 +15,7 @@ export class EditContainerComponent implements OnInit {
   editContainerForm: FormGroup;
   submitted = false;
   loading = false;
-  units = 'Inches';
+  units = this.editContainer.units;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,21 +30,32 @@ export class EditContainerComponent implements OnInit {
   ngOnInit(): void {
     this.editContainerForm = this.formBuilder.group({
       sku: [this.editContainer.sku, []],
-      description: [this.editContainer.description, []],
-      xDim: [this.editContainer.xDim, [Validators.required]],
-      yDim: [this.editContainer.yDim, [Validators.required]],
-      zDim: [this.editContainer.zDim, [Validators.required]]
+      description: [this.editContainer.description, [Validators.required]],
+      xDim: [this.editContainer.xDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      yDim: [this.editContainer.yDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      zDim: [this.editContainer.zDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
     });
   }
 
   save() {
     this.submitted = true;
+    this.loading = true;
 
     // stop here if form is invalid
     if (this.editContainerForm.invalid) { return; }
 
+    //evaluate expression
+    this.editContainerForm.controls.xDim.setValue(evaluate(this.editContainerForm.controls.xDim.value))
+    this.editContainerForm.controls.yDim.setValue(evaluate(this.editContainerForm.controls.yDim.value))
+    this.editContainerForm.controls.zDim.setValue(evaluate(this.editContainerForm.controls.zDim.value))
+    //remove errors
+    this.editContainerForm.controls.xDim.setErrors(null)
+    this.editContainerForm.controls.yDim.setErrors(null)
+    this.editContainerForm.controls.zDim.setErrors(null)
+
     this.editContainer = { ...this.editContainer, ...this.editContainerForm.value }
-    this.loading = true;
+
+    this.editContainer.units = this.units
     this.containersService.putContainer(this.editContainer).subscribe(editContainer => this.editContainerRef.close({ deletedContainer: null, editedContainer: editContainer }))
   }
 

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, UnitsPipe } from './_helpers';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from "./app.component";
@@ -47,6 +47,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BillingComponent } from './_components/billing/billing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSliderModule } from '@angular/material/slider';
+import { VolumeUnitsPipe } from './_helpers';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -113,7 +114,9 @@ const appRoutes: Routes = [
     ReviewShipmentComponent,
     ShipmentDetailComponent,
     RenderingComponent,
-    BillingComponent],
+    BillingComponent,
+    UnitsPipe,
+    VolumeUnitsPipe],
   imports: [
     RouterModule.forRoot(
       appRoutes,

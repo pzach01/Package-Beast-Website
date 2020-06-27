@@ -60,6 +60,7 @@ export class NewItemComponent implements OnInit {
     this.newItemForm.controls.width.setErrors(null)
 
     this.newItem = new Item(this.newItemForm.value)
+    this.newItem.units = this.units
     console.log(this.newItem)
     this.itemsService.postItem(this.newItem).subscribe(newItem => {
       console.log(newItem);

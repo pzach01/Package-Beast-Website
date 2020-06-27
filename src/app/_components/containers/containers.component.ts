@@ -6,6 +6,7 @@ import { NewContainerComponent } from 'src/app/_components/new-container/new-con
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { EditContainerComponent } from 'src/app/_components/edit-container/edit-container.component';
+import { AuthenticationService } from 'src/app/_services';
 
 @Component({
   selector: 'app-containers',
@@ -16,12 +17,15 @@ export class ContainersComponent implements OnInit {
   containers: Container[];
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'volume'];
+  currentUser = this.authenticationService.currentUserValue;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog) { }
+  constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+
     this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers); this.dataSource.sort = this.sort; })
   }
 

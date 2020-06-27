@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewItemComponent } from 'src/app/_components/new-item/new-item.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models';
 
 @Component({
   selector: 'app-items',
@@ -16,14 +18,16 @@ export class ItemsComponent implements OnInit {
   items: Item[];
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
-
+  currentUser = this.authenticationService.currentUserValue;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('table', { static: true }) table;
 
-  constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog) { }
+  constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+
     this.itemsservice.getAll().subscribe(items => {
       this.items = items;
       this.dataSource = new MatTableDataSource(items);

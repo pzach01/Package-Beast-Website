@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
-
+import { evaluate } from 'mathjs'
 
 @Component({
   selector: 'app-edit-item',
@@ -14,7 +14,7 @@ export class EditItemComponent implements OnInit {
   editItemForm: FormGroup;
   submitted = false;
   loading = false;
-  units = 'Inches';
+  units = this.editItem.units;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,9 +30,9 @@ export class EditItemComponent implements OnInit {
     this.editItemForm = this.formBuilder.group({
       sku: [this.editItem.sku, []],
       description: [this.editItem.description, [Validators.required]],
-      height: [this.editItem.height, [Validators.required]],
-      length: [this.editItem.length, [Validators.required]],
-      width: [this.editItem.width, [Validators.required]]
+      height: [this.editItem.height, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      length: [this.editItem.length, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      width: [this.editItem.width, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
     });
   }
 
@@ -43,9 +43,17 @@ export class EditItemComponent implements OnInit {
     if (this.editItemForm.invalid) {
       return;
     }
+    //evaluate expression
+    this.editItemForm.controls.height.setValue(evaluate(this.editItemForm.controls.height.value))
+    this.editItemForm.controls.length.setValue(evaluate(this.editItemForm.controls.length.value))
+    this.editItemForm.controls.width.setValue(evaluate(this.editItemForm.controls.width.value))
+    //remove errors
+    this.editItemForm.controls.height.setErrors(null)
+    this.editItemForm.controls.length.setErrors(null)
+    this.editItemForm.controls.width.setErrors(null)
 
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
-
+    this.editItem.units = this.units
     this.loading = true;
     this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close({ deletedItem: null, editedItem: editItem }))
   }

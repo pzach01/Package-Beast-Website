@@ -20,38 +20,54 @@
 
             <!-- SKU Column -->
             <ng-container matColumnDef="sku">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> SKU </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>SKU</h6>
+                </th>
                 <td mat-cell *matCellDef="let container"> {{container.sku}} </td>
             </ng-container>
 
             <!-- Description Column -->
             <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>Description</h6>
+                </th>
                 <td mat-cell *matCellDef="let container"> {{container.description}} </td>
             </ng-container>
 
             <!-- Length Column -->
             <ng-container matColumnDef="length">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
-                <td mat-cell *matCellDef="let container"> {{container.yDim}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>Length ({{currentUser.units}})</h6>
+                </th>
+                <td mat-cell *matCellDef="let container">
+                    {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}} </td>
             </ng-container>
 
             <!-- Width Column -->
             <ng-container matColumnDef="width">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Width </th>
-                <td mat-cell *matCellDef="let container"> {{container.zDim}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>Width ({{currentUser.units}})</h6>
+                </th>
+                <td mat-cell *matCellDef="let container">
+                    {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}} </td>
             </ng-container>
 
             <!-- Height Column -->
             <ng-container matColumnDef="height">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Height </th>
-                <td mat-cell *matCellDef="let container"> {{container.xDim}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>Height ({{currentUser.units}})</h6>
+                </th>
+                <td mat-cell *matCellDef="let container">
+                    {{container.xDim | units: container.units: currentUser.units | number:'1.0-3'}} </td>
             </ng-container>
 
             <!-- Volume Column -->
             <ng-container matColumnDef="volume">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Volume </th>
-                <td mat-cell *matCellDef="let container"> {{container.volume}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h6>Volume ({{currentUser.units}}<sup>3</sup>)</h6>
+                </th>
+                <td mat-cell *matCellDef="let container">
+                    {{container.volume | volumeUnits: container.units: currentUser.units | number:'1.0-0'}} </td>
             </ng-container>
 
 
