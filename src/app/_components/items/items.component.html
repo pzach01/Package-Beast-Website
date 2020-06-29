@@ -26,7 +26,7 @@
                     <!-- SKU Column -->
                     <ng-container matColumnDef="sku">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <h6>SKU</h6>
+                            SKU
                         </th>
                         <td mat-cell *matCellDef="let item">{{item.sku}}</td>
                     </ng-container>
@@ -34,7 +34,7 @@
                     <!-- Description Column -->
                     <ng-container matColumnDef="description">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <h6 class="black">Description</h6>
+                            Description
                         </th>
                         <td mat-cell *matCellDef="let item"> {{item.description}} </td>
                     </ng-container>
@@ -42,7 +42,7 @@
                     <!-- Length Column -->
                     <ng-container matColumnDef="length">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <h6>Length ({{currentUser.units}})</h6>
+                            Length ({{currentUser.units}})
                         </th>
                         <td mat-cell *matCellDef="let item">
                             {{item.length | units: item.units: currentUser.units | number:'1.0-3'}}
@@ -52,7 +52,7 @@
                     <!-- Width Column -->
                     <ng-container matColumnDef="width">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <h6>Width ({{currentUser.units}})</h6>
+                            Width ({{currentUser.units}})
                         </th>
                         <td mat-cell *matCellDef="let item">
                             {{item.width | units: item.units: currentUser.units | number:'1.0-3'}} </td>
@@ -61,7 +61,7 @@
                     <!-- Height Column -->
                     <ng-container matColumnDef="height">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <h6>Height ({{currentUser.units}})</h6>
+                            Height ({{currentUser.units}})
                         </th>
                         <td mat-cell *matCellDef="let item">
                             {{item.height | units: item.units: currentUser.units | number:'1.0-3'}}
@@ -69,7 +69,8 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                    <tr mat-row (click)="openEditItemDialog(item)" *matRowDef="let item; columns: displayedColumns;">
+                    <tr [class.newOrEdited]="item===newOrEditedItem" mat-row (click)="openEditItemDialog(item)"
+                        *matRowDef="let item; columns: displayedColumns;">
                     </tr>
                 </table>
             </div>

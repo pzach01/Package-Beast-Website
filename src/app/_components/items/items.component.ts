@@ -7,7 +7,6 @@ import { NewItemComponent } from 'src/app/_components/new-item/new-item.componen
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/_services';
-import { User } from 'src/app/_models';
 
 @Component({
   selector: 'app-items',
@@ -19,6 +18,7 @@ export class ItemsComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
   currentUser = this.authenticationService.currentUserValue;
+  newOrEditedItem: Item;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('table', { static: true }) table;
@@ -46,6 +46,7 @@ export class ItemsComponent implements OnInit {
       if (newItem) {
         this.dataSource.data.unshift(newItem);
         this.dataSource._updateChangeSubscription();
+        this.newOrEditedItem = newItem;
       }
     });
   }
@@ -69,6 +70,7 @@ export class ItemsComponent implements OnInit {
         this.dataSource.data = this.dataSource.data.filter(item => item.id !== editedItem.id);
         this.dataSource.data.unshift(editedItem);
         this.dataSource._updateChangeSubscription();
+        this.newOrEditedItem = editedItem;
 
       }
       if (data.deletedItem) {

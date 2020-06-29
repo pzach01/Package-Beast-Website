@@ -18,6 +18,7 @@ export class ContainersComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'volume'];
   currentUser = this.authenticationService.currentUserValue;
+  newOrEditedContainer: Container;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -39,6 +40,7 @@ export class ContainersComponent implements OnInit {
       if (newContainer) {
         this.dataSource.data.unshift(newContainer);
         this.dataSource._updateChangeSubscription();
+        this.newOrEditedContainer = newContainer;
       }
     });
   }
@@ -61,6 +63,8 @@ export class ContainersComponent implements OnInit {
         this.dataSource.data = this.dataSource.data.filter(container => container.id !== editedContainer.id);
         this.dataSource.data.unshift(editedContainer);
         this.dataSource._updateChangeSubscription();
+        this.newOrEditedContainer = editedContainer;
+
       }
 
       if (data.deletedContainer) {

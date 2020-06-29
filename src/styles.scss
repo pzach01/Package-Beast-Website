@@ -72,6 +72,9 @@ cursor: pointer;
 
 .mat-header-cell {
     color: black;
+    flex-direction: column;
+    justify-content: center;
+    font-size: medium;
 }
 
 .scrolly {
@@ -108,8 +111,8 @@ cursor: pointer;
 
 .drawer-edge {
     border-style: solid;
-    border-color: mat-color($app-accent);
-    border-width: 0 3px 0 0;
+    border-color: mat-color($app-primary);
+    border-width: 0 1px 0 0;
 }
 .fixActionRow {
     height: 100%;
@@ -129,6 +132,22 @@ cursor: pointer;
 a.mat-list-item.active {
     background: mat-color($app-accent, lighter) !important;
     border-radius: 0 50px 50px 0;
+}
+
+.newOrEdited {
+    background-color: white;
+    animation-name: newOrEdited;
+    animation-duration: .3s;
+    animation-iteration-count: 3;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+@keyframes newOrEdited {
+    0%   {background-color: white;}
+    100%  {background-color: mat-color($app-primary, lighter);}
+    
 }
 
 // To use color="success" in angular directive, do something like below
