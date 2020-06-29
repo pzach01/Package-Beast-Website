@@ -31,10 +31,16 @@ export class EditContainerComponent implements OnInit {
     this.editContainerForm = this.formBuilder.group({
       sku: [this.editContainer.sku, []],
       description: [this.editContainer.description, [Validators.required]],
-      xDim: [this.editContainer.xDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      yDim: [this.editContainer.yDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      zDim: [this.editContainer.zDim, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+      xDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      yDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      zDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.editContainerForm.controls.xDim.setValue(evaluate(this.editContainer.xDim))
+    this.editContainerForm.controls.yDim.setValue(evaluate(this.editContainer.yDim))
+    this.editContainerForm.controls.zDim.setValue(evaluate(this.editContainer.zDim))
   }
 
   save() {

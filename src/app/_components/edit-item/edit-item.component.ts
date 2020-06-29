@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'src/app/_models/item';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, RequiredValidator } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
 import { evaluate } from 'mathjs'
 
@@ -10,7 +10,7 @@ import { evaluate } from 'mathjs'
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.scss']
 })
-export class EditItemComponent implements OnInit {
+export class EditItemComponent implements OnInit, AfterViewInit {
   editItemForm: FormGroup;
   submitted = false;
   loading = false;
@@ -30,10 +30,17 @@ export class EditItemComponent implements OnInit {
     this.editItemForm = this.formBuilder.group({
       sku: [this.editItem.sku, []],
       description: [this.editItem.description, [Validators.required]],
-      height: [this.editItem.height, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      length: [this.editItem.length, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      width: [this.editItem.width, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+      length: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      width: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
+      height: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.editItemForm.controls.length.setValue(evaluate(this.editItem.length))
+    this.editItemForm.controls.width.setValue(evaluate(this.editItem.width))
+    this.editItemForm.controls.height.setValue(evaluate(this.editItem.height))
   }
 
   save() {
