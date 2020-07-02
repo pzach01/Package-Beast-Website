@@ -31,16 +31,16 @@ export class EditContainerComponent implements OnInit {
     this.editContainerForm = this.formBuilder.group({
       sku: [this.editContainer.sku, []],
       description: [this.editContainer.description, [Validators.required]],
-      xDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      yDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      zDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
-    });
+      xDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
+      yDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
+      zDim: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]]
+    }, { updateOn: 'change' });
   }
 
   ngAfterViewInit(): void {
-    this.editContainerForm.controls.xDim.setValue(evaluate(this.editContainer.xDim))
-    this.editContainerForm.controls.yDim.setValue(evaluate(this.editContainer.yDim))
-    this.editContainerForm.controls.zDim.setValue(evaluate(this.editContainer.zDim))
+    this.editContainerForm.controls.xDim.setValue(this.editContainer.xDim)
+    this.editContainerForm.controls.yDim.setValue(this.editContainer.yDim)
+    this.editContainerForm.controls.zDim.setValue(this.editContainer.zDim)
   }
 
   save() {

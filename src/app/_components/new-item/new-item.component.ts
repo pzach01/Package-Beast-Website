@@ -35,9 +35,9 @@ export class NewItemComponent implements OnInit {
     this.newItemForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],
-      height: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      length: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]],
-      width: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/g)]]
+      height: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
+      length: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
+      width: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]]
     });
   }
 
