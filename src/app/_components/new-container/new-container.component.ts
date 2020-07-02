@@ -35,9 +35,9 @@ export class NewContainerComponent implements OnInit {
     this.newContainerForm = this.formBuilder.group({
       sku: ['', []],
       description: ['', [Validators.required]],
-      xDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
-      yDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
-      zDim: ['', [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]]
+      xDim: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      yDim: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      zDim: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
     });
   }
 

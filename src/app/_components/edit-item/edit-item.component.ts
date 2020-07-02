@@ -30,9 +30,9 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     this.editItemForm = this.formBuilder.group({
       sku: [this.editItem.sku, []],
       description: [this.editItem.description, [Validators.required]],
-      length: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
-      width: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]],
-      height: [null, [Validators.required, Validators.pattern(/[0-9|.|+|-|/|*]/)]]
+      length: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      width: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      height: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
 
     });
   }
