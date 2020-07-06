@@ -10,7 +10,7 @@ import { evaluate } from 'mathjs'
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.scss']
 })
-export class EditItemComponent implements OnInit, AfterViewInit {
+export class EditItemComponent implements OnInit {
   editItemForm: FormGroup;
   submitted = false;
   loading = false;
@@ -30,18 +30,17 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     this.editItemForm = this.formBuilder.group({
       sku: [this.editItem.sku, []],
       description: [this.editItem.description, [Validators.required]],
-      length: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      width: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      height: [null, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
-
+      length: [this.editItem.length, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      width: [this.editItem.width, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      height: [this.editItem.height, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
     });
   }
 
-  ngAfterViewInit(): void {
-    this.editItemForm.controls.length.setValue(evaluate(this.editItem.length))
-    this.editItemForm.controls.width.setValue(evaluate(this.editItem.width))
-    this.editItemForm.controls.height.setValue(evaluate(this.editItem.height))
-  }
+  //ngAfterViewInit(): void {
+  // this.editItemForm.controls.length.setValue(evaluate(this.editItem.length))
+  // this.editItemForm.controls.width.setValue(evaluate(this.editItem.width))
+  // this.editItemForm.controls.height.setValue(evaluate(this.editItem.height))
+  //}
 
   save() {
     this.submitted = true;

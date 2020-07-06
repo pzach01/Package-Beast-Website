@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,10 @@ import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
+
+import { Location, ViewportScroller } from '@angular/common';
+import { Scroll, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shipments',
@@ -24,21 +28,29 @@ export class ShipmentsComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService, private viewportScroller: ViewportScroller) { }
 
   transformDate(date) {
     console.log("date:", this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase());
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
   }
   ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      console.log("evt", evt)
+    })
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.shipmentsservice.getAll().subscribe(shipments => {
       console.log("ssss", shipments);
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
+
     })
   }
+  // ngAfterViewChecked(): void {
+  //   document.querySelector('mat-sidenav-content').scrollTop = 100;
+  // }
+
 
   openDialog(): void {
     const dialogRef = this.newShipmentDialog.open(NewShipmentComponent, {

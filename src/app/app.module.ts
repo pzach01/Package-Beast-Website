@@ -48,6 +48,8 @@ import { BillingComponent } from './_components/billing/billing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSliderModule } from '@angular/material/slider';
 import { VolumeUnitsPipe } from './_helpers';
+import { NgxStripeModule } from 'ngx-stripe';
+import { PaymentComponent } from './_components/payment/payment.component';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -116,11 +118,15 @@ const appRoutes: Routes = [
     RenderingComponent,
     BillingComponent,
     UnitsPipe,
-    VolumeUnitsPipe],
+    VolumeUnitsPipe,
+    PaymentComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {
+        enableTracing: true, scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled'
+      } // <-- debugging purposes only
     ),
     BrowserModule,
     CommonModule,
@@ -145,7 +151,8 @@ const appRoutes: Routes = [
     MatTabsModule,
     MatProgressSpinnerModule,
     FontAwesomeModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxStripeModule.forRoot('pk_test_R4nhryC8mNzBKx7xVmqHvMaP00nJyQoTdD'),
   ],
   entryComponents: [
     NewItemComponent

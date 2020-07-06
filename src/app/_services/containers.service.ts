@@ -25,6 +25,6 @@ export class ContainersService {
 
   deleteItem(container: Container): Observable<Container> {
     console.log(container)
-    return this.http.delete<Container>(`${Constants.API_BASE_URI}/items/${container.id}/`);
+    return this.http.delete<Container>(`${Constants.API_BASE_URI}/containers/${container.id}/`);
   }
 }

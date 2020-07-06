@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-billing',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillingComponent implements OnInit {
 
+
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit() { }
 }

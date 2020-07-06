@@ -1,0 +1,9 @@
+<form class="checkout" #checkout="ngForm" novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+    <div class="form-row">
+        <input type="text" formControlName="name" placeholder="Jane Doe">
+    </div>
+    <div id="card-element" class="field"></div>
+    <button type="submit">
+        BUY
+    </button>
+</form>
