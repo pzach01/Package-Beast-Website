@@ -16,28 +16,34 @@
               <mat-label>Email</mat-label>
               <input type="email" autocomplete="email" matInput [formControl]="loginForm.get('email')"
                 placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="loginForm.get('email').hasError('pattern') && submitted">
+              <mat-error *ngIf="loginForm.get('email').hasError('pattern')">
                 Please enter a valid email address
               </mat-error>
-              <mat-error *ngIf="loginForm.get('email').hasError('required') && submitted">
+              <mat-error *ngIf="loginForm.get('email').hasError('required')">
                 Email is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('email').hasError('loginFail')">
+                Incorrect email or password
               </mat-error>
             </mat-form-field>
             <br />
             <mat-form-field class="full-width">
               <mat-label>Password</mat-label>
               <input type="password" matInput [formControl]="loginForm.get('password')" placeholder="password">
-              <mat-error *ngIf="loginForm.get('password').hasError('required') && submitted">
+              <mat-error *ngIf="loginForm.get('password').hasError('required')">
                 Password is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('password').hasError('loginFail')">
+                Incorrect email or password
               </mat-error>
             </mat-form-field>
 
-
             <mat-card-actions class="d-flex justify-content-left">
-              <button [disabled]="loading" class="btn btn-primary">
+              <button color="accent" mat-raised-button [disabled]="loading">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Login
               </button>
+              <div class="empty-space"></div>
               <a routerLink="/register" class="btn btn-link">Register</a>
               <a routerLink="/register" class="btn btn-link">Forgot Password?</a>
             </mat-card-actions>

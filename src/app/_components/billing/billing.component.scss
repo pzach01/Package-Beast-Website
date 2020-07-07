@@ -1,9 +1,38 @@
 .pricing-card {
     max-width: 400px;
-  }
+}
+
+.card-container {
+  width: 25%;
+}
   
-  .pricing-card-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.pricing-card-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.trial {
+  background-color: rgb(204, 186, 85);
+  height: 200px;
+  border-radius: 10px;;
+}
+
+.standard {
+  background-color: silver;
+  height: 200px;
+  border-radius: 10px;;
+
+}
+
+.premium {
+  background-color: gold;
+  height: 200px;
+  border-radius: 10px;;
+}
+
+.beast-mode {
+  background-color: purple;
+  height: 200px;
+  border-radius: 10px;;
+}
   

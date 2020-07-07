@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../../_services';
@@ -30,13 +30,44 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.loginForm = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-            password: ['', Validators.required]
+            email: ['', [this.loginFailValidator, Validators.required, Validators.pattern(EMAIL_REGEX)]],
+            password: ['', [this.loginFailValidator, Validators.required]],
         });
 
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.formControlValueChanged();
+    }
+
+
+    loginFailValidator(): void { }
+
+    formControlValueChanged() {
+        this.loginForm.get('email').valueChanges.subscribe(
+            (abc) => {
+                console.log(abc)
+                this.removeError(this.loginForm.controls['email'], "loginFail")
+                this.removeError(this.loginForm.controls['password'], "loginFail")
+            });
+        this.loginForm.get('password').valueChanges.subscribe(
+            (abc) => {
+                console.log(abc)
+                this.removeError(this.loginForm.controls['email'], "loginFail")
+                this.removeError(this.loginForm.controls['password'], "loginFail")
+            });
+    }
+
+    removeError(control: AbstractControl, error: string) {
+        const err = control.errors; // get control errors
+        if (err) {
+            delete err[error]; // delete your own error
+            if (!Object.keys(err).length) { // if no errors left
+                control.setErrors(null); // set control errors to null making it VALID
+            } else {
+                control.setErrors(err); // controls got other errors so set them back
+            }
+        }
     }
 
     onSubmit() {
@@ -61,6 +92,9 @@ export class LoginComponent implements OnInit {
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
+                    this.submitted = false;
+                    this.loginForm.controls['email'].setErrors({ loginFail: true });
+                    this.loginForm.controls['password'].setErrors({ loginFail: true });
                 });
     }
 }
