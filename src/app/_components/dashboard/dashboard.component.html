@@ -23,12 +23,16 @@
 
         <mat-sidenav-content>
             <div class="fixedy">
-                <mat-toolbar color="primary" style="height:8vh;">
+                <mat-toolbar class="d-flex justify-content-between" color="primary" style="height:8vh;">
                     <button mat-icon-button (click)="snav.toggle()">
                         <mat-icon>menu</mat-icon>
                     </button>
-                    <h1>Package Beast Beta 0.81</h1>
-                    <div class="empty-space"></div>
+                    <img id="logo" src="../../../assets/PackageBeastWhiteNoLogo.png">
+
+                    <!-- <img class="jpg-icon" src="./Package Beast.png" style="max-width:    100%; min-width: 100%;"> -->
+                    <!-- <div class="iii"></div> -->
+                    <!-- <h1>Package Beast Beta 0.81</h1> -->
+                    <!-- <div class="empty-space"></div> -->
                     <h3>{{firstName}}</h3>
                 </mat-toolbar>
             </div>

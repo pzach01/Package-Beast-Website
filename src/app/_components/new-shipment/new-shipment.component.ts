@@ -7,6 +7,8 @@ import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { delay } from 'rxjs/operators';
+import { timer } from 'rxjs/internal/observable/timer';
 
 @Component({
   selector: 'app-new-shipment',
@@ -24,6 +26,11 @@ export class NewShipmentComponent implements OnInit {
   multiBinPack: boolean;
   shipment: Shipment = new Shipment();
   loading = false;
+  interval;
+  spinnerValue = 0;
+  spinTime = 30;
+  fastForwardSpinTime = 2;
+  dwellTime = 1000; //ms
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
   ) { }
@@ -35,7 +42,42 @@ export class NewShipmentComponent implements OnInit {
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
   }
+
+  startSpinner() {
+    this.interval = setInterval(() => {
+      this.spinnerValue = this.spinnerValue + 20 / this.spinTime
+      console.log(this.spinnerValue)
+      if (this.spinnerValue >= 100) {
+        this.pauseSpinner();
+        this.fastForwardSpinner();
+      }
+    }, 200)
+  }
+
+  fastForwardSpinner(shipment?) {
+    this.spinnerValue = 100;
+    this.interval = setInterval(() => {
+      this.dwellTime = this.dwellTime - 200
+      console.log(this.spinnerValue)
+      if (this.dwellTime < 0) {
+        this.pauseSpinner();
+        this.newShipmentRef.close()
+        this.loading = false;
+        shipment ? this.newShipmentRef.close(shipment) : this.newShipmentRef.close()
+      }
+    }, 200)
+  }
+
+  pauseSpinner() {
+    clearInterval(this.interval);
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   analyze() {
+    this.startSpinner()
     this.loading = true;
     this.shipment.containers = this.selectedContainers;
 
@@ -54,9 +96,8 @@ export class NewShipmentComponent implements OnInit {
     console.log("shipment from new shipment", this.shipment)
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
-      console.log(shipment)
-      this.loading = false;
-      this.newShipmentRef.close(shipment)
+      this.pauseSpinner()
+      this.fastForwardSpinner(shipment)
     })
   }
   close() {

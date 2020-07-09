@@ -50,6 +50,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { VolumeUnitsPipe } from './_helpers';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentComponent } from './_components/payment/payment.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -152,6 +153,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     FontAwesomeModule,
     MatSliderModule,
+    MatProgressBarModule,
     NgxStripeModule.forRoot('pk_test_R4nhryC8mNzBKx7xVmqHvMaP00nJyQoTdD'),
   ],
   entryComponents: [

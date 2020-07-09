@@ -33,15 +33,22 @@
         </mat-horizontal-stepper>
     </mat-dialog-content>
     <div class="empty-space"></div>
+
     <mat-dialog-actions>
+        <button *ngIf="stepper.selectedIndex > 0" class="empty-space" [disabled]="loading" color="primary"
+            (click)="stepper.previous()" mat-raised-button type="button">Back</button>
+        <button *ngIf="stepper.selectedIndex < 2" class="empty-space" [disabled]="loading" color="primary"
+            mat-raised-button (click)="stepper.next()" type="button">Next</button>
+        <button *ngIf="stepper.selectedIndex == 2" class="empty-space" [disabled]="loading" color="primary"
+            mat-raised-button (click)="analyze()" type="button">Analyze</button>
+        <div class="pl-2 pr-2" *ngIf=loading>
+            <mat-progress-spinner mode="determinate" [value]="spinnerValue" color="accent">
+            </mat-progress-spinner>
+            <div class="percent-complete">{{spinnerValue | number: '1.0-0'}}%</div>
+        </div>
+        <mat-progress-bar style="height: 10px;" class="mt-3 mb-2" color="accent" mode="determinate"
+            [value]="spinnerValue">
+        </mat-progress-bar>
 
-        <button *ngIf="stepper.selectedIndex > 0" class="empty-space" color="primary" (click)="stepper.previous()"
-            mat-raised-button type="button">Back</button>
-        <button *ngIf="stepper.selectedIndex < 2" class="empty-space" color="primary" mat-raised-button
-            (click)="stepper.next()" type="button">Next</button>
-
-        <button *ngIf="stepper.selectedIndex == 2" class="empty-space" color="primary" mat-raised-button
-            (click)="analyze()" type="button">Analyze</button>
-        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
     </mat-dialog-actions>
 </div>
