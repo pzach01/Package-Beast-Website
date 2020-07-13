@@ -17,7 +17,7 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
   shipment: Shipment;
   items: Item[];
   groupedItemsByMasterIdAndContainer: Item[] = [];
-  containers: Container[];
+  containers: Container[] = [];
   nonEmptyContainers: Container[] = [];
 
   multiBinPack: boolean;
@@ -69,7 +69,7 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
         }, new Map).values()];
 
         console.log("result", this.groupedItemsByMasterIdAndContainer);
-
+        console.log("containerLength", this.containers.length)
         this.itemsDataSource.data = this.groupedItemsByMasterIdAndContainer;
         this.containersDataSource.data = this.containers;
       })

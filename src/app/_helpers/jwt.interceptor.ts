@@ -6,7 +6,7 @@ import { AuthenticationService } from '../_services';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(private authenticationService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
@@ -14,8 +14,10 @@ export class JwtInterceptor implements HttpInterceptor {
         let currentToken = this.authenticationService.currentTokenValue;
         if (currentToken) {
             request = request.clone({
-                setHeaders: { 
-                    Authorization: `Token ${currentToken.key}`
+                setHeaders: {
+                    Authorization: `Token ${currentToken.key}`,
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
                 }
             });
         }

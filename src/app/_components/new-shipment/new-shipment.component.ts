@@ -28,7 +28,7 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  spinTime = 30;
+  spinTime = 120;
   fastForwardSpinTime = 2;
   dwellTime = 1000; //ms
 

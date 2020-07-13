@@ -4,6 +4,7 @@ import { Container } from 'src/app/_models/container';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AuthenticationService } from 'src/app/_services';
 
 @Component({
   selector: 'app-containers-selection',
@@ -12,15 +13,17 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class ContainersSelectionComponent implements OnInit {
 
+  currentUser = this.authenticationService.currentUserValue;
   containers: Container[];
   dataSource;
   displayedColumns: string[] = ['select', 'sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
   selection = new SelectionModel<Container>(true, []);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private containersservice: ContainersService) { }
+  constructor(private containersservice: ContainersService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.containersservice.getAll().subscribe(containers => {
       this.containers = containers;
       this.dataSource = new MatTableDataSource(containers);

@@ -17,7 +17,7 @@ export class ReviewShipmentComponent implements OnChanges, OnInit {
   itemsDataSource = new MatTableDataSource(this.selectedItems);
   containersDataSource = new MatTableDataSource(this.selectedContainers);
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
-  containersDisplayedColumns: string[] = ['sku', 'description'];
+  containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
 
   constructor(private authenticationService: AuthenticationService) { }
 

@@ -35,9 +35,6 @@ export class ShipmentsComponent implements OnInit {
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
   }
   ngOnInit(): void {
-    this.router.events.subscribe((evt) => {
-      console.log("evt", evt)
-    })
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.shipmentsservice.getAll().subscribe(shipments => {
       console.log("ssss", shipments);
