@@ -92,6 +92,7 @@ export class NewShipmentComponent implements OnInit {
 
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
+    this.shipment.timeoutDuration = 30;
     console.log("containers from new shipment", this.shipment.containers)
     console.log("shipment from new shipment", this.shipment)
 

@@ -9,6 +9,7 @@ export class Shipment {
     public multiBinPack: boolean;
     public arrangementPossible: boolean;
     public timeout: boolean;
+    public timeoutDuration: number;
     public constructor(init?: Partial<Shipment>) {
         Object.assign(this, init);
     }
