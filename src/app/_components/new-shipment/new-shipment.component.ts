@@ -28,8 +28,8 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  spinTime = 30;
-  fastForwardSpinTime = 2;
+  timeoutDuration = 45;
+  fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
@@ -45,10 +45,10 @@ export class NewShipmentComponent implements OnInit {
 
   startSpinner() {
     this.interval = setInterval(() => {
-      this.spinnerValue = this.spinnerValue + 20 / this.spinTime
+      this.spinnerValue = this.spinnerValue + 20 / this.timeoutDuration
       console.log(this.spinnerValue)
       if (this.spinnerValue >= 100) {
-        this.pauseSpinner();
+        this.pauseSpinnerInterval();
         this.fastForwardSpinner();
       }
     }, 200)
@@ -60,15 +60,14 @@ export class NewShipmentComponent implements OnInit {
       this.dwellTime = this.dwellTime - 200
       console.log(this.spinnerValue)
       if (this.dwellTime < 0) {
-        this.pauseSpinner();
-        this.newShipmentRef.close()
+        this.pauseSpinnerInterval();
         this.loading = false;
-        shipment ? this.newShipmentRef.close(shipment) : this.newShipmentRef.close()
+        this.newShipmentRef.close(shipment)
       }
     }, 200)
   }
 
-  pauseSpinner() {
+  pauseSpinnerInterval() {
     clearInterval(this.interval);
   }
 
@@ -97,7 +96,7 @@ export class NewShipmentComponent implements OnInit {
     console.log("shipment from new shipment", this.shipment)
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
-      this.pauseSpinner()
+      this.pauseSpinnerInterval()
       this.fastForwardSpinner(shipment)
     })
   }
