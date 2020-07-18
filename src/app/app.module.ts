@@ -53,7 +53,8 @@ import { PaymentComponent } from './_components/payment/payment.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
@@ -92,8 +93,7 @@ const appRoutes: Routes = [
     component: BillingComponent,
     canActivate: [AuthGuard]
   },
-  { path: "*", redirectTo: '' },
-
+  { path: "*", redirectTo: '' }
 ];
 
 @NgModule({

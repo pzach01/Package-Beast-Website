@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
+            this.router.navigate([{ outlets: { primary: 'dashboard', view: 'items' } }]);
         }
     }
 
@@ -34,12 +34,10 @@ export class LoginComponent implements OnInit {
             password: ['', [this.loginFailValidator, Validators.required]],
         });
 
-
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.formControlValueChanged();
     }
-
 
     loginFailValidator(): void { }
 
@@ -86,7 +84,10 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 () => {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['items'] } }])
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'items' } }]);
+                    }
+
                     )
                 },
                 error => {
