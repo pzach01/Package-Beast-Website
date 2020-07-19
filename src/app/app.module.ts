@@ -93,6 +93,12 @@ const appRoutes: Routes = [
     component: BillingComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'payment',
+    outlet: 'view',
+    component: PaymentComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "*", redirectTo: '' }
 ];
 
