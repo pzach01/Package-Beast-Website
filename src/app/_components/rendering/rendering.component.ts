@@ -7,6 +7,8 @@ import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
 import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
 import { AuthenticationService } from 'src/app/_services';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-rendering',
@@ -15,16 +17,19 @@ import { AuthenticationService } from 'src/app/_services';
 })
 export class RenderingComponent implements OnInit, AfterViewInit {
   currentUser = this.authenticationService.currentUserValue;
-  vhPercent = .6
+  vhPercent = .75
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @Input() items: Item[];
   @Input() container: Container;
+  displayedColumns: string[] = ['index', 'sku', 'description'];
+
+
   clickedItem: Item;
   shipment: Shipment;
-
+  dataSource;
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  scene = new THREE.Scene();;
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / (this.vhPercent * window.innerHeight), 1, 10000);
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, (.67 * window.innerWidth) / (this.vhPercent * window.innerHeight), 1, 10000);
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
   controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -46,7 +51,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.step = this.items.length
     this.totalSteps = this.items.length;
+    this.dataSource = new MatTableDataSource(this.items);
+
     console.log("items from renderingComponent", this.items)
+
 
     //this.items = this.items.filter(item => item.container == this.container.id)
     console.log("container from renderingComponent", this.container)
@@ -58,7 +66,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.renderer.setSize(window.innerWidth, this.vhPercent * window.innerHeight);
+    this.renderer.setSize((.67 * window.innerWidth), this.vhPercent * window.innerHeight);
     this.renderer.setClearColor(0xffffff, 1);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
     this.generateItemCubes();
@@ -202,9 +210,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   setCameraAndControls() {
     const cameraZPosition = Math.max(this.container.yDim, this.container.xDim, this.container.zDim)
-    this.camera.position.z = 1.5 * cameraZPosition;
-    this.camera.position.x = this.container.yDim;
-    this.camera.position.y = this.container.xDim;
+    this.camera.position.z = 2.5 * cameraZPosition;
+    this.camera.position.x = 1.5 * this.container.yDim;
+    this.camera.position.y = 1.25 * this.container.xDim;
     this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
     this.controls.update();
   }
@@ -250,10 +258,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       var rect = event.target.getBoundingClientRect();
       var x = event.targetTouches[0].pageX - rect.left;
       var y = event.targetTouches[0].pageY - rect.top;
-      this.mouse.x = (x / window.innerWidth) * 2 - 1;
+      this.mouse.x = (x / (.67 * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (y / (this.vhPercent * window.innerHeight)) * 2 + 1;
     } else if (event.type == "mousedown") {
-      this.mouse.x = (event.offsetX / window.innerWidth) * 2 - 1;
+      this.mouse.x = (event.offsetX / (.67 * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }
 
@@ -264,6 +272,15 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     let intersects = this.raycaster.intersectObjects(this.shownMeshes);
     let clickedObject = intersects[0];
 
+    this.resetColors()
+
+    if (intersects.length != 0) {
+      this.highlightItem(clickedObject.object)
+      this.scrollToItem(this.clickedItem)
+    }
+  }
+
+  resetColors() {
     // set all items back to original color
     this.threeJSItemMeshes.forEach((threeJSitemMesh, index) => {
       threeJSitemMesh.material.color.set(this.itemColors[index % this.itemColors.length])
@@ -276,24 +293,40 @@ export class RenderingComponent implements OnInit, AfterViewInit {
         meshline.material.color.set("white")
       });
     })
+  }
 
+  highlightItem(threeJSObject) {
 
-    if (intersects.length != 0) {
-      // set clicked item to color
-      //@ts-ignore
-      clickedObject.object.material.color.set("#ff0000");
-      this.clickedItem = this.items.filter(item => item.id == +clickedObject.object.name)[0]
-      console.log("clicked item:", this.clickedItem)
-      console.log("userdata", clickedObject.object.userData)
+    // set clicked item to color
+    //@ts-ignore
+    threeJSObject.material.color.set("#ff0000");
+    this.clickedItem = this.items.filter(item => item.id == +threeJSObject.name)[0]
+    console.log("clicked item:", this.clickedItem)
+    console.log("userdata", threeJSObject.userData)
 
-      // set similar item colors to red
-      this.shownMeshes.forEach(shownMesh => {
-        if (shownMesh.userData.masterItemId == this.clickedItem.masterItemId) {
-          shownMesh.children.forEach(meshline => {
-            meshline.material.color.set("#ff0000")
-          });
-        }
-      });
+    // set similar item colors to red
+    this.shownMeshes.forEach(shownMesh => {
+      if (shownMesh.userData.masterItemId == this.clickedItem.masterItemId) {
+        shownMesh.children.forEach(meshline => {
+          meshline.material.color.set("#ff0000")
+        });
+      }
+    });
+
+  }
+
+  rowClicked(item) {
+    const selectedMesh = this.shownMeshes.filter(shownMesh => +shownMesh.userData.id == item.id)[0]
+    if (selectedMesh) {
+      console.log(selectedMesh)
+      this.resetColors()
+      this.highlightItem(selectedMesh)
+      this.scrollToItem(item)
     }
+  }
+
+  scrollToItem(scrollToItem) {
+    let index = this.items.findIndex((item) => item.id == scrollToItem.id)
+    document.getElementById('items-table').scrollTo(0, index * 48);
   }
 }

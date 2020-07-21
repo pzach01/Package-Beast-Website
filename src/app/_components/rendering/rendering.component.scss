@@ -1,0 +1,37 @@
+#rendererContainer {
+    display: block;
+    width: 66vw;
+    height: 75vh;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+
+.example-container {
+    height: 75vh;
+    width: 25vw;
+    overflow: auto;
+  }
+   
+  td.mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+  }
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+  
+  .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .highlightRow {
+      background-color: pink;
+  }
