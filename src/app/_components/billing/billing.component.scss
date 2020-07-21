@@ -1,3 +1,12 @@
+ul {
+  list-style: none;
+  padding-left: 0;
+  padding-top: 20px;
+  font-size: large;
+  font-weight: 400;
+  text-align: center;
+}​
+
 .pricing-card {
     max-width: 400px;
 }
@@ -12,27 +21,41 @@
 }
 
 .trial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(204, 186, 85);
   height: 200px;
-  border-radius: 10px;;
+  border-radius: 10px;
+  font-size: 50px;
 }
 
 .standard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: silver;
   height: 200px;
-  border-radius: 10px;;
-
+  border-radius: 10px;
+  font-size: 50px;
 }
 
 .premium {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: gold;
   height: 200px;
-  border-radius: 10px;;
+  border-radius: 10px;
+  font-size: 50px;
 }
 
 .beast-mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: purple;
   height: 200px;
-  border-radius: 10px;;
+  border-radius: 10px;
+  font-size: 50px;
 }
-  
