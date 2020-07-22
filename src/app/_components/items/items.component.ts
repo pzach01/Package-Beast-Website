@@ -14,6 +14,7 @@ import { AuthenticationService } from 'src/app/_services';
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
+  loading: boolean = true;
   items: Item[];
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
@@ -29,6 +30,7 @@ export class ItemsComponent implements OnInit {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
     this.itemsservice.getAll().subscribe(items => {
+      this.loading = false;
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
       console.log(items);

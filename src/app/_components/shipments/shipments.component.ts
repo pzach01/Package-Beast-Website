@@ -9,9 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 
-import { Location, ViewportScroller } from '@angular/common';
-import { Scroll, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-shipments',
@@ -20,6 +18,7 @@ import { filter } from 'rxjs/operators';
 })
 export class ShipmentsComponent implements OnInit {
 
+  loading: boolean = true;
   shipments: Shipment[];
   dataSource;
   displayedColumns: string[] = ['created'];
@@ -37,7 +36,7 @@ export class ShipmentsComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.shipmentsservice.getAll().subscribe(shipments => {
-      console.log("ssss", shipments);
+      this.loading = false;
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)

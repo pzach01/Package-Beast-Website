@@ -25,9 +25,9 @@ ul {
   justify-content: center;
   align-items: center;
   background-color: rgb(204, 186, 85);
-  height: 200px;
+  height: 125px;
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .standard {
@@ -35,9 +35,9 @@ ul {
   justify-content: center;
   align-items: center;
   background-color: silver;
-  height: 200px;
+  height: 125px;
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .premium {
@@ -45,17 +45,17 @@ ul {
   justify-content: center;
   align-items: center;
   background-color: gold;
-  height: 200px;
+  height: 125px;
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .beast-mode {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: purple;
-  height: 200px;
+  background-color: #00aeff;
+  height: 125px;
   border-radius: 10px;
-  font-size: 50px;
+  font-size: 25px;
 }

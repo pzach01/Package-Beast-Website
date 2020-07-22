@@ -14,6 +14,7 @@ import { AuthenticationService } from 'src/app/_services';
   styleUrls: ['./containers.component.scss']
 })
 export class ContainersComponent implements OnInit {
+  loading: boolean = true;
   containers: Container[];
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'volume'];
@@ -27,7 +28,7 @@ export class ContainersComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
-    this.containersservice.getAll().subscribe(containers => { this.containers = containers; this.dataSource = new MatTableDataSource(containers); console.log(containers); this.dataSource.sort = this.sort; })
+    this.containersservice.getAll().subscribe(containers => { this.loading = false; this.containers = containers; this.dataSource = new MatTableDataSource(containers); this.dataSource.sort = this.sort; })
   }
 
   openDialog(): void {

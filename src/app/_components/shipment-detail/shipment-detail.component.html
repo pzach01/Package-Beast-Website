@@ -1,3 +1,12 @@
+<ng-container *ngIf="timeout">
+    <div class="container justify-content-start mb-3">
+        <h6 class="pt-3">No shipment details found</h6>
+        <div class="pt-3">
+            <button mat-raised-button color="warn" (click)="delete()" type="button">Delete Shipment</button>
+        </div>
+    </div>
+</ng-container>
+
 <mat-tab-group>
     <ng-container *ngFor="let c of nonEmptyContainers; let i=index">
         <mat-tab>
@@ -157,10 +166,3 @@
         </mat-tab>
     </ng-container>
 </mat-tab-group>
-
-<div *ngIf="nonEmptyContainers.length == 0" class="container justify-content-start mb-3">
-    <h6 class="pt-3">No shipment details found</h6>
-    <div class="pt-3">
-        <button mat-raised-button color="warn" (click)="delete()" type="button">Delete Shipment</button>
-    </div>
-</div>

@@ -321,12 +321,11 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       console.log(selectedMesh)
       this.resetColors()
       this.highlightItem(selectedMesh)
-      this.scrollToItem(item)
     }
   }
 
   scrollToItem(scrollToItem) {
     let index = this.items.findIndex((item) => item.id == scrollToItem.id)
-    document.getElementById('items-table').scrollTo(0, index * 48);
+    document.getElementById('items-table-container').scrollTo(0, index * 48);
   }
 }

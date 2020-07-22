@@ -8,15 +8,16 @@
         </p>
     </div>
 
-    <!-- <button class="btn btn-primary" (click)="openDialog()">New Item</button> -->
+    <div class="d-flex justify-content-center" *ngIf="loading" style="height: 50vh;">
+        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
+    </div>
+    <ng-container *ngIf="!loading">
 
+        <mat-form-field class="full-width">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Date">
+        </mat-form-field>
 
-    <mat-form-field class="full-width">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Date">
-    </mat-form-field>
-
-    <div class="justify-content-center">
         <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="desc"
             class="mat-elevation-z8">
 
@@ -36,10 +37,5 @@
             <tr mat-row (click)="openShipmentDetail(shipment)" *matRowDef=" let shipment; columns: displayedColumns;">
             </tr>
         </table>
-    </div>
-
-
-
-
-
+    </ng-container>
 </div>

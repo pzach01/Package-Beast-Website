@@ -17,6 +17,7 @@ import { AuthenticationService } from 'src/app/_services';
 export class ShipmentDetailComponent implements OnInit, AfterViewInit {
   currentUser = this.authenticationService.currentUserValue;
   shipment: Shipment;
+  timeout: boolean = false;
   items: Item[];
   groupedItemsByMasterIdAndContainer: Item[] = [];
   containers: Container[] = [];
@@ -41,7 +42,9 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
       console.log("shipmentId", this.shipmentId)
       this.shipmentsService.getShipmentById(this.shipmentId).subscribe(shipment => {
+        console.log("hello, Peter", shipment)
         this.shipment = shipment;
+        this.timeout = shipment.timeout;
         this.containers = shipment.containers;
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
