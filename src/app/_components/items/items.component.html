@@ -20,11 +20,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="d-flex justify-content-center" *ngIf="loading" style="height: 50vh;">
-                <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
-            </div>
-
-            <div *ngIf="!loading" class="d-flex justify-content-center mb-3">
+            <div class="d-flex justify-content-center mb-3">
                 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
 
                     <!-- SKU Column -->
@@ -78,6 +74,9 @@
                         *matRowDef="let item; columns: displayedColumns;">
                     </tr>
                 </table>
+            </div>
+            <div class="d-flex justify-content-center pt-5" *ngIf="loading" style="height: 50vh;">
+                <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
             </div>
         </div>
 
