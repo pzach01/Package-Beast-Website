@@ -14,7 +14,7 @@ import { AuthenticationService } from 'src/app/_services';
   styleUrls: ['./shipment-detail.component.scss'],
   // encapsulation: ViewEncapsulation.None
 })
-export class ShipmentDetailComponent implements OnInit, AfterViewInit {
+export class ShipmentDetailComponent implements OnInit {
   currentUser = this.authenticationService.currentUserValue;
   shipment: Shipment;
   timeout: boolean = false;
@@ -42,7 +42,6 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
       console.log("shipmentId", this.shipmentId)
       this.shipmentsService.getShipmentById(this.shipmentId).subscribe(shipment => {
-        console.log("hello, Peter", shipment)
         this.shipment = shipment;
         this.timeout = shipment.timeout;
         this.containers = shipment.containers;
@@ -82,7 +81,6 @@ export class ShipmentDetailComponent implements OnInit, AfterViewInit {
       })
     })
   }
-  ngAfterViewInit() { }
 
   delete() {
     this.submitted = true;

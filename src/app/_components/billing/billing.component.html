@@ -1,6 +1,6 @@
 <div class="d-flex flex-row">
     <div class="pl-3 pt-3 card-container">
-        <mat-card class="pricing-card">
+        <mat-card class="pricing-card" [ngClass]="{'selectedSubscriptionType': subscriptionType === 'minimal'}">
             <mat-card-header>
                 <div mat-card-avatar class="pricing-card-header-image"></div>
                 <mat-card-title>
@@ -18,13 +18,20 @@
                 </ul>
             </mat-card-content>
             <mat-card-actions>
-                <button class="buy-now-button" color="accent" mat-raised-button>BUY NOW!</button>
+                <button *ngIf="subscriptionType != 'minimal'" class="buy-now-button" color="accent" mat-raised-button
+                    (click)="updateSubscriptionType('minimal')">
+                    BUY NOW!
+                </button>
+                <button disabled *ngIf="subscriptionType === 'minimal'" class="buy-now-button" color="accent"
+                    mat-raised-button>
+                    SUBSCRIBED
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>
 
     <div class="pl-3 pt-3 card-container">
-        <mat-card class="pricing-card">
+        <mat-card class="pricing-card" [ngClass]="{'selectedSubscriptionType': subscriptionType === 'standard'}">
             <mat-card-header>
                 <div mat-card-avatar class="pricing-card-header-image"></div>
                 <mat-card-title>
@@ -43,12 +50,19 @@
                 </ul>
             </mat-card-content>
             <mat-card-actions>
-                <button class="buy-now-button" color="accent" mat-raised-button>BUY NOW!</button>
+                <button *ngIf="subscriptionType != 'standard'" class="buy-now-button" color="accent" mat-raised-button
+                    (click)="updateSubscriptionType('standard')">
+                    BUY NOW!
+                </button>
+                <button disabled *ngIf="subscriptionType === 'standard'" class="buy-now-button" color="accent"
+                    mat-raised-button>
+                    SUBSCRIBED
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>
     <div class="pl-3 pt-3 card-container">
-        <mat-card class="pricing-card">
+        <mat-card class="pricing-card" [ngClass]="{'selectedSubscriptionType': subscriptionType === 'premium'}">
             <mat-card-header>
 
                 <div mat-card-avatar class="pricing-card-header-image"></div>
@@ -67,12 +81,19 @@
                 </ul>
             </mat-card-content>
             <mat-card-actions>
-                <button class="buy-now-button" color="accent" mat-raised-button>BUY NOW!</button>
+                <button *ngIf="subscriptionType != 'premium'" class="buy-now-button" color="accent" mat-raised-button
+                    (click)="updateSubscriptionType('premium')">
+                    BUY NOW!
+                </button>
+                <button disabled *ngIf="subscriptionType === 'premium'" class="buy-now-button" color="accent"
+                    mat-raised-button>
+                    SUBSCRIBED
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>
     <div class="p-3 card-container">
-        <mat-card class="pricing-card">
+        <mat-card class="pricing-card" [ngClass]="{'selectedSubscriptionType': subscriptionType === 'beastMode'}">
             <mat-card-header>
                 <div mat-card-avatar class="pricing-card-header-image"></div>
                 <mat-card-title>
@@ -91,7 +112,14 @@
                 </ul>
             </mat-card-content>
             <mat-card-actions>
-                <button class="buy-now-button" color="accent" mat-raised-button>BUY NOW!</button>
+                <button *ngIf="subscriptionType != 'beastMode'" class="buy-now-button" color="accent" mat-raised-button
+                    (click)="updateSubscriptionType('beastMode')">
+                    BUY NOW!
+                </button>
+                <button disabled *ngIf="subscriptionType === 'beastMode'" class="buy-now-button" color="accent"
+                    mat-raised-button>
+                    SUBSCRIBED
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>

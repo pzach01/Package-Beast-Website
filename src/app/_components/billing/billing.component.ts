@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/_services';
 
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./billing.component.scss']
 })
 export class BillingComponent implements OnInit {
+  currentUser = this.authenticationService.currentUserValue;
+  subscriptionType = this.currentUser.subscriptionType;
 
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+  }
+
+  updateSubscriptionType(subscriptionType: string) {
+    this.authenticationService.updateUser({
+      subscriptionType: subscriptionType
+    }).subscribe((r) => { (console.log(r)); this.subscriptionType = subscriptionType })
+  }
 }

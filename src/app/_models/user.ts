@@ -3,6 +3,7 @@
     email: string;
     first_name: string;
     last_name: string;
+    subscriptionType: string;
     units: string;
     dateTimeFormat: string;
     multiBinPack: boolean;
