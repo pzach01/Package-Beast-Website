@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
+import { AuthenticationService } from 'src/app/_services';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -10,6 +12,7 @@ import { StripeService, Elements, Element as StripeElement, ElementsOptions } fr
 })
 export class PaymentComponent implements OnInit {
 
+  subscriptionType: string;
   elements: Elements;
   card: StripeElement;
 
@@ -21,10 +24,17 @@ export class PaymentComponent implements OnInit {
   stripeTest: FormGroup;
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
-    private stripeService: StripeService) { }
+    private stripeService: StripeService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.subscriptionType = params['subscriptionType'];
+      console.log(this.subscriptionType)
+    })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
@@ -61,7 +71,11 @@ export class PaymentComponent implements OnInit {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
           console.log(result.token);
-        } else if (result.error) {
+          this.authenticationService.updateUser({
+            subscriptionType: this.subscriptionType
+          }).subscribe(() => this.router.navigate([{ outlets: { primary: 'dashboard', view: 'billing' } }]))
+        }
+        else if (result.error) {
           // Error creating the token
           console.log(result.error.message);
         }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class BillingComponent implements OnInit {
   subscriptionType = this.currentUser.subscriptionType;
 
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
@@ -21,6 +22,6 @@ export class BillingComponent implements OnInit {
   updateSubscriptionType(subscriptionType: string) {
     this.authenticationService.updateUser({
       subscriptionType: subscriptionType
-    }).subscribe((r) => { (console.log(r)); this.subscriptionType = subscriptionType })
+    }).subscribe((r) => { (console.log(r)); this.subscriptionType = subscriptionType; this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionType}` } }]); })
   }
 }
