@@ -35,7 +35,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   controls = new OrbitControls(this.camera, this.renderer.domElement);
   shipmentId: number;
   threeJSItemMeshes = [];
-  itemColors: string[] = ["#FFFF00", "#FB9404", "#ED0F71", "#742E8F", "#5987C5", "#02C3F3", "#00A55D", "#1B4279"];
+  itemColors: string[] = ["#FFFF00", "#FB9404", "#CCFFCC", "#742E8F", "#5987C5", "#02C3F3", "#00A55D", "#1B4279"];
   step: number;
   totalSteps: number;
   shownMeshes = [];
@@ -85,7 +85,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
       if (!this.currentUser.disablePreviousNextItemAnimation) {
-        if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2) {
+        if (hiddenMesh.position.y < 2 * this.container.xDim + hiddenMesh.userData.xDim / 2 + hiddenMesh.userData.xCenter) {
           hiddenMesh.position.y = hiddenMesh.position.y + .25 + this.currentUser.animationSpeed / 100
         } else {
           hiddenMesh.visible = false
@@ -223,6 +223,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.hiddenMeshes = []
     this.shownMeshes.forEach(mesh => mesh.position.y = mesh.userData.xCenter)
     this.step = this.totalSteps;
+
   }
 
   previousItem() {
@@ -237,6 +238,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.shownMeshes = this.hiddenMeshes
       this.hiddenMeshes = []
     }
+    this.rowClicked(this.items[this.step - 1])
+    this.scrollToItem(this.items[this.step - 1])
+
   }
 
   nextItem() {
@@ -249,6 +253,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.hiddenMeshes = this.shownMeshes
       this.shownMeshes = [this.hiddenMeshes.shift()]
     }
+    this.rowClicked(this.items[this.step - 1])
+    this.scrollToItem(this.items[this.step - 1])
+
   }
 
   onMouseOrTouch(event) {
@@ -305,17 +312,25 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     console.log("userdata", threeJSObject.userData)
 
     // set similar item colors to red
-    this.shownMeshes.forEach(shownMesh => {
-      if (shownMesh.userData.masterItemId == this.clickedItem.masterItemId) {
-        shownMesh.children.forEach(meshline => {
-          meshline.material.color.set("#ff0000")
-        });
-      }
-    });
+
+    // this.shownMeshes.forEach(shownMesh => {
+    //   if (shownMesh.userData.masterItemId == this.clickedItem.masterItemId) {
+    //     shownMesh.children.forEach(meshline => {
+    //       meshline.material.color.set("#ff0000")
+    //     });
+    //   }
+    // });
 
   }
 
-  rowClicked(item) {
+  rowClicked(item: Item, i?: number) {
+    if (i) {
+      for (let index = this.step; index < i + 1; index++) {
+        this.step++
+        const poppedMesh = this.hiddenMeshes.shift()
+        this.shownMeshes.push(poppedMesh)
+      }
+    }
     const selectedMesh = this.shownMeshes.filter(shownMesh => +shownMesh.userData.id == item.id)[0]
     if (selectedMesh) {
       console.log(selectedMesh)
@@ -324,8 +339,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  scrollToItem(scrollToItem) {
+  scrollToItem(scrollToItem: Item) {
     let index = this.items.findIndex((item) => item.id == scrollToItem.id)
-    document.getElementById('items-table-container').scrollTo(0, index * 48);
+    document.getElementById('table-container').scrollTo(0, index * 48);
   }
 }
