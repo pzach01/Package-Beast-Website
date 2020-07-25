@@ -15,7 +15,7 @@
             </ng-template>
             <app-rendering [items]="items" [container]="c"></app-rendering>
         </mat-tab>
-        <mat-tab *ngIf="i==containers.length-1">
+        <mat-tab *ngIf="i==nonEmptyContainers.length-1">
             <ng-template mat-tab-label>
                 Shipment Details
             </ng-template>

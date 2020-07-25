@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import * as THREE from 'three';
 import { Shipment } from 'src/app/_models/shipment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
@@ -58,8 +57,10 @@ export class ShipmentDetailComponent implements OnInit {
           })
           return containerContainsItem
         });
+        console.log("nonEmptyContainers", this.nonEmptyContainers)
 
-        //Many items. The code below groups the items by masterItemId and assigns a qty to the items
+
+        //The code below groups the items by masterItemId and assigns a qty to the items
         //so we can show qty in the table
 
         this.groupedItemsByMasterIdAndContainer = [...this.shipment.items.reduce((r, o) => {
