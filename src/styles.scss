@@ -159,8 +159,7 @@ a.mat-list-item.active {
 
 .tbl-container {
     // height: 70vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: auto;
   }
 
 .view-container {
