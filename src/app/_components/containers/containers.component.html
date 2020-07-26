@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="d-flex justify-content-between mb-3 mt-3">
+<div class="container d-flex flex-column overflow-hidden view-container">
+    <div class="d-flex flex-row justify-content-between mb-3 mt-3">
         <div></div>
         <h3>Shipping Containers</h3>
         <p class="flex-column d-flex justify-content-end">
@@ -10,14 +10,15 @@
 
     <!-- <button class="btn btn-primary" (click)="openDialog()">New Item</button> -->
 
+    <div class="d-flex flex-row">
+        <mat-form-field class="full-width">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" autocomplete="off"
+                placeholder="SKU, Description, or Dimension">
+        </mat-form-field>
+    </div>
 
-
-    <mat-form-field class="full-width">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="SKU, Description, or Dimension">
-    </mat-form-field>
-
-    <div class="d-flex justify-content-center mb-3">
+    <div class="tbl-container w-100">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
 
             <!-- SKU Column -->

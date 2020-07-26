@@ -36,8 +36,10 @@
                     <h3>{{firstName}}</h3>
                 </mat-toolbar>
             </div>
-            <div class="scrolly">
-                <router-outlet name="view"></router-outlet>
+            <div class="container-fluid d-flex flex-column overflow-hidden p-0" style="height: 92vh;">
+                <div class="flex-row flex-grow-1 p-0">
+                    <router-outlet name="view"></router-outlet>
+                </div>
             </div>
 
         </mat-sidenav-content>
