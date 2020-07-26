@@ -74,7 +74,7 @@
             </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
             <tr [class.newOrEdited]="container===newOrEditedContainer" mat-row
                 (click)="openEditContainerDialog(container)" *matRowDef=" let container; columns:
                         displayedColumns;">
