@@ -40,7 +40,6 @@ export class ShipmentsComponent implements OnInit {
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
-
     })
   }
   // ngAfterViewChecked(): void {

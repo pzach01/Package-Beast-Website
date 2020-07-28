@@ -1,24 +1,29 @@
-<div class="container d-flex flex-column overflow-hidden view-container">
-    <div class="d-flex flex-row justify-content-between mb-3 mt-3">
-        <div></div>
-        <h3>Shipping Containers</h3>
-        <button class="newButton" mat-raised-button color="accent" (click)="openDialog()" type="button">New
-            Container</button>
+<div class="view-container container d-flex flex-column overflow-hidden">
+    <div class="row no-shrink">
+        <div class="col">
+            <div class="d-flex mb-3 mt-3 justify-content-between">
+                <div></div>
+                <h3>Shipping Containers</h3>
+                <button class="newButton" mat-raised-button color="accent" (click)="openDialog()" type="button">New
+                    Container</button>
+            </div>
+        </div>
     </div>
 
     <!-- <button class="btn btn-primary" (click)="openDialog()">New Item</button> -->
 
-    <div class="d-flex flex-row">
-        <mat-form-field class="full-width">
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" autocomplete="off"
-                placeholder="SKU, Description, or Dimension">
-        </mat-form-field>
+    <div class="row no-shrink">
+        <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" autocomplete="off"
+                    placeholder="SKU, Description, or Dimension">
+            </mat-form-field>
+        </div>
     </div>
-    <div class="d-flex flex-row overflow-hidden">
-
+    <div class="d-flex overflow-hidden">
         <div class="tbl-container w-100">
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                 <!-- SKU Column -->
                 <ng-container matColumnDef="sku">

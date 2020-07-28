@@ -154,16 +154,18 @@ a.mat-list-item.active {
 @keyframes newOrEdited {
     0%   {background-color: white;}
     100%  {background-color: mat-color($app-primary, lighter);}
-    
 }
 
 .tbl-container {
-    // height: 70vh;
     overflow: auto;
-  }
+}
 
 .view-container {
     height: 92vh;
+}
+
+.no-shrink {
+    flex: 0 0 auto;
 }
 
 // To use color="success" in angular directive, do something like below

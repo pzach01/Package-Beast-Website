@@ -23,7 +23,7 @@
 
         <mat-sidenav-content>
             <div class="fixedy">
-                <mat-toolbar class="d-flex justify-content-between" color="primary" style="height:8vh;">
+                <mat-toolbar class="d-flex justify-content-between" color="primary" style="height: 8vh;">
                     <button mat-icon-button (click)="snav.toggle()">
                         <mat-icon>menu</mat-icon>
                     </button>
@@ -36,9 +36,12 @@
                     <h3>{{firstName}}</h3>
                 </mat-toolbar>
             </div>
+
             <div class="container-fluid d-flex flex-column overflow-hidden p-0" style="height: 92vh;">
-                <div class="flex-row flex-grow-1 p-0">
-                    <router-outlet name="view"></router-outlet>
+                <div class="row flex-grow-1 p-0">
+                    <div class="col">
+                        <router-outlet name="view"></router-outlet>
+                    </div>
                 </div>
             </div>
 
