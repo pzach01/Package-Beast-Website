@@ -17,7 +17,7 @@ export class ContainersComponent implements OnInit {
   loading: boolean = true;
   containers: Container[];
   dataSource;
-  displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'volume'];
+  displayedColumns: string[] = ['sku', 'description', 'yDim', 'zDim', 'xDim', 'volume'];
   currentUser = this.authenticationService.currentUserValue;
   newOrEditedContainer: Container;
 
