@@ -21,7 +21,8 @@
 
     <div class="d-flex overflow-hidden">
         <div class="tbl-container w-100">
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSortActive="created" matSort class="mat-elevation-z8"
+                matSortDirection="desc">
 
                 <!-- Created Column -->
                 <ng-container matColumnDef="created">
