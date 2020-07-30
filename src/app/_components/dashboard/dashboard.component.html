@@ -4,19 +4,19 @@
             fixedInViewport="true">
             <mat-nav-list>
                 <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'items' } }]">
-                    <fa-icon class="p-1" [icon]="faCube"></fa-icon> Inventory
+                    <fa-icon class="nav-icon p-1" [icon]="faCube"></fa-icon> Inventory
                 </a>
                 <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'containers' } }]">
-                    <fa-icon class="p-1" [icon]="faBoxOpen"></fa-icon>Containers
+                    <fa-icon class="nav-icon p-1" [icon]="faBoxOpen"></fa-icon>Containers
                 </a>
                 <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'shipments' } }]">
-                    <fa-icon class="p-1" [icon]="faTruck"></fa-icon>Shipments
+                    <fa-icon class="nav-icon p-1" [icon]="faTruck"></fa-icon>Shipments
                 </a>
                 <a mat-list-item routerLinkActive="active" [routerLink]="[{ outlets: { view: 'settings' } }]">
-                    <fa-icon class="p-1" [icon]="faCog"></fa-icon>Settings
+                    <fa-icon class="nav-icon p-1" [icon]="faCog"></fa-icon>Settings
                 </a>
                 <a mat-list-item routerLinkActive="active" (click)="logout()">
-                    <fa-icon class="p-1" [icon]="faSignOutAlt"></fa-icon>Logout
+                    <fa-icon class="nav-icon p-1" [icon]="faSignOutAlt"></fa-icon>Logout
                 </a>
             </mat-nav-list>
         </mat-sidenav>
@@ -24,15 +24,11 @@
         <mat-sidenav-content>
             <div class="fixedy">
                 <mat-toolbar class="d-flex justify-content-between" color="primary" style="height: 8vh;">
-                    <button mat-icon-button (click)="snav.toggle()">
-                        <mat-icon>menu</mat-icon>
+                    <button class="menu-button btn bg-transparent" (click)="snav.toggle()">
+                        <fa-icon class="light-icon p-1" size="2x" [icon]="faBars"></fa-icon>
                     </button>
-                    <img id="logo" src="../../../assets/PackageBeastWhiteNoLogo.png">
 
-                    <!-- <img class="jpg-icon" src="./Package Beast.png" style="max-width:    100%; min-width: 100%;"> -->
-                    <!-- <div class="iii"></div> -->
-                    <!-- <h1>Package Beast Beta 0.81</h1> -->
-                    <!-- <div class="empty-space"></div> -->
+                    <img id="logo" src="../../../assets/PackageBeastWhiteNoLogo.png">
                     <h3>{{firstName}}</h3>
                 </mat-toolbar>
             </div>

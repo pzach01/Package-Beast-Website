@@ -5,6 +5,9 @@ html, body { height: 100%; margin: 0; font-family: "Roboto", "Helvetica Neue", s
 button:focus {
     outline: none !important;
 }
+.btn:focus {
+    box-shadow: none;
+  }
 .debug {
     background-color: red;
 }
@@ -119,7 +122,7 @@ input:-webkit-autofill:active  {
     border-style: solid;
     border-color: mat-color($app-primary);
     border-width: 0 1px 0 0;
-    background-color: lightgray;
+    background-color: rgb(211, 210, 210);
 }
 .fixActionRow {
     height: 100%;
@@ -166,6 +169,16 @@ a.mat-list-item.active {
 
 .no-shrink {
     flex: 0 0 auto;
+}
+
+.light-icon {
+    color: white;
+    outline: transparent;
+}
+
+.nav-icon {
+    color: black;
+    outline: transparent;
 }
 
 // To use color="success" in angular directive, do something like below

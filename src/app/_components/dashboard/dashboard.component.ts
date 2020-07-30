@@ -3,7 +3,7 @@ import { User } from 'src/app/_models'
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 import { Shipment } from 'src/app/_models/shipment';
-import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   faCog = faCog;
   faTruck = faTruck;
   faSignOutAlt = faSignOutAlt
+  faBars = faBars;
   firstName = this.currentUser.first_name
 
   constructor(
