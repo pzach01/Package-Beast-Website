@@ -64,6 +64,14 @@ export class AuthenticationService {
         this.currentTokenSubject.next(null);
     }
 
+    passwordReset(email) {
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/reset/`, { email })
+            .pipe(map(message => {
+                console.log("your message:", message);
+                return message;
+            }));
+    }
+
     getUser() {
         return this.http.get<User>(`${Constants.API_BASE_URI}/accounts/user/`)
             .pipe(map(user => {

@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms'
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes, PRIMARY_OUTLET } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor, UnitsPipe } from './_helpers';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -51,12 +51,19 @@ import { VolumeUnitsPipe } from './_helpers';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentComponent } from './_components/payment/payment.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ResetPasswordComponent } from './_components/reset-password/reset-password.component';
+import { ResetPasswordDoneComponent } from './_components/reset-password-done/reset-password-done.component';
+import { ResetPasswordConfirmComponent } from './_components/reset-password-confirm/reset-password-confirm.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full' },
+  { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full' },
+  { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full' },
+
   {
     path: 'shipments',
     outlet: 'view',
@@ -126,7 +133,10 @@ const appRoutes: Routes = [
     BillingComponent,
     UnitsPipe,
     VolumeUnitsPipe,
-    PaymentComponent],
+    PaymentComponent,
+    ResetPasswordComponent,
+    ResetPasswordDoneComponent,
+    ResetPasswordConfirmComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
