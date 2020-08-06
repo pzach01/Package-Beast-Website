@@ -54,6 +54,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ResetPasswordComponent } from './_components/reset-password/reset-password.component';
 import { ResetPasswordDoneComponent } from './_components/reset-password-done/reset-password-done.component';
 import { ResetPasswordConfirmComponent } from './_components/reset-password-confirm/reset-password-confirm.component';
+import { ResetPasswordCompleteComponent } from './_components/reset-password-complete/reset-password-complete.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full' },
   { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full' },
+  { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full' },
   { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full' },
 
   {
@@ -136,7 +138,8 @@ const appRoutes: Routes = [
     PaymentComponent,
     ResetPasswordComponent,
     ResetPasswordDoneComponent,
-    ResetPasswordConfirmComponent],
+    ResetPasswordConfirmComponent,
+    ResetPasswordCompleteComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

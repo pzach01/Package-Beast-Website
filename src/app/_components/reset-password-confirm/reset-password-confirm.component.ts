@@ -46,7 +46,7 @@ export class ResetPasswordConfirmComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
-          this.router.navigate(['./', { outlets: { primary: 'login', view: null } }])
+          this.router.navigate(['./', { outlets: { primary: 'reset-password/complete', view: null } }])
         },
         error => {
           this.alertService.error(error);
