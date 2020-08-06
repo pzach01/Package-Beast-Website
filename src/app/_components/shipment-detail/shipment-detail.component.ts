@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Shipment } from 'src/app/_models/shipment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';

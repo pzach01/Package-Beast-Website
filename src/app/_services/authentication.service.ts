@@ -64,8 +64,16 @@ export class AuthenticationService {
         this.currentTokenSubject.next(null);
     }
 
-    passwordReset(email) {
+    sendPasswordResetEmail(email) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/reset/`, { email })
+            .pipe(map(message => {
+                console.log("your message:", message);
+                return message;
+            }));
+    }
+
+    resetPassword(uid, token, new_password1, new_password2) {
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/reset/confirm/`, { uid, token, new_password1, new_password2 })
             .pipe(map(message => {
                 console.log("your message:", message);
                 return message;

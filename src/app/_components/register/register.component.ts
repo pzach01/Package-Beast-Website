@@ -15,7 +15,6 @@ export class RegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService,
         private alertService: AlertService
     ) {
         // redirect to home if already logged in

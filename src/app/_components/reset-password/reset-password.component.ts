@@ -75,7 +75,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.passwordReset(this.passwordResetForm.get('email').value)
+    this.authenticationService.sendPasswordResetEmail(this.passwordResetForm.get('email').value)
       .pipe(first())
       .subscribe(
         () => {
