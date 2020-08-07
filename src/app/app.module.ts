@@ -55,6 +55,7 @@ import { ResetPasswordComponent } from './_components/reset-password/reset-passw
 import { ResetPasswordDoneComponent } from './_components/reset-password-done/reset-password-done.component';
 import { ResetPasswordConfirmComponent } from './_components/reset-password-confirm/reset-password-confirm.component';
 import { ResetPasswordCompleteComponent } from './_components/reset-password-complete/reset-password-complete.component';
+import { ChangePasswordComponent } from './_components/change-password/change-password.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -108,6 +109,12 @@ const appRoutes: Routes = [
     component: PaymentComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'change-password',
+    outlet: 'view',
+    component: ChangePasswordComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "*", redirectTo: '' }
 ];
 
@@ -139,7 +146,8 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     ResetPasswordDoneComponent,
     ResetPasswordConfirmComponent,
-    ResetPasswordCompleteComponent],
+    ResetPasswordCompleteComponent,
+    ChangePasswordComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

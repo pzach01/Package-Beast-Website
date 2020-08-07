@@ -1,60 +1,67 @@
-﻿<div class="bricks d-flex justify-content-center">
-  <div class="d-flex full-width">
-    <div class="full-width p-5">
-      <mat-card class="p-5 text-center">
-        <h1>
-          <img id="logo" src="../../../assets/PackageBeast.png" alt="pbLogo">
-          beta 1.15
-        </h1>
-        <br><br>
-        <h1>Login</h1>
+﻿<div class="bricks justify-content-center overflow-auto">
+  <div class="full-width p-5">
+    <mat-card class="pt-5 px-5 text-center">
+      <h1>
+        <img id="logo" src="../../../assets/PackageBeast.png" alt="pbLogo">
+        beta 1.16
+      </h1>
+      <br><br>
+      <h1>Login</h1>
 
-        <mat-card-header class="d-flex justify-content-center">
-          <!-- <div mat-card-sm-image class="peace-sign"></div> -->
+      <mat-card-header class="d-flex justify-content-center">
+        <!-- <div mat-card-sm-image class="peace-sign"></div> -->
 
-          <mat-card-title></mat-card-title>
-        </mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div>
-            <mat-form-field class="full-width">
-              <mat-label>Email</mat-label>
-              <input type="email" autocomplete="email" matInput [formControl]="loginForm.get('email')"
-                placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="loginForm.get('email').hasError('pattern')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="loginForm.get('email').hasError('required')">
-                Email is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="loginForm.get('email').hasError('loginFail')">
-                Incorrect email or password
-              </mat-error>
-            </mat-form-field>
-            <br />
-            <mat-form-field class="full-width">
-              <mat-label>Password</mat-label>
-              <input type="password" matInput [formControl]="loginForm.get('password')" placeholder="password">
-              <mat-error *ngIf="loginForm.get('password').hasError('required')">
-                Password is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="loginForm.get('password').hasError('loginFail')">
-                Incorrect email or password
-              </mat-error>
-            </mat-form-field>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" autocomplete="email" matInput [formControl]="loginForm.get('email')"
+              placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="loginForm.get('email').hasError('pattern')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('email').hasError('loginFail')">
+              Incorrect email or password
+            </mat-error>
+          </mat-form-field>
+          <br />
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [formControl]="loginForm.get('password')" placeholder="password">
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('password').hasError('loginFail')">
+              Incorrect email or password
+            </mat-error>
+          </mat-form-field>
 
-            <mat-card-actions class="d-flex justify-content-left">
-              <button color="accent" mat-raised-button [disabled]="loading">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Login
-              </button>
-              <div class="empty-space"></div>
-              <a routerLink="/register" class="btn btn-link">Register</a>
-              <a routerLink="/reset-password" class="btn btn-link">Forgot Password?</a>
-            </mat-card-actions>
-          </div>
-        </form>
-      </mat-card>
-    </div>
+          <mat-card-actions>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-3 col-sm-12 pb-3 px-0">
+                  <button class="full-width" color="accent" mat-raised-button [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Login
+                  </button>
+                </div>
+                <div class="col-md-5 col-sm-0"></div>
+                <div class="col-md-2 col-sm-6 text-md-right">
+                  <a routerLink="/register" class="btn btn-link">Register</a>
+                </div>
+                <div class="col-md-2 col-sm-6 text-md-right">
+                  <a routerLink="/reset-password" class="btn btn-link">Forgot Password?</a>
+                </div>
+              </div>
+            </div>
+          </mat-card-actions>
+        </div>
+      </form>
+    </mat-card>
   </div>
-</div>

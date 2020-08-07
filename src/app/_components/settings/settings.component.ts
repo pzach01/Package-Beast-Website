@@ -27,6 +27,11 @@ export class SettingsComponent implements OnInit {
   goToBilling() {
     this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
   }
+
+  goToChangePassword() {
+    this.router.navigate(['./', { outlets: { view: ['change-password'] } }]);
+  }
+
   unsaved() {
     this.saveButtonText = "Make sure to save"
   }
