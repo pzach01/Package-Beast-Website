@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, AlertService } from 'src/app/_services';
 import { first } from 'rxjs/operators';
+import { MustMatch } from '../../_helpers/must-match'
+
 
 
 @Component({
@@ -28,6 +30,8 @@ export class ResetPasswordConfirmComponent implements OnInit {
     this.resetPasswordForm = this.formBuilder.group({
       new_password1: ['', [Validators.required, Validators.minLength(8)]],
       new_password2: ['', [Validators.required, Validators.minLength(8)]],
+    }, {
+      validator: MustMatch('new_password1', 'new_password2')
     });
   }
 

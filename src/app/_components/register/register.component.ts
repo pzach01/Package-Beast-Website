@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { MustMatch } from '../../_helpers/must-match'
 
 import { AlertService, UserService, AuthenticationService } from '../../_services';
 
@@ -31,6 +32,8 @@ export class RegisterComponent implements OnInit {
             last_name: ['', Validators.required],
             password1: ['', [Validators.required, Validators.minLength(8)]],
             password2: ['', [Validators.required, Validators.minLength(8)]],
+        }, {
+            validator: MustMatch('password1', 'password2')
         });
     }
 
@@ -56,6 +59,7 @@ export class RegisterComponent implements OnInit {
                     this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['items'] } }]))
                 },
                 error => {
+                    console.log("eee", error)
                     this.alertService.error(error);
                     this.loading = false;
                 });

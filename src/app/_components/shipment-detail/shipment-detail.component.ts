@@ -23,6 +23,7 @@ export class ShipmentDetailComponent implements OnInit {
   nonEmptyContainers: Container[] = [];
 
   multiBinPack: boolean;
+  arrangementPossible: boolean;
   itemsDataSource = new MatTableDataSource(this.items);
   containersDataSource = new MatTableDataSource(this.containers);
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
@@ -46,6 +47,7 @@ export class ShipmentDetailComponent implements OnInit {
         this.containers = shipment.containers;
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
+        this.arrangementPossible = shipment.arrangementPossible
 
         //the code below filters out empty containers so we don't render them
         this.nonEmptyContainers = this.containers.filter((container) => {
