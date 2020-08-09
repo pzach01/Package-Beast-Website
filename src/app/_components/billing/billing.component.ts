@@ -22,6 +22,6 @@ export class BillingComponent implements OnInit {
   updateSubscriptionType(subscriptionType: string) {
     this.authenticationService.updateUser({
       subscriptionType: subscriptionType
-    }).subscribe((r) => { (console.log(r)); this.subscriptionType = subscriptionType; this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionType}` } }]); })
+    }).subscribe((r) => { this.subscriptionType = subscriptionType; this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionType}` } }]); })
   }
 }

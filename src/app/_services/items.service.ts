@@ -19,12 +19,10 @@ export class ItemsService {
   }
 
   putItem(item: Item): Observable<Item> {
-    console.log("item from item service", item)
     return this.http.put<Item>(`${Constants.API_BASE_URI}/items/${item.id}/`, item);
   }
 
   deleteItem(item: Item): Observable<Item> {
-    console.log(item)
     return this.http.delete<Item>(`${Constants.API_BASE_URI}/items/${item.id}/`);
   }
 }

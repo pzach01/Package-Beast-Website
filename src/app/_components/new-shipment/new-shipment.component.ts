@@ -23,7 +23,7 @@ export class NewShipmentComponent implements OnInit {
 
   selectedItems: Item[];
   selectedContainers: Container[];
-  multiBinPack: boolean;
+  multiBinPack: boolean = false;
   shipment: Shipment = new Shipment();
   loading = false;
   interval;
@@ -46,7 +46,6 @@ export class NewShipmentComponent implements OnInit {
   startSpinner() {
     this.interval = setInterval(() => {
       this.spinnerValue = this.spinnerValue + 20 / this.timeoutDuration
-      console.log(this.spinnerValue)
       if (this.spinnerValue >= 100) {
         this.pauseSpinnerInterval();
         this.fastForwardSpinner();
@@ -58,7 +57,6 @@ export class NewShipmentComponent implements OnInit {
     this.spinnerValue = 100;
     this.interval = setInterval(() => {
       this.dwellTime = this.dwellTime - 200
-      console.log(this.spinnerValue)
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
@@ -82,7 +80,6 @@ export class NewShipmentComponent implements OnInit {
 
     let shipmentItems: Item[] = []
     this.selectedItems.forEach(selectedItem => {
-      console.log("qty", selectedItem.qty)
       for (let index = 0; index < selectedItem.qty; index++) {
         shipmentItems.push(selectedItem)
       }
@@ -92,8 +89,6 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
-    console.log("containers from new shipment", this.shipment.containers)
-    console.log("shipment from new shipment", this.shipment)
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval()

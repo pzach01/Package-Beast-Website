@@ -53,14 +53,9 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.totalSteps = this.items.length;
     this.dataSource = new MatTableDataSource(this.items);
 
-    console.log("items from renderingComponent", this.items)
-
-
     //this.items = this.items.filter(item => item.container == this.container.id)
-    console.log("container from renderingComponent", this.container)
     this.route.params.subscribe(params => {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
-      console.log("shipmentId", this.shipmentId)
     })
 
   }
@@ -114,7 +109,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     var axesHelper = new THREE.AxesHelper(30);
     this.scene.add(axesHelper)
     this.items.forEach((item, index) => {
-      console.log("shippy", item)
       const geometry = new THREE.BoxGeometry(item.yDim, item.xDim, item.zDim);
       var randomColor = this.itemColors[index % this.itemColors.length]
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
@@ -259,8 +253,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   onMouseOrTouch(event) {
-    console.log(event.type);
-
     if (event.type == "touchstart") {
       var rect = event.target.getBoundingClientRect();
       var x = event.targetTouches[0].pageX - rect.left;
@@ -272,7 +264,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }
 
-    console.log(this.mouse)
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     // calculate objects intersecting the picking ray
@@ -308,8 +299,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     //@ts-ignore
     threeJSObject.material.color.set("#ff0000");
     this.clickedItem = this.items.filter(item => item.id == +threeJSObject.name)[0]
-    console.log("clicked item:", this.clickedItem)
-    console.log("userdata", threeJSObject.userData)
 
     // set similar item colors to red
 
@@ -333,7 +322,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     }
     const selectedMesh = this.shownMeshes.filter(shownMesh => +shownMesh.userData.id == item.id)[0]
     if (selectedMesh) {
-      console.log(selectedMesh)
       this.resetColors()
       this.highlightItem(selectedMesh)
     }

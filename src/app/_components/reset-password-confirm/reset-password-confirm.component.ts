@@ -25,7 +25,6 @@ export class ResetPasswordConfirmComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.uid = params['uid'];
       this.token = params['token'];
-      console.log("id:", this.uid, "token", this.token)
     })
     this.resetPasswordForm = this.formBuilder.group({
       new_password1: ['', [Validators.required, Validators.minLength(8)]],

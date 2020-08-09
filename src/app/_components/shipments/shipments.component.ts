@@ -30,7 +30,6 @@ export class ShipmentsComponent implements OnInit {
   constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService, private viewportScroller: ViewportScroller) { }
 
   transformDate(date) {
-    console.log("date:", this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase());
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
   }
   ngOnInit(): void {
@@ -57,7 +56,6 @@ export class ShipmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
         this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id] } }]);
-        console.log("new shipment", newShipment);
       }
     });
   }

@@ -38,7 +38,6 @@ export class SettingsComponent implements OnInit {
 
   save() {
     this.saveButtonText = "saving"
-    console.log(this.multiBinPack)
     this.authenticationService.updateUser({
       units: this.units, dateTimeFormat: this.dateTimeFormat,
       multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,

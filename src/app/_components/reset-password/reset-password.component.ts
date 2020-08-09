@@ -45,8 +45,7 @@ export class ResetPasswordComponent implements OnInit {
 
   formControlValueChanged() {
     this.passwordResetForm.get('email').valueChanges.subscribe(
-      (abc) => {
-        console.log(abc)
+      () => {
         this.removeError(this.passwordResetForm.controls['email'], "passwordResetFail")
       });
   }

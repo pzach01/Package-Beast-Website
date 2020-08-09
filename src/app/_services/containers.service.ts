@@ -19,12 +19,10 @@ export class ContainersService {
   }
 
   putContainer(container: Container): Observable<Container> {
-    console.log(container)
     return this.http.put<Container>(`${Constants.API_BASE_URI}/containers/${container.id}/`, container);
   }
 
   deleteItem(container: Container): Observable<Container> {
-    console.log(container)
     return this.http.delete<Container>(`${Constants.API_BASE_URI}/containers/${container.id}/`);
   }
 }

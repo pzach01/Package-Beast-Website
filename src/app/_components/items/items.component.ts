@@ -33,7 +33,6 @@ export class ItemsComponent implements OnInit {
       this.loading = false;
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
-      console.log(items);
       this.dataSource.sort = this.sort;
     })
   }

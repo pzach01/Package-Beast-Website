@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
                     this.authenticationService.getUser().pipe(first()).subscribe(() => this.router.navigate(['./', { outlets: { view: ['items'] } }]))
                 },
                 error => {
-                    console.log("eee", error)
                     this.alertService.error(error);
                     this.loading = false;
                 });

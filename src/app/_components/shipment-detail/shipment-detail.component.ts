@@ -40,7 +40,6 @@ export class ShipmentDetailComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
-      console.log("shipmentId", this.shipmentId)
       this.shipmentsService.getShipmentById(this.shipmentId).subscribe(shipment => {
         this.shipment = shipment;
         this.timeout = shipment.timeout;
@@ -59,7 +58,6 @@ export class ShipmentDetailComponent implements OnInit {
           })
           return containerContainsItem
         });
-        console.log("nonEmptyContainers", this.nonEmptyContainers)
 
 
         //The code below groups the items by masterItemId and assigns a qty to the items
@@ -77,8 +75,6 @@ export class ShipmentDetailComponent implements OnInit {
           return r.set(key, item);
         }, new Map).values()];
 
-        console.log("result", this.groupedItemsByMasterIdAndContainer);
-        console.log("containerLength", this.containers.length)
         this.itemsDataSource.data = this.groupedItemsByMasterIdAndContainer;
         this.containersDataSource.data = this.containers;
       })

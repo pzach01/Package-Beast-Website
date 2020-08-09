@@ -60,7 +60,6 @@ export class NewContainerComponent implements OnInit {
 
     this.newContainer = new Container(this.newContainerForm.value)
     this.loading = true;
-    console.log("units:", this.units)
     this.containersService.postContainer(this.newContainer).subscribe(newContainer => this.newContainerRef.close(newContainer))
   }
 

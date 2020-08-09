@@ -33,7 +33,6 @@ export class PaymentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.subscriptionType = params['subscriptionType'];
-      console.log(this.subscriptionType)
     })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
@@ -70,14 +69,12 @@ export class PaymentComponent implements OnInit {
         if (result.token) {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
-          console.log(result.token);
           this.authenticationService.updateUser({
             subscriptionType: this.subscriptionType
           }).subscribe(() => this.router.navigate([{ outlets: { primary: 'dashboard', view: 'billing' } }]))
         }
         else if (result.error) {
           // Error creating the token
-          console.log(result.error.message);
         }
       });
   }

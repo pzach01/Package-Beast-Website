@@ -43,14 +43,12 @@ export class LoginComponent implements OnInit {
 
     formControlValueChanged() {
         this.loginForm.get('email').valueChanges.subscribe(
-            (abc) => {
-                console.log(abc)
+            () => {
                 this.removeError(this.loginForm.controls['email'], "loginFail")
                 this.removeError(this.loginForm.controls['password'], "loginFail")
             });
         this.loginForm.get('password').valueChanges.subscribe(
-            (abc) => {
-                console.log(abc)
+            () => {
                 this.removeError(this.loginForm.controls['email'], "loginFail")
                 this.removeError(this.loginForm.controls['password'], "loginFail")
             });

@@ -30,11 +30,8 @@ export class AuthenticationService {
     }
 
     register(email, first_name, last_name, password1, password2) {
-        console.log("login,hi")
-        console.log(email, first_name, last_name, password1, password2)
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
             .pipe(map(token => {
-                console.log("your token:", token);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentToken', JSON.stringify(token));
                 this.currentTokenSubject.next(token);
@@ -43,11 +40,8 @@ export class AuthenticationService {
     }
 
     login(email, password) {
-        console.log("login,hi")
-        console.log(email, password)
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/login/`, { email, password })
             .pipe(map(token => {
-                console.log("your token:", token);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentToken', JSON.stringify(token));
                 this.currentTokenSubject.next(token);
@@ -67,7 +61,6 @@ export class AuthenticationService {
     sendPasswordResetEmail(email) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/reset/`, { email })
             .pipe(map(message => {
-                console.log("your message:", message);
                 return message;
             }));
     }
@@ -75,7 +68,6 @@ export class AuthenticationService {
     resetPassword(uid, token, new_password1, new_password2) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/reset/confirm/`, { uid, token, new_password1, new_password2 })
             .pipe(map(message => {
-                console.log("your message:", message);
                 return message;
             }));
     }
@@ -96,7 +88,6 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(u));
                 this.currentUserSubject.next(u);
-                console.log(u)
                 return u;
             }));
     }

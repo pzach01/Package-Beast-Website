@@ -21,7 +21,7 @@ export class ItemsSelectionComponent implements OnInit {
   constructor(private itemsservice: ItemsService) { }
 
   ngOnInit(): void {
-    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); console.log(items); this.dataSource.sort = this.sort; })
+    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); this.dataSource.sort = this.sort; })
   }
 
   applyFilter(event: Event) {
