@@ -1,0 +1,9 @@
+<ng-container *ngIf="accountStatus!='active'">
+    <p>Confirming email address...</p>
+    <p>Please wait</p>
+</ng-container>
+
+<ng-container *ngIf="accountStatus=='active'">
+    <p>Email address confirmed! Click link below to login:</p>
+    <a routerLink="/login" class="btn btn-link">Login!</a>
+</ng-container>

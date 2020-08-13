@@ -60,6 +60,7 @@ export class NewShipmentComponent implements OnInit {
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
+        console.log("new shipment", shipment)
         this.newShipmentRef.close(shipment)
       }
     }, 200)

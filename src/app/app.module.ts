@@ -56,6 +56,8 @@ import { ResetPasswordDoneComponent } from './_components/reset-password-done/re
 import { ResetPasswordConfirmComponent } from './_components/reset-password-confirm/reset-password-confirm.component';
 import { ResetPasswordCompleteComponent } from './_components/reset-password-complete/reset-password-complete.component';
 import { ChangePasswordComponent } from './_components/change-password/change-password.component';
+import { ConfirmEmailComponent } from './_components/confirm-email/confirm-email.component';
+import { RegisterDoneComponent } from './_components/register-done/register-done.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -66,6 +68,8 @@ const appRoutes: Routes = [
   { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full' },
   { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full' },
   { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full' },
+  { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full' },
+  { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full' },
 
   {
     path: 'shipments',
@@ -147,7 +151,9 @@ const appRoutes: Routes = [
     ResetPasswordDoneComponent,
     ResetPasswordConfirmComponent,
     ResetPasswordCompleteComponent,
-    ChangePasswordComponent],
+    ChangePasswordComponent,
+    ConfirmEmailComponent,
+    RegisterDoneComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

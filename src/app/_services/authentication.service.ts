@@ -72,6 +72,13 @@ export class AuthenticationService {
             }));
     }
 
+    confirmEmail(key: string) {
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/verify-email/`, { key })
+            .pipe(map(message => {
+                return message;
+            }));
+    }
+
     getUser() {
         return this.http.get<User>(`${Constants.API_BASE_URI}/accounts/user/`)
             .pipe(map(user => {
