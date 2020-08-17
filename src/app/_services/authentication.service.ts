@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { User } from '../_models';
 import { Token } from '../_models';
 import { Constants } from 'src/app/_models/constants'
@@ -31,12 +31,9 @@ export class AuthenticationService {
 
     register(email, first_name, last_name, password1, password2) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
-            .pipe(map(token => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentToken', JSON.stringify(token));
-                this.currentTokenSubject.next(token);
-                return token;
-            }));
+            .pipe(map(r => {
+                return r;
+            }))
     }
 
     login(email, password) {

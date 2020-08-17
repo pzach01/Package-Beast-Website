@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { MustMatch } from '../../_helpers/must-match'
 
@@ -11,6 +11,8 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    serverEmailError: string = "";
+    serverPasswordError: string = "";
 
     constructor(
         private formBuilder: FormBuilder,
@@ -60,8 +62,22 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/register-done'])
                 },
                 error => {
-                    this.alertService.error(error);
                     this.loading = false;
+                    console.log("errror from register componenet", error)
+                    if (error.email) {
+                        error.email.forEach(emailError => {
+                            this.registerForm.controls['email'].setErrors({ registerFail: true });
+                            this.serverEmailError = emailError;
+                        });
+                    }
+                    if (error.password1) {
+                        error.password1.forEach(passwordError => {
+                            this.registerForm.controls['password1'].setErrors({ registerFail: true });
+                            this.serverPasswordError = passwordError;
+                        });
+                    }
+                    // this.alertService.error(error);
+                    // this.loading = false;
                 });
     }
 }
