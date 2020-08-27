@@ -187,7 +187,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     MatSliderModule,
     MatProgressBarModule,
-    NgxStripeModule.forRoot('pk_test_R4nhryC8mNzBKx7xVmqHvMaP00nJyQoTdD'),
+    NgxStripeModule.forRoot('pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH'),
   ],
   entryComponents: [
     NewItemComponent

@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
 import { AuthenticationService } from 'src/app/_services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaymentMethodData } from 'ngx-stripe/lib/interfaces/payment-intent'
+import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 
 @Component({
   selector: 'app-payment',
@@ -28,7 +30,9 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private stripeService: StripeService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private subscriptonsService: SubscriptionsService
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -61,22 +65,37 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  buy() {
+  createPaymentMethod() {
     const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card, { name })
-      .subscribe(result => {
-        if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          this.authenticationService.updateUser({
-            subscriptionType: this.subscriptionType
-          }).subscribe(() => this.router.navigate([{ outlets: { primary: 'dashboard', view: 'billing' } }]))
+
+    const payment_intent_data: PaymentMethodData = {
+      billing_details: {
+        name: name,
+        address: {
+          city: "Cedar Rapids",
+          country: "US",
+          line1: "1349 Hertz Drive SE",
+          line2: "",
+          postal_code: "52403",
+          state: "IA"
         }
-        else if (result.error) {
-          // Error creating the token
-        }
-      });
+      },
+      metadata: []
+    }
+
+    this.stripeService.createPaymentMethod("card", this.card, payment_intent_data).subscribe(result => {
+      if (result.error) {
+        console.error('got stripe error', result.error);
+      } else {
+        console.log('Create payment method succeeded', result);
+        this.createSubscription("cus_HtwLDvT3Oskeg8", result.paymentMethod.id, "price_1HBmKWJWFTMXIZUolAQQqNQ9")
+      }
+    });
+
+  }
+
+  createSubscription(customerId, paymentMethodId, priceId) {
+    this.subscriptonsService.createSubscription(customerId, paymentMethodId, priceId).subscribe(result => console.log("subscription result", result))
   }
 
 }
