@@ -11,7 +11,15 @@ export class SubscriptionsService {
 
   constructor(private http: HttpClient) { }
 
-  createSubscription(customerId: string, paymentMethodId: string, priceId: string): Observable<any> {
-    return this.http.post<any>(`${Constants.API_BASE_URI}/payment/createStripeSubscription/`, { customerId, paymentMethodId, priceId });
+  retrySubscription(paymentMethodId: string): Observable<any> {
+    return this.http.post<any>(`${Constants.API_BASE_URI}/payment/retryStripeSubscription/`, { paymentMethodId });
+  }
+
+  createSubscription(paymentMethodId: string, priceId: string): Observable<any> {
+    return this.http.post<any>(`${Constants.API_BASE_URI}/payment/createStripeSubscription/`, { paymentMethodId, priceId });
+  }
+
+  checkUserHasStripeSubscription(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE_URI}/payment/userHasStripeSubscription/`);
   }
 }
