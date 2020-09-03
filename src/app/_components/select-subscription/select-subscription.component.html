@@ -1,0 +1,146 @@
+<div class="d-flex overflow-hidden view-container">
+    <div class="overflow-auto">
+        <div class="container-fluid">
+            <div class="row overflow-scroll">
+                <div class="col-sm-6">
+                    <div class="pt-3">
+
+                        <mat-card class="pricing-card"
+                            [ngClass]="{'selectedSubscriptionType': subscriptionType === 'minimal'}">
+                            <mat-card-header>
+                                <div mat-card-avatar class="pricing-card-header-image"></div>
+                                <mat-card-title>
+                                    <h2 class="pb-3">Minimal</h2>
+                                </mat-card-title>
+                                <mat-card-subtitle></mat-card-subtitle>
+                            </mat-card-header>
+                            <div class="trial">$2/mo</div>
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Trial Photo"> -->
+                            <mat-card-content>
+                                <ul>
+                                    <li>5 Shipments/Month</li>
+                                    <li>5 Inventory Items</li>
+                                    <li>5 Shipping Containers</li>
+                                </ul>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button *ngIf="subscriptionType != 'minimal'" class="buy-now-button" color="accent"
+                                    mat-raised-button (click)="updateSubscriptionType('minimal')">
+                                    BUY NOW!
+                                </button>
+                                <button disabled *ngIf="subscriptionType === 'minimal'" class="buy-now-button"
+                                    color="accent" mat-raised-button>
+                                    SUBSCRIBED
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="pt-3">
+                        <mat-card class="pricing-card"
+                            [ngClass]="{'selectedSubscriptionType': subscriptionType === 'standard'}">
+                            <mat-card-header>
+                                <div mat-card-avatar class="pricing-card-header-image"></div>
+                                <mat-card-title>
+                                    <h2 class="pb-3">Standard</h2>
+                                </mat-card-title>
+                                <mat-card-subtitle></mat-card-subtitle>
+                            </mat-card-header>
+                            <div class="standard">$10/mo</div>
+
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
+                            <mat-card-content>
+                                <ul>
+                                    <li>50 Shipments/Month</li>
+                                    <li>50 Inventory Items</li>
+                                    <li>50 Shipping Containers</li>
+                                </ul>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button *ngIf="subscriptionType != 'standard'" class="buy-now-button" color="accent"
+                                    mat-raised-button (click)="updateSubscriptionType('standard')">
+                                    BUY NOW!
+                                </button>
+                                <button disabled *ngIf="subscriptionType === 'standard'" class="buy-now-button"
+                                    color="accent" mat-raised-button>
+                                    SUBSCRIBED
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="pt-3">
+                        <mat-card class="pricing-card"
+                            [ngClass]="{'selectedSubscriptionType': subscriptionType === 'premium'}">
+                            <mat-card-header>
+
+                                <div mat-card-avatar class="pricing-card-header-image"></div>
+                                <mat-card-title>
+                                    <h2 class="pb-3">Premium</h2>
+                                </mat-card-title>
+                                <mat-card-subtitle></mat-card-subtitle>
+                            </mat-card-header>
+                            <div class="premium">$30/mo</div>
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
+                            <mat-card-content>
+                                <ul>
+                                    <li>300 Shipments/Month</li>
+                                    <li>300 Inventory Items</li>
+                                    <li>300 Shipping Containers</li>
+                                </ul>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button *ngIf="subscriptionType != 'premium'" class="buy-now-button" color="accent"
+                                    mat-raised-button (click)="updateSubscriptionType('premium')">
+                                    BUY NOW!
+                                </button>
+                                <button disabled *ngIf="subscriptionType === 'premium'" class="buy-now-button"
+                                    color="accent" mat-raised-button>
+                                    SUBSCRIBED
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="pt-3">
+                        <mat-card class="pricing-card"
+                            [ngClass]="{'selectedSubscriptionType': subscriptionType === 'beastMode'}">
+                            <mat-card-header>
+                                <div mat-card-avatar class="pricing-card-header-image"></div>
+                                <mat-card-title>
+                                    <h2 class="pb-3">Beast Mode</h2>
+                                </mat-card-title>
+                                <mat-card-subtitle></mat-card-subtitle>
+                            </mat-card-header>
+                            <div class="beast-mode">$50/mo</div>
+
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
+                            <mat-card-content>
+                                <ul>
+                                    <li>1000 Shipments/Month</li>
+                                    <li>Unlimited Inventory Items</li>
+                                    <li>Unlimited Shipping Containers</li>
+                                </ul>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button *ngIf="subscriptionType != 'beastMode'" class="buy-now-button" color="accent"
+                                    mat-raised-button (click)="updateSubscriptionType('beastMode')">
+                                    BUY NOW!
+                                </button>
+                                <button disabled *ngIf="subscriptionType === 'beastMode'" class="buy-now-button"
+                                    color="accent" mat-raised-button>
+                                    SUBSCRIBED
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

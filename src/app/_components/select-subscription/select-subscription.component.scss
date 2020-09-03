@@ -1,0 +1,62 @@
+ul {
+    list-style: none;
+    padding-left: 0;
+    padding-top: 20px;
+    font-size: large;
+    font-weight: 400;
+    text-align: center;
+  }​
+  
+  .pricing-card {
+      max-width: 400px;
+  }
+    
+  .pricing-card-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  
+  .selectedSubscriptionType {
+    border: solid red 3px;
+  }
+  
+  .trial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A97142;
+    height: 125px;
+    border-radius: 10px;
+    font-size: 25px;
+  }
+  
+  .standard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa9ad;
+    height: 125px;
+    border-radius: 10px;
+    font-size: 25px;
+  }
+  
+  .premium {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d4af37;
+    height: 125px;
+    border-radius: 10px;
+    font-size: 25px;
+  }
+  
+  .beast-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #66FCF1;
+    height: 125px;
+    border-radius: 10px;
+    font-size: 25px;
+  }
+  

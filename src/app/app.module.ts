@@ -58,6 +58,8 @@ import { ResetPasswordCompleteComponent } from './_components/reset-password-com
 import { ChangePasswordComponent } from './_components/change-password/change-password.component';
 import { ConfirmEmailComponent } from './_components/confirm-email/confirm-email.component';
 import { RegisterDoneComponent } from './_components/register-done/register-done.component';
+import { SelectSubscriptionComponent } from './_components/select-subscription/select-subscription.component';
+import { PaymentSuccessComponent } from './_components/payment-success/payment-success.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -108,6 +110,18 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'select-subscription',
+    outlet: 'view',
+    component: SelectSubscriptionComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'payment-success',
+    outlet: 'view',
+    component: PaymentSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'payment/:subscriptionType',
     outlet: 'view',
     component: PaymentComponent,
@@ -153,7 +167,9 @@ const appRoutes: Routes = [
     ResetPasswordCompleteComponent,
     ChangePasswordComponent,
     ConfirmEmailComponent,
-    RegisterDoneComponent],
+    RegisterDoneComponent,
+    SelectSubscriptionComponent,
+    PaymentSuccessComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

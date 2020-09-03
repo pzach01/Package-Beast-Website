@@ -22,4 +22,8 @@ export class SubscriptionsService {
   checkUserHasStripeSubscription(): Observable<any> {
     return this.http.get<any>(`${Constants.API_BASE_URI}/payment/userHasStripeSubscription/`);
   }
+
+  cancelSubscription(): Observable<any> {
+    return this.http.delete<any>(`${Constants.API_BASE_URI}/payment/cancelStripeSubscription/`);
+  }
 }
