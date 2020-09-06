@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/for
 import { first } from 'rxjs/operators';
 import { MustMatch } from '../../_helpers/must-match'
 
-import { AlertService, UserService, AuthenticationService } from '../../_services';
+import { AlertService, AuthenticationService } from '../../_services';
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {

@@ -155,14 +155,16 @@ export class PaymentComponent implements OnInit {
   }
 
   createSubscription(paymentMethodId, priceId) {
-    this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => console.log("subscription result", result))
+    this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => {
+      console.log("New Subscription", result);
+      this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+    });
   }
 
   retrySubscription(paymentMethodId) {
     this.subscriptonsService.retrySubscription(paymentMethodId).subscribe(result => {
-      console.log("subscription result", result);
+      console.log("Retry Subscription", result);
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
-
     })
   }
 

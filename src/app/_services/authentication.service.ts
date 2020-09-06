@@ -69,6 +69,13 @@ export class AuthenticationService {
             }));
     }
 
+    changePassword(new_password1, new_password2) {
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/password/change/`, { new_password1, new_password2 })
+            .pipe(map(message => {
+                return message;
+            }));
+    }
+
     confirmEmail(key: string) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/verify-email/`, { key })
             .pipe(map(message => {
