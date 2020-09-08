@@ -42,6 +42,13 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   hiddenMeshes = [];
   shownMeshLines = [];
   hiddenMeshLines = [];
+  keyCode: number;
+  rotSpeed: number = .005;
+  initialCameraPositionX: number;
+  initialCameraPositionY: number;
+  initialCameraPositionZ: number;
+
+  rotationAngle: number = 0;
 
   constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) {
 
@@ -73,7 +80,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       .addEventListener('mousedown', this.onMouseOrTouch.bind(this));
     this.rendererContainer.nativeElement
       .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
-
+    this.rendererContainer.nativeElement.addEventListener('keydown', this.keyDown.bind(this))
   }
 
 
@@ -99,10 +106,42 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       }
     });
 
+    this.handleRotateKeys();
+
     window.requestAnimationFrame(() => this.animate());
     // this.mesh.rotation.x += 0.01;
     // this.mesh.rotation.y += 0.02;
+
     this.renderer.render(this.scene, this.camera);
+  }
+
+  keyDown(event) {
+    this.keyCode = event.which;
+    console.log("keycode", this.keyCode)
+  }
+
+  handleRotateKeys() {
+    if ((this.keyCode < 58) && (this.keyCode > 48)) {
+      this.rotSpeed = (this.keyCode - 48) * .005
+    }
+
+    if (this.keyCode == 39) {
+      // this.camera.position.x = this.initialCameraPositionX + Math.cos(this.rotSpeed * this.i);
+      // this.camera.position.z = this.initialCameraPositionZ + Math.sin(this.rotSpeed * this.i);
+
+      this.camera.position.x = this.camera.position.x * Math.cos(this.rotSpeed) + this.camera.position.z * Math.sin(this.rotSpeed);
+      this.camera.position.z = this.camera.position.z * Math.cos(this.rotSpeed) - this.camera.position.x * Math.sin(this.rotSpeed);
+      this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
+      this.controls.update();
+    }
+    if (this.keyCode == 37) {
+      // this.camera.rotation.y -= .03
+      this.camera.position.x = this.camera.position.x * Math.cos(-this.rotSpeed) + this.camera.position.z * Math.sin(-this.rotSpeed);
+      this.camera.position.z = this.camera.position.z * Math.cos(-this.rotSpeed) - this.camera.position.x * Math.sin(-this.rotSpeed);
+      this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
+      this.controls.update();
+    }
+    this.keyCode = 0;
   }
 
   generateItemCubes() {
@@ -114,7 +153,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
       let mesh = new THREE.Mesh(geometry, material);
       this.generateLine(mesh, item);
-
 
       mesh.position.x = item.yCenter
       if (!this.currentUser.disableFillContainerAnimation) {
@@ -207,7 +245,12 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.camera.position.z = 2.5 * cameraZPosition;
     this.camera.position.x = 1.5 * this.container.yDim;
     this.camera.position.y = 1.25 * this.container.xDim;
+    this.initialCameraPositionX = this.camera.position.x
+    this.initialCameraPositionY = this.camera.position.y
+    this.initialCameraPositionZ = this.camera.position.z
+
     this.controls.target = new THREE.Vector3(this.container.yDim / 2, this.container.xDim / 2, this.container.zDim / 2);
+    this.controls.keys = { LEFT: 0, RIGHT: 0, UP: 0, BOTTOM: 0 }
     this.controls.update();
   }
 

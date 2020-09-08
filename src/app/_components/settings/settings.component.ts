@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/_services';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  saveButtonText: string = "Save"
+  saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
   dateTimeFormat = this.currentUser.dateTimeFormat
@@ -32,19 +32,15 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['./', { outlets: { view: ['change-password'] } }]);
   }
 
-  unsaved() {
-    this.saveButtonText = "Make sure to save"
-  }
-
   save() {
-    this.saveButtonText = "saving"
+    this.saveStatusText = "saving"
     this.authenticationService.updateUser({
       units: this.units, dateTimeFormat: this.dateTimeFormat,
       multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
       disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
       animationSpeed: this.animationSpeed
     })
-      .subscribe(() => this.saveButtonText = "saved!")
+      .subscribe(() => this.saveStatusText = "Settings Saved!")
   }
 
 }
