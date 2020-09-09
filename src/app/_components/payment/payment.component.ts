@@ -50,18 +50,18 @@ export class PaymentComponent implements OnInit {
           this.subscriptionTypeUI = "Minimal"
           break;
         case "standard":
-          this.productId = "prod_HlIxXn97OzLxuF";
-          this.priceId = "price_1HBmLCJWFTMXIZUo6Z4yWXqS";
+          this.productId = "prod_HzHvyINf9uyaxv";
+          this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
           this.subscriptionTypeUI = "Standard"
           break;
         case "premium":
-          this.productId = "prod_HlIxXn97OzLxuF";
-          this.priceId = "price_1HBmLCJWFTMXIZUo6Z4yWXqS";
+          this.productId = "prod_HzHxDGJSZDQ8GI";
+          this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
           this.subscriptionTypeUI = "Premium"
           break;
         case "beastMode":
-          this.productId = "prod_HlIxXn97OzLxuF";
-          this.priceId = "price_1HBmLCJWFTMXIZUo6Z4yWXqS";
+          this.productId = "prod_HzHy8kP263Pqzp";
+          this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
           this.subscriptionTypeUI = "Beast Mode"
           break;
       }

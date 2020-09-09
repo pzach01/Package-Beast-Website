@@ -53,6 +53,7 @@ input:-webkit-autofill:active  {
 }
 .custom-dialog-container .mat-dialog-container {
     overflow-y: hidden;
+    overflow-x: scroll;
     position: relative!important;
 }
 .close {
@@ -128,6 +129,7 @@ input:-webkit-autofill:active  {
 .fixActionRow {
     height: 100%;
     min-height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
   }

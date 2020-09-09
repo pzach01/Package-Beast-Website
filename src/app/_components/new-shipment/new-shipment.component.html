@@ -6,29 +6,18 @@
         <mat-horizontal-stepper #stepper (selectionChange)="selectionChange()">
             <mat-step>
                 <ng-template matStepLabel>Select Items to Ship</ng-template>
-
-                <div class="container-fluid">
-                    <div class="d-flex flex-column justify-content-center">
-                        <app-items-selection></app-items-selection>
-                    </div>
-                </div>
+                <app-items-selection></app-items-selection>
             </mat-step>
+
             <mat-step>
                 <ng-template matStepLabel>Select Shipping Containers</ng-template>
-                <div class="container-fluid">
-                    <div class="d-flex flex-column justify-content-center">
-                        <app-containers-selection></app-containers-selection>
-                    </div>
-                </div>
+                <app-containers-selection></app-containers-selection>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Review</ng-template>
-                <div class="container-fluid">
-                    <div class="d-flex flex-column justify-content-center">
-                        <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
-                        </app-review-shipment>
-                    </div>
-                </div>
+                <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
+                </app-review-shipment>
+
             </mat-step>
         </mat-horizontal-stepper>
     </mat-dialog-content>
