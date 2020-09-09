@@ -60,6 +60,7 @@ import { ConfirmEmailComponent } from './_components/confirm-email/confirm-email
 import { RegisterDoneComponent } from './_components/register-done/register-done.component';
 import { SelectSubscriptionComponent } from './_components/select-subscription/select-subscription.component';
 import { PaymentSuccessComponent } from './_components/payment-success/payment-success.component';
+import { ShipmentAlertComponent } from './_components/shipment-alert/shipment-alert.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -169,7 +170,8 @@ const appRoutes: Routes = [
     ConfirmEmailComponent,
     RegisterDoneComponent,
     SelectSubscriptionComponent,
-    PaymentSuccessComponent],
+    PaymentSuccessComponent,
+    ShipmentAlertComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

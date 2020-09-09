@@ -6,6 +6,8 @@ import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from 'src/app/_services';
+import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -33,7 +35,7 @@ export class ShipmentDetailComponent implements OnInit {
   submitted = false;
   loading = false;
 
-  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
@@ -79,6 +81,16 @@ export class ShipmentDetailComponent implements OnInit {
         this.containersDataSource.data = this.containers;
       })
     })
+
+    this.openshipmentAlertDialog();
+  }
+
+  openshipmentAlertDialog(): void {
+    this.shipmentAlert.open(ShipmentAlertComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { numberFitItems: 7, numberTotalItems: 9 }
+    });
   }
 
   delete() {
