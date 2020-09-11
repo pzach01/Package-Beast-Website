@@ -20,7 +20,7 @@ export class SubscriptionsService {
     return this.http.post<any>(`${Constants.API_BASE_URI}/payment/createStripeSubscription/`, { paymentMethodId, priceId });
   }
 
-  getSubscripionInfo(): Observable<SubscriptionInfo> {
+  getSubscriptionInfo(): Observable<SubscriptionInfo> {
     return this.http.get<SubscriptionInfo>(`${Constants.API_BASE_URI}/payment/getSubscriptionInfo/`);
   }
 

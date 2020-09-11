@@ -123,7 +123,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'payment',
+    path: 'payment/:subscriptionType',
     outlet: 'view',
     component: PaymentComponent,
     canActivate: [AuthGuard]

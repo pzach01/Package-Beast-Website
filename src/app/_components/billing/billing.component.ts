@@ -19,7 +19,7 @@ export class BillingComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
-    this.subscriptionsService.getSubscripionInfo().subscribe(subscriptionInfo => this.subscriptionInfo = subscriptionInfo)
+    this.subscriptionsService.getSubscriptionInfo().subscribe(subscriptionInfo => this.subscriptionInfo = subscriptionInfo)
   }
 
   goToSelectSubscription() {
@@ -28,10 +28,14 @@ export class BillingComponent implements OnInit {
 
   goToUpdatePaymentMethod() {
     // this.router.navigate(['./', { outlets: { view: ['payment', 'standard'] } }]);
-    this.router.navigate(['./', { outlets: { view: ['payment'] } }]);
+    this.router.navigate(['./', { outlets: { view: ['payment', 'update'] } }]);
   }
 
   cancelSubscription() {
-    this.subscriptionsService.cancelSubscription().subscribe(result => console.log('subscription canceled ', result))
+    this.subscriptionsService.cancelSubscription().subscribe(result => {
+      console.log('subscription canceled ', result);
+      this.subscriptionsService.getSubscriptionInfo().subscribe(subscriptionInfo => this.subscriptionInfo = subscriptionInfo);
+    })
+
   }
 }
