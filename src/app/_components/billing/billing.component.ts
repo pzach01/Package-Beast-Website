@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
+import { SubscriptionInfo } from 'src/app/_models';
 
 
 @Component({
@@ -11,17 +12,23 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 })
 export class BillingComponent implements OnInit {
   currentUser = this.authenticationService.currentUserValue;
-  subscriptionType = this.currentUser.subscriptionType;
+  subscriptionInfo: SubscriptionInfo = new SubscriptionInfo;
 
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private subscriptionsService: SubscriptionsService) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    this.subscriptionsService.getSubscripionInfo().subscribe(subscriptionInfo => this.subscriptionInfo = subscriptionInfo)
   }
 
   goToSelectSubscription() {
     this.router.navigate(['./', { outlets: { view: ['select-subscription'] } }]);
+  }
+
+  goToUpdatePaymentMethod() {
+    this.router.navigate(['./', { outlets: { view: ['payment', 'standard'] } }]);
+    // this.router.navigateByUrl('payment/standard')
   }
 
   cancelSubscription() {

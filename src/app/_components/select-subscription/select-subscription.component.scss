@@ -20,7 +20,7 @@ ul {
     border: solid red 3px;
   }
   
-  .trial {
+  .standard {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,7 +30,7 @@ ul {
     font-size: 25px;
   }
   
-  .standard {
+  .premium {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,21 +40,11 @@ ul {
     font-size: 25px;
   }
   
-  .premium {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #d4af37;
-    height: 19vh;
-    border-radius: 10px;
-    font-size: 25px;
-  }
-  
   .beast-mode {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #66FCF1;
+    background-color: #d4af37;
     height: 19vh;
     border-radius: 10px;
     font-size: 25px;

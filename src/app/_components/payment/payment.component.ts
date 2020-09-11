@@ -44,11 +44,6 @@ export class PaymentComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.subscriptionType = params['subscriptionType'];
       switch (this.subscriptionType) {
-        case "minimal":
-          this.productId = "prod_HlIwYxguTZCA3U"
-          this.priceId = "price_1HBmKWJWFTMXIZUolAQQqNQ9";
-          this.subscriptionTypeUI = "Minimal"
-          break;
         case "standard":
           this.productId = "prod_HzHvyINf9uyaxv";
           this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
@@ -146,10 +141,10 @@ export class PaymentComponent implements OnInit {
         // this.stripeError = result.error.message
       } else {
         console.log('Create payment method succeeded', result);
-        this.subscriptonsService.checkUserHasStripeSubscription().subscribe(res => {
-          res.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
+        this.subscriptonsService.getSubscripionInfo().subscribe(subscriptionInfo => {
+          console.log("subActive?", subscriptionInfo.subscriptionActive)
+          subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })
-
       }
     });
   }
