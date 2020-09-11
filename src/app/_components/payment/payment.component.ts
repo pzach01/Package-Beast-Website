@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PaymentMethodData, PaymentIntent } from 'ngx-stripe/lib/interfaces/payment-intent'
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 
@@ -15,7 +15,7 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 export class PaymentComponent implements OnInit {
 
   subscriptionType: string;
-  subscriptionTypeUI: string;
+  // subscriptionTypeUI: string;
   priceId: string;
   productId: string;
   elements: Elements;
@@ -33,34 +33,32 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private stripeService: StripeService,
     private subscriptonsService: SubscriptionsService,
-    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.subscriptionType = params['subscriptionType'];
-      switch (this.subscriptionType) {
-        case "standard":
-          this.productId = "prod_HzHvyINf9uyaxv";
-          this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
-          this.subscriptionTypeUI = "Standard"
-          break;
-        case "premium":
-          this.productId = "prod_HzHxDGJSZDQ8GI";
-          this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
-          this.subscriptionTypeUI = "Premium"
-          break;
-        case "beastMode":
-          this.productId = "prod_HzHy8kP263Pqzp";
-          this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
-          this.subscriptionTypeUI = "Beast Mode"
-          break;
-      }
-    })
+    // this.route.params.subscribe(params => {
+    //   this.subscriptionType = params['subscriptionType'];
+    //   switch (this.subscriptionType) {
+    //     case "standard":
+    //       this.productId = "prod_HzHvyINf9uyaxv";
+    //       this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
+    //       this.subscriptionTypeUI = "Standard"
+    //       break;
+    //     case "premium":
+    //       this.productId = "prod_HzHxDGJSZDQ8GI";
+    //       this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
+    //       this.subscriptionTypeUI = "Premium"
+    //       break;
+    //     case "beastMode":
+    //       this.productId = "prod_HzHy8kP263Pqzp";
+    //       this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
+    //       this.subscriptionTypeUI = "Beast Mode"
+    //       break;
+    //   }
+    // })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
       addressLine1: ['', [Validators.required]],

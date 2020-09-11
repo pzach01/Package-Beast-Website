@@ -27,8 +27,8 @@ export class BillingComponent implements OnInit {
   }
 
   goToUpdatePaymentMethod() {
-    this.router.navigate(['./', { outlets: { view: ['payment', 'standard'] } }]);
-    // this.router.navigateByUrl('payment/standard')
+    // this.router.navigate(['./', { outlets: { view: ['payment', 'standard'] } }]);
+    this.router.navigate(['./', { outlets: { view: ['payment'] } }]);
   }
 
   cancelSubscription() {
