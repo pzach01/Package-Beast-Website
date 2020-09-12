@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { User } from '../_models';
 import { Token } from '../_models';
 import { Constants } from 'src/app/_models/constants'
+import { SubscriptionsService } from './subscriptions.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,11 +16,12 @@ export class AuthenticationService {
     private currentTokenSubject: BehaviorSubject<Token>;
     public currentToken: Observable<Token>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private subscriptionService: SubscriptionsService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.currentTokenSubject = new BehaviorSubject<Token>(JSON.parse(localStorage.getItem('currentToken')));
         this.currentToken = this.currentTokenSubject.asObservable();
+
     }
 
     public get currentUserValue(): User {
@@ -32,6 +34,7 @@ export class AuthenticationService {
     register(email, first_name, last_name, password1, password2) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
             .pipe(map(r => {
+                this.subscriptionService.getSubscriptionInfo().subscribe()
                 return r;
             }))
     }
@@ -42,6 +45,7 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentToken', JSON.stringify(token));
                 this.currentTokenSubject.next(token);
+                this.subscriptionService.getSubscriptionInfo().subscribe()
                 return token;
             }));
     }

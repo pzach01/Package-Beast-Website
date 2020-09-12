@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../../_services';
+import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private subscriptionService: SubscriptionsService
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -79,15 +81,11 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
-            .pipe(first())
-            .subscribe(
-                () => {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
-                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'items' } }]);
-                    }
-
-                    )
-                },
+            .pipe(first()).subscribe(() => {
+                this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'items' } }]);
+                })
+            },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
