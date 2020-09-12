@@ -18,8 +18,10 @@ export class SubscriptionGuard implements CanActivate {
       return true;
     }
 
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
+    // not subscribed in so redirect to login page with the return url
+    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'billing' } }]);
+
+    // this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
     return false;
   }
 }
