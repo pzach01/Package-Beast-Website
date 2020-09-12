@@ -7,4 +7,5 @@ export class SubscriptionInfo {
     public shipmentsUsed: number;
     public subscriptionActive: boolean;
     public subscriptionType: string;
+    public subscriptionExpirationTime: number;
 }

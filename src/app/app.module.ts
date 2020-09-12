@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor, ErrorInterceptor, UnitsPipe } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, UnitsPipe, SubscriptionGuard } from './_helpers';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from "./app.component";
@@ -78,31 +78,31 @@ const appRoutes: Routes = [
     path: 'shipments',
     outlet: 'view',
     component: ShipmentsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SubscriptionGuard]
   },
   {
     path: 'shipments/:id',
     outlet: 'view',
     component: ShipmentDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SubscriptionGuard]
   },
   {
     path: 'items',
     outlet: 'view',
     component: ItemsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SubscriptionGuard]
   },
   {
     path: 'containers',
     outlet: 'view',
     component: ContainersComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SubscriptionGuard]
   },
   {
     path: 'settings',
     outlet: 'view',
     component: SettingsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, SubscriptionGuard]
   },
   {
     path: 'billing',

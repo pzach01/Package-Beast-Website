@@ -147,6 +147,12 @@ a.mat-list-item.active {
     border-radius: 0 50px 50px 0;
 }
 
+
+a.mat-list-item.disabled{
+    // cursor: not-allowed !important;
+    opacity: 0.5;
+    background-color: rgb(109, 107, 107) !important;
+}
 .newOrEdited {
     background-color: white;
     animation-name: newOrEdited;

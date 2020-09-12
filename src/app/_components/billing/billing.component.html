@@ -6,6 +6,13 @@
     </div>
     <div class="row">
         <div class="col text-left">
+            <p *ngIf="subscriptionInfo.subscriptionActive">Subscription Status: Active</p>
+            <p *ngIf="!subscriptionInfo.subscriptionActive">Subscription Status: <strong
+                    class="text-danger">Inactive</strong></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-left">
             <p>Subscription Type: {{subscriptionInfo.subscriptionType | titlecase}}</p>
         </div>
     </div>
@@ -25,6 +32,12 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col text-left">
+            <p>Date/Time: {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
+        </div>
+    </div>
+
     <ng-container *ngIf="subscriptionInfo.subscriptionActive">
         <div class="d-flex justify-content-start mb-3">
             <a [routerLink]="" (click)="goToSelectSubscription()">Change Subscription</a>
@@ -39,7 +52,7 @@
 
     <ng-container *ngIf="!subscriptionInfo.subscriptionActive">
         <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToSelectSubscription()">Create Subscription</a>
+            <a [routerLink]="" (click)="goToSelectSubscription()">Create New Subscription</a>
         </div>
     </ng-container>
 </div>
