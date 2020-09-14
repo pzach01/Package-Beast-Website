@@ -20,13 +20,13 @@ export class ShipmentDetailComponent implements OnInit {
   shipment: Shipment;
   timeout: boolean = false;
   items: Item[];
+  itemsDataSource;
   groupedItemsByMasterIdAndContainer: Item[] = [];
   containers: Container[] = [];
   nonEmptyContainers: Container[] = [];
 
   multiBinPack: boolean;
   arrangementPossible: boolean;
-  itemsDataSource = new MatTableDataSource(this.items);
   containersDataSource = new MatTableDataSource(this.containers);
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
   containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
@@ -38,6 +38,7 @@ export class ShipmentDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog) { }
 
   ngOnInit() {
+    this.itemsDataSource = new MatTableDataSource(this.items);
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
     this.route.params.subscribe(params => {

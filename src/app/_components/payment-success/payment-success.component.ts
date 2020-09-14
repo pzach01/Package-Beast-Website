@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SubscriptionInfo } from 'src/app/_models';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 
 @Component({
@@ -7,11 +8,12 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
   styleUrls: ['./payment-success.component.scss']
 })
 export class PaymentSuccessComponent implements OnInit {
-  subscriptionActive: boolean;
+  subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
 
-  constructor() { }
+  constructor(public subscriptionService: SubscriptionsService) { }
 
   ngOnInit(): void {
+    this.subscriptionService.getSubscriptionInfo().subscribe(currentSubscription => { this.subscriptionInfo = currentSubscription; console.log(currentSubscription) })
   }
 
 }

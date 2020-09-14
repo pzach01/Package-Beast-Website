@@ -1,0 +1,13 @@
+<button type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
+        aria-hidden="true">×</span></button>
+<h1 mat-dialog-title class="text-danger">Cancel Subscription Confirmation</h1>
+<mat-dialog-content>
+    <h6>Are you sure you want to immediately cancel your subscription?</h6>
+    <p>You will continue to have access to Package Beast until the end of your billing cycle,
+        {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button (click)="cancelSubscription()" type="button">Yes</button>
+    <button mat-raised-button mat-dialog-close type="button">No - Dismiss</button>
+</mat-dialog-actions>

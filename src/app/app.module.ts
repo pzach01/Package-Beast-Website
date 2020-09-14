@@ -61,6 +61,7 @@ import { RegisterDoneComponent } from './_components/register-done/register-done
 import { SelectSubscriptionComponent } from './_components/select-subscription/select-subscription.component';
 import { PaymentSuccessComponent } from './_components/payment-success/payment-success.component';
 import { ShipmentAlertComponent } from './_components/shipment-alert/shipment-alert.component';
+import { CancelSubscriptionConfirmationComponent } from './_components/cancel-subscription-confirmation/cancel-subscription-confirmation.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -171,7 +172,8 @@ const appRoutes: Routes = [
     RegisterDoneComponent,
     SelectSubscriptionComponent,
     PaymentSuccessComponent,
-    ShipmentAlertComponent],
+    ShipmentAlertComponent,
+    CancelSubscriptionConfirmationComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
