@@ -1,14 +1,32 @@
-<div class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row mb-3 mt-3 no-shrink">
-        <div class="col-md-3 col-sm-0"></div>
-        <div class="col-md-6 col-sm-12 text-center">
+<div *ngIf="subscriptionInfo.userHasViewRights" class="view-container container d-flex flex-column overflow-hidden">
+    <div class="row my-3">
+        <div class="col text-center">
             <h3>Thank You!</h3>
         </div>
     </div>
-    <div class="row mb-3 mt-3 no-shrink">
-        <div class="col-md-3 col-sm-0"></div>
-        <div class="col-md-6 col-sm-12 text-center">
+    <div class="row">
+        <div class="col text-center">
+            <p>Payment processed.</p>
             <p>Thanks for using package beast. We value you as a customer.</p>
+            <p>Subscription active: {{subscriptionInfo.subscriptionActive}}</p>
+            <p>User has view rights: {{subscriptionInfo.userHasViewRights}}</p>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="!subscriptionInfo.userHasViewRights" class="view-container container d-flex flex-column overflow-hidden">
+    <div class="row my-3">
+        <div class="col text-center">
+            <h3>Processing Payment</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <div class="d-flex justify-content-center py-5">
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+            <p>Please wait while we process your payment.</p>
             <p>Subscription active: {{subscriptionInfo.subscriptionActive}}</p>
             <p>User has view rights: {{subscriptionInfo.userHasViewRights}}</p>
         </div>
