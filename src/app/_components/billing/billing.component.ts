@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
-import { SubscriptionInfo } from 'src/app/_models';
+import { SubscriptionInfo, User } from 'src/app/_models';
 
 
 @Component({
@@ -11,8 +11,8 @@ import { SubscriptionInfo } from 'src/app/_models';
   styleUrls: ['./billing.component.scss']
 })
 export class BillingComponent implements OnInit {
-  currentUser = this.authenticationService.currentUserValue;
-  subscriptionInfo: SubscriptionInfo = new SubscriptionInfo;
+  currentUser: User = this.authenticationService.currentUserValue;
+  subscriptionInfo: SubscriptionInfo = this.subscriptionsService.currentSubscriptionInfoValue
 
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private subscriptionsService: SubscriptionsService) { }

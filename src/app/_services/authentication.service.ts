@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, mergeMap } from 'rxjs/operators';
 import { User } from '../_models';
 import { Token } from '../_models';
 import { Constants } from 'src/app/_models/constants'
@@ -34,9 +34,10 @@ export class AuthenticationService {
     register(email, first_name, last_name, password1, password2) {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
             .pipe(map(r => {
-                this.subscriptionService.getSubscriptionInfo().subscribe()
                 return r;
-            }))
+            })).pipe(mergeMap(() => {
+                return this.subscriptionService.getSubscriptionInfo()
+            }));
     }
 
     login(email, password) {
@@ -45,8 +46,9 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentToken', JSON.stringify(token));
                 this.currentTokenSubject.next(token);
-                this.subscriptionService.getSubscriptionInfo().subscribe()
                 return token;
+            })).pipe(mergeMap(() => {
+                return this.subscriptionService.getSubscriptionInfo()
             }));
     }
 
