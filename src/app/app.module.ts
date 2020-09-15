@@ -219,7 +219,7 @@ const appRoutes: Routes = [
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcFfswZAAAAADVrZmXINhrFURpl3PDmtGJ0AXDx' },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfXg8wZAAAAAL481GmZ10s8aADR_-poyzCHRrcG' },
     DatePipe
   ],
   bootstrap: [AppComponent],
