@@ -35,9 +35,7 @@ export class AuthenticationService {
         return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
             .pipe(map(r => {
                 return r;
-            })).pipe(mergeMap(() => {
-                return this.subscriptionService.getSubscriptionInfo()
-            }));
+            }))
     }
 
     login(email, password) {

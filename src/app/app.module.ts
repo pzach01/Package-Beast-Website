@@ -62,6 +62,8 @@ import { SelectSubscriptionComponent } from './_components/select-subscription/s
 import { PaymentSuccessComponent } from './_components/payment-success/payment-success.component';
 import { ShipmentAlertComponent } from './_components/shipment-alert/shipment-alert.component';
 import { CancelSubscriptionConfirmationComponent } from './_components/cancel-subscription-confirmation/cancel-subscription-confirmation.component';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -182,6 +184,8 @@ const appRoutes: Routes = [
         anchorScrolling: 'enabled'
       } // <-- debugging purposes only
     ),
+    RecaptchaModule,
+    RecaptchaV3Module,
     BrowserModule,
     CommonModule,
     ReactiveFormsModule,
@@ -215,6 +219,7 @@ const appRoutes: Routes = [
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcFfswZAAAAADVrZmXINhrFURpl3PDmtGJ0AXDx' },
     DatePipe
   ],
   bootstrap: [AppComponent],

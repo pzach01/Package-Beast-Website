@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { MustMatch } from '../../_helpers/must-match'
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 import { AlertService, AuthenticationService } from '../../_services';
 
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private recaptchaV3Service: ReCaptchaV3Service
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
-    onSubmit() {
+    registerUser(RecaptchaToken) {
         this.submitted = true;
 
         // reset alerts on submit
@@ -79,5 +81,14 @@ export class RegisterComponent implements OnInit {
                     // this.alertService.error(error);
                     // this.loading = false;
                 });
+    }
+
+    handleToken(token) {
+        console.log(token)
+    }
+
+    onSubmit(): void {
+        this.recaptchaV3Service.execute('register')
+            .subscribe((RecaptchaToken) => this.registerUser(RecaptchaToken));
     }
 }
