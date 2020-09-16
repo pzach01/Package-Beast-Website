@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     serverEmailError: string = "";
     serverPasswordError: string = "";
+    serverRecaptchaError: string = "";
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -35,7 +37,7 @@ export class RegisterComponent implements OnInit {
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
             password1: ['', [Validators.required, Validators.minLength(8)]],
-            password2: ['', [Validators.required, Validators.minLength(8)]],
+            password2: ['', [Validators.required, Validators.minLength(8)]]
         }, {
             validator: MustMatch('password1', 'password2')
         });
@@ -44,7 +46,7 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
-    registerUser(RecaptchaToken) {
+    registerUser(recaptchaToken) {
         this.submitted = true;
 
         // reset alerts on submit
@@ -56,7 +58,7 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.register(this.registerForm.get('email').value, this.registerForm.get('first_name').value, this.registerForm.get('last_name').value, this.registerForm.get('password1').value, this.registerForm.get('password2').value)
+        this.authenticationService.register(this.registerForm.get('email').value, this.registerForm.get('first_name').value, this.registerForm.get('last_name').value, this.registerForm.get('password1').value, this.registerForm.get('password2').value, recaptchaToken)
             .pipe(first())
             .subscribe(
                 () => {
@@ -78,6 +80,12 @@ export class RegisterComponent implements OnInit {
                             this.serverPasswordError = passwordError;
                         });
                     }
+                    if (error.recaptcha_token) {
+                        error.recaptcha_token.forEach(recaptchaError => {
+                            this.serverRecaptchaError = recaptchaError;
+                        });
+                    }
+                    console.log("ReCap error?", error)
                     // this.alertService.error(error);
                     // this.loading = false;
                 });
@@ -89,6 +97,6 @@ export class RegisterComponent implements OnInit {
 
     onSubmit(): void {
         this.recaptchaV3Service.execute('register')
-            .subscribe((RecaptchaToken) => this.registerUser(RecaptchaToken));
+            .subscribe((recaptchaToken) => { console.log("recapToken", recaptchaToken), this.registerUser(recaptchaToken) });
     }
 }

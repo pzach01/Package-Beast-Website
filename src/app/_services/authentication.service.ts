@@ -31,8 +31,8 @@ export class AuthenticationService {
         return this.currentTokenSubject.value;
     }
 
-    register(email, first_name, last_name, password1, password2) {
-        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2 })
+    register(email, first_name, last_name, password1, password2, recaptcha_token) {
+        return this.http.post<any>(`${Constants.API_BASE_URI}/accounts/registration/`, { email, first_name, last_name, password1, password2, recaptcha_token })
             .pipe(map(r => {
                 return r;
             }))
