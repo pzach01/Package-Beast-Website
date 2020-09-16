@@ -1,9 +1,38 @@
-<ng-container *ngIf="accountStatus!='active'">
-    <p>Confirming email address...</p>
-    <p>Please wait</p>
-</ng-container>
+<div class="justify-content-center register-done-background">
+    <div class="full-width p-5">
+        <mat-card class="pt-5 px-5 text-center">
 
-<ng-container *ngIf="accountStatus=='active'">
-    <p>Email address confirmed! Click link below to login:</p>
-    <a routerLink="/login" class="btn btn-link">Login!</a>
-</ng-container>
+            <mat-card-header class="d-flex justify-content-center">
+
+                <mat-card-title>
+                    <h1>
+                        <img id="logo" src="../../../assets/PackageBeast.png" alt="pbLogo">
+                    </h1>
+                    <br><br>
+                    <h1 *ngIf="accountStatus=='inactive'">Confirming Email Address</h1>
+                    <h1 *ngIf="accountStatus=='active'">Email Address Confirmed!</h1>
+                    <h1 *ngIf="accountStatus=='error'">Link Expired!</h1>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h5 *ngIf="accountStatus=='inactive'">Please wait while we confirm your email address.
+                </h5>
+                <ng-container *ngIf="accountStatus=='active'">
+                    <h5>Click link below to login:</h5>
+                    <a routerLink="/login" class="btn btn-link">Login!</a>
+                </ng-container>
+
+                <ng-container *ngIf="accountStatus=='error'">
+                    <h5>If you haven't verified your email, login with link below and we will resend account activation
+                        email:
+                    </h5>
+                    <a routerLink="/login" class="btn btn-link">Login!</a>
+                    <h5>If you forgot your password click link below:
+                    </h5>
+                    <a routerLink="/reset-password" class="btn btn-link">Reset Password</a>
+
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

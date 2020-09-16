@@ -27,6 +27,7 @@ export class ConfirmEmailComponent implements OnInit {
         () => { this.accountStatus = "active" },
         error => {
           console.log("error", error)
+          this.accountStatus = "error"
         })
   }
 
