@@ -5,7 +5,7 @@ html { height: 100%; overflow: hidden; position: relative; margin: 0; font-famil
 body { height: 100%; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
 #logo {   
     max-height: auto;
-    max-width: 40vw;
+    max-width: 36vw;
  }
 
 button:focus {
@@ -200,3 +200,10 @@ a.mat-list-item.disabled{
 //     background-color: mat-color($app-accent);
 //     color: black;
 //   }
+
+
+// .mat-card:not([class*=mat-elevation-z]) {
+//     box-shadow: 0 2px 1px -1px mat-color($app-accent),
+//     0 1px 1px 0 mat-color($app-accent),
+//     0 1px 3px 0 mat-color($app-accent);
+// }
