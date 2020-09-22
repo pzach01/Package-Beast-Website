@@ -195,6 +195,12 @@ a.mat-list-item.disabled{
     outline: transparent;
 }
 
+.minor-view-background{
+    // background-color: yel;
+    background-image: linear-gradient(to bottom right, teal , rgb(182, 221, 103));
+    height: 100vh;
+}
+
 // To use color="success" in angular directive, do something like below
 // .mat-success {
 //     background-color: mat-color($app-accent);

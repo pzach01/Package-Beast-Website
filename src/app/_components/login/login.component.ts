@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    bgCounter: number = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -66,6 +67,10 @@ export class LoginComponent implements OnInit {
                 control.setErrors(err); // controls got other errors so set them back
             }
         }
+    }
+
+    indexBgCounter() {
+        this.bgCounter++;
     }
 
     onSubmit() {
