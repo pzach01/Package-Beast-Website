@@ -1,14 +1,28 @@
 <div class="container-fluid">
-    <div class="d-flex flex-row mb-3 mt-3">
-        <ng-container *ngIf="clickedItem">
+    <div class="d-flex mb-3 mt-3">
+
+        <div class="d-flex flex-column">
             <div class="ml-3">
-                <p class="m-0 p-0 item-detail">SKU: {{clickedItem.sku}} Description: {{clickedItem.description}}
-                    Dimensions: {{clickedItem.xDim}} x {{clickedItem.yDim}} x
-                    {{clickedItem.zDim}}</p>
+                <p class="m-0 p-0"><strong>Container</strong> SKU: {{container.sku}} | Description:
+                    {{container.description}} | Dimensions: {{container.xDim}} x {{container.yDim}} x
+                    {{container.zDim}}</p>
             </div>
-        </ng-container>
+            <ng-container *ngIf="clickedItem">
+                <div class="ml-3">
+                    <p class="m-0 p-0"><strong>Selected Item</strong> SKU: {{clickedItem.sku}} | Description:
+                        {{clickedItem.description}} |
+                        Dimensions: {{clickedItem.xDim}} x {{clickedItem.yDim}} x
+                        {{clickedItem.zDim}}</p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!clickedItem">
+                <div class="ml-3">
+                    <p class="m-0 p-0">Select an item to display item details</p>
+                </div>
+            </ng-container>
+        </div>
         <div class="empty-space"></div>
-        <div class="pl-3 pr-3">
+        <div class="px-3">
             <button mat-raised-button color="accent" (click)="resetView()">Reset
                 View</button>
         </div>
@@ -18,7 +32,7 @@
             </button>
         </div>
         <div>
-            <p class="pl-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
+            <p class="px-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
         </div>
         <div>
             <button mat-raised-button color="accent" (click)="nextItem()">

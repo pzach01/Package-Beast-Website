@@ -21,79 +21,35 @@
             </ng-template>
 
             <div class="container">
-                <div class="container">
-                    <div class="d-flex row justify-content-center mb-3">
-                        <h1>Shipment Details&nbsp;&nbsp;</h1>
+                <div class="d-flex row justify-content-center my-3">
+                    <h1>Shipment Details</h1>
+                </div>
+
+                <ng-container *ngFor="let nonEmptyContainer of nonEmptyContainers">
+                    <div class="pb-3">
+                        <p>Shipping Container SKU: {{nonEmptyContainer.sku}} </p>
+                        <p>Shipping Container Description: {{nonEmptyContainer.description}}</p>
+                        <p>Shipping Container Dimensions - Length:
+                            {{nonEmptyContainer.yDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
+                            {{currentUser.units}};
+                            Width:
+                            {{nonEmptyContainer.zDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
+                            {{currentUser.units}};
+                            Height:
+                            {{nonEmptyContainer.xDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
+                            {{currentUser.units}};
+                            Volume:
+                            {{nonEmptyContainer.volume | volumeUnits: nonEmptyContainer.units: currentUser.units | number:'1.0-0'}}
+                            {{currentUser.units}}<sup>3</sup>
+                        </p>
                     </div>
 
-                    <ng-container *ngFor="let nonEmptyContainer of nonEmptyContainers">
-                        <div class="pb-3">
-                            <div>Shipping Container SKU: {{nonEmptyContainer.sku}} </div>
-                            <div>Shipping Container Description: {{nonEmptyContainer.description}}</div>
-                            <div>Shipping Container Dimensions - Length:
-                                {{nonEmptyContainer.yDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
-                                {{currentUser.units}};
-                                Width:
-                                {{nonEmptyContainer.zDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
-                                {{currentUser.units}};
-                                Height:
-                                {{nonEmptyContainer.xDim | units: nonEmptyContainer.units: currentUser.units | number:'1.0-3'}}
-                                {{currentUser.units}};
-                                Volume:
-                                {{nonEmptyContainer.volume | volumeUnits: nonEmptyContainer.units: currentUser.units | number:'1.0-0'}}
-                                {{currentUser.units}}<sup>3</sup>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center mb-3">
-
-                            <table mat-table [dataSource]="itemsDataSource" class="mat-elevation-z8">
-
-                                <!--- Note that these columns can be defined in any order.
-                                      The actual rendered columns are set as a property on the row definition" -->
-
-                                <!-- sku Column -->
-                                <ng-container matColumnDef="sku">
-                                    <th mat-header-cell *matHeaderCellDef>SKU</th>
-                                    <td mat-cell *matCellDef="let item">
-                                        <ng-container *ngIf="item.container==nonEmptyContainer.id">
-                                            {{item.sku}}
-                                        </ng-container>
-                                    </td>
-                                </ng-container>
-
-                                <!-- description Column -->
-                                <ng-container matColumnDef="description">
-                                    <th mat-header-cell *matHeaderCellDef> Description </th>
-                                    <td mat-cell *matCellDef="let item">
-                                        <ng-container *ngIf="item.container==nonEmptyContainer.id">
-                                            {{item.description}}
-                                        </ng-container>
-                                    </td>
-                                </ng-container>
-
-                                <!-- qty Column -->
-                                <ng-container matColumnDef="qty">
-                                    <th mat-header-cell *matHeaderCellDef> Quantity </th>
-                                    <td mat-cell *matCellDef="let item">
-                                        <ng-container *ngIf="item.container==nonEmptyContainer.id">
-                                            {{item.qty}}
-                                        </ng-container>
-                                    </td>
-                                </ng-container>
-
-
-                                <tr mat-header-row *matHeaderRowDef="itemsDisplayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: itemsDisplayedColumns;"></tr>
-                            </table>
-                        </div>
-                    </ng-container>
-
-                    <div>
-                        <p>Containers Analyzed</p>
+                    <div class="text-center">
+                        <h3>Items Analyzed</h3>
                     </div>
-
                     <div class="d-flex justify-content-center mb-3">
-                        <table mat-table [dataSource]="containersDataSource" class="mat-elevation-z8">
+
+                        <table mat-table [dataSource]="itemsDataSource" class="mat-elevation-z8">
 
                             <!--- Note that these columns can be defined in any order.
                                       The actual rendered columns are set as a property on the row definition" -->
@@ -101,53 +57,101 @@
                             <!-- sku Column -->
                             <ng-container matColumnDef="sku">
                                 <th mat-header-cell *matHeaderCellDef>SKU</th>
-                                <td mat-cell *matCellDef="let container"> {{container.sku}} </td>
+                                <td mat-cell *matCellDef="let item">
+                                    <ng-container *ngIf="item.container==nonEmptyContainer.id">
+                                        {{item.sku}}
+                                    </ng-container>
+                                </td>
                             </ng-container>
 
                             <!-- description Column -->
                             <ng-container matColumnDef="description">
                                 <th mat-header-cell *matHeaderCellDef> Description </th>
-                                <td mat-cell *matCellDef="let container"> {{container.description}} </td>
-                            </ng-container>
-
-                            <!-- Length Column -->
-                            <ng-container matColumnDef="xDim">
-                                <th mat-header-cell *matHeaderCellDef> Length ({{currentUser.units}})</th>
-                                <td mat-cell *matCellDef="let container">
-                                    {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                                <td mat-cell *matCellDef="let item">
+                                    <ng-container *ngIf="item.container==nonEmptyContainer.id">
+                                        {{item.description}}
+                                    </ng-container>
                                 </td>
                             </ng-container>
 
-                            <!-- Width Column -->
-                            <ng-container matColumnDef="zDim">
-                                <th mat-header-cell *matHeaderCellDef> Width ({{currentUser.units}})</th>
-                                <td mat-cell *matCellDef="let container">
-                                    {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                            <!-- qty Column -->
+                            <ng-container matColumnDef="qty">
+                                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                                <td mat-cell *matCellDef="let item">
+                                    <ng-container *ngIf="item.container==nonEmptyContainer.id">
+                                        {{item.qty}}
+                                    </ng-container>
                                 </td>
                             </ng-container>
 
-                            <!-- Height Column -->
-                            <ng-container matColumnDef="yDim">
-                                <th mat-header-cell *matHeaderCellDef> Height ({{currentUser.units}})</th>
-                                <td mat-cell *matCellDef="let container">
-                                    {{container.xDim | units: container.units: currentUser.units | number:'1.0-3'}}
-                                </td>
-                            </ng-container>
 
-                            <!-- Volume Column -->
-                            <ng-container matColumnDef="volume">
-                                <th mat-header-cell *matHeaderCellDef>Volume ({{currentUser.units}}<sup>3</sup>)</th>
-                                <td mat-cell *matCellDef="let container">
-                                    {{container.volume | volumeUnits: container.units: currentUser.units | number:'1.0-0'}}
-                                </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="containersDisplayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: containersDisplayedColumns;"></tr>
+                            <tr mat-header-row *matHeaderRowDef="itemsDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: itemsDisplayedColumns;"></tr>
                         </table>
                     </div>
+                </ng-container>
 
+                <div class="text-center">
+                    <h3>Containers Analyzed</h3>
                 </div>
+
+                <div class="d-flex justify-content-center mb-3">
+
+                    <table mat-table [dataSource]="containersDataSource" class="mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                                      The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- sku Column -->
+                        <ng-container matColumnDef="sku">
+                            <th mat-header-cell *matHeaderCellDef>SKU</th>
+                            <td mat-cell *matCellDef="let container"> {{container.sku}} </td>
+                        </ng-container>
+
+                        <!-- description Column -->
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef> Description </th>
+                            <td mat-cell *matCellDef="let container"> {{container.description}} </td>
+                        </ng-container>
+
+                        <!-- Length Column -->
+                        <ng-container matColumnDef="xDim">
+                            <th mat-header-cell *matHeaderCellDef> Length ({{currentUser.units}})</th>
+                            <td mat-cell *matCellDef="let container">
+                                {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Width Column -->
+                        <ng-container matColumnDef="zDim">
+                            <th mat-header-cell *matHeaderCellDef> Width ({{currentUser.units}})</th>
+                            <td mat-cell *matCellDef="let container">
+                                {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Height Column -->
+                        <ng-container matColumnDef="yDim">
+                            <th mat-header-cell *matHeaderCellDef> Height ({{currentUser.units}})</th>
+                            <td mat-cell *matCellDef="let container">
+                                {{container.xDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Volume Column -->
+                        <ng-container matColumnDef="volume">
+                            <th mat-header-cell *matHeaderCellDef>Volume ({{currentUser.units}}<sup>3</sup>)</th>
+                            <td mat-cell *matCellDef="let container">
+                                {{container.volume | volumeUnits: container.units: currentUser.units | number:'1.0-0'}}
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="containersDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: containersDisplayedColumns;"></tr>
+                    </table>
+                </div>
+
+
 
                 <!-- <mat-checkbox [checked]="multiBinPack" [disabled]="true" (change)="multiBinPack=!multiBinPack">Pack
                     items
@@ -158,7 +162,8 @@
 
                 <div class="d-flex justify-content-start mb-3">
                     <div class="row pt-3">
-                        <button mat-raised-button color="warn" (click)="delete()" type="button">Delete Shipment</button>
+                        <button mat-raised-button color="warn" (click)="delete()" type="button">Delete
+                            Shipment</button>
                     </div>
                 </div>
             </div>

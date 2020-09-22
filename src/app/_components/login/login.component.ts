@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '../../_services';
+import { AuthenticationService } from '../../_services';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService,
         private subscriptionService: SubscriptionsService
     ) {
         // redirect to home if already logged in
@@ -76,9 +75,6 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
-        this.alertService.clear();
-
         // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
@@ -92,7 +88,6 @@ export class LoginComponent implements OnInit {
                 })
             },
                 error => {
-                    this.alertService.error(error);
                     this.loading = false;
                     this.submitted = false;
                     this.loginForm.controls['email'].setErrors({ loginFail: true });
