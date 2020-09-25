@@ -1,17 +1,14 @@
-.bricks {
+.registration-container {
     height: 100%;
     width: 100%;
-    background-image: url(Falling-Boxes.jpg);
+    min-width: 100%;
+    min-height: 100%;
+    background-image: url(Cardboard-Boxes-On-Bottom.png);
     /* Center and scale the image nicely */
-    // background-image: linear-gradient(to bottom right, rgb(211, 206, 134), rgb(226, 205, 146));
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-  
-    /* Preserve aspet ratio */
-    min-width: 100%;
-    min-height: 100%;
+}
+.jumbotron {
+    margin-bottom: 0px;
 }

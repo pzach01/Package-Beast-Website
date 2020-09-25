@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../_services';
-import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
@@ -14,14 +13,12 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    bgCounter: number = 0;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private subscriptionService: SubscriptionsService
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -66,10 +63,6 @@ export class LoginComponent implements OnInit {
                 control.setErrors(err); // controls got other errors so set them back
             }
         }
-    }
-
-    indexBgCounter() {
-        this.bgCounter++;
     }
 
     onSubmit() {

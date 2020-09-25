@@ -22,6 +22,7 @@ export class ShipmentDetailComponent implements OnInit {
   items: Item[];
   itemsDataSource;
   groupedItemsByMasterIdAndContainer: Item[] = [];
+  numberFitItems: number = 0;
   containers: Container[] = [];
   nonEmptyContainers: Container[] = [];
 
@@ -58,6 +59,10 @@ export class ShipmentDetailComponent implements OnInit {
             if (item.container == container.id) {
               containerContainsItem = true
             }
+            if (item.container != null) {
+              this.numberFitItems += 1
+              console.log(this.numberFitItems)
+            }
           })
           return containerContainsItem
         });
@@ -74,6 +79,9 @@ export class ShipmentDetailComponent implements OnInit {
           });
 
           item.qty += 1;
+
+
+
 
           return r.set(key, item);
         }, new Map).values()];

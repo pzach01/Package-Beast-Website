@@ -1,6 +1,4 @@
-﻿<div
-  [ngClass]="{'minor-view-background': bgCounter % 8 == 0, 'zero': bgCounter % 8 == 1, 'one': bgCounter % 8 == 2, 'two': bgCounter % 8 == 3, 'three': bgCounter % 8 == 4, 'four': bgCounter % 8 == 5, 'five': bgCounter % 8 == 6, 'six': bgCounter % 8 == 7}"
-  class="container-fluid justify-content-center overflow-auto">
+﻿<div class="container-fluid justify-content-center overflow-auto login-container">
   <div class="row justify-content-center">
     <div class="col-md-6 full-width p-5">
       <mat-card class="pt-5 px-5 text-center">
@@ -67,11 +65,6 @@
             </mat-card-actions>
           </div>
         </form>
-        <div class="col pb-3 px-0">
-          <button (click)="indexBgCounter()" class="full-width" color="accent" mat-raised-button>
-            !!!
-          </button>
-        </div>
       </mat-card>
     </div>
   </div>
