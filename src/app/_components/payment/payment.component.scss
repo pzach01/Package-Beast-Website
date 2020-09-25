@@ -6,7 +6,7 @@
 //     // border-radius: 8px;
 //     padding: 1rem 2rem;
 //     background: white;
-  
+
 //     color: #525252;
 //     font-size: 1.1rem;
 //   }
@@ -31,16 +31,16 @@
 //   }::placeholder{
 //     color: #CFD7E0
 // }
-  
+
 // .StripeElement--focus {
 //     box-shadow: 0 1px 3px 0 #cfd7df;
 //     outline: none;
 //   }
-  
+
 //   .StripeElement--invalid {
 //     border-color: #fa755a;
 //   }
-  
+
 //   .StripeElement--webkit-autofill {
 //     background-color: #fefde5 !important;
 //   }
@@ -97,6 +97,24 @@ label > span span {
   transition: transform 200ms ease-in-out;
   cursor: text;
 }
+
+// .row {
+//   display: -ms-flexbox;
+//   display: flex;
+//   -ms-flex-align: center;
+//   align-items: center;
+//   margin-left: 15px;
+// }
+
+// label {
+//   width: 15%;
+//   min-width: 70px;
+//   padding: 11px 0;
+//   color: #c4f0ff;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
 
 label .field.is-focused + span span,
 label .field:not(.is-empty) + span span {
