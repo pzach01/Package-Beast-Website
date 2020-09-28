@@ -81,7 +81,7 @@ export class PaymentComponent implements OnInit {
                 lineHeight: '36px',
                 fontWeight: 300,
                 // fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSize: '19px',
+                // fontSize: '16px',
                 fontSmoothing: 'antialiased',
                 '::placeholder': {
                   color: '#8898AA',
