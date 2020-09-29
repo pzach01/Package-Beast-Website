@@ -1,4 +1,5 @@
-<div *ngIf="subscriptionInfo.userHasViewRights" class="view-container container d-flex flex-column overflow-hidden">
+<div *ngIf="subscriptionInfo.userHasViewRights && subscriptionInfo.subscriptionActive"
+    class="view-container container d-flex flex-column overflow-hidden">
     <div class="row my-3">
         <div class="col text-center">
             <h3>Thank You!</h3>
@@ -15,7 +16,8 @@
 </div>
 
 
-<div *ngIf="!subscriptionInfo.userHasViewRights" class="view-container container d-flex flex-column overflow-hidden">
+<div *ngIf="!subscriptionInfo.userHasViewRights || !subscriptionInfo.subscriptionActive"
+    class="view-container container d-flex flex-column overflow-hidden">
     <div class="row my-3">
         <div class="col text-center">
             <h3>Processing Payment</h3>

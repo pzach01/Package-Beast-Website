@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/_services';
 import { Router } from '@angular/router';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 import { SubscriptionInfo } from 'src/app/_models';
@@ -11,14 +10,17 @@ import { SubscriptionInfo } from 'src/app/_models';
 })
 export class SelectSubscriptionComponent implements OnInit {
 
-  subscriptionInfo = new SubscriptionInfo
-  subscriptionType;
+  subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
+  subscriptionType: string = this.subscriptionInfo.subscriptionType;
   priceId: string;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private subscriptionService: SubscriptionsService) { }
+  constructor(private router: Router, private subscriptionService: SubscriptionsService) { }
 
   ngOnInit() {
-    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => { this.subscriptionInfo = subscriptionInfo; this.subscriptionType = this.subscriptionInfo.subscriptionType })
+    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => {
+      this.subscriptionInfo = subscriptionInfo;
+      this.subscriptionType = this.subscriptionInfo.subscriptionType
+    })
   }
 
   updateSubscriptionType(subscriptionType: string) {
@@ -28,7 +30,7 @@ export class SelectSubscriptionComponent implements OnInit {
         this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
         break;
       case "premium":
-        this.subscriptionType = "standard"
+        this.subscriptionType = "premium"
         this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
         break;
       case "beastMode":
@@ -37,12 +39,16 @@ export class SelectSubscriptionComponent implements OnInit {
         break;
     }
 
-    if (this.subscriptionInfo.subscriptionActive) {
+    if (this.subscriptionInfo.subscriptionType == 'none') {
+      this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
+    }
+
+    if (this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
       this.subscriptionService.updateStripeSubscription(this.priceId).subscribe((r) => {
         console.log("response from update Stripe Subscription", r)
         this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
       })
-    } else {
+    } else if (!this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
       this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionType}` } }]);
     }
 

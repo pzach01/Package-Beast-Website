@@ -43,15 +43,19 @@
         </div>
     </div>
 
-    <ng-container *ngIf="subscriptionInfo.subscriptionActive">
+    <ng-container *ngIf="subscriptionInfo.subscriptionActive && subscriptionInfo.subscriptionType!='none'">
         <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToSelectSubscription()">Change Subscription</a>
+            <a [routerLink]="" (click)="goToSelectSubscription()">Upgrade or Downgrade Subscription</a>
         </div>
-        <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToUpdatePaymentMethod()">Update Payment Method</a>
-        </div>
+
         <div class="d-flex justify-content-start mb-3">
             <a [routerLink]="" (click)="openConfirmSubscriptionCancelation()">Cancel Subscription</a>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="subscriptionInfo.subscriptionActive">
+        <div class="d-flex justify-content-start mb-3">
+            <a [routerLink]="" (click)="goToUpdatePaymentMethod()">Update Payment Method</a>
         </div>
     </ng-container>
 
