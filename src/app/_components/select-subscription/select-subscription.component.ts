@@ -12,15 +12,13 @@ import { SubscriptionInfo } from 'src/app/_models';
 export class SelectSubscriptionComponent implements OnInit {
 
   subscriptionInfo = new SubscriptionInfo
-  currentUser = this.authenticationService.currentUserValue;
-  subscriptionType = this.currentUser.subscriptionType;
+  subscriptionType;
   priceId: string;
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private subscriptionService: SubscriptionsService) { }
 
   ngOnInit() {
-    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => this.subscriptionInfo = subscriptionInfo)
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => { this.subscriptionInfo = subscriptionInfo; this.subscriptionType = this.subscriptionInfo.subscriptionType })
   }
 
   updateSubscriptionType(subscriptionType: string) {
