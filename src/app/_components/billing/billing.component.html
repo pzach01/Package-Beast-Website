@@ -39,7 +39,8 @@
 
     <div class="row">
         <div class="col text-left">
-            <p>Date/Time: {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
+            <p>End of Billing Cycle:
+                {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
         </div>
     </div>
 

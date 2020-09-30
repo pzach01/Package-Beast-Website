@@ -73,32 +73,29 @@ export class ShipmentDetailComponent implements OnInit {
 
         this.groupedItemsByMasterIdAndContainer = [...this.shipment.items.reduce((r, o) => {
           const key = o.masterItemId + '-' + o.container;
-
           const item = r.get(key) || Object.assign({}, o, {
             qty: 0,
           });
-
           item.qty += 1;
-
-
-
-
           return r.set(key, item);
         }, new Map).values()];
 
         this.itemsDataSource.data = this.groupedItemsByMasterIdAndContainer;
         this.containersDataSource.data = this.containers;
+
+        // if (this.items.length > # of fit items){ run code below}
+        this.openshipmentAlertDialog();
       })
     })
 
-    this.openshipmentAlertDialog();
+
   }
 
   openshipmentAlertDialog(): void {
     this.shipmentAlert.open(ShipmentAlertComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
-      data: { numberFitItems: 7, numberTotalItems: 9 }
+      data: { numberFitItems: 1234, numberTotalItems: this.items.length }
     });
   }
 
