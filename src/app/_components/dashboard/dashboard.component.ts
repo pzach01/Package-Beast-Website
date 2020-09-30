@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   faSignOutAlt = faSignOutAlt
   faBars = faBars;
   firstName = this.currentUser.first_name
-  userHasViewRights: boolean;
+  paymentUpToDate: boolean;
 
   constructor(
     private router: Router,
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.userHasViewRights = currentSubscription.userHasViewRights)
+    this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate)
   }
 
   logout() {

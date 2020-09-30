@@ -30,8 +30,8 @@ export class PaymentSuccessComponent implements OnInit {
     console.log("checking", i)
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
       this.subscriptionInfo = subscriptionInfo;
-      if (subscriptionInfo.userHasViewRights) {
-        console.log("userHasViewRights")
+      if (subscriptionInfo.paymentUpToDate) {
+        console.log("paymentUpToDate")
       }
       console.log(subscriptionInfo);
     })

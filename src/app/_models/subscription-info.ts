@@ -6,7 +6,7 @@ export class SubscriptionInfo {
     public shipmentsAllowed: number;
     public shipmentsUsed: number;
     public subscriptionActive: boolean;
-    public userHasViewRights: boolean;
+    public paymentUpToDate: boolean;
     public subscriptionType: string;
     public subscriptionExpirationTime: number;
 }

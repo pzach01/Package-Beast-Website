@@ -3,20 +3,20 @@
         <mat-sidenav class="drawer-edge" #snav position="start" mode="side" opened="true" fixedTopGap="0"
             fixedInViewport="true">
             <mat-nav-list>
-                <a [disabled]="!userHasViewRights" mat-list-item routerLinkActive="active"
-                    [routerLink]="[{ outlets: { view: 'items' } }]" [ngClass]="{'disabled': !userHasViewRights}">
+                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'items' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCube"></fa-icon> Inventory
                 </a>
-                <a [disabled]="!userHasViewRights" mat-list-item routerLinkActive="active"
-                    [routerLink]="[{ outlets: { view: 'containers' } }]" [ngClass]="{'disabled': !userHasViewRights}">
+                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'containers' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faBoxOpen"></fa-icon>Containers
                 </a>
-                <a [disabled]="!userHasViewRights" mat-list-item routerLinkActive="active"
-                    [routerLink]="[{ outlets: { view: 'shipments' } }]" [ngClass]="{'disabled': !userHasViewRights}">
+                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'shipments' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faTruck"></fa-icon>Shipments
                 </a>
-                <a [disabled]="!userHasViewRights" mat-list-item routerLinkActive="active"
-                    [routerLink]="[{ outlets: { view: 'settings' } }]" [ngClass]="{'disabled': !userHasViewRights}">
+                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'settings' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCog"></fa-icon>Settings
                 </a>
                 <a mat-list-item routerLinkActive="active" (click)="logout()">

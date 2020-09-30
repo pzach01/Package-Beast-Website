@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col text-left">
-            <p>User View Rights: {{subscriptionInfo.userHasViewRights}}</p>
+            <p>User View Rights: {{subscriptionInfo.paymentUpToDate}}</p>
         </div>
     </div>
     <div class="row">
@@ -43,15 +43,15 @@
         </div>
     </div>
 
-    <ng-container *ngIf="subscriptionInfo.subscriptionActive && subscriptionInfo.subscriptionType!='none'">
+    <ng-container *ngIf="subscriptionInfo.subscriptionActive && subscriptionInfo.paymentUpToDate">
         <div class="d-flex justify-content-start mb-3">
             <a [routerLink]="" (click)="goToSelectSubscription()">Upgrade or Downgrade Subscription</a>
         </div>
-
-        <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="openConfirmSubscriptionCancelation()">Cancel Subscription</a>
-        </div>
     </ng-container>
+
+    <div *ngIf="subscriptionInfo.subscriptionActive" class="d-flex justify-content-start mb-3">
+        <a [routerLink]="" (click)="openConfirmSubscriptionCancelation()">Cancel Subscription</a>
+    </div>
 
     <ng-container *ngIf="subscriptionInfo.subscriptionActive">
         <div class="d-flex justify-content-start mb-3">

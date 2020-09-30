@@ -1,4 +1,4 @@
-<div *ngIf="subscriptionInfo.userHasViewRights && subscriptionInfo.subscriptionActive"
+<div *ngIf="subscriptionInfo.paymentUpToDate && subscriptionInfo.subscriptionActive"
     class="view-container container d-flex flex-column overflow-hidden">
     <div class="row my-3">
         <div class="col text-center">
@@ -10,13 +10,13 @@
             <p>Payment processed.</p>
             <p>Thanks for using package beast. We value you as a customer.</p>
             <p>Subscription active: {{subscriptionInfo.subscriptionActive}}</p>
-            <p>User has view rights: {{subscriptionInfo.userHasViewRights}}</p>
+            <p>User has view rights: {{subscriptionInfo.paymentUpToDate}}</p>
         </div>
     </div>
 </div>
 
 
-<div *ngIf="!subscriptionInfo.userHasViewRights || !subscriptionInfo.subscriptionActive"
+<div *ngIf="!subscriptionInfo.paymentUpToDate || !subscriptionInfo.subscriptionActive"
     class="view-container container d-flex flex-column overflow-hidden">
     <div class="row my-3">
         <div class="col text-center">
@@ -30,7 +30,7 @@
             </div>
             <p>Please wait while we process your payment.</p>
             <p>Subscription active: {{subscriptionInfo.subscriptionActive}}</p>
-            <p>User has view rights: {{subscriptionInfo.userHasViewRights}}</p>
+            <p>User has view rights: {{subscriptionInfo.paymentUpToDate}}</p>
         </div>
     </div>
 </div>

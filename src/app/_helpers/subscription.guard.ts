@@ -13,7 +13,7 @@ export class SubscriptionGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentSubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
-    if (currentSubscriptionInfo.userHasViewRights && currentSubscriptionInfo.subscriptionType != 'none') {
+    if (currentSubscriptionInfo.paymentUpToDate) {
       // subscription active so return true
       return true;
     }
