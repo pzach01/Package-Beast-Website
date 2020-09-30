@@ -8,7 +8,6 @@ export class SubscriptionGuard implements CanActivate {
   constructor(
     private router: Router,
     private subscriptionService: SubscriptionsService
-    // private authenticationService: AuthenticationService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
