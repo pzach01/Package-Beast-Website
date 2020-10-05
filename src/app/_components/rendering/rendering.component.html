@@ -4,15 +4,20 @@
         <div class="d-flex flex-column">
             <div class="ml-3">
                 <p class="m-0 p-0"><strong>Container</strong> SKU: {{container.sku}} | Description:
-                    {{container.description}} | Dimensions: {{container.xDim}} x {{container.yDim}} x
-                    {{container.zDim}}</p>
+                    {{container.description}} | Dimensions:
+                    {{container.xDim | units: container.units: currentUser.units | number:'1.0-3'}} x
+                    {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}} x
+                    {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}}
+                    {{currentUser.units}}</p>
             </div>
             <ng-container *ngIf="clickedItem">
                 <div class="ml-3">
                     <p class="m-0 p-0"><strong>Selected Item</strong> SKU: {{clickedItem.sku}} | Description:
                         {{clickedItem.description}} |
-                        Dimensions: {{clickedItem.xDim}} x {{clickedItem.yDim}} x
-                        {{clickedItem.zDim}}</p>
+                        Dimensions: {{clickedItem.xDim | units: clickedItem.units: currentUser.units | number:'1.0-3'}}
+                        x {{clickedItem.yDim | units: clickedItem.units: currentUser.units | number:'1.0-3'}} x
+                        {{clickedItem.zDim | units: clickedItem.units: currentUser.units | number:'1.0-3'}}
+                        {{currentUser.units}}</p>
                 </div>
             </ng-container>
             <ng-container *ngIf="!clickedItem">
