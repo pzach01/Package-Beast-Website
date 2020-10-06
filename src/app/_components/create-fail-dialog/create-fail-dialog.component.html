@@ -1,0 +1,14 @@
+<button type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
+        aria-hidden="true">×</span></button>
+
+<h1 mat-dialog-title class="text-danger">Maximum number of {{data.type}}s exceeded!</h1>
+<mat-dialog-content>
+    <h6 *ngIf="data.type == 'item'">Update your subscription to increase your allowed inventory items.</h6>
+    <h6 *ngIf="data.type == 'container'">Update your subscription to increase your allowed shipping containers.</h6>
+    <h6 *ngIf="data.type == 'shipment'">Update your subscription to increase your monthly shipments.</h6>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="goToSelectSubscription()" type="button">Upgrade</button>
+    <button mat-raised-button mat-dialog-close type="button">Dismiss</button>
+</mat-dialog-actions>

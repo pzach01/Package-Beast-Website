@@ -6,9 +6,10 @@ import { ContainersSelectionComponent } from 'src/app/_components/containers-sel
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { delay } from 'rxjs/operators';
 import { timer } from 'rxjs/internal/observable/timer';
+import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 
 @Component({
   selector: 'app-new-shipment',
@@ -32,7 +33,7 @@ export class NewShipmentComponent implements OnInit {
   fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
 
-  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>,
+  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
   ) { }
 
   ngOnInit() { }
@@ -92,9 +93,17 @@ export class NewShipmentComponent implements OnInit {
     this.shipment.timeoutDuration = 30;
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
-      this.pauseSpinnerInterval()
-      this.fastForwardSpinner(shipment)
+      this.pauseSpinnerInterval();
+      this.fastForwardSpinner(shipment), error => { this.close(); this.openCreateFailDialog(); }
     })
+  }
+
+  openCreateFailDialog(): void {
+    const dialogRef = this.createFailDialog.open(CreateFailDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: "shipment" },
+    });
   }
   close() {
     this.newShipmentRef.close();

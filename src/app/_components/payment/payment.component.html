@@ -57,7 +57,8 @@
             </div>
 
             <mat-card-actions>
-                <button class="full-width" mat-raised-button color="accent" type="submit">
+                <button class="full-width" mat-raised-button color="accent" type="submit" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Complete
                 </button>
             </mat-card-actions>

@@ -64,6 +64,7 @@ import { ShipmentAlertComponent } from './_components/shipment-alert/shipment-al
 import { CancelSubscriptionConfirmationComponent } from './_components/cancel-subscription-confirmation/cancel-subscription-confirmation.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { CreateFailDialogComponent } from './_components/create-fail-dialog/create-fail-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard(view:items)', pathMatch: 'full' },
@@ -175,7 +176,8 @@ const appRoutes: Routes = [
     SelectSubscriptionComponent,
     PaymentSuccessComponent,
     ShipmentAlertComponent,
-    CancelSubscriptionConfirmationComponent],
+    CancelSubscriptionConfirmationComponent,
+    CreateFailDialogComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

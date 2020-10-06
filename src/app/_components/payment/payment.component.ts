@@ -14,6 +14,7 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 })
 export class PaymentComponent implements OnInit {
 
+  loading: boolean = false;
   subscriptionType: string;
   // subscriptionTypeUI: string;
   priceId: string;
@@ -141,6 +142,7 @@ export class PaymentComponent implements OnInit {
       } else {
         console.log('Create payment method succeeded', result);
         this.subscriptonsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
+          this.loading = true;
           console.log("subActive?", subscriptionInfo.subscriptionActive)
           subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })

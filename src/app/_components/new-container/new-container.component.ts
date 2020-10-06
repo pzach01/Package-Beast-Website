@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from 'src/app/_models/container';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
 import { evaluate } from 'mathjs'
 import { AuthenticationService } from 'src/app/_services';
+import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class NewContainerComponent implements OnInit {
     public newContainerRef: MatDialogRef<NewContainerComponent>,
     private containersService: ContainersService,
     @Inject(MAT_DIALOG_DATA) public newContainer: Container,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    public createFailDialog: MatDialog) { }
 
   onNoClick(): void {
     this.newContainerRef.close();
@@ -60,7 +62,19 @@ export class NewContainerComponent implements OnInit {
 
     this.newContainer = new Container(this.newContainerForm.value)
     this.loading = true;
-    this.containersService.postContainer(this.newContainer).subscribe(newContainer => this.newContainerRef.close(newContainer))
+    this.containersService.postContainer(this.newContainer).subscribe(newContainer =>
+      this.newContainerRef.close(newContainer),
+      error => {
+        console.log("yoyou"); this.close(); this.openCreateFailDialog();
+      })
+  }
+
+  openCreateFailDialog(): void {
+    const dialogRef = this.createFailDialog.open(CreateFailDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: "container" },
+    });
   }
 
   close() {

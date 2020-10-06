@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
 import { evaluate } from 'mathjs'
 import { AuthenticationService } from 'src/app/_services';
+import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class NewItemComponent implements OnInit {
     public newItemRef: MatDialogRef<NewItemComponent>,
     private itemsService: ItemsService,
     @Inject(MAT_DIALOG_DATA) public newItem: Item,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    public createFailDialog: MatDialog) { }
 
   onNoClick(): void {
     this.newItemRef.close();
@@ -63,9 +65,17 @@ export class NewItemComponent implements OnInit {
     this.newItem.units = this.units
     this.itemsService.postItem(this.newItem).subscribe(newItem => {
       this.newItemRef.close(newItem);
-    })
+    }, error => { this.close(); this.openCreateFailDialog(); }
+    )
   }
 
+  openCreateFailDialog(): void {
+    const dialogRef = this.createFailDialog.open(CreateFailDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: "item" },
+    });
+  }
   close() {
     this.newItemRef.close();
   }
