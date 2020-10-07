@@ -94,8 +94,9 @@ export class NewShipmentComponent implements OnInit {
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();
-      this.fastForwardSpinner(shipment), error => { this.close(); this.openCreateFailDialog(); }
-    })
+      this.fastForwardSpinner(shipment)
+    }, error => { this.close(); this.openCreateFailDialog(); }
+    )
   }
 
   openCreateFailDialog(): void {
