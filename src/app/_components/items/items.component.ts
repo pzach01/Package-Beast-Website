@@ -7,6 +7,7 @@ import { NewItemComponent } from 'src/app/_components/new-item/new-item.componen
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/_services';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -24,16 +25,23 @@ export class ItemsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('table', { static: true }) table;
 
-  constructor(private itemsservice: ItemsService, public newItemDialog: MatDialog, private authenticationService: AuthenticationService) { }
+  constructor(private itemsService: ItemsService, public newItemDialog: MatDialog, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
-    this.itemsservice.getAll().subscribe(items => {
+    this.itemsService.getAll().subscribe(items => {
       this.loading = false;
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: any, filter: string) =>
+        !filter ||
+        data.sku.includes(filter) ||
+        data.description.includes(filter) ||
+        data.length.toString().includes(filter) ||
+        data.width.toString().includes(filter) ||
+        data.height.toString().includes(filter)
     })
   }
 

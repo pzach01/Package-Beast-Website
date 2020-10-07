@@ -28,7 +28,21 @@ export class ContainersComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
-    this.containersservice.getAll().subscribe(containers => { this.loading = false; this.containers = containers; this.dataSource = new MatTableDataSource(containers); this.dataSource.sort = this.sort; })
+    this.containersservice.getAll().subscribe(containers => {
+      this.loading = false; this.containers = containers;
+      this.dataSource = new MatTableDataSource(containers);
+      this.dataSource.sort = this.sort;
+
+      console.log(containers)
+      this.dataSource.filterPredicate = (data: any, filter: string) =>
+        !filter ||
+        data.sku.includes(filter) ||
+        data.description.includes(filter) ||
+        data.xDim.toString().includes(filter) ||
+        data.yDim.toString().includes(filter) ||
+        data.zDim.toString().includes(filter) ||
+        data.volume.toString().includes(filter)
+    })
   }
 
   openDialog(): void {
