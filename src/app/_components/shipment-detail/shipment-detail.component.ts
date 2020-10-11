@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Shipment } from 'src/app/_models/shipment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from 'src/app/_services';
 import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -20,7 +21,8 @@ export class ShipmentDetailComponent implements OnInit {
   shipment: Shipment;
   timeout: boolean = false;
   items: Item[];
-  itemsDataSource;
+  itemsDataSource: MatTableDataSource<any>;
+  containersDataSource: MatTableDataSource<any>;
   groupedItemsByMasterIdAndContainer: Item[] = [];
   numberFitItems: number = 0;
   containers: Container[] = [];
@@ -28,18 +30,19 @@ export class ShipmentDetailComponent implements OnInit {
 
   multiBinPack: boolean;
   arrangementPossible: boolean;
-  containersDataSource = new MatTableDataSource(this.containers);
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
   containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
 
   shipmentId: number;
   submitted = false;
   loading = false;
+  @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
+  @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog) { }
+  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.itemsDataSource = new MatTableDataSource(this.items);
+
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
 
     this.route.params.subscribe(params => {
@@ -80,16 +83,25 @@ export class ShipmentDetailComponent implements OnInit {
           return r.set(key, item);
         }, new Map).values()];
 
-        this.itemsDataSource.data = this.groupedItemsByMasterIdAndContainer;
-        this.containersDataSource.data = this.containers;
 
-        // if (this.items.length > # of fit items){ run code below}
+
+        this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterIdAndContainer);
+        this.itemsTableSorts.changes.subscribe(() => {
+          // Now you can access to the child component
+          console.log(this.itemsTableSorts.first)
+          this.itemsDataSource.sort = this.itemsTableSorts.first;
+        });
+
+        this.containersDataSource = new MatTableDataSource(this.containers);
+        this.containersTableSorts.changes.subscribe(() => {
+          this.containersDataSource.sort = this.containersTableSorts.first
+        })
+
         this.openshipmentAlertDialog();
       })
     })
-
-
   }
+
 
   openshipmentAlertDialog(): void {
     this.shipmentAlert.open(ShipmentAlertComponent, {
