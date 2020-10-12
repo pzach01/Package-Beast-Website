@@ -1,0 +1,14 @@
+<button type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
+        aria-hidden="true">×</span></button>
+
+<h1 mat-dialog-title class="text-danger">Confirm Deletion</h1>
+<mat-dialog-content>
+    <h6 *ngIf="data.type == 'item'">Are you sure you want to permanently delete this item?</h6>
+    <h6 *ngIf="data.type == 'container'">Are you sure you want to permanently delete this shipping container?</h6>
+    <h6 *ngIf="data.type == 'shipment'">Are you sure you want to permanently delete this shipment?</h6>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="delete()" type="button">Delete</button>
+    <button mat-raised-button mat-dialog-close type="button">Cancel</button>
+</mat-dialog-actions>

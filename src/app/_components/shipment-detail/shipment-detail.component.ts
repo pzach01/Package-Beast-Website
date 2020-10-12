@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/_services';
 import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -21,6 +22,7 @@ export class ShipmentDetailComponent implements OnInit {
   shipment: Shipment;
   timeout: boolean = false;
   items: Item[];
+  nonEmptyContainersDataSource: MatTableDataSource<any>;
   itemsDataSource: MatTableDataSource<any>;
   containersDataSource: MatTableDataSource<any>;
   groupedItemsByMasterIdAndContainer: Item[] = [];
@@ -30,16 +32,18 @@ export class ShipmentDetailComponent implements OnInit {
 
   multiBinPack: boolean;
   arrangementPossible: boolean;
+  nonEmptyContainersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
   containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
 
   shipmentId: number;
   submitted = false;
   loading = false;
+  @ViewChildren('nonEmptyContainersTableSort') nonEmptyContainersTableSorts: QueryList<MatSort>;
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, private cdRef: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -83,7 +87,10 @@ export class ShipmentDetailComponent implements OnInit {
           return r.set(key, item);
         }, new Map).values()];
 
-
+        this.nonEmptyContainersDataSource = new MatTableDataSource(this.nonEmptyContainers);
+        this.nonEmptyContainersTableSorts.changes.subscribe(() => {
+          this.nonEmptyContainersDataSource.sort = this.nonEmptyContainersTableSorts.first
+        })
 
         this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterIdAndContainer);
         this.itemsTableSorts.changes.subscribe(() => {
@@ -111,10 +118,26 @@ export class ShipmentDetailComponent implements OnInit {
     });
   }
 
+  openConfirmDeleteDialog(): void {
+    const dialogRef = this.confirmDeleteShipmentDialog.open(ConfirmDeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: 'shipment' }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.delete) {
+          console.log("delete?", data.delete)
+          this.shipmentsService.deleteArrangement(this.shipment).subscribe(() => this.router.navigate(['./', { outlets: { view: ['shipments'] } }], { replaceUrl: true }))
+        }
+      }
+    })
+  }
+
   delete() {
     this.submitted = true;
     this.loading = true;
-    this.shipmentsService.deleteArrangement(this.shipment).subscribe(() => this.router.navigate(['./', { outlets: { view: ['shipments'] } }], { replaceUrl: true })
-    )
+    this.openConfirmDeleteDialog()
   }
 }

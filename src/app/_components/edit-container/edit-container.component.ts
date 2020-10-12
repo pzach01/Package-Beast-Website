@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from 'src/app/_models/container';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
 import { evaluate } from 'mathjs'
+import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class EditContainerComponent implements OnInit {
     private formBuilder: FormBuilder,
     public editContainerRef: MatDialogRef<EditContainerComponent>,
     private containersService: ContainersService,
-    @Inject(MAT_DIALOG_DATA) public editContainer: Container) { }
+    @Inject(MAT_DIALOG_DATA) public editContainer: Container,
+    public confirmDeleteItemDialog: MatDialog) { }
 
   onNoClick(): void {
     this.editContainerRef.close();
@@ -65,6 +67,23 @@ export class EditContainerComponent implements OnInit {
     this.containersService.putContainer(this.editContainer).subscribe(editContainer => this.editContainerRef.close({ deletedContainer: null, editedContainer: editContainer }))
   }
 
+  openConfirmDeleteDialog(): void {
+    const dialogRef = this.confirmDeleteItemDialog.open(ConfirmDeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: 'container' }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.delete) {
+          console.log("delete?", data.delete)
+          this.containersService.deleteItem(this.editContainer).subscribe(() => this.editContainerRef.close({ deletedContainer: this.editContainer, editedContainer: null }))
+        }
+      }
+    })
+  }
+
   close() {
     this.editContainerRef.close({ deletedContainer: null, editedContainer: null });
   }
@@ -72,7 +91,9 @@ export class EditContainerComponent implements OnInit {
   delete() {
     this.submitted = true;
     this.loading = true;
-    this.containersService.deleteItem(this.editContainer).subscribe(() => this.editContainerRef.close({ deletedContainer: this.editContainer, editedContainer: null }))
+    this.openConfirmDeleteDialog();
+
+    // this.containersService.deleteItem(this.editContainer).subscribe(() => this.editContainerRef.close({ deletedContainer: this.editContainer, editedContainer: null }))
   }
 
 }

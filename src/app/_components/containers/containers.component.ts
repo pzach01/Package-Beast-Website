@@ -73,19 +73,20 @@ export class ContainersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      if (data.editedContainer) {
-        const editedContainer = data.editedContainer;
-        this.dataSource.data = this.dataSource.data.filter(container => container.id !== editedContainer.id);
-        this.dataSource.data.unshift(editedContainer);
-        this.dataSource._updateChangeSubscription();
-        this.newOrEditedContainer = editedContainer;
+      if (data) {
+        if (data.editedContainer) {
+          const editedContainer = data.editedContainer;
+          this.dataSource.data = this.dataSource.data.filter(container => container.id !== editedContainer.id);
+          this.dataSource.data.unshift(editedContainer);
+          this.dataSource._updateChangeSubscription();
+          this.newOrEditedContainer = editedContainer;
+        }
 
-      }
-
-      if (data.deletedContainer) {
-        const deletedContainer = data.deletedContainer
-        this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedContainer.id);
-        this.dataSource._updateChangeSubscription();
+        if (data.deletedContainer) {
+          const deletedContainer = data.deletedContainer
+          this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedContainer.id);
+          this.dataSource._updateChangeSubscription();
+        }
       }
     });
   }

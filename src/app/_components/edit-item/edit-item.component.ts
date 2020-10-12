@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators, RequiredValidator } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
 import { evaluate } from 'mathjs'
+import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-edit-item',
@@ -20,7 +21,8 @@ export class EditItemComponent implements OnInit {
     private formBuilder: FormBuilder,
     public editItemRef: MatDialogRef<EditItemComponent>,
     private itemsService: ItemsService,
-    @Inject(MAT_DIALOG_DATA) public editItem: Item) { }
+    @Inject(MAT_DIALOG_DATA) public editItem: Item,
+    public confirmDeleteItemDialog: MatDialog) { }
 
   onNoClick(): void {
     this.editItemRef.close();
@@ -64,6 +66,23 @@ export class EditItemComponent implements OnInit {
     this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close({ deletedItem: null, editedItem: editItem }))
   }
 
+  openConfirmDeleteDialog(): void {
+    const dialogRef = this.confirmDeleteItemDialog.open(ConfirmDeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: 'item' }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.delete) {
+          console.log("delete?", data.delete)
+          this.itemsService.deleteItem(this.editItem).subscribe(() => this.editItemRef.close({ deletedItem: this.editItem, editedItem: null }))
+        }
+      }
+    })
+  }
+
   close() {
     this.editItemRef.close({ deletedItem: null, editedItem: null });
   }
@@ -71,7 +90,7 @@ export class EditItemComponent implements OnInit {
   delete() {
     this.submitted = true;
     this.loading = true;
-    this.itemsService.deleteItem(this.editItem).subscribe(() => this.editItemRef.close({ deletedItem: this.editItem, editedItem: null }))
+    this.openConfirmDeleteDialog()
   }
 
 }

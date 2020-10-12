@@ -73,21 +73,21 @@ export class ItemsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.editedItem) {
+          const editedItem = data.editedItem
+          this.dataSource.data = this.dataSource.data.filter(item => item.id !== editedItem.id);
+          this.dataSource.data.unshift(editedItem);
+          this.dataSource._updateChangeSubscription();
+          this.newOrEditedItem = editedItem;
 
-      if (data.editedItem) {
-        const editedItem = data.editedItem
-        this.dataSource.data = this.dataSource.data.filter(item => item.id !== editedItem.id);
-        this.dataSource.data.unshift(editedItem);
-        this.dataSource._updateChangeSubscription();
-        this.newOrEditedItem = editedItem;
-
+        }
+        if (data.deletedItem) {
+          const deletedItem = data.deletedItem
+          this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedItem.id);
+          this.dataSource._updateChangeSubscription();
+        }
       }
-      if (data.deletedItem) {
-        const deletedItem = data.deletedItem
-        this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedItem.id);
-        this.dataSource._updateChangeSubscription();
-      }
-
     });
   }
 }
