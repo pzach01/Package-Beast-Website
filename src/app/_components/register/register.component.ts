@@ -4,14 +4,14 @@ import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/for
 import { first } from 'rxjs/operators';
 import { MustMatch } from '../../_helpers/must-match'
 import { ReCaptchaV3Service } from 'ng-recaptcha';
-import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { AlertService, AuthenticationService } from '../../_services';
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
     faFacebookSquare = faFacebookSquare;
     faTwitterSquare = faTwitterSquare;
+    faYoutubeSquare = faYoutubeSquare;
 
     registerForm: FormGroup;
     loading = false;
