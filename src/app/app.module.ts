@@ -66,6 +66,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { CreateFailDialogComponent } from './_components/create-fail-dialog/create-fail-dialog.component';
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard(view:items)', pathMatch: 'full' },
@@ -179,7 +180,8 @@ const appRoutes: Routes = [
     ShipmentAlertComponent,
     CancelSubscriptionConfirmationComponent,
     CreateFailDialogComponent,
-    ConfirmDeleteDialogComponent],
+    ConfirmDeleteDialogComponent,
+    ChangePasswordCompleteDialogComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

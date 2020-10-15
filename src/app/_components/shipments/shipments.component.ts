@@ -27,7 +27,7 @@ export class ShipmentsComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService, private viewportScroller: ViewportScroller) { }
+  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService) { }
 
   transformDate(date) {
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
