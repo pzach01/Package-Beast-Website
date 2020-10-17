@@ -9,9 +9,8 @@
             </a>
         </div>
     </div> -->
-    <div class="jumbotron jumbotron-fluid text-center">
+    <div class="jumbotron jumbotron-fluid text-center p-0">
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col text-right">
                     <a target="_blank" rel="noopener noreferrer"
@@ -44,9 +43,30 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
-            <div class="row pt-5">
+            <div class="row py-5">
                 <div class="col">
-                    <p class="lead"><strong>Always ship in the smallest box. Period.</strong></p>
+                    <p class="lead centered"><strong>Always ship in the smallest box. Period.</strong></p>
+                </div>
+            </div>
+
+            <div class="row p-0">
+                <div class="col p-0">
+                    <div>
+                        <mat-carousel timings="500ms ease-in" [autoplay]="true" interval="4200" color="accent"
+                            maxWidth="auto" proportion="15" slides="3" [loop]="true" [hideArrows]="false"
+                            [hideIndicators]="true" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
+                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                                <h3 class="centered lead"><strong>"Package Beast saves us time and money!"</strong></h3>
+                            </mat-carousel-slide>
+                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                                <h3 class="centered lead"><strong>"I don't know how we got along without Package
+                                        Beast."</strong></h3>
+                            </mat-carousel-slide>
+                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                                <h3 class="centered lead"><strong>"Package Beast rocks!"</strong></h3>
+                            </mat-carousel-slide>
+                        </mat-carousel>
+                    </div>
                 </div>
             </div>
         </div>
@@ -164,5 +184,8 @@
                 </mat-card>
             </div>
         </div>
+    </div>
+    <div class="container-fluid extra-page-scroll">
+
     </div>
 </div>

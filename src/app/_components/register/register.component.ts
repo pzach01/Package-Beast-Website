@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome
 import { AlertService, AuthenticationService } from '../../_services';
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
     faFacebookSquare = faFacebookSquare;
     faTwitterSquare = faTwitterSquare;
     faYoutubeSquare = faYoutubeSquare;
@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        private recaptchaV3Service: ReCaptchaV3Service
+        private recaptchaV3Service: ReCaptchaV3Service,
+        private cdr: ChangeDetectorRef
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -45,6 +46,11 @@ export class RegisterComponent implements OnInit {
         }, {
             validator: MustMatch('password1', 'password2')
         });
+
+    }
+
+    ngAfterViewInit(): void {
+        this.cdr.detectChanges();
     }
 
     // convenience getter for easy access to form fields
