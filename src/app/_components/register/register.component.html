@@ -51,22 +51,21 @@
 
             <div class="row p-0">
                 <div class="col p-0">
-                    <div>
-                        <mat-carousel timings="500ms ease-in" [autoplay]="true" interval="4200" color="accent"
-                            maxWidth="auto" proportion="15" slides="3" [loop]="true" [hideArrows]="false"
-                            [hideIndicators]="true" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
-                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
-                                <h3 class="centered lead"><strong>"Package Beast saves us time and money!"</strong></h3>
-                            </mat-carousel-slide>
-                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
-                                <h3 class="centered lead"><strong>"I don't know how we got along without Package
-                                        Beast."</strong></h3>
-                            </mat-carousel-slide>
-                            <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
-                                <h3 class="centered lead"><strong>"Package Beast rocks!"</strong></h3>
-                            </mat-carousel-slide>
-                        </mat-carousel>
-                    </div>
+                    <mat-carousel timings="500ms ease-in" [autoplay]="true" interval="3200" color="accent"
+                        maxWidth="auto" maintainAspectRatio="false" slides="3" [loop]="true" [hideArrows]="false"
+                        [hideIndicators]="true" proportion="25" [useKeyboard]="true" slideHeight="10%"
+                        [useMouseWheel]="false" orientation="ltr">
+                        <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                            <h3 class="centered">"Package Beast saves us time and money!"</h3>
+                        </mat-carousel-slide>
+                        <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                            <h3 class="centered">"I don't know how we got along without Package
+                                Beast."</h3>
+                        </mat-carousel-slide>
+                        <mat-carousel-slide overlayColor="#00000010" [hideOverlay]="false">
+                            <h3 class="centered">"Package Beast rocks!"</h3>
+                        </mat-carousel-slide>
+                    </mat-carousel>
                 </div>
             </div>
         </div>
