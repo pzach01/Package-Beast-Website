@@ -104,7 +104,9 @@ export class ShipmentDetailComponent implements OnInit {
           this.containersDataSource.sort = this.containersTableSorts.first
         })
 
-        this.openshipmentAlertDialog();
+        if (this.numberFitItems != this.items.length) {
+          this.openshipmentAlertDialog();
+        }
       })
     })
   }
@@ -114,7 +116,7 @@ export class ShipmentDetailComponent implements OnInit {
     this.shipmentAlert.open(ShipmentAlertComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
-      data: { numberFitItems: 1234, numberTotalItems: this.items.length }
+      data: { numberFitItems: this.numberFitItems, numberTotalItems: this.items.length }
     });
   }
 

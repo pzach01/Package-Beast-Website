@@ -95,7 +95,11 @@ export class NewShipmentComponent implements OnInit {
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();
       this.fastForwardSpinner(shipment)
-    }, error => { this.close(); this.openCreateFailDialog(); }
+    }, error => {
+      if (error.detail == "Not found.") {
+        this.close(); this.openCreateFailDialog();
+      }
+    }
     )
   }
 
