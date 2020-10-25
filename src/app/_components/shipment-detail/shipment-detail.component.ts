@@ -58,6 +58,7 @@ export class ShipmentDetailComponent implements OnInit {
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
         this.arrangementPossible = shipment.arrangementPossible
+        console.log(this.items)
 
         //the code below filters out empty containers so we don't render them
         this.nonEmptyContainers = this.containers.filter((container) => {

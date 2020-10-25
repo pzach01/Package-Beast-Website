@@ -148,26 +148,27 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     var axesHelper = new THREE.AxesHelper(30);
     this.scene.add(axesHelper)
     this.items.forEach((item, index) => {
-      const geometry = new THREE.BoxGeometry(item.yDim, item.xDim, item.zDim);
-      var randomColor = this.itemColors[index % this.itemColors.length]
-      let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
-      let mesh = new THREE.Mesh(geometry, material);
-      this.generateLine(mesh, item);
+      if (item.container == this.container.id) {
+        const geometry = new THREE.BoxGeometry(item.yDim, item.xDim, item.zDim);
+        var randomColor = this.itemColors[index % this.itemColors.length]
+        let material = new THREE.MeshPhongMaterial({ color: randomColor, specular: 0x555555, shininess: 120, wireframe: false, side: THREE.DoubleSide, transparent: true, opacity: .9 });
+        let mesh = new THREE.Mesh(geometry, material);
+        this.generateLine(mesh, item);
 
-      mesh.position.x = item.yCenter
-      if (!this.currentUser.disableFillContainerAnimation) {
-        mesh.position.y = item.xCenter + item.xDim / 2 * index
-      } else {
-        mesh.position.y = item.xCenter
+        mesh.position.x = item.yCenter
+        if (!this.currentUser.disableFillContainerAnimation) {
+          mesh.position.y = item.xCenter + item.xDim / 2 * index
+        } else {
+          mesh.position.y = item.xCenter
+        }
+
+        mesh.position.z = item.zCenter
+        mesh.name = item.id.toString();
+        mesh.userData = item;
+        this.scene.add(mesh);
+        this.threeJSItemMeshes.push(mesh)
+        this.shownMeshes.push(mesh)
       }
-
-      mesh.position.z = item.zCenter
-      mesh.name = item.id.toString();
-      mesh.userData = item;
-      this.scene.add(mesh);
-      this.threeJSItemMeshes.push(mesh)
-      this.shownMeshes.push(mesh)
-
     });
   }
 
