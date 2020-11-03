@@ -56,8 +56,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
-    this.step = this.items.length
-    this.totalSteps = this.items.length;
+    this.step = this.items.filter(item => item.container == this.container.id).length;
+    this.totalSteps = this.items.filter(item => item.container == this.container.id).length;
     this.dataSource = new MatTableDataSource(this.items);
 
     //this.items = this.items.filter(item => item.container == this.container.id)
@@ -82,7 +82,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
     this.rendererContainer.nativeElement.addEventListener('keydown', this.keyDown.bind(this))
   }
-
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
@@ -261,7 +260,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.hiddenMeshes = []
     this.shownMeshes.forEach(mesh => mesh.position.y = mesh.userData.xCenter)
     this.step = this.totalSteps;
-
   }
 
   previousItem() {
@@ -357,7 +355,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   rowClicked(item: Item, i?: number) {
-    if (i) {
+    if (i && i < this.totalSteps) {
       for (let index = this.step; index < i + 1; index++) {
         this.step++
         const poppedMesh = this.hiddenMeshes.shift()

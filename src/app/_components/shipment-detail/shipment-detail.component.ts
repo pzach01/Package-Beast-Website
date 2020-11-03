@@ -93,6 +93,7 @@ export class ShipmentDetailComponent implements OnInit {
           this.nonEmptyContainersDataSource.sort = this.nonEmptyContainersTableSorts.first
         })
 
+        console.log(this.groupedItemsByMasterIdAndContainer)
         this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterIdAndContainer);
         this.itemsTableSorts.changes.subscribe(() => {
           // Now you can access to the child component

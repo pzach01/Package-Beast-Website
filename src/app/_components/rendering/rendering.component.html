@@ -74,7 +74,8 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
-                <tr [ngClass]="{ 'highlightRow': clickedItem == item }" (click)="rowClicked(item, i)" mat-row
+                <tr [ngClass]="{ 'highlightRow': clickedItem == item, 'greyRow': i >= totalSteps }"
+                    (click)="rowClicked(item, i)" mat-row
                     *matRowDef="let item; columns: displayedColumns; let i = index"></tr>
             </table>
         </div>
