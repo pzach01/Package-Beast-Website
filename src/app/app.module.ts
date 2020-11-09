@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor, ErrorInterceptor, UnitsPipe, SubscriptionGuard } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, UnitsPipe, SubscriptionGuard, TermsOfServiceGuard } from './_helpers';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from "./app.component";
@@ -68,6 +68,7 @@ import { CreateFailDialogComponent } from './_components/create-fail-dialog/crea
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard(view:items)', pathMatch: 'full' },
@@ -85,31 +86,31 @@ const appRoutes: Routes = [
     path: 'shipments',
     outlet: 'view',
     component: ShipmentsComponent,
-    canActivate: [AuthGuard, SubscriptionGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
   },
   {
     path: 'shipments/:id',
     outlet: 'view',
     component: ShipmentDetailComponent,
-    canActivate: [AuthGuard, SubscriptionGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
   },
   {
-    path: 'items',
+    path: 'inventory',
     outlet: 'view',
     component: ItemsComponent,
-    canActivate: [AuthGuard, SubscriptionGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
   },
   {
     path: 'containers',
     outlet: 'view',
     component: ContainersComponent,
-    canActivate: [AuthGuard, SubscriptionGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
   },
   {
     path: 'settings',
     outlet: 'view',
     component: SettingsComponent,
-    canActivate: [AuthGuard, SubscriptionGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
   },
   {
     path: 'billing',
@@ -139,7 +140,7 @@ const appRoutes: Routes = [
     path: 'change-password',
     outlet: 'view',
     component: ChangePasswordComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, TermsOfServiceGuard]
   },
   { path: "*", redirectTo: '' }
 ];
@@ -182,7 +183,8 @@ const appRoutes: Routes = [
     CancelSubscriptionConfirmationComponent,
     CreateFailDialogComponent,
     ConfirmDeleteDialogComponent,
-    ChangePasswordCompleteDialogComponent],
+    ChangePasswordCompleteDialogComponent,
+    TermsOfServiceDialogComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(

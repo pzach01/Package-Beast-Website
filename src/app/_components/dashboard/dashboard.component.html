@@ -4,7 +4,7 @@
             fixedInViewport="true">
             <mat-nav-list>
                 <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
-                    [routerLink]="[{ outlets: { view: 'items' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
+                    [routerLink]="[{ outlets: { view: 'inventory' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCube"></fa-icon> Inventory
                 </a>
                 <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"

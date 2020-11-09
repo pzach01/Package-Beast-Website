@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first()).subscribe(() => {
                 this.authenticationService.getUser().pipe(first()).subscribe(() => {
-                    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'items' } }]);
+                    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
                 })
             },
                 error => {

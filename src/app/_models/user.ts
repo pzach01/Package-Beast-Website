@@ -10,4 +10,6 @@
     disableFillContainerAnimation: boolean;
     disablePreviousNextItemAnimation: boolean;
     animationSpeed: number;
+    usersTermsOfServiceRevision: number;
+    termsOfServiceRevision: number;
 }
