@@ -71,7 +71,7 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/dashboard(view:items)', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard(view:inventory)', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
