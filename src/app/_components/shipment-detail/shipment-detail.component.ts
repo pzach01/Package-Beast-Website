@@ -67,13 +67,17 @@ export class ShipmentDetailComponent implements OnInit {
             if (item.container == container.id) {
               containerContainsItem = true
             }
-            if (item.container != null) {
-              this.numberFitItems += 1
-              console.log(this.numberFitItems)
-            }
           })
           return containerContainsItem
         });
+
+        //count the number of fit items
+        this.items.forEach(item => {
+          if (item.container != null) {
+            this.numberFitItems += 1
+            console.log(this.numberFitItems)
+          }
+        })
 
 
         //The code below groups the items by masterItemId and assigns a qty to the items
