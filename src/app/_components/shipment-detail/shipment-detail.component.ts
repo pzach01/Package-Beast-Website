@@ -25,7 +25,7 @@ export class ShipmentDetailComponent implements OnInit {
   nonEmptyContainersDataSource: MatTableDataSource<any>;
   itemsDataSource: MatTableDataSource<any>;
   containersDataSource: MatTableDataSource<any>;
-  groupedItemsByMasterIdAndContainer: Item[] = [];
+  groupedItemsByMasterId: Item[] = [];
   numberFitItems: number = 0;
   containers: Container[] = [];
   nonEmptyContainers: Container[] = [];
@@ -79,12 +79,23 @@ export class ShipmentDetailComponent implements OnInit {
           }
         })
 
-
-        //The code below groups the items by masterItemId and assigns a qty to the items
+        //Keeping this for now in case we want to use it for multibinpack???
+        //The code below groups the items by masterItemId AND CONTAINER and assigns a qty to the items
         //so we can show qty in the table
 
-        this.groupedItemsByMasterIdAndContainer = [...this.shipment.items.reduce((r, o) => {
-          const key = o.masterItemId + '-' + o.container;
+        // this.groupedItemsByMasterIdAndContainer = [...this.shipment.items.reduce((r, o) => {
+        //   const key = o.masterItemId + '-' + o.container;
+        //   const item = r.get(key) || Object.assign({}, o, {
+        //     qty: 0,
+        //   });
+        //   item.qty += 1;
+        //   return r.set(key, item);
+        // }, new Map).values()];
+
+        // console.log("groupedItemsByMasterIdAndContainer", this.groupedItemsByMasterIdAndContainer)
+
+        this.groupedItemsByMasterId = [...this.shipment.items.reduce((r, o) => {
+          const key = o.masterItemId;
           const item = r.get(key) || Object.assign({}, o, {
             qty: 0,
           });
@@ -97,8 +108,7 @@ export class ShipmentDetailComponent implements OnInit {
           this.nonEmptyContainersDataSource.sort = this.nonEmptyContainersTableSorts.first
         })
 
-        console.log(this.groupedItemsByMasterIdAndContainer)
-        this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterIdAndContainer);
+        this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterId);
         this.itemsTableSorts.changes.subscribe(() => {
           // Now you can access to the child component
           console.log(this.itemsTableSorts.first)
