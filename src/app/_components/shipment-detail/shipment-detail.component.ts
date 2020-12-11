@@ -32,9 +32,9 @@ export class ShipmentDetailComponent implements OnInit {
 
   multiBinPack: boolean;
   arrangementPossible: boolean;
-  nonEmptyContainersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
+  nonEmptyContainersDisplayedColumns: string[] = ['sku', 'description', 'yDim', 'zDim', 'xDim', 'volume'];
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
-  containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'yDim', 'zDim', 'volume'];
+  containersDisplayedColumns: string[] = ['sku', 'description', 'yDim', 'zDim', 'xDim', 'volume'];
 
   shipmentId: number;
   submitted = false;
@@ -58,7 +58,7 @@ export class ShipmentDetailComponent implements OnInit {
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
         this.arrangementPossible = shipment.arrangementPossible
-        console.log(this.items)
+        console.log("shippy", this.shipment)
 
         //the code below filters out empty containers so we don't render them
         this.nonEmptyContainers = this.containers.filter((container) => {

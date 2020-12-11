@@ -29,7 +29,7 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  timeoutDuration = 45;
+  timeoutDuration = 30;
   fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
 
@@ -91,6 +91,7 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
+    console.log("nnn", this.shipment)
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();

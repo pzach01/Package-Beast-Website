@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="text-center">
-                        <h3>Shipping Container</h3>
+                        <h3>Best Shipping Container</h3>
                     </div>
 
                     <ng-container *ngFor="let nonEmptyContainer of nonEmptyContainers">
@@ -51,7 +51,7 @@
                                 </ng-container>
 
                                 <!-- Length Column -->
-                                <ng-container matColumnDef="xDim">
+                                <ng-container matColumnDef="yDim">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Length
                                         ({{currentUser.units}})
                                     </th>
@@ -70,7 +70,7 @@
                                 </ng-container>
 
                                 <!-- Height Column -->
-                                <ng-container matColumnDef="yDim">
+                                <ng-container matColumnDef="xDim">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Height
                                         ({{currentUser.units}})
                                     </th>
@@ -166,7 +166,7 @@
                             </ng-container>
 
                             <!-- Length Column -->
-                            <ng-container matColumnDef="xDim">
+                            <ng-container matColumnDef="yDim">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Length ({{currentUser.units}})
                                 </th>
                                 <td mat-cell *matCellDef="let container">
@@ -184,7 +184,7 @@
                             </ng-container>
 
                             <!-- Height Column -->
-                            <ng-container matColumnDef="yDim">
+                            <ng-container matColumnDef="xDim">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Height ({{currentUser.units}})
                                 </th>
                                 <td mat-cell *matCellDef="let container">
