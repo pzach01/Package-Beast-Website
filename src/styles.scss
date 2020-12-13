@@ -218,6 +218,20 @@ a.mat-list-item.disabled{
     height: 100vh;
 }
 
+.first-name:hover {
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.aux-menu {
+    max-width: none !important;
+}
 // To use color="success" in angular directive, do something like below
 // .mat-success {
 //     background-color: mat-color($app-accent);

@@ -69,6 +69,8 @@ import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialo
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/dashboard(view:inventory)', pathMatch: 'full' },
@@ -184,7 +186,8 @@ const appRoutes: Routes = [
     CreateFailDialogComponent,
     ConfirmDeleteDialogComponent,
     ChangePasswordCompleteDialogComponent,
-    TermsOfServiceDialogComponent],
+    TermsOfServiceDialogComponent,
+    PrivacyPolicyDialogComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -221,6 +224,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     MatSliderModule,
     MatProgressBarModule,
+    MatMenuModule,
     NgxStripeModule.forRoot('pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH'),
   ],
   entryComponents: [

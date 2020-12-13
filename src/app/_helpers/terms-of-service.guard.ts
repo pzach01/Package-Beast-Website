@@ -20,7 +20,7 @@ export class TermsOfServiceGuard implements CanActivate {
   currentUser: User = this.authenticationService.currentUserValue;
 
   openTermsOfServiceDialog() {
-    const dialogRef = this.termsOfServiceDialog.open(TermsOfServiceDialogComponent);
+    const dialogRef = this.termsOfServiceDialog.open(TermsOfServiceDialogComponent, { data: { forceAgree: true } });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
