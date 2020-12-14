@@ -48,14 +48,21 @@ export class DashboardComponent implements OnInit {
   }
 
   openTermsOfServiceDialog() {
-    const dialogRef = this.termsOfServiceDialog.open(TermsOfServiceDialogComponent, { data: { forceAgree: false } });
+    const dialogRef = this.termsOfServiceDialog.open(TermsOfServiceDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { forceAgree: false }
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
   openPrivacyPolicyDialog() {
-    const dialogRef = this.privacyPolicyDialog.open(PrivacyPolicyDialogComponent);
+    const dialogRef = this.privacyPolicyDialog.open(PrivacyPolicyDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
