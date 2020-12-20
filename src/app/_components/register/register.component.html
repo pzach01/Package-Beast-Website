@@ -1,14 +1,4 @@
 ﻿<div class="registration-container overflow-auto">
-    <!-- <div class="row p-0 m-0 full-width">
-        <div class="col p-0 m-0 text-right">
-            <a>
-                <fa-icon class="p-1" [icon]="faFacebookSquare" size="3x"></fa-icon>
-            </a>
-            <a>
-                <fa-icon class="p-1" [icon]="faTwitterSquare" size="3x"></fa-icon>
-            </a>
-        </div>
-    </div> -->
     <div class="jumbotron jumbotron-fluid text-center p-0">
         <div class="container-fluid">
             <div class="row">
@@ -169,24 +159,40 @@
                                                     Login!</a>
                                             </div>
                                         </div>
-
                                         <div class="row">
-                                            <div class="col pt-3">
-                                                <mat-error>
-                                                    {{serverRecaptchaError}}
-                                                </mat-error>
+                                            <div class="col-12">
+                                                Only available in US, Canada, and Mexico
                                             </div>
                                         </div>
+
+
+
                                     </div>
                                 </mat-card-actions>
                             </div>
                         </form>
                     </mat-card-content>
                 </mat-card>
+
             </div>
         </div>
-    </div>
-    <div class="container-fluid extra-page-scroll">
 
+    </div>
+    <div class="container-fluid extra-page-scroll"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col pt-3">
+                <mat-error class="recaptcha">
+                    {{serverRecaptchaError}}
+                </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="footer">
+                    <p class="p-2 m-0">Need Help? Email us at support@packagebeast.com</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

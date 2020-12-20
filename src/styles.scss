@@ -78,6 +78,17 @@ input:-webkit-autofill:active  {
     overflow-x: hidden;
     position: relative!important;
 }
+.footer {
+    position: absolute;
+    vertical-align: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: lightgray;
+    color: black;
+    text-align: center;
+ }
+
 .close {
     position: absolute;
     top: 8px;
