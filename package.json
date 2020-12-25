@@ -30,7 +30,7 @@
     "bootstrap": "^4.4.1",
     "mathjs": "^7.0.1",
     "ng-recaptcha": "^6.0.2",
-    "ngx-stripe": "^9.0.3",
+    "ngx-stripe": "9.0.3",
     "rxjs": "~6.5.4",
     "three": "^0.117.1",
     "threejs-meshline": "^2.0.11",
