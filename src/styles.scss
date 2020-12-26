@@ -87,6 +87,9 @@ input:-webkit-autofill:active  {
     background-color: lightgray;
     color: black;
     text-align: center;
+    border-top-style: solid;
+    border-color: rgb(90, 90, 90);
+    border-width: 1px;
  }
 
 .close {
