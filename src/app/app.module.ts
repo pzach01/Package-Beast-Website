@@ -228,7 +228,9 @@ const appRoutes: Routes = [
     NgxStripeModule.forRoot('pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH'),
   ],
   entryComponents: [
-    NewItemComponent
+    NewItemComponent,
+    TermsOfServiceDialogComponent,
+    PrivacyPolicyDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
