@@ -229,6 +229,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     NewItemComponent,
+    NewContainerComponent,
+    NewShipmentComponent,
     TermsOfServiceDialogComponent,
     PrivacyPolicyDialogComponent,
     EditContainerComponent,
