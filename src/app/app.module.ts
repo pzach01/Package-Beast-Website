@@ -230,7 +230,13 @@ const appRoutes: Routes = [
   entryComponents: [
     NewItemComponent,
     TermsOfServiceDialogComponent,
-    PrivacyPolicyDialogComponent
+    PrivacyPolicyDialogComponent,
+    EditContainerComponent,
+    EditItemComponent,
+    ShipmentDetailComponent,
+    ConfirmDeleteDialogComponent,
+    CreateFailDialogComponent,
+    ShipmentAlertComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
