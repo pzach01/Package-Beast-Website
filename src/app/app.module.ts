@@ -74,17 +74,20 @@ import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialo
 import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
 
 const appRoutes: Routes = [
+  //Routes that do NOT REQUIRE authentication
+  //Authentication redirect guard redirects to dashboard if user is authenticated
   { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full' },
-  { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full' },
-  { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full' },
-  { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full' },
-  { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full' },
-  { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'register', redirectTo: '' },
+  { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
 
+  //Routes that REQUIRE authentication
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   {
     path: 'shipments',
     outlet: 'view',

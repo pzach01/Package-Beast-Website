@@ -28,12 +28,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
         private cdr: ChangeDetectorRef
-    ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
-    }
+    ) { }
 
     ngOnInit() {
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
