@@ -1,13 +1,11 @@
 <button *ngIf="!data.forceAgree" type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
         aria-hidden="true">×</span></button>
-<h2 mat-dialog-title>Terms of Service</h2>
+<h2 mat-dialog-title>Terms of Service Statement</h2>
 <mat-dialog-content class="mat-typography">
-    <h3>Terms of Service Statement</h3>
     <h3>Last Updated January 1, 2021.</h3>
-    <h3> Please read these Terms of Service (“Terms”) carefully. </h3>
+    <h3>Please read these Terms of Service (“Terms”) carefully. BY USING THE SERVICE AND THE SITE, YOU AGREE TO THESE
+        TERMS. IF YOU DO NOT AGREE, DO NOT USE THE SERVICE OR SITE.</h3>
     <p>
-        BY USING THE SERVICE AND THE SITE, YOU AGREE TO THESE TERMS. IF YOU DO NOT AGREE, DO NOT USE THE SERVICE OR
-        SITE.Services <br>
         1. Service and Website.<br>
         Package Beast (referred to, as applicable, as “Package Beast”, the
         “Service”, “we” or “us”) provides packaging optimization services intended to assist individuals and businesses
@@ -20,23 +18,31 @@
         capacity
         and authority to accept these Terms on behalf of yourself or your employer.<br>
         3. Account Requirements.<br>
-        To set up an account and use the Service you must:Be 18 years of age, or the age of majority in your province,
-        territory or
-        country, tobecome a Member. Individuals under the age of 18, or applicable age of majority,may utilize the
-        Service
-        only with the involvement of a parent or legal guardian, under such person’s account and otherwise subject to
-        these
-        Terms.Provide your legal full name, valid email address, zip code, and any other information we request to
-        complete
-        your account-signup process.Provide us with one or more Payment Methods. “Payment Method” means a current,
-        valid,
-        accepted method of payment, as may be updated from time to timeand which may include payment through your
-        account
-        with a third party.Personally and manually create your account without using any automated means, except for
-        any
-        auto-complete feature offered by your internet service provider. A third party may not create an account for you
-        and
-        you must not allow any third party to use your information to create an account.<br>
+        To set up an account and use the Service you must:</p>
+    <ul>
+        <li>
+            Be 18 years of age, or the age of majority in your province, territory or
+            country, to become a Member. Individuals under the age of 18, or applicable age of majority, may utilize the
+            Service only with the involvement of a parent or legal guardian, under such person’s account and otherwise
+            subject to these Terms.
+        </li>
+        <li>
+            Provide your legal full name, valid email address, zip code, and any other information we request to
+            complete your account-signup process.
+        </li>
+        <li>
+            Provide us with one or more Payment Methods. “Payment Method” means a current, valid, accepted method of
+            payment, as may be updated from time to timeand which may include payment through your account with a
+            third party.
+        </li>
+        <li>
+            Personally and manually create your account without using any automated means, except for
+            any auto-complete feature offered by your internet service provider. A third party may not create an account
+            for
+            you and you must not allow any third party to use your information to create an account.
+        </li>
+    </ul>
+    <p>
         4. Account Ownership.<br>
         The member who
         created the account and whose Payment Method is charged (the “Account Owner”) has access to and control over the
@@ -88,10 +94,10 @@
         You can cancel your membership at any time, and
         you
         will
-        continue to have access to the Service through the end of your pre-paid billingcycle. We do not provide refunds
+        continue to have access to the Service through the end of your pre-paid billing cycle. We do not provide refunds
         or
         credits for any partial membership periods. To cancel, please navigate our Website to your account profile and
-        follow instructions from there, or contact our Customer Support team atsupport@packagebeast.com. If you cancel
+        follow instructions from there, or contact our Customer Support team at support@packagebeast.com. If you cancel
         your
         membership, your account willautomatically close at the end of your current billing period.<br>
         8. Changes to the Price and Subscription Plans.<br>
@@ -101,13 +107,11 @@
         absolute discretion. Except as otherwise expressly provided for in these Terms, any price changes or changes to
         your
         subscription plan will take effect following notice to you.<br>9. No Refunds.<br>
-        Payments are nonrefundable and
-        there
-        are
-        no
-        refunds or credits for partially used periods. Following any cancellation, however, you will continue to have
-        access
-        to the service through the end of your current billing period.<br>10. Money Back Guarantee.<br>
+        Credits for partially used periods will be issued to accounts when a member upgrades their account. If a member
+        downgrades their account, they will not receive a credit to their account, however, they will continue to have
+        access to their subscription plan through the end of their pre-paid billing cycle. Following any cancellation,
+        you will continue to have access to the service through the end of your current billing period.
+        <br>10. Money Back Guarantee.<br>
         Notwithstanding
         Section
         9, if
@@ -174,7 +178,7 @@
         for the availability, accuracy, content or policies of third partywebsites or other resources. Links to such
         websites or resources are provided only as a convenience to you and do not imply any endorsement by or
         affiliation
-        with Package Beast. You acknowledge sole responsibility for, and assume all riskarising from, your use of any
+        with Package Beast. You acknowledge sole responsibility for, and assume all risk arising from, your use of any
         such
         third party websites or resources.Security, Storage, & Retention<br>
         16. Security.<br>
@@ -312,13 +316,21 @@
         32. Notice.<br>
         All notices to you will be effective when we send it to the
         last email or physical address you gave us or posted on our Website. Any notice to us will be effective when
-        delivered to
-        us
-        at:support@packagebeast.com. Package Beast 2815 100th St #346 Urbandale, Iowa 50322
+        delivered to us at:
+        support@packagebeast.com<br>
+        Package Beast<br>
+        2815 100th St<br>
+        #346<br>
+        Urbandale, Iowa 50322
         <br>33. Copyright Infringement.<br>
         If copyrighted content that belongs to you was posted on the Website without your permission please notify us
-        at:support@packagebeast.comPackage Beast2815 100th St #346 Urbandale, Iowa 50322. Please include in your
-        notice:
+        at: <br>
+        support@packagebeast.com<br>
+        Package Beast<br>
+        2815 100th St<br>
+        #346<br>
+        Urbandale, Iowa 50322<br>
+        Please include in your notice:
     </p>
 
     <ul>
@@ -377,8 +389,3 @@
     <button *ngIf="data.forceAgree" (click)="agree()" type="button" color="primary" mat-raised-button>Agree</button>
     <button *ngIf="!data.forceAgree" mat-dialog-close type="button" color="primary" mat-raised-button>Dismiss</button>
 </mat-dialog-actions>
-
-
-<!-- Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
