@@ -7,7 +7,6 @@ import { NewItemComponent } from 'src/app/_components/new-item/new-item.componen
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/_services';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -37,8 +36,8 @@ export class ItemsComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
-        data.sku.includes(filter) ||
-        data.description.includes(filter) ||
+        data.sku.toString().toLowerCase().includes(filter) ||
+        data.description.toString().toLowerCase().includes(filter) ||
         data.length.toString().includes(filter) ||
         data.width.toString().includes(filter) ||
         data.height.toString().includes(filter)

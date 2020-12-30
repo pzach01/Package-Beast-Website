@@ -36,8 +36,8 @@ export class ContainersComponent implements OnInit {
       console.log(containers)
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
-        data.sku.includes(filter) ||
-        data.description.includes(filter) ||
+        data.sku.toString().toLowerCase().includes(filter) ||
+        data.description.toString().toLowerCase().includes(filter) ||
         data.xDim.toString().includes(filter) ||
         data.yDim.toString().includes(filter) ||
         data.zDim.toString().includes(filter) ||

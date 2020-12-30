@@ -71,9 +71,10 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
+import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/dashboard(view:inventory)', pathMatch: 'full' },
+  { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
