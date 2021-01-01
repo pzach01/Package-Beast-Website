@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { Router } from '@angular/router';
+import { Timestamp } from 'src/app/_models/timestamp'
 
 import { AuthenticationService } from './_services';
 import { User } from './_models';
@@ -16,6 +16,7 @@ export class AppComponent {
   constructor(
     private authenticationService: AuthenticationService
   ) {
+    console.log("Website build data: ", Timestamp.timestamp)
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
+import { Timestamp } from 'src/app/_models/timestamp'
 
 @Component({
   selector: 'app-settings',
@@ -16,6 +17,7 @@ export class SettingsComponent implements OnInit {
   disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
   disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
   animationSpeed = this.currentUser.animationSpeed
+  buildTimestamp = Timestamp.timestamp;
 
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
