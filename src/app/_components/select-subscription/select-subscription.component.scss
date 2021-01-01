@@ -29,6 +29,25 @@ ul {
     border-radius: 10px;
     font-size: 25px;
   }
+
+  .description {
+    height: 150px;
+  }
+
+  .banner-container {
+    margin-top: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+  .banner {
+    background-color: yellow;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
   
   .premium {
     display: flex;

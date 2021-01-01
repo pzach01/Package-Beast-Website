@@ -12,10 +12,17 @@
                             </mat-card-title>
                             <mat-card-subtitle></mat-card-subtitle>
                         </mat-card-header>
-                        <div class="standard">$10/mo</div>
-
-                        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
                         <mat-card-content>
+                            <div class="description">
+                                <p>Great for online sellers and small business that typically have less than 50
+                                    shipments
+                                    per
+                                    month</p>
+                            </div>
+                            <h3>$10/mo</h3>
+                            <div class="banner-container"></div>
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
+
                             <ul>
                                 <li>50 Shipments/Month</li>
                                 <li>50 Inventory Items</li>
@@ -26,7 +33,7 @@
                             <button *ngIf="subscriptionType != 'standard' || !subscriptionInfo.subscriptionActive"
                                 class="buy-now-button" color="accent" mat-raised-button
                                 (click)="updateSubscriptionType('standard')">
-                                BUY NOW!
+                                Select
                             </button>
                             <button disabled
                                 *ngIf="subscriptionType === 'standard' && subscriptionInfo.subscriptionActive"
@@ -49,9 +56,20 @@
                             </mat-card-title>
                             <mat-card-subtitle></mat-card-subtitle>
                         </mat-card-header>
-                        <div class="premium">$30/mo</div>
-                        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
                         <mat-card-content>
+                            <div class="description">
+                                <p>A perfect option for those wanting premium value for those shipping between 5 and 10
+                                    packages
+                                    every day. The premium subscription allows additional shipments, inventory items,
+                                    and
+                                    shipping containers.</p>
+                            </div>
+                            <h3>$30/mo</h3>
+                            <div class="banner-container">
+                                <p class="banner">Package Beast Recommends</p>
+                            </div>
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
+
                             <ul>
                                 <li>300 Shipments/Month</li>
                                 <li>300 Inventory Items</li>
@@ -62,7 +80,7 @@
                             <button *ngIf="subscriptionType != 'premium' || !subscriptionInfo.subscriptionActive"
                                 class="buy-now-button" color="accent" mat-raised-button
                                 (click)="updateSubscriptionType('premium')">
-                                BUY NOW!
+                                Select
                             </button>
                             <button disabled
                                 *ngIf="subscriptionType === 'premium' && subscriptionInfo.subscriptionActive"
@@ -85,10 +103,19 @@
                             </mat-card-title>
                             <mat-card-subtitle></mat-card-subtitle>
                         </mat-card-header>
-                        <div class="beast-mode">$50/mo</div>
-
-                        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
                         <mat-card-content>
+                            <div class="description">
+                                <p>The name says it all! Beast Mode is for businesses that ship up to 1,000 packages a
+                                    month.
+                                    With Beast Mode, your business no limit on your inventory items or shipping
+                                    containers.
+                                </p>
+                            </div>
+                            <h3>$50/mo</h3>
+                            <div class="banner-container">
+                            </div>
+                            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
+
                             <ul>
                                 <li>1000 Shipments/Month</li>
                                 <li>Unlimited Inventory Items</li>
@@ -99,7 +126,7 @@
                             <button *ngIf="subscriptionType != 'beastMode' || !subscriptionInfo.subscriptionActive"
                                 class="buy-now-button" color="accent" mat-raised-button
                                 (click)="updateSubscriptionType('beastMode')">
-                                BUY NOW!
+                                Select
                             </button>
                             <button disabled
                                 *ngIf="subscriptionType === 'beastMode' && subscriptionInfo.subscriptionActive"
