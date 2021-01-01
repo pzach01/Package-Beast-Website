@@ -19,7 +19,7 @@
                                     per
                                     month</p>
                             </div>
-                            <h3>$10/mo</h3>
+                            <h2>$10/mo</h2>
                             <div class="banner-container"></div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
 
@@ -30,16 +30,25 @@
                             </ul>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button *ngIf="subscriptionType != 'standard' || !subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button
-                                (click)="updateSubscriptionType('standard')">
-                                Select
-                            </button>
-                            <button disabled
-                                *ngIf="subscriptionType === 'standard' && subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button>
-                                SUBSCRIBED
-                            </button>
+                            <div class="container">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <button
+                                            *ngIf="subscriptionType != 'standard' || !subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button
+                                            (click)="updateSubscriptionType('standard')">
+                                            Select
+                                        </button>
+                                        <button disabled
+                                            *ngIf="subscriptionType === 'standard' && subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button>
+                                            SUBSCRIBED
+                                        </button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </div>
@@ -64,9 +73,8 @@
                                     and
                                     shipping containers.</p>
                             </div>
-                            <h3>$30/mo</h3>
+                            <h2>$30/mo</h2>
                             <div class="banner-container">
-                                <p class="banner">Package Beast Recommends</p>
                             </div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
 
@@ -77,16 +85,25 @@
                             </ul>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button *ngIf="subscriptionType != 'premium' || !subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button
-                                (click)="updateSubscriptionType('premium')">
-                                Select
-                            </button>
-                            <button disabled
-                                *ngIf="subscriptionType === 'premium' && subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button>
-                                SUBSCRIBED
-                            </button>
+                            <div class="container">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <button
+                                            *ngIf="subscriptionType != 'premium' || !subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button
+                                            (click)="updateSubscriptionType('premium')">
+                                            Select
+                                        </button>
+                                        <button disabled
+                                            *ngIf="subscriptionType === 'premium' && subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button>
+                                            SUBSCRIBED
+                                        </button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </div>
@@ -111,7 +128,7 @@
                                     containers.
                                 </p>
                             </div>
-                            <h3>$50/mo</h3>
+                            <h2>$50/mo</h2>
                             <div class="banner-container">
                             </div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
@@ -123,16 +140,25 @@
                             </ul>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button *ngIf="subscriptionType != 'beastMode' || !subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button
-                                (click)="updateSubscriptionType('beastMode')">
-                                Select
-                            </button>
-                            <button disabled
-                                *ngIf="subscriptionType === 'beastMode' && subscriptionInfo.subscriptionActive"
-                                class="buy-now-button" color="accent" mat-raised-button>
-                                SUBSCRIBED
-                            </button>
+                            <div class="container">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <button
+                                            *ngIf="subscriptionType != 'beastMode' || !subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button
+                                            (click)="updateSubscriptionType('beastMode')">
+                                            Select
+                                        </button>
+                                        <button disabled
+                                            *ngIf="subscriptionType === 'beastMode' && subscriptionInfo.subscriptionActive"
+                                            class="buy-now-button" color="accent" mat-raised-button>
+                                            SUBSCRIBED
+                                        </button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </div>

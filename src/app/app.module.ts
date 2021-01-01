@@ -242,7 +242,8 @@ const appRoutes: Routes = [
     ShipmentDetailComponent,
     ConfirmDeleteDialogComponent,
     CreateFailDialogComponent,
-    ShipmentAlertComponent
+    ShipmentAlertComponent,
+    CancelSubscriptionConfirmationComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
