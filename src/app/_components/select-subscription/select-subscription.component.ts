@@ -12,6 +12,8 @@ export class SelectSubscriptionComponent implements OnInit {
 
   subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
   subscriptionType: string = this.subscriptionInfo.subscriptionType;
+  selectedSubscriptionType: string = "";
+
   priceId: string;
 
   constructor(private router: Router, private subscriptionService: SubscriptionsService) { }
@@ -23,18 +25,18 @@ export class SelectSubscriptionComponent implements OnInit {
     })
   }
 
-  updateSubscriptionType(subscriptionType: string) {
-    switch (subscriptionType) {
+  updateSubscriptionType(selectedSubscriptionType: string) {
+    switch (selectedSubscriptionType) {
       case "standard":
-        this.subscriptionType = "standard"
+        this.selectedSubscriptionType = "standard"
         this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
         break;
       case "premium":
-        this.subscriptionType = "premium"
+        this.selectedSubscriptionType = "premium"
         this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
         break;
       case "beastMode":
-        this.subscriptionType = "beastMode"
+        this.selectedSubscriptionType = "beastMode"
         this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
         break;
     }
@@ -49,7 +51,7 @@ export class SelectSubscriptionComponent implements OnInit {
         this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
       })
     } else if (!this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
-      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionType}` } }]);
+      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${selectedSubscriptionType}` } }]);
     }
 
   }
