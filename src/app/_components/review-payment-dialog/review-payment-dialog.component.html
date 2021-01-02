@@ -1,0 +1,15 @@
+<button type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
+        aria-hidden="true">×</span></button>
+
+<h1 mat-dialog-title class="text-danger">Review your plan change</h1>
+<mat-dialog-content>
+    <h6>Change plan from {{previousPlanText}} to {{selectedPlanText}}?</h6>
+    <h6>Old price: ${{previousPlanPrice}} / month + tax</h6>
+    <h6>New price: ${{selectedPlanPrice}} / month + tax</h6>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button (click)="accept()" color="primary" type="button">Accept</button>
+    <button mat-raised-button mat-dialog-close type="button">Dismiss</button>
+</mat-dialog-actions>

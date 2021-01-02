@@ -72,6 +72,7 @@ import { TermsOfServiceDialogComponent } from './_components/terms-of-service-di
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
 import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
+import { ReviewPaymentDialogComponent } from './_components/review-payment-dialog/review-payment-dialog.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -191,7 +192,8 @@ const appRoutes: Routes = [
     ConfirmDeleteDialogComponent,
     ChangePasswordCompleteDialogComponent,
     TermsOfServiceDialogComponent,
-    PrivacyPolicyDialogComponent],
+    PrivacyPolicyDialogComponent,
+    ReviewPaymentDialogComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -243,7 +245,8 @@ const appRoutes: Routes = [
     ConfirmDeleteDialogComponent,
     CreateFailDialogComponent,
     ShipmentAlertComponent,
-    CancelSubscriptionConfirmationComponent
+    CancelSubscriptionConfirmationComponent,
+    ReviewPaymentDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

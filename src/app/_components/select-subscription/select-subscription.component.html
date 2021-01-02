@@ -1,5 +1,14 @@
 <div class="d-flex overflow-auto view-container">
-    <div class="container-fluid">
+    <div *ngIf="loading" class="container-fluid">
+        <div class="row">
+            <div class="col text-center">
+                <div class="d-flex justify-content-center py-5">
+                    <mat-spinner color="accent"></mat-spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!loading" class="container-fluid">
         <div class="row pr-lg-3">
             <div class="col-lg-4 pr-lg-0">
                 <div class="pt-3">
@@ -19,12 +28,12 @@
                                     per
                                     month</p>
                             </div>
-                            <h2>$10/mo</h2>
+                            <h2>$10 / month</h2>
                             <div class="banner-container"></div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
 
                             <ul>
-                                <li>50 Shipments/Month</li>
+                                <li>50 Shipments / month</li>
                                 <li>50 Inventory Items</li>
                                 <li>50 Shipping Containers</li>
                             </ul>
@@ -37,7 +46,7 @@
                                         <button
                                             *ngIf="subscriptionType != 'standard' || !subscriptionInfo.subscriptionActive"
                                             class="buy-now-button" color="accent" mat-raised-button
-                                            (click)="updateSubscriptionType('standard')">
+                                            (click)="selectSubscriptionType('standard')">
                                             Select
                                         </button>
                                         <button disabled
@@ -73,13 +82,13 @@
                                     and
                                     shipping containers.</p>
                             </div>
-                            <h2>$30/mo</h2>
+                            <h2>$30 / month</h2>
                             <div class="banner-container">
                             </div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
 
                             <ul>
-                                <li>300 Shipments/Month</li>
+                                <li>300 Shipments / month</li>
                                 <li>300 Inventory Items</li>
                                 <li>300 Shipping Containers</li>
                             </ul>
@@ -92,7 +101,7 @@
                                         <button
                                             *ngIf="subscriptionType != 'premium' || !subscriptionInfo.subscriptionActive"
                                             class="buy-now-button" color="accent" mat-raised-button
-                                            (click)="updateSubscriptionType('premium')">
+                                            (click)="selectSubscriptionType('premium')">
                                             Select
                                         </button>
                                         <button disabled
@@ -124,16 +133,16 @@
                             <div class="description">
                                 <p>The name says it all! Beast Mode is for businesses that ship serious volume. With
                                     Beast Mode, your business may create up to 1000 shipments, 5000 inventory items, and
-                                    5000 shipping containers.
+                                    5000 shipping containers per month.
                                 </p>
                             </div>
-                            <h2>$50/mo</h2>
+                            <h2>$50 / month</h2>
                             <div class="banner-container">
                             </div>
                             <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
 
                             <ul>
-                                <li>1000 Shipments/Month</li>
+                                <li>1000 Shipments / month</li>
                                 <li>5000 Inventory Items</li>
                                 <li>5000 Shipping Containers</li>
                             </ul>
@@ -146,7 +155,7 @@
                                         <button
                                             *ngIf="subscriptionType != 'beastMode' || !subscriptionInfo.subscriptionActive"
                                             class="buy-now-button" color="accent" mat-raised-button
-                                            (click)="updateSubscriptionType('beastMode')">
+                                            (click)="selectSubscriptionType('beastMode')">
                                             Select
                                         </button>
                                         <button disabled
