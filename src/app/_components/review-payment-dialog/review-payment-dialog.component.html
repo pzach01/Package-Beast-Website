@@ -1,11 +1,17 @@
 <button type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
         aria-hidden="true">×</span></button>
 
-<h1 mat-dialog-title class="text-danger">Review your plan change</h1>
+<h1 mat-dialog-title class="text-danger">Change plan from {{subscriptionChange.previousSubscriptionText}} to
+    {{subscriptionChange.selectedSubscriptionText}}?</h1>
+
 <mat-dialog-content>
-    <h6>Change plan from {{previousPlanText}} to {{selectedPlanText}}?</h6>
-    <h6>Old price: ${{previousPlanPrice}} / month + tax</h6>
-    <h6>New price: ${{selectedPlanPrice}} / month + tax</h6>
+    <h6 *ngIf="subscriptionChange.direction == 'upgrade'">Due to your previous subscription type, you will be prorated
+        ${{subscriptionChange.previousSubscriptionPrice}} and charged ${{subscriptionChange.prorate}}. You will be
+        billed ${{subscriptionChange.selectedSubscriptionPrice}} next payment period.</h6>
+
+    <h6 *ngIf="subscriptionChange.direction == 'downgrade'">Please review pricing below:</h6>
+    <h6>Previous price: ${{subscriptionChange.previousSubscriptionPrice}} / month + tax</h6>
+    <h6>New price: ${{subscriptionChange.selectedSubscriptionPrice}} / month + tax</h6>
 
 </mat-dialog-content>
 

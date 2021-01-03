@@ -7,6 +7,6 @@ export class SubscriptionInfo {
     public shipmentsUsed: number;
     public subscriptionActive: boolean;
     public paymentUpToDate: boolean;
-    public subscriptionType: string;
+    public subscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
     public subscriptionExpirationTime: number;
 }

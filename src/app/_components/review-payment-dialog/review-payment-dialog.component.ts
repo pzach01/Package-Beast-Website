@@ -11,14 +11,10 @@ export class ReviewPaymentDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public reviewPaymentDialogRef: MatDialogRef<ReviewPaymentDialogComponent>, private router: Router) { }
 
-  changePlanFrom = this.data.changePlanFrom;
-  changePlanTo = this.data.changePlanTo;
-  selectedPlanPrice = this.data.selectedPlanPrice;
-  previousPlanPrice = this.data.previousPlanPrice;
-  previousPlanText = this.data.previousPlanText;
-  selectedPlanText = this.data.selectedPlanText;
-  ngOnInit(): void {
+  subscriptionChange = this.data
 
+  ngOnInit(): void {
+    console.log(this.subscriptionChange)
   }
 
   accept() {
