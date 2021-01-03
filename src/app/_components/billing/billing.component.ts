@@ -24,6 +24,7 @@ export class BillingComponent implements OnInit {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.subscriptionsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
       this.subscriptionInfo = subscriptionInfo; console.log("subscriptionInfo", subscriptionInfo);
+
     })
   }
 

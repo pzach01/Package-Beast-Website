@@ -37,10 +37,12 @@ export class SelectSubscriptionComponent implements OnInit {
       data: subscriptionChange,
     });
     dialogRef.afterClosed().subscribe(data => {
-      if (data.accept) {
-        this.loading = true;
-        const priceId = subscriptionChange.priceId
-        this.updateSubscriptionType(this.selectedSubscriptionType, priceId);
+      if (data) {
+        if (data.accept) {
+          this.loading = true;
+          const priceId = subscriptionChange.priceId
+          this.updateSubscriptionType(this.selectedSubscriptionType, priceId);
+        }
       }
     });
   }

@@ -34,7 +34,7 @@ export class SubscriptionsService {
   getSubscriptionInfo(): Observable<SubscriptionInfo> {
     return this.http.get<SubscriptionInfo>(`${Constants.API_BASE_URI}/payment/getSubscriptionInfo/`)
       .pipe(map(subscriptionInfo => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        // store subscription details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentSubscriptionInfo', JSON.stringify(subscriptionInfo));
         this.currentSubscriptionInfoSubject.next(subscriptionInfo);
         console.log("hey, Pedro subscriptionInfo:", subscriptionInfo)

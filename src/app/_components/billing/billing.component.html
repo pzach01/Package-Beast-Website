@@ -6,6 +6,14 @@
     </div>
     <div class="row">
         <div class="col text-left">
+            <p *ngIf="subscriptionInfo.subscriptionType != 'beastMode'">Subscription Type:
+                {{subscriptionInfo.subscriptionType | titlecase}}</p>
+            <p *ngIf="subscriptionInfo.subscriptionType == 'beastMode'">Subscription Type: Beast Mode</p>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-left">
             <p *ngIf="subscriptionInfo.subscriptionActive">Subscription Status: Active</p>
             <p *ngIf="!subscriptionInfo.subscriptionActive">Subscription Status: <strong
                     class="text-danger">Inactive</strong></p>
@@ -13,14 +21,12 @@
     </div>
     <div class="row">
         <div class="col text-left">
-            <p>Payment Up to Date: {{subscriptionInfo.paymentUpToDate}}</p>
+            <p *ngIf="subscriptionInfo.paymentUpToDate == true">Payment Up to Date: Yes</p>
+            <p *ngIf="subscriptionInfo.paymentUpToDate == false">Payment Up to Date: No</p>
+
         </div>
     </div>
-    <div class="row">
-        <div class="col text-left">
-            <p>Subscription Type: {{subscriptionInfo.subscriptionType | titlecase}}</p>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col text-left">
             <p>Items used: {{subscriptionInfo.itemsUsed}} of {{subscriptionInfo.itemsAllowed}}</p>
