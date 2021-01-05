@@ -74,7 +74,7 @@
         <p>{{envTitle}}</p>
     </div>
     <div class="d-flex justify-content-start mb-3">
-        <p>Website Build Date: {{buildTimestamp}}</p>
+        <p>Website Build Date: {{buildTimestamp | date: dateTimeFormat}}</p>
     </div>
 
 </div>
