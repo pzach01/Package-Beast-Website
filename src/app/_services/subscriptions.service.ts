@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Constants } from '../_models/constants';
+import { environment } from 'src/environments/environment';
 import { SubscriptionInfo } from '../_models'
 import { map } from 'rxjs/operators';
 
@@ -24,15 +24,15 @@ export class SubscriptionsService {
   }
 
   retrySubscription(paymentMethodId: string): Observable<any> {
-    return this.http.post<any>(`${Constants.API_BASE_URI}/payment/retryInvoice/`, { paymentMethodId });
+    return this.http.post<any>(`${environment.API_BASE_URI}/payment/retryInvoice/`, { paymentMethodId });
   }
 
   createSubscription(paymentMethodId: string, priceId: string): Observable<any> {
-    return this.http.post<any>(`${Constants.API_BASE_URI}/payment/createStripeSubscription/`, { paymentMethodId, priceId });
+    return this.http.post<any>(`${environment.API_BASE_URI}/payment/createStripeSubscription/`, { paymentMethodId, priceId });
   }
 
   getSubscriptionInfo(): Observable<SubscriptionInfo> {
-    return this.http.get<SubscriptionInfo>(`${Constants.API_BASE_URI}/payment/getSubscriptionInfo/`)
+    return this.http.get<SubscriptionInfo>(`${environment.API_BASE_URI}/payment/getSubscriptionInfo/`)
       .pipe(map(subscriptionInfo => {
         // store subscription details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentSubscriptionInfo', JSON.stringify(subscriptionInfo));
@@ -45,14 +45,14 @@ export class SubscriptionsService {
 
   updateStripeSubscription(priceId: string): Observable<any> {
     console.log("priceId", priceId)
-    return this.http.put<any>(`${Constants.API_BASE_URI}/payment/updateStripeSubscription/`, { priceId });
+    return this.http.put<any>(`${environment.API_BASE_URI}/payment/updateStripeSubscription/`, { priceId });
   }
 
   checkUserHasStripeSubscription(): Observable<any> {
-    return this.http.get<any>(`${Constants.API_BASE_URI}/payment/userHasStripeSubscription/`);
+    return this.http.get<any>(`${environment.API_BASE_URI}/payment/userHasStripeSubscription/`);
   }
 
   cancelSubscription(): Observable<any> {
-    return this.http.delete<any>(`${Constants.API_BASE_URI}/payment/cancelStripeSubscription/`);
+    return this.http.delete<any>(`${environment.API_BASE_URI}/payment/cancelStripeSubscription/`);
   }
 }

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  SITE_TITLE: 'Package Beast Development',
+  API_BASE_URI: 'https://api.packagebeast.com'
 };
 
 /*

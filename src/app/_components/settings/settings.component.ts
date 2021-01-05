@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 import { Timestamp } from 'src/app/_models/timestamp'
+import { environment } from 'src/environments/environment'
+
 
 @Component({
   selector: 'app-settings',
@@ -9,6 +11,7 @@ import { Timestamp } from 'src/app/_models/timestamp'
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  envTitle = environment.SITE_TITLE;
   saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
