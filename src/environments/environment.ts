@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  SITE_TITLE: 'Package Beast Development',
-  API_BASE_URI: 'https://api.packagebeast.com'
+  SITE_TITLE: 'Package Beast Development Yo!',
+  API_BASE_URI: 'https://developmentapi.packagebeast.com'
 };
 
 /*
