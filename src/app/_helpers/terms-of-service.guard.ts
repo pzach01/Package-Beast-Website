@@ -26,7 +26,6 @@ export class TermsOfServiceGuard implements CanActivate {
       data: { forceAgree: true }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

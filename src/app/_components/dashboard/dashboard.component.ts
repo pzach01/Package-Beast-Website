@@ -44,10 +44,6 @@ export class DashboardComponent implements OnInit {
     this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate)
   }
 
-  openMenu() {
-    console.log("menu opened")
-  }
-
   openTermsOfServiceDialog() {
     const dialogRef = this.termsOfServiceDialog.open(TermsOfServiceDialogComponent, {
       panelClass: 'custom-dialog-container',
@@ -55,7 +51,6 @@ export class DashboardComponent implements OnInit {
       data: { forceAgree: false }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -65,7 +60,6 @@ export class DashboardComponent implements OnInit {
       width: '100%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

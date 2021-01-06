@@ -97,7 +97,6 @@ export class PaymentComponent implements OnInit {
           this.card.mount('#card-element');
           this.card.addEventListener('change', ({ error }) => {
             if (error) {
-              console.log("error", error.message);
               this.stripeError = error.message
             } else {
               this.stripeError = ""
@@ -137,13 +136,10 @@ export class PaymentComponent implements OnInit {
 
     this.stripeService.createPaymentMethod("card", this.card, payment_intent_data).subscribe(result => {
       if (result.error) {
-        console.error('got stripe error', result.error);
         // this.stripeError = result.error.message
       } else {
-        console.log('Create payment method succeeded', result);
         this.subscriptonsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
           this.loading = true;
-          console.log("subActive?", subscriptionInfo.subscriptionActive)
           subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })
       }
@@ -152,20 +148,18 @@ export class PaymentComponent implements OnInit {
 
   createSubscription(paymentMethodId, priceId) {
     this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => {
-      console.log("New Subscription", result);
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }])
     });
   }
 
   retrySubscription(paymentMethodId) {
     this.subscriptonsService.retrySubscription(paymentMethodId).subscribe(result => {
-      console.log("Retry Subscription", result);
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
     })
   }
 
   cancelSubscription() {
-    this.subscriptonsService.cancelSubscription().subscribe(result => console.log("sub canceled", result))
+    this.subscriptonsService.cancelSubscription().subscribe(result => { })
   }
 
 }

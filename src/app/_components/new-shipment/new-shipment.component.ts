@@ -61,7 +61,6 @@ export class NewShipmentComponent implements OnInit {
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
-        console.log("new shipment", shipment)
         this.newShipmentRef.close(shipment)
       }
     }, 200)
@@ -91,7 +90,6 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
-    console.log("nnn", this.shipment)
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();

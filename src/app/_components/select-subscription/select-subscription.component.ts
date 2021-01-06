@@ -59,7 +59,6 @@ export class SelectSubscriptionComponent implements OnInit {
 
     if (this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
       this.subscriptionService.updateStripeSubscription(priceId).subscribe((r) => {
-        console.log("response from update Stripe Subscription", r)
         this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
       })
     } else if (!this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {

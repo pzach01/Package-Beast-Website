@@ -58,7 +58,6 @@ export class ShipmentDetailComponent implements OnInit {
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
         this.arrangementPossible = shipment.arrangementPossible
-        console.log("shippy", this.shipment)
 
         //the code below filters out empty containers so we don't render them
         this.nonEmptyContainers = this.containers.filter((container) => {
@@ -75,7 +74,6 @@ export class ShipmentDetailComponent implements OnInit {
         this.items.forEach(item => {
           if (item.container != null) {
             this.numberFitItems += 1
-            console.log(this.numberFitItems)
           }
         })
 
@@ -92,7 +90,6 @@ export class ShipmentDetailComponent implements OnInit {
         //   return r.set(key, item);
         // }, new Map).values()];
 
-        // console.log("groupedItemsByMasterIdAndContainer", this.groupedItemsByMasterIdAndContainer)
 
         this.groupedItemsByMasterId = [...this.shipment.items.reduce((r, o) => {
           const key = o.masterItemId;
@@ -111,7 +108,6 @@ export class ShipmentDetailComponent implements OnInit {
         this.itemsDataSource = new MatTableDataSource(this.groupedItemsByMasterId);
         this.itemsTableSorts.changes.subscribe(() => {
           // Now you can access to the child component
-          console.log(this.itemsTableSorts.first)
           this.itemsDataSource.sort = this.itemsTableSorts.first;
         });
 
@@ -146,7 +142,6 @@ export class ShipmentDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
         if (data.delete) {
-          console.log("delete?", data.delete)
           this.shipmentsService.deleteArrangement(this.shipment).subscribe(() => this.router.navigate(['./', { outlets: { view: ['shipments'] } }], { replaceUrl: true }))
         }
       }
