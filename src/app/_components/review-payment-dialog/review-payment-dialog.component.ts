@@ -13,9 +13,7 @@ export class ReviewPaymentDialogComponent implements OnInit {
 
   subscriptionChange = this.data
 
-  ngOnInit(): void {
-    console.log(this.subscriptionChange)
-  }
+  ngOnInit(): void { }
 
   accept() {
     this.reviewPaymentDialogRef.close({ accept: true })

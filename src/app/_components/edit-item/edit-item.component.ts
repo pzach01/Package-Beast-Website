@@ -76,7 +76,6 @@ export class EditItemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
         if (data.delete) {
-          console.log("delete?", data.delete)
           this.itemsService.deleteItem(this.editItem).subscribe(() => this.editItemRef.close({ deletedItem: this.editItem, editedItem: null }))
         }
       }

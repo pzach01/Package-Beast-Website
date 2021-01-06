@@ -116,7 +116,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   keyDown(event) {
     this.keyCode = event.which;
-    console.log("keycode", this.keyCode)
   }
 
   handleRotateKeys() {

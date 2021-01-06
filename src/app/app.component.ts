@@ -16,7 +16,6 @@ export class AppComponent {
   constructor(
     private authenticationService: AuthenticationService
   ) {
-    console.log("Website build data: ", Timestamp.timestamp)
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 }

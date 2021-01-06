@@ -67,12 +67,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             .pipe(first())
             .subscribe(
                 () => {
-                    console.log("success")
                     this.router.navigate(['/register-done'])
                 },
                 error => {
                     this.loading = false;
-                    console.log("errror from register componenet", error)
                     if (error.email) {
                         error.email.forEach(emailError => {
                             this.registerForm.controls['email'].setErrors({ registerFail: true });
@@ -90,18 +88,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                             this.serverRecaptchaError = recaptchaError;
                         });
                     }
-                    console.log("ReCap error?", error)
-                    // this.alertService.error(error);
-                    // this.loading = false;
                 });
-    }
-
-    handleToken(token) {
-        console.log(token)
     }
 
     onSubmit(): void {
         this.recaptchaV3Service.execute('register')
-            .subscribe((recaptchaToken) => { console.log("recapToken", recaptchaToken), this.registerUser(recaptchaToken) });
+            .subscribe((recaptchaToken) => { this.registerUser(recaptchaToken) });
     }
 }

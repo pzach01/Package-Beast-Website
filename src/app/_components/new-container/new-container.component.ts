@@ -65,7 +65,7 @@ export class NewContainerComponent implements OnInit {
     this.containersService.postContainer(this.newContainer).subscribe(newContainer =>
       this.newContainerRef.close(newContainer),
       error => {
-        console.log("yoyou"); this.close(); this.openCreateFailDialog();
+        this.close(); this.openCreateFailDialog();
       })
   }
 

@@ -33,7 +33,6 @@ export class ContainersComponent implements OnInit {
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
 
-      console.log(containers)
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
         data.sku.toString().toLowerCase().includes(filter) ||
