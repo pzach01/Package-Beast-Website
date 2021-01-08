@@ -45,18 +45,18 @@ export class PaymentComponent implements OnInit {
       this.subscriptionType = params['subscriptionType'];
       switch (this.subscriptionType) {
         case "standard":
-          this.productId = "prod_HzHvyINf9uyaxv";
-          this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
+          this.productId = "prod_IiXkLvo2tLRuCi";
+          this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
           //  this.subscriptionTypeUI = "Standard"
           break;
         case "premium":
-          this.productId = "prod_HzHxDGJSZDQ8GI";
-          this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
+          this.productId = "prod_IiXkKw7qe4Dt7l";
+          this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
           //  this.subscriptionTypeUI = "Premium"
           break;
         case "beastMode":
-          this.productId = "prod_HzHy8kP263Pqzp";
-          this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
+          this.productId = "prod_IiXlcdTHpmbQHR";
+          this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
           //  this.subscriptionTypeUI = "Beast Mode"
           break;
       }
@@ -103,7 +103,6 @@ export class PaymentComponent implements OnInit {
             }
           })
         }
-
       });
   }
 
