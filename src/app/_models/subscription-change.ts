@@ -1,5 +1,6 @@
+import { subscriptionType } from 'src/app/_models/subscription-info'
 export class SubscriptionChange {
-    constructor(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode", previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    constructor(selectedSubscriptionType: subscriptionType, previousSubscriptionType: subscriptionType) {
         this.selectedSubscriptionType = selectedSubscriptionType
         this.previousSubscriptionType = previousSubscriptionType
         this.assignSelectedSubscriptionProperties(selectedSubscriptionType)
@@ -7,40 +8,52 @@ export class SubscriptionChange {
         this.assignDirection()
     }
     public priceId: string;
-    public selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
-    public previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
+    public productId: string;
+    public selectedSubscriptionType: subscriptionType;
+    public previousSubscriptionType: subscriptionType;
     public selectedSubscriptionText: string;
     public selectedSubscriptionPrice: number;
     public previousSubscriptionText: string;
     public previousSubscriptionPrice: number;
-    public direction: "upgrade" | "downgrade";
+    public direction: "initial" | "upgrade" | "downgrade";
     public prorate: number;
 
-    assignSelectedSubscriptionProperties(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    assignSelectedSubscriptionProperties(selectedSubscriptionType: subscriptionType) {
         switch (selectedSubscriptionType) {
             case "standard":
                 this.selectedSubscriptionType = "standard"
                 this.selectedSubscriptionText = "Standard";
                 this.selectedSubscriptionPrice = 10;
-                this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
+                this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
+                this.productId = "prod_IiXkLvo2tLRuCi";
                 break;
             case "premium":
                 this.selectedSubscriptionType = "premium"
                 this.selectedSubscriptionText = "Premium";
                 this.selectedSubscriptionPrice = 30;
-                this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
+                this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
+                this.productId = "prod_IiXkKw7qe4Dt7l";
                 break;
             case "beastMode":
                 this.selectedSubscriptionType = "beastMode"
                 this.selectedSubscriptionText = "Beast Mode";
                 this.selectedSubscriptionPrice = 50;
-                this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
+                this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
+                this.productId = "prod_IiXlcdTHpmbQHR";
                 break;
         }
     }
 
-    assignPreviousSubscriptionProperties(previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    assignPreviousSubscriptionProperties(previousSubscriptionType: subscriptionType) {
         switch (previousSubscriptionType) {
+            case "none":
+                this.previousSubscriptionPrice = 0;
+                this.previousSubscriptionText = "None";
+                break;
+            case "trial":
+                this.previousSubscriptionPrice = 0;
+                this.previousSubscriptionText = "Trial";
+                break;
             case "standard":
                 this.previousSubscriptionPrice = 10;
                 this.previousSubscriptionText = "Standard";
@@ -63,6 +76,10 @@ export class SubscriptionChange {
         }
         if (this.selectedSubscriptionPrice < this.previousSubscriptionPrice) {
             this.direction = "downgrade"
+            this.prorate = 0;
+        }
+        if (this.previousSubscriptionType == "none" || this.previousSubscriptionType == "trial") {
+            this.direction = "initial"
             this.prorate = 0;
         }
     }

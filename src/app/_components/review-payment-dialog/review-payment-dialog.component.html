@@ -9,7 +9,8 @@
         ${{subscriptionChange.previousSubscriptionPrice}} and charged ${{subscriptionChange.prorate}}. You will be
         billed ${{subscriptionChange.selectedSubscriptionPrice}} next payment period.</h6>
 
-    <h6 *ngIf="subscriptionChange.direction == 'downgrade'">Please review pricing below:</h6>
+    <h6 *ngIf="subscriptionChange.direction == 'downgrade' || subscriptionChange.direction == 'initial'">Please review
+        pricing below:</h6>
     <h6>Previous price: ${{subscriptionChange.previousSubscriptionPrice}} / month + tax</h6>
     <h6>New price: ${{subscriptionChange.selectedSubscriptionPrice}} / month + tax</h6>
 

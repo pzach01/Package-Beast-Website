@@ -5,6 +5,7 @@ import { SubscriptionInfo } from 'src/app/_models';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewPaymentDialogComponent } from 'src/app/_components/review-payment-dialog/review-payment-dialog.component';
 import { SubscriptionChange } from 'src/app/_models/subscription-change'
+import { subscriptionType } from 'src/app/_models/subscription-info'
 
 @Component({
   selector: 'app-select-subscription',
@@ -14,8 +15,8 @@ import { SubscriptionChange } from 'src/app/_models/subscription-change'
 export class SelectSubscriptionComponent implements OnInit {
   loading: boolean = false;
   subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
-  subscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode" = this.subscriptionInfo.subscriptionType;
-  selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
+  subscriptionType: subscriptionType = this.subscriptionInfo.subscriptionType;
+  selectedSubscriptionType: subscriptionType;
   selectedSubscriptionText: string;
   previousSubscriptionText: string;
   selectedSubscriptionPrice: number;
@@ -47,7 +48,8 @@ export class SelectSubscriptionComponent implements OnInit {
     });
   }
 
-  selectSubscriptionType(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+  selectSubscriptionType(selectedSubscriptionType: subscriptionType) {
+    this.selectedSubscriptionType = selectedSubscriptionType;
     const subscriptionChange = new SubscriptionChange(selectedSubscriptionType, this.subscriptionType)
     this.openReviewPaymentDialog(subscriptionChange);
   }

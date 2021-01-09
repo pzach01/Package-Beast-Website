@@ -5,6 +5,8 @@ import { StripeService, Elements, Element as StripeElement, ElementsOptions } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentMethodData, PaymentIntent } from 'ngx-stripe/lib/interfaces/payment-intent'
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
+import { SubscriptionChange } from 'src/app/_models/subscription-change';
+import { subscriptionType } from 'src/app/_models/subscription-info'
 
 
 @Component({
@@ -15,7 +17,7 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 export class PaymentComponent implements OnInit {
 
   loading: boolean = false;
-  subscriptionType: string;
+  subscriptionType: subscriptionType;
   // subscriptionTypeUI: string;
   priceId: string;
   productId: string;
@@ -43,23 +45,23 @@ export class PaymentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.subscriptionType = params['subscriptionType'];
-      switch (this.subscriptionType) {
-        case "standard":
-          this.productId = "prod_IiXkLvo2tLRuCi";
-          this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
-          //  this.subscriptionTypeUI = "Standard"
-          break;
-        case "premium":
-          this.productId = "prod_IiXkKw7qe4Dt7l";
-          this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
-          //  this.subscriptionTypeUI = "Premium"
-          break;
-        case "beastMode":
-          this.productId = "prod_IiXlcdTHpmbQHR";
-          this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
-          //  this.subscriptionTypeUI = "Beast Mode"
-          break;
-      }
+      const subscriptionChange = new SubscriptionChange(this.subscriptionType, 'none')
+      this.priceId = subscriptionChange.priceId
+      this.productId = subscriptionChange.productId
+      // switch (this.subscriptionType) {
+      //   case "standard":
+      //     this.productId = "prod_IiXkLvo2tLRuCi";
+      //     this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
+      //     break;
+      //   case "premium":
+      //     this.productId = "prod_IiXkKw7qe4Dt7l";
+      //     this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
+      //     break;
+      //   case "beastMode":
+      //     this.productId = "prod_IiXlcdTHpmbQHR";
+      //     this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
+      //     break;
+      // }
     })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
