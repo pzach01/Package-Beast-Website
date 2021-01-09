@@ -1,4 +1,5 @@
 import { subscriptionType } from 'src/app/_models/subscription-info'
+import { environment } from 'src/environments/environment'
 export class SubscriptionChange {
     constructor(selectedSubscriptionType: subscriptionType, previousSubscriptionType: subscriptionType) {
         this.selectedSubscriptionType = selectedSubscriptionType
@@ -23,23 +24,23 @@ export class SubscriptionChange {
             case "standard":
                 this.selectedSubscriptionType = "standard"
                 this.selectedSubscriptionText = "Standard";
-                this.selectedSubscriptionPrice = 10;
-                this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
-                this.productId = "prod_IiXkLvo2tLRuCi";
+                this.selectedSubscriptionPrice = environment.standardSubscription.price;
+                this.priceId = environment.standardSubscription.priceId;
+                this.productId = environment.standardSubscription.productId;
                 break;
             case "premium":
                 this.selectedSubscriptionType = "premium"
                 this.selectedSubscriptionText = "Premium";
-                this.selectedSubscriptionPrice = 30;
-                this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
-                this.productId = "prod_IiXkKw7qe4Dt7l";
+                this.selectedSubscriptionPrice = environment.premiumSubscription.price;
+                this.priceId = environment.premiumSubscription.priceId;
+                this.productId = environment.premiumSubscription.productId;
                 break;
             case "beastMode":
                 this.selectedSubscriptionType = "beastMode"
                 this.selectedSubscriptionText = "Beast Mode";
-                this.selectedSubscriptionPrice = 50;
-                this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
-                this.productId = "prod_IiXlcdTHpmbQHR";
+                this.selectedSubscriptionPrice = environment.beastModeSubscription.price;
+                this.priceId = environment.beastModeSubscription.priceId;
+                this.productId = environment.beastModeSubscription.productId;
                 break;
         }
     }
@@ -55,15 +56,15 @@ export class SubscriptionChange {
                 this.previousSubscriptionText = "Trial";
                 break;
             case "standard":
-                this.previousSubscriptionPrice = 10;
+                this.previousSubscriptionPrice = environment.standardSubscription.price;
                 this.previousSubscriptionText = "Standard";
                 break;
             case "premium":
-                this.previousSubscriptionPrice = 30;
+                this.previousSubscriptionPrice = environment.premiumSubscription.price;
                 this.previousSubscriptionText = "Premium";
                 break;
             case "beastMode":
-                this.previousSubscriptionPrice = 50;
+                this.previousSubscriptionPrice = environment.beastModeSubscription.price;
                 this.previousSubscriptionText = "Beast Mode";
                 break;
         }

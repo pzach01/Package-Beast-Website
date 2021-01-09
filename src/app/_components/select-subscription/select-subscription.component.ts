@@ -55,6 +55,8 @@ export class SelectSubscriptionComponent implements OnInit {
   }
 
   updateSubscriptionType(selectedSubscriptionType, priceId) {
+    //This is probably incorrect. Need to review subscription type is none workflow
+    // Review with LZ
     if (this.subscriptionInfo.subscriptionType == 'none') {
       this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
     }

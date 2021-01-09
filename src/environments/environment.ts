@@ -5,7 +5,22 @@
 export const environment = {
   production: false,
   SITE_TITLE: 'Package Beast Development Yo!',
-  API_BASE_URI: 'https://developmentapi.packagebeast.com'
+  API_BASE_URI: 'https://developmentapi.packagebeast.com',
+  standardSubscription: {
+    priceId: 'price_1I76eoE5mpXPYa9nlFHK60Ge',
+    productId: 'prod_IiXkLvo2tLRuCi',
+    price: 10
+  },
+  premiumSubscription: {
+    priceId: 'price_1I76fUE5mpXPYa9ncmIy6tbY',
+    productId: 'prod_IiXkKw7qe4Dt7l',
+    price: 30
+  },
+  beastModeSubscription: {
+    priceId: 'price_1I76gPE5mpXPYa9nzbdm3s9f',
+    productId: 'prod_IiXlcdTHpmbQHR',
+    price: 50
+  }
 };
 
 /*
