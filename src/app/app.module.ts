@@ -231,7 +231,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
-    NgxStripeModule.forRoot('pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH'),
+    NgxStripeModule.forRoot('pk_test_51I76dqE5mpXPYa9nEGmBuvigp0Vjs8LFIUkwEk2cnFEFPVHvqmH6nXJ6RA8SrjBjKRu7K7c0jZC23LdP01p5SzpF00XAVLBhGF'),
   ],
   entryComponents: [
     NewItemComponent,

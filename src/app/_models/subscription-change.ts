@@ -1,5 +1,7 @@
+import { subscriptionType } from 'src/app/_models/subscription-info'
+import { environment } from 'src/environments/environment'
 export class SubscriptionChange {
-    constructor(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode", previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    constructor(selectedSubscriptionType: subscriptionType, previousSubscriptionType: subscriptionType) {
         this.selectedSubscriptionType = selectedSubscriptionType
         this.previousSubscriptionType = previousSubscriptionType
         this.assignSelectedSubscriptionProperties(selectedSubscriptionType)
@@ -7,50 +9,62 @@ export class SubscriptionChange {
         this.assignDirection()
     }
     public priceId: string;
-    public selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
-    public previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
+    public productId: string;
+    public selectedSubscriptionType: subscriptionType;
+    public previousSubscriptionType: subscriptionType;
     public selectedSubscriptionText: string;
     public selectedSubscriptionPrice: number;
     public previousSubscriptionText: string;
     public previousSubscriptionPrice: number;
-    public direction: "upgrade" | "downgrade";
+    public direction: "initial" | "upgrade" | "downgrade";
     public prorate: number;
 
-    assignSelectedSubscriptionProperties(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    assignSelectedSubscriptionProperties(selectedSubscriptionType: subscriptionType) {
         switch (selectedSubscriptionType) {
             case "standard":
                 this.selectedSubscriptionType = "standard"
                 this.selectedSubscriptionText = "Standard";
-                this.selectedSubscriptionPrice = 10;
-                this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
+                this.selectedSubscriptionPrice = environment.standardSubscription.price;
+                this.priceId = environment.standardSubscription.priceId;
+                this.productId = environment.standardSubscription.productId;
                 break;
             case "premium":
                 this.selectedSubscriptionType = "premium"
                 this.selectedSubscriptionText = "Premium";
-                this.selectedSubscriptionPrice = 30;
-                this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
+                this.selectedSubscriptionPrice = environment.premiumSubscription.price;
+                this.priceId = environment.premiumSubscription.priceId;
+                this.productId = environment.premiumSubscription.productId;
                 break;
             case "beastMode":
                 this.selectedSubscriptionType = "beastMode"
                 this.selectedSubscriptionText = "Beast Mode";
-                this.selectedSubscriptionPrice = 50;
-                this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
+                this.selectedSubscriptionPrice = environment.beastModeSubscription.price;
+                this.priceId = environment.beastModeSubscription.priceId;
+                this.productId = environment.beastModeSubscription.productId;
                 break;
         }
     }
 
-    assignPreviousSubscriptionProperties(previousSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+    assignPreviousSubscriptionProperties(previousSubscriptionType: subscriptionType) {
         switch (previousSubscriptionType) {
+            case "none":
+                this.previousSubscriptionPrice = 0;
+                this.previousSubscriptionText = "None";
+                break;
+            case "trial":
+                this.previousSubscriptionPrice = 0;
+                this.previousSubscriptionText = "Trial";
+                break;
             case "standard":
-                this.previousSubscriptionPrice = 10;
+                this.previousSubscriptionPrice = environment.standardSubscription.price;
                 this.previousSubscriptionText = "Standard";
                 break;
             case "premium":
-                this.previousSubscriptionPrice = 30;
+                this.previousSubscriptionPrice = environment.premiumSubscription.price;
                 this.previousSubscriptionText = "Premium";
                 break;
             case "beastMode":
-                this.previousSubscriptionPrice = 50;
+                this.previousSubscriptionPrice = environment.beastModeSubscription.price;
                 this.previousSubscriptionText = "Beast Mode";
                 break;
         }
@@ -63,6 +77,10 @@ export class SubscriptionChange {
         }
         if (this.selectedSubscriptionPrice < this.previousSubscriptionPrice) {
             this.direction = "downgrade"
+            this.prorate = 0;
+        }
+        if (this.previousSubscriptionType == "none" || this.previousSubscriptionType == "trial") {
+            this.direction = "initial"
             this.prorate = 0;
         }
     }

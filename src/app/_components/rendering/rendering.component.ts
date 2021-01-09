@@ -50,9 +50,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   rotationAngle: number = 0;
 
-  constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) {
-
-  }
+  constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
