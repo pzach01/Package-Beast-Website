@@ -55,17 +55,12 @@ export class SelectSubscriptionComponent implements OnInit {
   }
 
   updateSubscriptionType(selectedSubscriptionType, priceId) {
-    //This is probably incorrect. Need to review subscription type is none workflow
-    // Review with LZ
-    if (this.subscriptionInfo.subscriptionType == 'none') {
-      this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
-    }
 
-    if (this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
+    if (this.subscriptionInfo.subscriptionActive) {
       this.subscriptionService.updateStripeSubscription(priceId).subscribe((r) => {
         this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
       })
-    } else if (!this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
+    } else if (!this.subscriptionInfo.subscriptionActive) {
       this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${selectedSubscriptionType}` } }]);
     }
   }
