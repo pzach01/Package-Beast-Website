@@ -81,6 +81,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.rendererContainer.nativeElement.addEventListener('keydown', this.keyDown.bind(this))
   }
 
+
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
       if (!this.currentUser.disablePreviousNextItemAnimation) {
@@ -106,6 +107,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.handleRotateKeys();
 
     window.requestAnimationFrame(() => this.animate());
+
     // this.mesh.rotation.x += 0.01;
     // this.mesh.rotation.y += 0.02;
 
