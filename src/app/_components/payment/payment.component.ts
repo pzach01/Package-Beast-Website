@@ -143,6 +143,7 @@ export class PaymentComponent implements OnInit {
         this.subscriptonsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
           this.loading = true;
           console.log("paymentMethodId", result.paymentMethod.id)
+          console.log("priceId", this.priceId)
           subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })
       }
