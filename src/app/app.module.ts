@@ -73,6 +73,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
 import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
 import { ReviewPaymentDialogComponent } from './_components/review-payment-dialog/review-payment-dialog.component';
+import { environment } from '../environments/environment'
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -231,7 +232,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
-    NgxStripeModule.forRoot('pk_test_51I76dqE5mpXPYa9nEGmBuvigp0Vjs8LFIUkwEk2cnFEFPVHvqmH6nXJ6RA8SrjBjKRu7K7c0jZC23LdP01p5SzpF00XAVLBhGF'),
+    NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [
     NewItemComponent,

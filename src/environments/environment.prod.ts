@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   SITE_TITLE: 'Package Beast',
   API_BASE_URI: 'https://api.packagebeast.com',
+  stripePublishableKey: 'pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH',
   standardSubscription: {
     priceId: 'price_1HPJLlJWFTMXIZUoMH26j2EB',
     productId: 'prod_HzHvyINf9uyaxv',
