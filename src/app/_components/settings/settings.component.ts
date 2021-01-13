@@ -26,8 +26,8 @@ export class SettingsComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser);
-    this.authenticationService.getUser();
+    // this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser);
+    this.authenticationService.getUser().subscribe((currentUser) => this.currentUser = currentUser);
   }
 
   goToBilling() {
