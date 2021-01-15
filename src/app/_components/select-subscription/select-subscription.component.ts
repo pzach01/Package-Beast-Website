@@ -59,7 +59,7 @@ export class SelectSubscriptionComponent implements OnInit {
     if (this.subscriptionInfo.subscriptionActive) {
       this.subscriptionService.updateStripeSubscription(priceId).subscribe((r) => {
         this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
-      })
+      }, e => console.log("error: ", e))
     } else if (!this.subscriptionInfo.subscriptionActive) {
       this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${selectedSubscriptionType}` } }]);
     }

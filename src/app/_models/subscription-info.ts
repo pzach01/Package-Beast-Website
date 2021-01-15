@@ -10,4 +10,5 @@ export class SubscriptionInfo {
     public paymentUpToDate: boolean;
     public subscriptionType: subscriptionType;
     public subscriptionExpirationTime: number;
+    public subscriptionUpdateInProgress: boolean;
 }
