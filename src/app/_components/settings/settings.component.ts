@@ -30,10 +30,6 @@ export class SettingsComponent implements OnInit {
     this.authenticationService.getUser().subscribe((currentUser) => this.currentUser = currentUser);
   }
 
-  goToBilling() {
-    this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
-  }
-
   goToChangePassword() {
     this.router.navigate(['./', { outlets: { view: ['change-password'] } }]);
   }

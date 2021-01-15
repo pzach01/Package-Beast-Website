@@ -19,6 +19,10 @@
                     [routerLink]="[{ outlets: { view: 'settings' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCog"></fa-icon>Settings
                 </a>
+                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'billing' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
+                    <fa-icon class="nav-icon p-1" [icon]="faCC"></fa-icon>Billing
+                </a>
                 <a mat-list-item routerLinkActive="active" (click)="logout()">
                     <fa-icon class="nav-icon p-1" [icon]="faSignOutAlt"></fa-icon>Logout
                 </a>
