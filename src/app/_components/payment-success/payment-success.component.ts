@@ -12,12 +12,14 @@ import { take } from 'rxjs/operators';
 })
 export class PaymentSuccessComponent implements OnInit {
   subscription: Subscription;
-  subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
+  subscriptionInfo: SubscriptionInfo = new SubscriptionInfo;
   numberCheckSubscriptionAttempts = 20;
-  constructor(public subscriptionService: SubscriptionsService) { }
+  constructor(
+    public subscriptionService: SubscriptionsService
+  ) { }
 
   ngOnInit(): void {
-
+    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => this.subscriptionInfo = subscriptionInfo)
     const source = interval(3500);
     const numAttempts = source.pipe(take(this.numberCheckSubscriptionAttempts))
     this.subscription = numAttempts.subscribe((i) => this.checkSubscription(i));
@@ -29,8 +31,6 @@ export class PaymentSuccessComponent implements OnInit {
   checkSubscription(i) {
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
       this.subscriptionInfo = subscriptionInfo;
-      if (subscriptionInfo.paymentUpToDate) {
-      }
     })
   }
 
