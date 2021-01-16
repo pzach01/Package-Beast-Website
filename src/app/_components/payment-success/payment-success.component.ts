@@ -22,7 +22,7 @@ export class PaymentSuccessComponent implements OnInit {
 
   ngOnInit(): void {
     // const source = interval(3500);
-    const source = timer(0, 3500)
+    const source = interval(3500)
     const numAttempts = source.pipe(take(this.numberCheckSubscriptionAttempts))
     console.log(numAttempts)
     this.checkSubscription$ = numAttempts.subscribe((i) => {
@@ -44,6 +44,7 @@ export class PaymentSuccessComponent implements OnInit {
 
   checkSubscription() {
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
+      console.log(subscriptionInfo)
       this.subscriptionInfo = subscriptionInfo;
       this.subscriptionUpdateInProgress = subscriptionInfo.subscriptionUpdateInProgress
     })
