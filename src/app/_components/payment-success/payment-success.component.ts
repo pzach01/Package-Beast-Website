@@ -11,24 +11,26 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./payment-success.component.scss']
 })
 export class PaymentSuccessComponent implements OnInit {
-  subscription: Subscription;
-  subscriptionInfo: SubscriptionInfo = new SubscriptionInfo;
+  subscriptionInfo: SubscriptionInfo;
   numberCheckSubscriptionAttempts = 15;
+  subscriptionUpdateInProgress = true;
   displayErrorMessage = false;
+  checkSubscription$: Subscription
   constructor(
     public subscriptionService: SubscriptionsService
   ) { }
 
   ngOnInit(): void {
-    this.subscriptionInfo.subscriptionUpdateInProgress = true;
-    // this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => this.subscriptionInfo = subscriptionInfo)
     // const source = interval(3500);
     const source = timer(0, 3500)
     const numAttempts = source.pipe(take(this.numberCheckSubscriptionAttempts))
     console.log(numAttempts)
-    this.subscription = numAttempts.subscribe((i) => {
+    this.checkSubscription$ = numAttempts.subscribe((i) => {
       if (i == this.numberCheckSubscriptionAttempts - 1) {
-        this.displayErrorMessage = true
+        if (this.subscriptionUpdateInProgress) {
+          this.displayErrorMessage = true
+        }
+
       } else {
         this.checkSubscription()
       }
@@ -36,12 +38,14 @@ export class PaymentSuccessComponent implements OnInit {
     );
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.checkSubscription$.unsubscribe()
   }
+
 
   checkSubscription() {
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
       this.subscriptionInfo = subscriptionInfo;
+      this.subscriptionUpdateInProgress = subscriptionInfo.subscriptionUpdateInProgress
     })
   }
 

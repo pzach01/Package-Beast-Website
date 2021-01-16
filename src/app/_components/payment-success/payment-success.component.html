@@ -1,45 +1,46 @@
-<div *ngIf="!subscriptionInfo.subscriptionUpdateInProgress && ! displayErrorMessage"
-    class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row my-3">
-        <div class="col text-center">
-            <h3>Thanks for Using Package Beast!</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
-            <p>Your payment has been processed.</p>
-        </div>
-    </div>
-</div>
-
-
-<div *ngIf="subscriptionInfo.subscriptionUpdateInProgress && ! displayErrorMessage"
-    class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row my-3">
-        <div class="col text-center">
-            <h3>Processing Payment</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
-            <div class="d-flex justify-content-center py-5">
-                <mat-spinner color="accent"></mat-spinner>
+<div class="view-container container d-flex flex-column overflow-hidden">
+    <div *ngIf="!subscriptionUpdateInProgress && !displayErrorMessage">
+        <div class="row my-3">
+            <div class="col text-center">
+                <h3>Thanks for Using Package Beast</h3>
             </div>
-            <p>Please wait while we process your payment.</p>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <p>Your payment has been processed.</p>
+            </div>
         </div>
     </div>
-</div>
 
-<div *ngIf="displayErrorMessage" class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row my-3">
-        <div class="col text-center">
-            <h3>An Error has Occurred</h3>
+    <div *ngIf="subscriptionUpdateInProgress && !displayErrorMessage">
+        <div class="row my-3">
+            <div class="col text-center">
+                <h3>Processing Payment</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <div class="d-flex justify-content-center py-5">
+                    <mat-spinner color="accent"></mat-spinner>
+                </div>
+                <p>Please wait while we process your payment.</p>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col text-center">
-            <p>We were unable to process your payment.</p>
-            <p class="text-danger">Please contact customer support for more information: support@packagebeast.com</p>
+    <div *ngIf="displayErrorMessage">
+        <div class="row my-3">
+            <div class="col text-center">
+                <h3>An Error has Occurred</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <p>We were unable to process your payment.</p>
+                <p class="text-danger">Please contact customer support for more information: support@packagebeast.com
+                </p>
+            </div>
         </div>
     </div>
+
 </div>
+<!-- <div>{{subscriptionInfo.paymentUpToDate}}</div> -->
