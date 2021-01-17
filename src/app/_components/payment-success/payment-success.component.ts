@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscriptionInfo } from 'src/app/_models';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
-import { interval, Subscription } from 'rxjs';
+import { interval, Subscription, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 
@@ -11,26 +11,42 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./payment-success.component.scss']
 })
 export class PaymentSuccessComponent implements OnInit {
-  subscription: Subscription;
-  subscriptionInfo: SubscriptionInfo = new SubscriptionInfo;
-  numberCheckSubscriptionAttempts = 20;
+  subscriptionInfo: SubscriptionInfo;
+  numberCheckSubscriptionAttempts = 15;
+  subscriptionUpdateInProgress = true;
+  displayErrorMessage = false;
+  checkSubscription$: Subscription
   constructor(
     public subscriptionService: SubscriptionsService
   ) { }
 
   ngOnInit(): void {
-    this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => this.subscriptionInfo = subscriptionInfo)
-    const source = interval(3500);
+    // const source = interval(3500);
+    const source = interval(3500)
     const numAttempts = source.pipe(take(this.numberCheckSubscriptionAttempts))
-    this.subscription = numAttempts.subscribe((i) => this.checkSubscription(i));
+    console.log(numAttempts)
+    this.checkSubscription$ = numAttempts.subscribe((i) => {
+      if (i == this.numberCheckSubscriptionAttempts - 1) {
+        if (this.subscriptionUpdateInProgress) {
+          this.displayErrorMessage = true
+        }
+
+      } else {
+        this.checkSubscription()
+      }
+    }
+    );
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.checkSubscription$.unsubscribe()
   }
 
-  checkSubscription(i) {
+
+  checkSubscription() {
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
+      console.log(subscriptionInfo)
       this.subscriptionInfo = subscriptionInfo;
+      this.subscriptionUpdateInProgress = subscriptionInfo.subscriptionUpdateInProgress
     })
   }
 
