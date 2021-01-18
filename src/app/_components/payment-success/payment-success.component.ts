@@ -46,6 +46,9 @@ export class PaymentSuccessComponent implements OnInit {
     this.subscriptionService.getSubscriptionInfo().subscribe(subscriptionInfo => {
       this.subscriptionInfo = subscriptionInfo;
       this.subscriptionUpdateInProgress = subscriptionInfo.subscriptionUpdateInProgress
+      if (!this.subscriptionUpdateInProgress) {
+        this.checkSubscription$.unsubscribe()
+      }
     })
   }
 
