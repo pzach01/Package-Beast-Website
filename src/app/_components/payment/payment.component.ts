@@ -7,6 +7,9 @@ import { PaymentMethodData, PaymentIntent } from 'ngx-stripe/lib/interfaces/paym
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 import { SubscriptionChange } from 'src/app/_models/subscription-change';
 import { subscriptionType } from 'src/app/_models/subscription-info'
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentErrorDialogComponent } from '../payment-error-dialog/payment-error-dialog.component';
+
 
 
 @Component({
@@ -39,7 +42,8 @@ export class PaymentComponent implements OnInit {
     private fb: FormBuilder,
     private stripeService: StripeService,
     private subscriptonsService: SubscriptionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public paymentErrorDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -147,12 +151,20 @@ export class PaymentComponent implements OnInit {
     });
   }
 
+  openPaymentErrorDialog(error): void {
+    const dialogRef = this.paymentErrorDialog.open(PaymentErrorDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { error },
+    });
+  }
+
   createSubscription(paymentMethodId, priceId) {
     this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => {
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }])
     }, e => {
-      console.log("error: ", e)
-      this.stripeError = e;
+      console.log("error from creat subscription: ", e)
+      this.openPaymentErrorDialog(e)
       this.loading = false
     }
     );
@@ -162,8 +174,8 @@ export class PaymentComponent implements OnInit {
     this.subscriptonsService.retrySubscription(paymentMethodId).subscribe(result => {
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
     }, e => {
-      console.log("error: ", e)
-      this.stripeError = e;
+      console.log("error from retry subscription: ", e)
+      this.openPaymentErrorDialog(e)
       this.loading = false
     }
 
