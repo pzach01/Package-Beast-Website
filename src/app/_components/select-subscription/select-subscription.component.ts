@@ -60,6 +60,7 @@ export class SelectSubscriptionComponent implements OnInit {
 
   selectSubscriptionType(selectedSubscriptionType: subscriptionType) {
     this.selectedSubscriptionType = selectedSubscriptionType;
+    if (!this.subscriptionInfo.subscriptionActive) { this.subscriptionType = 'none' }
     const subscriptionChange = new SubscriptionChange(selectedSubscriptionType, this.subscriptionType)
     this.openReviewPaymentDialog(subscriptionChange);
   }

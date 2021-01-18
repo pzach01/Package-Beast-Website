@@ -52,20 +52,6 @@ export class PaymentComponent implements OnInit {
       const subscriptionChange = new SubscriptionChange(this.subscriptionType, 'none')
       this.priceId = subscriptionChange.priceId
       this.productId = subscriptionChange.productId
-      // switch (this.subscriptionType) {
-      //   case "standard":
-      //     this.productId = "prod_IiXkLvo2tLRuCi";
-      //     this.priceId = "price_1I76eoE5mpXPYa9nlFHK60Ge";
-      //     break;
-      //   case "premium":
-      //     this.productId = "prod_IiXkKw7qe4Dt7l";
-      //     this.priceId = "price_1I76fUE5mpXPYa9ncmIy6tbY";
-      //     break;
-      //   case "beastMode":
-      //     this.productId = "prod_IiXlcdTHpmbQHR";
-      //     this.priceId = "price_1I76gPE5mpXPYa9nzbdm3s9f";
-      //     break;
-      // }
     })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
