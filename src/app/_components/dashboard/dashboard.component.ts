@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => { this.currentUser = x; this.firstName = x.first_name });
     this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate)
   }
 

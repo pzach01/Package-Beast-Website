@@ -76,7 +76,8 @@ import { ReviewPaymentDialogComponent } from './_components/review-payment-dialo
 import { environment } from '../environments/environment';
 import { PaymentErrorDialogComponent } from './_components/payment-error-dialog/payment-error-dialog.component';
 import { PaymentMethodChangeSuccessComponent } from './_components/payment-method-change-success/payment-method-change-success.component';
-import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component'
+import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component';
+import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component'
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -160,6 +161,12 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'edit-user-information',
+    outlet: 'view',
+    component: EditUserInformationComponent,
+    canActivate: [AuthGuard, TermsOfServiceGuard]
+  },
+  {
     path: 'change-password',
     outlet: 'view',
     component: ChangePasswordComponent,
@@ -212,7 +219,8 @@ const appRoutes: Routes = [
     ReviewPaymentDialogComponent,
     PaymentErrorDialogComponent,
     PaymentMethodChangeSuccessComponent,
-    SubscriptionDowngradeSuccessComponent],
+    SubscriptionDowngradeSuccessComponent,
+    EditUserInformationComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -266,7 +274,8 @@ const appRoutes: Routes = [
     ShipmentAlertComponent,
     CancelSubscriptionConfirmationComponent,
     ReviewPaymentDialogComponent,
-    PaymentErrorDialogComponent
+    PaymentErrorDialogComponent,
+    ChangePasswordCompleteDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
