@@ -266,7 +266,8 @@ const appRoutes: Routes = [
     ShipmentAlertComponent,
     CancelSubscriptionConfirmationComponent,
     ReviewPaymentDialogComponent,
-    PaymentErrorDialogComponent
+    PaymentErrorDialogComponent,
+    ChangePasswordCompleteDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
