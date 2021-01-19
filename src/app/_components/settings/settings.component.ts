@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
   }
 
   goToChangeUserInformation() {
-    this.router.navigate(['./', { outlets: { view: ['change-user-information'] } }]);
+    this.router.navigate(['./', { outlets: { view: ['edit-user-information'] } }]);
   }
 
   save() {
