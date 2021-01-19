@@ -34,6 +34,10 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['./', { outlets: { view: ['change-password'] } }]);
   }
 
+  goToChangeUserInformation() {
+    this.router.navigate(['./', { outlets: { view: ['change-user-information'] } }]);
+  }
+
   save() {
     this.saveStatusText = "saving"
     this.authenticationService.updateUser({

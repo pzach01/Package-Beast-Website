@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }, {
             validator: MustMatch('password1', 'password2')
         });
-
     }
 
     ngAfterViewInit(): void {

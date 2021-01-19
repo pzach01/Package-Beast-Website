@@ -10,7 +10,7 @@ import { SubscriptionsService } from './subscriptions.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    Token: String;
+    Token: string;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     private currentTokenSubject: BehaviorSubject<Token>;
