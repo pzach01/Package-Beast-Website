@@ -33,7 +33,7 @@ export class SelectSubscriptionComponent implements OnInit {
     })
   }
 
-  openReviewPaymentDialog(subscriptionChange): void {
+  openReviewPaymentDialog(subscriptionChange: SubscriptionChange): void {
     const dialogRef = this.reviewPaymentDialog.open(ReviewPaymentDialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
@@ -44,7 +44,7 @@ export class SelectSubscriptionComponent implements OnInit {
         if (data.accept) {
           this.loading = true;
           const priceId = subscriptionChange.priceId
-          this.updateSubscriptionType(this.selectedSubscriptionType, priceId);
+          this.updateSubscriptionType(subscriptionChange, priceId);
         }
       }
     });
@@ -65,18 +65,22 @@ export class SelectSubscriptionComponent implements OnInit {
     this.openReviewPaymentDialog(subscriptionChange);
   }
 
-  updateSubscriptionType(selectedSubscriptionType, priceId) {
+  updateSubscriptionType(subscriptionChange: SubscriptionChange, priceId) {
 
     if (this.subscriptionInfo.subscriptionActive) {
       this.subscriptionService.updateStripeSubscription(priceId).subscribe((r) => {
-        this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+        if (subscriptionChange.direction == 'downgrade') {
+          this.router.navigate(['./', { outlets: { view: ['subscription-downgrade-success'] } }]);
+        } else {
+          this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+        }
       }, e => {
         console.log("error: ", e)
         this.loading = false;
         this.openPaymentErrorDialog(e)
       })
     } else if (!this.subscriptionInfo.subscriptionActive) {
-      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${selectedSubscriptionType}` } }]);
+      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionChange.selectedSubscriptionType}` } }]);
     }
   }
 }

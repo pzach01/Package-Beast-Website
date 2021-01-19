@@ -149,7 +149,7 @@ export class PaymentComponent implements OnInit {
     this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => {
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }])
     }, e => {
-      console.log("error from creat subscription: ", e)
+      console.log("error from create subscription: ", e)
       this.openPaymentErrorDialog(e)
       this.loading = false
     }
@@ -158,7 +158,7 @@ export class PaymentComponent implements OnInit {
 
   retrySubscription(paymentMethodId) {
     this.subscriptonsService.retrySubscription(paymentMethodId).subscribe(result => {
-      this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+      this.router.navigate(['./', { outlets: { view: ['payment-method-change-success'] } }]);
     }, e => {
       console.log("error from retry subscription: ", e)
       this.openPaymentErrorDialog(e)

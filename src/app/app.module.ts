@@ -74,7 +74,9 @@ import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialo
 import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
 import { ReviewPaymentDialogComponent } from './_components/review-payment-dialog/review-payment-dialog.component';
 import { environment } from '../environments/environment';
-import { PaymentErrorDialogComponent } from './_components/payment-error-dialog/payment-error-dialog.component'
+import { PaymentErrorDialogComponent } from './_components/payment-error-dialog/payment-error-dialog.component';
+import { PaymentMethodChangeSuccessComponent } from './_components/payment-method-change-success/payment-method-change-success.component';
+import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component'
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -140,6 +142,18 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'subscription-downgrade-success',
+    outlet: 'view',
+    component: SubscriptionDowngradeSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'payment-method-change-success',
+    outlet: 'view',
+    component: PaymentMethodChangeSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'payment/:subscriptionType',
     outlet: 'view',
     component: PaymentComponent,
@@ -196,7 +210,9 @@ const appRoutes: Routes = [
     TermsOfServiceDialogComponent,
     PrivacyPolicyDialogComponent,
     ReviewPaymentDialogComponent,
-    PaymentErrorDialogComponent],
+    PaymentErrorDialogComponent,
+    PaymentMethodChangeSuccessComponent,
+    SubscriptionDowngradeSuccessComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
