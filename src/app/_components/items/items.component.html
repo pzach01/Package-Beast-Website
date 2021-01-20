@@ -5,7 +5,7 @@
             <h3>Inventory</h3>
         </div>
         <div class="col-md-3 col-sm-12 text-right"><button class="newButton" mat-raised-button color="accent"
-                (click)="openDialog()" type="button">New
+                (click)="openDialog()" type="button" [disabled]="loading">New
                 Item</button></div>
     </div>
 
