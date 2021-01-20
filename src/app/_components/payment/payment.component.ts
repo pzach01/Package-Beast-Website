@@ -104,6 +104,7 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentMethod() {
+    this.loading = true;
     const name = this.stripeTest.get('name').value;
     const addressLine1 = this.stripeTest.get('addressLine1').value;
     const city = this.stripeTest.get('city').value;
@@ -127,10 +128,10 @@ export class PaymentComponent implements OnInit {
 
     this.stripeService.createPaymentMethod("card", this.card, payment_intent_data).subscribe(result => {
       if (result.error) {
+        this.loading = false
         // this.stripeError = result.error.message
       } else {
         this.subscriptonsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
-          this.loading = true;
           subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })
       }
