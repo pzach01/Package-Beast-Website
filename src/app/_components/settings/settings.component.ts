@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 import { Timestamp } from 'src/app/_models/timestamp'
 import { environment } from 'src/environments/environment'
+import { interval, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class SettingsComponent implements OnInit {
   disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
   animationSpeed = this.currentUser.animationSpeed
   buildTimestamp = Timestamp.timestamp;
+  save$: Subscription
 
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
@@ -39,14 +42,22 @@ export class SettingsComponent implements OnInit {
   }
 
   save() {
-    this.saveStatusText = "saving"
-    this.authenticationService.updateUser({
-      units: this.units, dateTimeFormat: this.dateTimeFormat,
-      multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
-      disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
-      animationSpeed: this.animationSpeed
+    if (this.save$ != undefined) {
+      this.save$.unsubscribe();
+    }
+    this.saveStatusText = "Saving"
+    const source = interval(500)
+    const numAttempts = source.pipe(take(1))
+    this.save$ = numAttempts.subscribe(() => {
+      this.authenticationService.updateUser({
+        units: this.units, dateTimeFormat: this.dateTimeFormat,
+        multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
+        disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
+        animationSpeed: this.animationSpeed
+      })
+        .subscribe(() => { this.saveStatusText = "Settings Saved!" })
     })
-      .subscribe(() => this.saveStatusText = "Settings Saved!")
+
   }
 
 }
