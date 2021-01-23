@@ -20,7 +20,7 @@
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
-                <mat-label>Address</mat-label>
+                <mat-label>Billing Address</mat-label>
                 <input type="text" matInput [formControl]="stripeTest.get('name')" placeholder="185 Awesome St">
                 <mat-error *ngIf="stripeTest.get('addressLine1').hasError('required')">
                     Please enter an address
@@ -43,13 +43,13 @@
                     Please enter a state
                 </mat-error>
             </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Zip Code</mat-label>
+            <!-- <mat-form-field class="full-width">
+                <mat-label>Billing Address Zip Code</mat-label>
                 <input type="text" matInput [formControl]="stripeTest.get('zip')" placeholder="12345">
                 <mat-error *ngIf="stripeTest.get('zip').hasError('required')">
                     Please enter a valid zip code
                 </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <mat-form-field class="full-width" appearance="standard">
                 <mat-label>Country</mat-label>
