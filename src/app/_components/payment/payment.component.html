@@ -43,13 +43,28 @@
                     Please enter a state
                 </mat-error>
             </mat-form-field>
-            <!-- <mat-form-field class="full-width">
+            <mat-form-field class="full-width">
                 <mat-label>Zip Code</mat-label>
                 <input type="text" matInput [formControl]="stripeTest.get('zip')" placeholder="12345">
                 <mat-error *ngIf="stripeTest.get('zip').hasError('required')">
                     Please enter a valid zip code
                 </mat-error>
-            </mat-form-field> -->
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="standard">
+                <mat-label>Country</mat-label>
+                <mat-select [(value)]="country">
+                    <mat-option value="CA">
+                        Canada
+                    </mat-option>
+                    <mat-option value="US">
+                        United States
+                    </mat-option>
+                    <mat-option value="MX">
+                        Mexico
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
             <div>
                 <label>
