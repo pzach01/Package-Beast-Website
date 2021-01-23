@@ -16,7 +16,7 @@
                 <input type="text" autocomplete="name" matInput [formControl]="stripeTest.get('name')"
                     placeholder="Jane Doe">
                 <mat-error *ngIf="stripeTest.get('name').hasError('required')">
-                    Please enter a valid email address
+                    Please enter a name
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
