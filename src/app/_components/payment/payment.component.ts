@@ -28,6 +28,7 @@ export class PaymentComponent implements OnInit {
   card: any;
   p: PaymentIntent
   stripeError = "";
+  country = "US";
 
 
   // optional parameters
@@ -58,7 +59,7 @@ export class PaymentComponent implements OnInit {
       addressLine1: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      // zip: ['', [Validators.required]],
+      zip: ['', [Validators.required]],
     });
     this.stripeService.elements(this.elementsOptions)
       .subscribe(elements => {
@@ -109,16 +110,17 @@ export class PaymentComponent implements OnInit {
     const addressLine1 = this.stripeTest.get('addressLine1').value;
     const city = this.stripeTest.get('city').value;
     const state = this.stripeTest.get('state').value;
+    const zip = this.stripeTest.get('zip').value;
 
     const payment_intent_data: PaymentMethodData = {
       billing_details: {
         name: name,
         address: {
           city: city,
-          country: "",
+          country: this.country,
           line1: addressLine1,
           line2: "",
-          postal_code: this.card.zip,
+          postal_code: zip,
           state: state
         }
       },
