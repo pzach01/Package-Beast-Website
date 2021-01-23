@@ -36,11 +36,11 @@
             </mat-form-field>
 
             <mat-form-field class="full-width">
-                <mat-label>State</mat-label>
+                <mat-label>State/Province</mat-label>
                 <input autocomplete="address-level1" type="text" matInput [formControl]="stripeTest.get('state')"
                     placeholder="IL">
                 <mat-error *ngIf="stripeTest.get('state').hasError('required')">
-                    Please enter a state
+                    Please enter a state or province
                 </mat-error>
             </mat-form-field>
             <!-- <mat-form-field class="full-width">
