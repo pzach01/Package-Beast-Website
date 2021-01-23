@@ -21,14 +21,14 @@
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Billing Address</mat-label>
-                <input type="text" matInput [formControl]="stripeTest.get('name')" placeholder="185 Awesome St">
+                <input type="text" matInput [formControl]="stripeTest.get('addressLine1')" placeholder="185 Awesome St">
                 <mat-error *ngIf="stripeTest.get('addressLine1').hasError('required')">
                     Please enter an address
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>City</mat-label>
-                <input autocomplete="address-level2" type="text" matInput [formControl]="stripeTest.get('city')"
+                <input matInput autocomplete="address-level2" type="text" [formControl]="stripeTest.get('city')"
                     placeholder="Chicago">
                 <mat-error *ngIf="stripeTest.get('city').hasError('required')">
                     Please enter a city
