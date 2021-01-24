@@ -32,13 +32,14 @@ export class TermsOfServiceGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-    var agreedToLatestTermsOfService = this.currentUser.usersTermsOfServiceRevision == this.currentUser.termsOfServiceRevision
+    if (this.currentUser != null) {
+      var agreedToLatestTermsOfService = this.currentUser.usersTermsOfServiceRevision == this.currentUser.termsOfServiceRevision
 
-    if (!agreedToLatestTermsOfService) {
-      // subscription active so return true
-      this.openTermsOfServiceDialog()
+      if (!agreedToLatestTermsOfService) {
+        // subscription active so return true
+        this.openTermsOfServiceDialog()
+      }
     }
-
     // not subscribed in so redirect to login page with the return url
     //this.router.navigate([{ outlets: { primary: 'dashboard', view: 'billing' } }]);
 
