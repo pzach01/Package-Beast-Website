@@ -172,7 +172,7 @@ const appRoutes: Routes = [
     component: ChangePasswordComponent,
     canActivate: [AuthGuard, TermsOfServiceGuard]
   },
-  { path: "*", redirectTo: '' }
+  { path: "**", redirectTo: '' }
 ];
 
 @NgModule({
