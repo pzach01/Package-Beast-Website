@@ -1,7 +1,11 @@
 <div class="view-container overflow-auto">
-    <ng-container *ngIf="timeout">
+    <ng-container *ngIf="timeout || nonEmptyContainers.length==0">
         <div class="container justify-content-start mb-3">
-            <h6 class="pt-3">No shipment details found</h6>
+            <h6 *ngIf="timeout" class="pt-3">No shipment details found</h6>
+            <h6 *ngIf="nonEmptyContainers.length==0" class="pt-3">None of the selected inventory items fit in selected
+                shipping containers</h6>
+            <p *ngIf="nonEmptyContainers.length==0">Verify all dimensions are correct or try a new shipment with a
+                larger shipping container.</p>
             <div class="pt-3">
                 <button mat-raised-button color="warn" (click)="delete()" type="button">Delete Shipment</button>
             </div>
