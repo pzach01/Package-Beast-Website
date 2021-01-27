@@ -44,7 +44,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
                     <td mat-cell *matCellDef="let row">
                         <mat-form-field>
-                            <mat-select [typeaheadDebounceInterval]=500 (click)="$event.stopPropagation()"
+                            <mat-select [typeaheadDebounceInterval]=325 (click)="$event.stopPropagation()"
                                 [(value)]="row.qty" (openedChange)="qtySelectionOpened(row)">
                                 <mat-option *ngFor="let item of [].constructor(99); let i = index" [value]="i+1">
                                     {{ i+1 }}
