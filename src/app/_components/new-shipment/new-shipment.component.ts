@@ -32,6 +32,7 @@ export class NewShipmentComponent implements OnInit {
   timeoutDuration = 30;
   fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
+  allowAnalysis: boolean = false;
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
   ) { }
@@ -42,6 +43,9 @@ export class NewShipmentComponent implements OnInit {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
+    this.allowAnalysis = this.reviewShipmentComponent.allowAnalysis
+    console.log(this.allowAnalysis)
+    console.log(this.selectedItems)
   }
 
   startSpinner() {

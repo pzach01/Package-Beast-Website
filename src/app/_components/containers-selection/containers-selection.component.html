@@ -1,18 +1,23 @@
 <div class="d-flex justify-content-center mb-3">
-    <h2>Select available shipping containers!</h2>
+    <h2 *ngIf="userHasContainers">Select available shipping containers!</h2>
+    <h2 *ngIf="!userHasContainers">No shipping containers have been created!</h2>
 </div>
 
 <!-- <button class="btn btn-primary" (click)="openDialog()">New Container</button> -->
 
 
-<mat-form-field class="full-width">
+<mat-form-field *ngIf="userHasContainers" class="full-width">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Dimension, Container Name, or SKU">
 </mat-form-field>
 
 <div class="d-flex flex-column justify-content-center mb-3">
     <div class="d-flex flex-row overflow-hidden">
-        <div class="tbl-container w-100">
+        <div *ngIf="!userHasContainers">
+            <p>You must create at least one inventory item and one shipping container before creating a shipment. Select
+                "Containers" in the main menu to create an shipping container.</p>
+        </div>
+        <div *ngIf="userHasContainers" class="tbl-container w-100">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
 
                 <ng-container matColumnDef="select">

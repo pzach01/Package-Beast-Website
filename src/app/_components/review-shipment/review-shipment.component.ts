@@ -18,15 +18,25 @@ export class ReviewShipmentComponent implements OnChanges, OnInit {
   containersDataSource = new MatTableDataSource(this.selectedContainers);
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
   containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
-
   constructor(private authenticationService: AuthenticationService) { }
-
+  allowAnalysis: boolean = false;
   ngOnInit() {
+    this.checkItemsAndContainersSelected()
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
   }
   ngOnChanges() {
     this.itemsDataSource.data = this.selectedItems;
     this.containersDataSource.data = this.selectedContainers;
+    this.checkItemsAndContainersSelected()
+  }
+  checkItemsAndContainersSelected() {
+    if (this.selectedContainers != null && this.selectedItems != null) {
+      if (this.selectedContainers.length == 0 || this.selectedItems.length == 0) {
+        this.allowAnalysis = false
+      } else {
+        this.allowAnalysis = true
+      }
+    }
   }
 
 }
