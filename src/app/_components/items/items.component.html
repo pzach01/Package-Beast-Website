@@ -13,14 +13,16 @@
 
     <div class="row no-shrink">
         <div class="col">
-            <mat-form-field class="full-width">
+            <p *ngIf="!userHasItems && !loading">You have no inventory items defined. Create one by selecting
+                "New Item" above.</p>
+            <mat-form-field *ngIf="userHasItems && !loading" class="full-width">
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" autocomplete="off"
                     placeholder="SKU, Description, or Dimension">
             </mat-form-field>
         </div>
     </div>
-    <div class="d-flex flex-row overflow-hidden">
+    <div *ngIf="userHasItems && !loading" class="d-flex flex-row overflow-hidden">
         <div class="tbl-container w-100">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
