@@ -1,16 +1,20 @@
 <div class="d-flex flex-fill justify-content-center mb-3">
-    <h2>Select your items to ship!</h2>
+    <h2 *ngIf="userHasItems">Select your items to ship!</h2>
+    <h2 *ngIf="!userHasItems">No inventory items have been created!</h2>
 </div>
 
-<mat-form-field class="full-width">
+<mat-form-field *ngIf="userHasItems" class="full-width">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="SKU or Description">
 </mat-form-field>
 
-
 <div class="d-flex flex-column justify-content-center mb-3">
     <div class="d-flex flex-row overflow-hidden">
-        <div class="tbl-container w-100">
+        <div *ngIf="!userHasItems">
+            <p>You must create at least one inventory item and one shipping container before creating a shipment. Select
+                "Inventory" in the main menu to create an inventory item.</p>
+        </div>
+        <div *ngIf="userHasItems" class="tbl-container w-100">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                 <ng-container matColumnDef="select">

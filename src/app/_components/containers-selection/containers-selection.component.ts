@@ -18,6 +18,7 @@ export class ContainersSelectionComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['select', 'sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
   selection = new SelectionModel<Container>(true, []);
+  userHasContainers: boolean = true;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private containersservice: ContainersService, private authenticationService: AuthenticationService) { }
@@ -25,6 +26,9 @@ export class ContainersSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.containersservice.getAll().subscribe(containers => {
+      if (containers.length == 0) {
+        this.userHasContainers = false
+      }
       this.containers = containers;
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
