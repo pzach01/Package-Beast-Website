@@ -20,6 +20,7 @@ export class ItemsComponent implements OnInit {
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
   currentUser = this.authenticationService.currentUserValue;
   newOrEditedItem: Item;
+  userHasItems: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('table', { static: true }) table;
@@ -34,6 +35,7 @@ export class ItemsComponent implements OnInit {
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
       this.dataSource.sort = this.sort;
+      this.doesUserHaveItems()
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
         data.sku.toString().toLowerCase().includes(filter) ||
@@ -43,6 +45,11 @@ export class ItemsComponent implements OnInit {
         data.height.toString().includes(filter)
     })
   }
+
+  doesUserHaveItems() {
+    this.dataSource.data.length == 0 ? this.userHasItems = false : this.userHasItems = true
+  }
+
 
   openDialog(): void {
     const dialogRef = this.newItemDialog.open(NewItemComponent, {
@@ -55,6 +62,7 @@ export class ItemsComponent implements OnInit {
         this.dataSource.data.unshift(newItem);
         this.dataSource._updateChangeSubscription();
         this.newOrEditedItem = newItem;
+        this.doesUserHaveItems()
       }
     });
   }
@@ -79,12 +87,13 @@ export class ItemsComponent implements OnInit {
           this.dataSource.data.unshift(editedItem);
           this.dataSource._updateChangeSubscription();
           this.newOrEditedItem = editedItem;
-
+          this.doesUserHaveItems()
         }
         if (data.deletedItem) {
           const deletedItem = data.deletedItem
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedItem.id);
           this.dataSource._updateChangeSubscription();
+          this.doesUserHaveItems()
         }
       }
     });

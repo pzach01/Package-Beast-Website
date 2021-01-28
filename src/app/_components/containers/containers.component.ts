@@ -20,6 +20,7 @@ export class ContainersComponent implements OnInit {
   displayedColumns: string[] = ['sku', 'description', 'yDim', 'zDim', 'xDim', 'volume'];
   currentUser = this.authenticationService.currentUserValue;
   newOrEditedContainer: Container;
+  userHasContainers: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -32,7 +33,7 @@ export class ContainersComponent implements OnInit {
       this.loading = false; this.containers = containers;
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
-
+      this.doesUserHaveContainers()
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
         data.sku.toString().toLowerCase().includes(filter) ||
@@ -42,6 +43,10 @@ export class ContainersComponent implements OnInit {
         data.zDim.toString().includes(filter) ||
         data.volume.toString().includes(filter)
     })
+  }
+
+  doesUserHaveContainers() {
+    this.dataSource.data.length == 0 ? this.userHasContainers = false : this.userHasContainers = true
   }
 
   openDialog(): void {
@@ -55,6 +60,7 @@ export class ContainersComponent implements OnInit {
         this.dataSource.data.unshift(newContainer);
         this.dataSource._updateChangeSubscription();
         this.newOrEditedContainer = newContainer;
+        this.doesUserHaveContainers()
       }
     });
   }
@@ -79,12 +85,15 @@ export class ContainersComponent implements OnInit {
           this.dataSource.data.unshift(editedContainer);
           this.dataSource._updateChangeSubscription();
           this.newOrEditedContainer = editedContainer;
+          this.doesUserHaveContainers()
         }
 
         if (data.deletedContainer) {
           const deletedContainer = data.deletedContainer
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedContainer.id);
           this.dataSource._updateChangeSubscription();
+          this.doesUserHaveContainers()
+          console.log(this.userHasContainers)
         }
       }
     });
