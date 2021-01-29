@@ -43,9 +43,20 @@ export class NewShipmentComponent implements OnInit {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
-    this.allowAnalysis = this.reviewShipmentComponent.allowAnalysis
+    this.checkItemsAndContainersSelected();
     console.log(this.allowAnalysis)
     console.log(this.selectedItems)
+    console.log(this.selectedContainers)
+  }
+
+  checkItemsAndContainersSelected() {
+    if (this.selectedContainers != null && this.selectedItems != null) {
+      if (this.selectedContainers.length == 0 || this.selectedItems.length == 0) {
+        this.allowAnalysis = false
+      } else {
+        this.allowAnalysis = true
+      }
+    }
   }
 
   startSpinner() {
