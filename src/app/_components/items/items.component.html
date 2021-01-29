@@ -13,7 +13,8 @@
 
     <div class="row no-shrink">
         <div class="col">
-            <p *ngIf="!userHasItems && !loading">You have no inventory items defined. Create one by selecting
+            <p class="pt-5" *ngIf="!userHasItems && !loading">You have no inventory items defined. Create one by
+                selecting
                 "New Item" above.</p>
             <mat-form-field *ngIf="userHasItems && !loading" class="full-width">
                 <mat-label>Filter</mat-label>
