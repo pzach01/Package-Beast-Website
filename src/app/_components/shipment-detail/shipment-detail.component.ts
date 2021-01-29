@@ -38,7 +38,7 @@ export class ShipmentDetailComponent implements OnInit {
 
   shipmentId: number;
   submitted = false;
-  loading = false;
+  loading = true;
   @ViewChildren('nonEmptyContainersTableSort') nonEmptyContainersTableSorts: QueryList<MatSort>;
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
@@ -58,6 +58,7 @@ export class ShipmentDetailComponent implements OnInit {
         this.items = shipment.items;
         this.multiBinPack = shipment.multiBinPack
         this.arrangementPossible = shipment.arrangementPossible
+        this.loading = false;
 
         //the code below filters out empty containers so we don't render them
         this.nonEmptyContainers = this.containers.filter((container) => {
@@ -150,7 +151,6 @@ export class ShipmentDetailComponent implements OnInit {
 
   delete() {
     this.submitted = true;
-    this.loading = true;
     this.openConfirmDeleteDialog()
   }
 }
