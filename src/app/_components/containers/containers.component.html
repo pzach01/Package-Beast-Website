@@ -13,7 +13,8 @@
 
     <div class="row no-shrink">
         <div class="col">
-            <p *ngIf="!userHasContainers && !loading">You have no shipping containers defined. Create one by selecting
+            <p class="pt-5" *ngIf="!userHasContainers && !loading">You have no shipping containers defined. Create one
+                by selecting
                 "New Container" above.</p>
             <mat-form-field *ngIf="userHasContainers && !loading" class="full-width">
                 <mat-label>Filter</mat-label>
