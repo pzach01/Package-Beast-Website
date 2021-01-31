@@ -6,7 +6,8 @@
     <p>At least one inventory item and one shipping container must be selected for analysis.</p>
 </div>
 
-<ng-container *ngIf="allowAnalysis">
+<div [ngClass]='allowAnalysis ? "": "d-none"'>
+
     <div class="d-flex justify-content-left mb-3">
         <h6>Items to ship:</h6>
     </div>
@@ -106,7 +107,7 @@
             </div>
         </div>
     </div>
-</ng-container>
+</div>
 
 <!-- <mat-checkbox [checked]="multiBinPack" (change)="multiBinPack=!multiBinPack">Pack items in multiple containers to
     minimize total shipping volume?

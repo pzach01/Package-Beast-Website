@@ -19,11 +19,13 @@ import { ViewportScroller } from '@angular/common';
 export class ShipmentsComponent implements OnInit {
 
   loading: boolean = true;
+
   shipments: Shipment[];
   dataSource;
   displayedColumns: string[] = ['created'];
   currentUser = this.authenticationService.currentUserValue;
   dateTimeFormat = this.currentUser.dateTimeFormat
+  userHasShipments: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -37,6 +39,7 @@ export class ShipmentsComponent implements OnInit {
     this.shipmentsservice.getAll().subscribe(shipments => {
       this.loading = false;
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
+      this.doesUserHaveShipments()
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
     })
@@ -57,7 +60,12 @@ export class ShipmentsComponent implements OnInit {
       if (newShipment) {
         this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id] } }]);
       }
+      this.doesUserHaveShipments();
     });
+  }
+
+  doesUserHaveShipments() {
+    this.dataSource.data.length == 0 ? this.userHasShipments = false : this.userHasShipments = true
   }
 
   applyFilter(event: Event) {
