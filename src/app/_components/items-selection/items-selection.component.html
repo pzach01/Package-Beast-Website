@@ -14,7 +14,7 @@
             <p>You must create at least one inventory item and one shipping container before creating a shipment. Select
                 "Inventory" in the main menu to create an inventory item.</p>
         </div>
-        <div *ngIf="userHasItems" class="tbl-container w-100">
+        <div [ngClass]='userHasItems ? "tbl-container w-100": "d-none"'>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                 <ng-container matColumnDef="select">
@@ -63,4 +63,3 @@
             </table>
         </div>
     </div>
-</div>
