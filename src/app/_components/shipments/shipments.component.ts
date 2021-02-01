@@ -39,6 +39,7 @@ export class ShipmentsComponent implements OnInit {
     this.shipmentsservice.getAll().subscribe(shipments => {
       this.loading = false;
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
+      this.sort.disableClear = true;
       this.doesUserHaveShipments()
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
