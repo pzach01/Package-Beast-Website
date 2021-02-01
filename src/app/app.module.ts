@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor, UnitsPipe, SubscriptionGuard, TermsOfServiceGuard } from './_helpers';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./_components/login"
@@ -281,7 +281,10 @@ const appRoutes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfXg8wZAAAAAL481GmZ10s8aADR_-poyzCHRrcG' },
-    DatePipe
+    DatePipe,
+    UnitsPipe,
+    VolumeUnitsPipe,
+    DecimalPipe
   ],
   bootstrap: [AppComponent],
   exports: []
