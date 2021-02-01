@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { EditContainerComponent } from 'src/app/_components/edit-container/edit-container.component';
 import { AuthenticationService } from 'src/app/_services';
+import { UnitsPipe, VolumeUnitsPipe } from 'src/app/_helpers';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-containers',
@@ -24,7 +26,7 @@ export class ContainersComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog, private authenticationService: AuthenticationService) { }
+  constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog, private authenticationService: AuthenticationService, private unitsPipe: UnitsPipe, private volumeUnitsPipe: VolumeUnitsPipe, private decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
@@ -34,14 +36,26 @@ export class ContainersComponent implements OnInit {
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
       this.doesUserHaveContainers()
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'xDim': return this.unitsPipe.transform(item.xDim, item.units, this.currentUser.units);
+          case 'yDim': return this.unitsPipe.transform(item.yDim, item.units, this.currentUser.units);
+          case 'zDim': return this.unitsPipe.transform(item.zDim, item.units, this.currentUser.units);
+          case 'volume': return this.volumeUnitsPipe.transform(item.volume, item.units, this.currentUser.units);
+          default: {
+            return item[property];
+          }
+        }
+      }
+      this.sort.disableClear = true;
       this.dataSource.filterPredicate = (data: any, filter: string) =>
         !filter ||
         data.sku.toString().toLowerCase().includes(filter) ||
         data.description.toString().toLowerCase().includes(filter) ||
-        data.xDim.toString().includes(filter) ||
-        data.yDim.toString().includes(filter) ||
-        data.zDim.toString().includes(filter) ||
-        data.volume.toString().includes(filter)
+        this.decimalPipe.transform(this.unitsPipe.transform(data.xDim, data.units, this.currentUser.units), '1.0-3').toString().includes(filter) ||
+        this.decimalPipe.transform(this.unitsPipe.transform(data.yDim, data.units, this.currentUser.units), '1.0-3').toString().includes(filter) ||
+        this.decimalPipe.transform(this.unitsPipe.transform(data.zDim, data.units, this.currentUser.units), '1.0-3').toString().includes(filter) ||
+        this.decimalPipe.transform(this.volumeUnitsPipe.transform(data.volume, data.units, this.currentUser.units), '1.1-1').toString().includes(filter)
     })
   }
 
