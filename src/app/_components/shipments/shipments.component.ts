@@ -22,7 +22,7 @@ export class ShipmentsComponent implements OnInit {
 
   shipments: Shipment[];
   dataSource;
-  displayedColumns: string[] = ['created'];
+  displayedColumns: string[] = ['title', 'created'];
   currentUser = this.authenticationService.currentUserValue;
   dateTimeFormat = this.currentUser.dateTimeFormat
   userHasShipments: boolean = false;
