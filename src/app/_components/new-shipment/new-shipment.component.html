@@ -1,14 +1,18 @@
 <div class="fixActionRow">
     <button type="button" class="close" (click)="close()" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h1 mat-dialog-title>New Shipment</h1>
+    <h1 mat-dialog-title>
+        <mat-form-field class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput [(ngModel)]="title">
+        </mat-form-field>
+    </h1>
+    {{title}}
     <mat-dialog-content>
-
         <mat-horizontal-stepper #stepper (selectionChange)="selectionChange()">
             <mat-step>
                 <ng-template matStepLabel>Select Items to Ship</ng-template>
                 <app-items-selection></app-items-selection>
             </mat-step>
-
             <mat-step>
                 <ng-template matStepLabel>Select Shipping Containers</ng-template>
                 <app-containers-selection></app-containers-selection>
@@ -17,7 +21,6 @@
                 <ng-template matStepLabel>Review</ng-template>
                 <app-review-shipment [selectedContainers]="selectedContainers" [selectedItems]="selectedItems">
                 </app-review-shipment>
-
             </mat-step>
         </mat-horizontal-stepper>
     </mat-dialog-content>

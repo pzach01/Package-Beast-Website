@@ -33,6 +33,7 @@ export class NewShipmentComponent implements OnInit {
   fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
+  title: string = "My New Shipment";
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
   ) { }
@@ -105,6 +106,7 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
+    this.shipment.title = this.title;
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();
