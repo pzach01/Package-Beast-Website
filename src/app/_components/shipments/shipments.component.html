@@ -17,7 +17,7 @@
                 selecting "New Shipment" above.</p>
             <mat-form-field *ngIf="userHasShipments && !loading" class="full-width">
                 <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Date">
+                <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Title or Date">
             </mat-form-field>
         </div>
     </div>
