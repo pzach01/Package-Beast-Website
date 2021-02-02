@@ -42,7 +42,8 @@ export class ShipmentsComponent implements OnInit {
       this.sort.disableClear = true;
       this.doesUserHaveShipments()
       this.dataSource.filterPredicate =
-        (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
+        (data: any, filter: string) => !filter || data.title.toString().toLowerCase().includes(filter) ||
+          this.transformDate(data.created).includes(filter)
     })
   }
   // ngAfterViewChecked(): void {
