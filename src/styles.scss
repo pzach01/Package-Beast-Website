@@ -210,7 +210,8 @@ a.mat-list-item.disabled{
 }
 
 .tbl-container {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: scroll;
 }
 
 .view-container {
