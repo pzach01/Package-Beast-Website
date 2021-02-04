@@ -2,9 +2,15 @@
 @import 'theme';
 @import "~bootstrap/scss/bootstrap-grid.scss";
 
-html { height: 100%; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
+//Changed 100% to 100vh on 2-4-21
+//and added -min-height: -webkit-fill-available
+html { height: 100vh;   /* mobile viewport bug fix */
+    min-height: -webkit-fill-available; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
 
-body { height: 100%; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
+//Changed 100% to 100vh on 2-4-21
+//and added -min-height: -webkit-fill-available
+body { height: 100vh;   /* mobile viewport bug fix */
+    min-height: -webkit-fill-available; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
 #logo {   
     max-height: auto;
     max-width: 80vw;
