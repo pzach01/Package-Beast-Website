@@ -210,10 +210,16 @@ a.mat-list-item.disabled{
 }
 
 .tbl-container {
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: auto;
+      /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
-
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tbl-container::-webkit-scrollbar {
+    display: none;
+  }
+  
 .view-container {
     height: 92vh;
 }
