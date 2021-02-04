@@ -9,8 +9,6 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 
-import { ViewportScroller } from '@angular/common';
-
 @Component({
   selector: 'app-shipments',
   templateUrl: './shipments.component.html',
