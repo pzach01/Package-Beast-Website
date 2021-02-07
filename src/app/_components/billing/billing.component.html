@@ -1,74 +1,76 @@
-<div class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row my-3 no-shrink">
-        <div class="col text-center">
-            <h3>Subscription and Billing</h3>
+<div class="overflow-auto">
+    <div class="view-container container d-flex flex-column">
+        <div class="row my-3 no-shrink">
+            <div class="col text-center">
+                <h3>Subscription and Billing</h3>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <p *ngIf="subscriptionInfo.subscriptionType != 'beastMode'">Subscription Type:
-                {{subscriptionInfo.subscriptionType | titlecase}}</p>
-            <p *ngIf="subscriptionInfo.subscriptionType == 'beastMode'">Subscription Type: Beast Mode</p>
+        <div class="row">
+            <div class="col text-left">
+                <p *ngIf="subscriptionInfo.subscriptionType != 'beastMode'">Subscription Type:
+                    {{subscriptionInfo.subscriptionType | titlecase}}</p>
+                <p *ngIf="subscriptionInfo.subscriptionType == 'beastMode'">Subscription Type: Beast Mode</p>
 
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <p *ngIf="subscriptionInfo.subscriptionActive">Subscription Status: Active</p>
-            <p *ngIf="!subscriptionInfo.subscriptionActive">Subscription Status: <strong
-                    class="text-danger">Inactive</strong></p>
+        <div class="row">
+            <div class="col text-left">
+                <p *ngIf="subscriptionInfo.subscriptionActive">Subscription Status: Active</p>
+                <p *ngIf="!subscriptionInfo.subscriptionActive">Subscription Status: <strong
+                        class="text-danger">Inactive</strong></p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <p *ngIf="subscriptionInfo.paymentUpToDate == true">Payment Up to Date: Yes</p>
-            <p *ngIf="subscriptionInfo.paymentUpToDate == false">Payment Up to Date: No</p>
+        <div class="row">
+            <div class="col text-left">
+                <p *ngIf="subscriptionInfo.paymentUpToDate == true">Payment Up to Date: Yes</p>
+                <p *ngIf="subscriptionInfo.paymentUpToDate == false">Payment Up to Date: No</p>
 
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col text-left">
-            <p>Items used: {{subscriptionInfo.itemsUsed}} of {{subscriptionInfo.itemsAllowed}}</p>
+        <div class="row">
+            <div class="col text-left">
+                <p>Items used: {{subscriptionInfo.itemsUsed}} of {{subscriptionInfo.itemsAllowed}}</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <p>Containers used: {{subscriptionInfo.containersUsed}} of {{subscriptionInfo.containersAllowed}}</p>
+        <div class="row">
+            <div class="col text-left">
+                <p>Containers used: {{subscriptionInfo.containersUsed}} of {{subscriptionInfo.containersAllowed}}</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <p>Shipments used: {{subscriptionInfo.shipmentsUsed}} of {{subscriptionInfo.shipmentsAllowed}}</p>
+        <div class="row">
+            <div class="col text-left">
+                <p>Shipments used: {{subscriptionInfo.shipmentsUsed}} of {{subscriptionInfo.shipmentsAllowed}}</p>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col text-left">
-            <p>End of Billing Cycle:
-                {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
+        <div class="row">
+            <div class="col text-left">
+                <p>End of Billing Cycle:
+                    {{subscriptionInfo.subscriptionExpirationTime*1000 | date: currentUser.dateTimeFormat}}</p>
+            </div>
         </div>
+
+        <ng-container *ngIf="subscriptionInfo.subscriptionActive && subscriptionInfo.paymentUpToDate">
+            <div class="d-flex justify-content-start mb-3">
+                <a [routerLink]="" (click)="goToSelectSubscription()">Upgrade or Downgrade Subscription</a>
+            </div>
+        </ng-container>
+
+        <div *ngIf="subscriptionInfo.subscriptionActive" class="d-flex justify-content-start mb-3">
+            <a [routerLink]="" (click)="openConfirmSubscriptionCancelation()">Cancel Subscription</a>
+        </div>
+
+        <ng-container *ngIf="subscriptionInfo.subscriptionActive">
+            <div class="d-flex justify-content-start mb-3">
+                <a [routerLink]="" (click)="goToUpdatePaymentMethod()">Update Payment Method</a>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!subscriptionInfo.subscriptionActive">
+            <div class="d-flex justify-content-start mb-3">
+                <a [routerLink]="" (click)="goToSelectSubscription()">Create New Subscription</a>
+            </div>
+        </ng-container>
     </div>
-
-    <ng-container *ngIf="subscriptionInfo.subscriptionActive && subscriptionInfo.paymentUpToDate">
-        <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToSelectSubscription()">Upgrade or Downgrade Subscription</a>
-        </div>
-    </ng-container>
-
-    <div *ngIf="subscriptionInfo.subscriptionActive" class="d-flex justify-content-start mb-3">
-        <a [routerLink]="" (click)="openConfirmSubscriptionCancelation()">Cancel Subscription</a>
-    </div>
-
-    <ng-container *ngIf="subscriptionInfo.subscriptionActive">
-        <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToUpdatePaymentMethod()">Update Payment Method</a>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="!subscriptionInfo.subscriptionActive">
-        <div class="d-flex justify-content-start mb-3">
-            <a [routerLink]="" (click)="goToSelectSubscription()">Create New Subscription</a>
-        </div>
-    </ng-container>
 </div>

@@ -224,6 +224,10 @@ a.mat-list-item.disabled{
     height: 92vh;
 }
 
+.settings-container {
+    overflow: auto;
+}
+
 .no-shrink {
     flex: 0 0 auto;
 }
@@ -261,7 +265,7 @@ a.mat-list-item.disabled{
 
 .mc {
     top: 8vh;
-    background-color: pink;
+    background-color: orange;
     position: fixed;
     width: 100vw;
     height: 92vh;
