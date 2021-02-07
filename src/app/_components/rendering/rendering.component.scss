@@ -1,6 +1,5 @@
 #rendererContainer {
     display: block;
-    width: 67vw;
     height: 75vh;
     padding: 0;
     margin: 0;
@@ -8,9 +7,17 @@
     outline: none;
 }
 
+.full-width-renderer {
+    width: 100%
+}
+
+.two-thirds-width-renderer {
+    width: 67%;
+}
+
 .table-container {
     height: 75vh;
-    width: 24vw;
+    width: 33%;
     overflow: auto;
   }
 

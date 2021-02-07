@@ -30,7 +30,7 @@
         </mat-sidenav>
 
         <mat-sidenav-content>
-            <div class="fixedy">
+            <div class="">
                 <mat-toolbar class="d-flex justify-content-between" color="primary" style="height: 8vh;">
                     <button *ngIf="!snav.opened" class="menu-button btn bg-transparent" (click)="snav.toggle()">
                         <fa-icon class="light-icon p-1" size="2x" [icon]="faBars"></fa-icon>
@@ -64,8 +64,8 @@
             </div>
 
             <div (touchstart)=snav.close() class="container-fluid d-flex flex-column overflow-hidden p-0">
-                <div class="row flex-grow-1 p-0">
-                    <div class="col">
+                <div class="row flex-grow-1 p-0 overflow-hidden">
+                    <div class="col overflow-hidden">
                         <router-outlet name="view"></router-outlet>
                     </div>
                 </div>
