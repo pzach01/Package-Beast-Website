@@ -1,6 +1,6 @@
 <div class="">
-    <mat-sidenav-container fullscreen>
-        <mat-sidenav class="drawer-edge" #snav position="start" mode="side" opened="true" fixedTopGap="0"
+    <mat-sidenav-container fullscreen [hasBackdrop]="false">
+        <mat-sidenav class="drawer-edge" #snav position="start" mode="over" opened="true" fixedTopGap="0"
             fixedInViewport="true">
             <mat-nav-list class="mr-1">
                 <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
@@ -63,10 +63,13 @@
                 </mat-menu>
             </div>
 
-            <div (touchstart)=snav.close() class="container-fluid d-flex flex-column overflow-hidden p-0">
-                <div class="row flex-grow-1 p-0 overflow-hidden">
-                    <div class="col overflow-hidden">
-                        <router-outlet name="view"></router-outlet>
+            <div class="mc">
+                <div (click)=snav.close() (touchstart)=snav.close()
+                    class="container-fluid d-flex flex-column overflow-hidden p-0">
+                    <div class="row flex-grow-1 p-0 overflow-hidden">
+                        <div class="col overflow-hidden">
+                            <router-outlet name="view"></router-outlet>
+                        </div>
                     </div>
                 </div>
             </div>

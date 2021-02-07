@@ -258,6 +258,15 @@ a.mat-list-item.disabled{
 .aux-menu {
     max-width: none !important;
 }
+
+.mc {
+    top: 8vh;
+    background-color: pink;
+    position: fixed;
+    width: 100vw;
+    height: 92vh;
+    overflow: hidden;
+}
 // To use color="success" in angular directive, do something like below
 // .mat-success {
 //     background-color: mat-color($app-accent);
