@@ -9,6 +9,20 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+@include media-breakpoint-down(sm) {
+    .registration-container {
+        height: 100%;
+        width: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        background-image: url(Cardboard-Boxes-On-Bottom.webp);
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-bottom: 86px;
+    }
+}
 .jumbotron {
     margin-bottom: 0px;
     background-color: white;
