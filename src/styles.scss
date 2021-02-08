@@ -16,6 +16,16 @@ body { min-width: 100vw; min-height: 100vh; top:0px; min-height: -webkit-fill-av
     max-width: 68vw;
  }
 
+ @include media-breakpoint-down(sm) {
+    .mc {
+        top: 8vh;
+        position: fixed;
+        width: 100vw;
+        height: 92vh;
+        overflow: hidden;
+    }
+ }
+
  @include media-breakpoint-up(md) {
     #logo {
         max-height: auto;
@@ -262,13 +272,7 @@ a.mat-list-item.disabled{
     max-width: none !important;
 }
 
-.mc {
-    top: 8vh;
-    position: fixed;
-    width: 100vw;
-    height: 92vh;
-    overflow: hidden;
-}
+
 
 .scrollable-view-container {
     height: 92vh;
