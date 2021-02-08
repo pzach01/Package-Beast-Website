@@ -212,6 +212,7 @@ a.mat-list-item.disabled{
 }
 
 .tbl-container {
+    padding-bottom: 70px;
     overflow: auto;
       /* Hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;  /* IE and Edge */
@@ -270,8 +271,7 @@ a.mat-list-item.disabled{
     background-color: pink;
     position: fixed;
     width: 100vw;
-    min-height: 92vh;
-    min-height: -webkit-fill-available;
+    height: 92vh;
     overflow: hidden;
 }
 // To use color="success" in angular directive, do something like below

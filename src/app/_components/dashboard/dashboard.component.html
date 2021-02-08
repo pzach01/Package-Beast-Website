@@ -64,10 +64,9 @@
             </div>
 
             <div class="mc">
-                <div (click)=snav.close() (touchstart)=snav.close()
-                    class="container-fluid d-flex flex-column overflow-hidden p-0">
-                    <div class="row flex-grow-1 p-0 overflow-hidden">
-                        <div class="col overflow-hidden">
+                <div (click)=snav.close() (touchstart)=snav.close() class="container-fluid d-flex flex-column p-0">
+                    <div class="row flex-grow-1 p-0">
+                        <div class="col">
                             <router-outlet name="view"></router-outlet>
                         </div>
                     </div>
