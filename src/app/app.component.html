@@ -1,8 +1,9 @@
 <!-- main app container -->
-
-<ng-container *ngIf="currentUser">
-    <app-dashboard></app-dashboard>
-</ng-container>
+<div class="full-height">
+    <ng-container *ngIf="currentUser">
+        <app-dashboard></app-dashboard>
+    </ng-container>
+</div>
 
 <!-- main app container  -->
 <div class="full-height" *ngIf="!currentUser">
