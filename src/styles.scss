@@ -2,9 +2,11 @@
 @import 'theme';
 @import "~bootstrap/scss/bootstrap-grid.scss";
 
-html { height: 100%; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
+html {min-height: 100vh; top:0px; min-width: 100vw;
+    /* mobile viewport bug fix */
+    min-height: -webkit-fill-available; overflow: hidden; position: fixed; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
 
-body { height: 100%; overflow: hidden; position: relative; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
+body { min-width: 100vw; min-height: 100vh; top:0px; min-height: -webkit-fill-available; overflow: hidden; position: fixed; margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif;}
 #logo {   
     max-height: auto;
     max-width: 80vw;
@@ -265,7 +267,7 @@ a.mat-list-item.disabled{
 
 .mc {
     top: 8vh;
-    background-color: orange;
+    background-color: magenta;
     position: fixed;
     width: 100vw;
     height: 92vh;

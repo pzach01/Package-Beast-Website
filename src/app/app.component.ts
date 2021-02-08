@@ -12,11 +12,12 @@ import { User } from './_models';
 })
 export class AppComponent {
   currentUser: User;
+  viewHeight = 100;
 
   constructor(
     private authenticationService: AuthenticationService
   ) {
-    this.formatViewHeight()
+    // this.formatViewHeight()
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
   formatViewHeight() {
@@ -29,6 +30,8 @@ export class AppComponent {
       // We execute the same script as before
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
+      console.log("vh: ", vh)
     });
+
   }
 }
