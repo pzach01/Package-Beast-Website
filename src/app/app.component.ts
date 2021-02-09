@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(
     private authenticationService: AuthenticationService
   ) {
-    this.formatViewHeight()
+    this.formatViewHeight();
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
   formatViewHeight() {
