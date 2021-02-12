@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor, UnitsPipe, SubscriptionGuard, TermsOfServiceGuard } from './_helpers';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./_components/login"
@@ -73,6 +73,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
 import { AuthenticatedRedirectGuard } from "./_helpers/authenticated-redirect.guard";
 import { ReviewPaymentDialogComponent } from './_components/review-payment-dialog/review-payment-dialog.component';
+import { environment } from '../environments/environment';
+import { PaymentErrorDialogComponent } from './_components/payment-error-dialog/payment-error-dialog.component';
+import { PaymentMethodChangeSuccessComponent } from './_components/payment-method-change-success/payment-method-change-success.component';
+import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component';
+import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component'
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -138,10 +143,28 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'subscription-downgrade-success',
+    outlet: 'view',
+    component: SubscriptionDowngradeSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'payment-method-change-success',
+    outlet: 'view',
+    component: PaymentMethodChangeSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'payment/:subscriptionType',
     outlet: 'view',
     component: PaymentComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-user-information',
+    outlet: 'view',
+    component: EditUserInformationComponent,
+    canActivate: [AuthGuard, TermsOfServiceGuard]
   },
   {
     path: 'change-password',
@@ -149,7 +172,7 @@ const appRoutes: Routes = [
     component: ChangePasswordComponent,
     canActivate: [AuthGuard, TermsOfServiceGuard]
   },
-  { path: "*", redirectTo: '' }
+  { path: "**", redirectTo: '' }
 ];
 
 @NgModule({
@@ -193,13 +216,17 @@ const appRoutes: Routes = [
     ChangePasswordCompleteDialogComponent,
     TermsOfServiceDialogComponent,
     PrivacyPolicyDialogComponent,
-    ReviewPaymentDialogComponent],
+    ReviewPaymentDialogComponent,
+    PaymentErrorDialogComponent,
+    PaymentMethodChangeSuccessComponent,
+    SubscriptionDowngradeSuccessComponent,
+    EditUserInformationComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, scrollPositionRestoration: 'enabled',
+        enableTracing: false, scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled'
       } // <-- debugging purposes only
     ),
@@ -231,7 +258,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
-    NgxStripeModule.forRoot('pk_test_51HB4dCJWFTMXIZUoYKkeexdRBZ9Sf2VXPhXUWI5MAqScPKKUgc7hGuzURITCaIaJsvuG61pPBodhi87hSKDAIRRz00HCwjqKVH'),
+    NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [
     NewItemComponent,
@@ -246,13 +273,18 @@ const appRoutes: Routes = [
     CreateFailDialogComponent,
     ShipmentAlertComponent,
     CancelSubscriptionConfirmationComponent,
-    ReviewPaymentDialogComponent
+    ReviewPaymentDialogComponent,
+    PaymentErrorDialogComponent,
+    ChangePasswordCompleteDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfXg8wZAAAAAL481GmZ10s8aADR_-poyzCHRrcG' },
-    DatePipe
+    DatePipe,
+    UnitsPipe,
+    VolumeUnitsPipe,
+    DecimalPipe
   ],
   bootstrap: [AppComponent],
   exports: []

@@ -1,32 +1,63 @@
 <div class="container-fluid">
-    <div class="d-flex mb-3 mt-3">
-
-        <div class="d-flex flex-column">
-            <div class="ml-3">
-                <p class="m-0 p-0"><strong>Container</strong> SKU: {{container.sku}} | Description:
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="row">
+                <p class="ml-3 mt-0 mb-0 mr-0 p-0"><strong>Container</strong> SKU: {{container.sku}} | Description:
                     {{container.description}} | Dimensions:
                     {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}} x
                     {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}} x
                     {{container.xDim | units: container.units: currentUser.units | number:'1.0-3'}}
                     {{currentUser.units}}</p>
             </div>
-            <ng-container *ngIf="clickedItem">
-                <div class="ml-3">
-                    <p class="m-0 p-0"><strong>Selected Item</strong> SKU: {{clickedItem.sku}} | Description:
+            <div class="row">
+                <ng-container *ngIf="clickedItem">
+                    <p class="ml-3 mt-0 mb-0 mr-0 p-0"><strong>Selected Item</strong> SKU: {{clickedItem.sku}} |
+                        Description:
                         {{clickedItem.description}} |
                         Dimensions:
                         {{clickedItem.length | units: clickedItem.units: currentUser.units | number:'1.0-3'}}
                         x {{clickedItem.width | units: clickedItem.units: currentUser.units | number:'1.0-3'}} x
                         {{clickedItem.height | units: clickedItem.units: currentUser.units | number:'1.0-3'}}
                         {{currentUser.units}}</p>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="!clickedItem">
-                <div class="ml-3">
-                    <p class="m-0 p-0">Select an item to display item details</p>
-                </div>
-            </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!clickedItem">
+                    <div class="ml-3">
+                        <p class="m-0 p-0">Select an item to display item details</p>
+                    </div>
+                </ng-container>
+            </div>
         </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex flex-row mt-3 mb-3">
+                        <div class="empty-space d-none d-md-block"></div>
+                        <div class="px-3">
+                            <button mat-raised-button color="accent" (click)="resetView()">Reset
+                                View</button>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="accent" (click)="previousItem()">
+                                <mat-icon aria-hidden="false" aria-label="Previous">skip_previous</mat-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <p class="px-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="accent" (click)="nextItem()">
+                                <mat-icon aria-hidden="false" aria-label="Previous">skip_next</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div (window:resize)="onWindowResize($event)" class="container-fluid">
+    <!-- <div class="d-flex mb-3 mt-3">
         <div class="empty-space"></div>
         <div class="px-3">
             <button mat-raised-button color="accent" (click)="resetView()">Reset
@@ -45,16 +76,14 @@
                 <mat-icon aria-hidden="false" aria-label="Previous">skip_next</mat-icon>
             </button>
         </div>
-    </div>
+    </div> -->
 
     <div class="d-flex flex-row">
-        <div class="my-auto">
-            <div>
-                <div class="rendererContainer my-auto" id="rendererContainer" #rendererContainer></div>
-            </div>
+        <div class="rendererContainer my-auto" id="rendererContainer" #rendererContainer
+            [ngClass]='rendererWidthPercent == 1 ? "full-width-renderer": "two-thirds-width-renderer"'>
         </div>
-        <div class="empty-space"></div>
-        <div id="table-container" class="table-container mat-elevation-z8">
+        <!-- <div class="empty-space"></div> -->
+        <div id="table-container" class="table-container mat-elevation-z8 d-none d-md-block">
             <table mat-table [dataSource]="dataSource">
 
                 <ng-container matColumnDef="index">

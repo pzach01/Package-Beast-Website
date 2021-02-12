@@ -3,7 +3,7 @@ import { User } from 'src/app/_models'
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 import { Shipment } from 'src/app/_models/shipment';
-import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt, faBars, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faBoxOpen, faCog, faTruck, faSignOutAlt, faBars, faAngleDoubleLeft, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceDialogComponent } from 'src/app/_components/terms-of-service-dialog/terms-of-service-dialog.component';
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   faSignOutAlt = faSignOutAlt
   faBars = faBars;
   leftArrow = faAngleDoubleLeft;
+  faCC = faCreditCard;
   firstName = this.currentUser.first_name
   paymentUpToDate: boolean;
 
@@ -40,12 +41,8 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => { this.currentUser = x; this.firstName = x.first_name });
     this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate)
-  }
-
-  openMenu() {
-    console.log("menu opened")
   }
 
   openTermsOfServiceDialog() {
@@ -55,7 +52,6 @@ export class DashboardComponent implements OnInit {
       data: { forceAgree: false }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -65,7 +61,6 @@ export class DashboardComponent implements OnInit {
       width: '100%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

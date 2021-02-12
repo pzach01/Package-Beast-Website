@@ -3,6 +3,7 @@ import { Item } from './item';
 
 export class Shipment {
     public id: number;
+    public title: string;
     public owner: string;
     public containers: Container[];
     public items: Item[];

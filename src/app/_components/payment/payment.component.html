@@ -16,37 +16,54 @@
                 <input type="text" autocomplete="name" matInput [formControl]="stripeTest.get('name')"
                     placeholder="Jane Doe">
                 <mat-error *ngIf="stripeTest.get('name').hasError('required')">
-                    Please enter a valid email address
+                    Please enter a name
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
-                <mat-label>Address</mat-label>
-                <input type="text" matInput [formControl]="stripeTest.get('name')" placeholder="185 Awesome St">
+                <mat-label>Billing Address</mat-label>
+                <input type="text" matInput [formControl]="stripeTest.get('addressLine1')" placeholder="185 Awesome St">
                 <mat-error *ngIf="stripeTest.get('addressLine1').hasError('required')">
                     Please enter an address
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>City</mat-label>
-                <input type="text" matInput [formControl]="stripeTest.get('city')" placeholder="Chicago">
+                <input matInput autocomplete="address-level2" type="text" [formControl]="stripeTest.get('city')"
+                    placeholder="Chicago">
                 <mat-error *ngIf="stripeTest.get('city').hasError('required')">
                     Please enter a city
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field class="full-width">
-                <mat-label>State</mat-label>
-                <input type="text" matInput [formControl]="stripeTest.get('state')" placeholder="IL">
+                <mat-label>State/Province</mat-label>
+                <input autocomplete="address-level1" type="text" matInput [formControl]="stripeTest.get('state')"
+                    placeholder="IL">
                 <mat-error *ngIf="stripeTest.get('state').hasError('required')">
-                    Please enter a state
+                    Please enter a state or province
                 </mat-error>
             </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Zip Code</mat-label>
+            <!-- <mat-form-field class="full-width">
+                <mat-label>Billing Address Zip Code</mat-label>
                 <input type="text" matInput [formControl]="stripeTest.get('zip')" placeholder="12345">
                 <mat-error *ngIf="stripeTest.get('zip').hasError('required')">
                     Please enter a valid zip code
                 </mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width" appearance="standard">
+                <mat-label>Country</mat-label>
+                <mat-select [(value)]="country">
+                    <mat-option value="CA">
+                        Canada
+                    </mat-option>
+                    <mat-option value="US">
+                        United States
+                    </mat-option>
+                    <mat-option value="MX">
+                        Mexico
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <div>

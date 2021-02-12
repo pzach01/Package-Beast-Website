@@ -5,6 +5,8 @@ import { SubscriptionInfo } from 'src/app/_models';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewPaymentDialogComponent } from 'src/app/_components/review-payment-dialog/review-payment-dialog.component';
 import { SubscriptionChange } from 'src/app/_models/subscription-change'
+import { subscriptionType } from 'src/app/_models/subscription-info'
+import { PaymentErrorDialogComponent } from '../payment-error-dialog/payment-error-dialog.component';
 
 @Component({
   selector: 'app-select-subscription',
@@ -14,14 +16,15 @@ import { SubscriptionChange } from 'src/app/_models/subscription-change'
 export class SelectSubscriptionComponent implements OnInit {
   loading: boolean = false;
   subscriptionInfo: SubscriptionInfo = this.subscriptionService.currentSubscriptionInfoValue;
-  subscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode" = this.subscriptionInfo.subscriptionType;
-  selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
+  subscriptionType: subscriptionType = this.subscriptionInfo.subscriptionType;
+  selectedSubscriptionType: subscriptionType;
   selectedSubscriptionText: string;
   previousSubscriptionText: string;
   selectedSubscriptionPrice: number;
   previousSubscriptionPrice: number;
+  stripeError: string = "";
 
-  constructor(private router: Router, private subscriptionService: SubscriptionsService, public reviewPaymentDialog: MatDialog) { }
+  constructor(private router: Router, private subscriptionService: SubscriptionsService, public reviewPaymentDialog: MatDialog, public paymentErrorDialog: MatDialog) { }
 
   ngOnInit() {
     this.subscriptionService.getSubscriptionInfo().subscribe((subscriptionInfo) => {
@@ -30,7 +33,7 @@ export class SelectSubscriptionComponent implements OnInit {
     })
   }
 
-  openReviewPaymentDialog(subscriptionChange): void {
+  openReviewPaymentDialog(subscriptionChange: SubscriptionChange): void {
     const dialogRef = this.reviewPaymentDialog.open(ReviewPaymentDialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
@@ -41,29 +44,43 @@ export class SelectSubscriptionComponent implements OnInit {
         if (data.accept) {
           this.loading = true;
           const priceId = subscriptionChange.priceId
-          this.updateSubscriptionType(this.selectedSubscriptionType, priceId);
+          this.updateSubscriptionType(subscriptionChange, priceId);
         }
       }
     });
   }
 
-  selectSubscriptionType(selectedSubscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode") {
+  openPaymentErrorDialog(error): void {
+    const dialogRef = this.paymentErrorDialog.open(PaymentErrorDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { error },
+    });
+  }
+
+  selectSubscriptionType(selectedSubscriptionType: subscriptionType) {
+    this.selectedSubscriptionType = selectedSubscriptionType;
+    if (!this.subscriptionInfo.subscriptionActive) { this.subscriptionType = 'none' }
     const subscriptionChange = new SubscriptionChange(selectedSubscriptionType, this.subscriptionType)
     this.openReviewPaymentDialog(subscriptionChange);
   }
 
-  updateSubscriptionType(selectedSubscriptionType, priceId) {
-    if (this.subscriptionInfo.subscriptionType == 'none') {
-      this.router.navigate(['./', { outlets: { view: ['billing'] } }]);
-    }
+  updateSubscriptionType(subscriptionChange: SubscriptionChange, priceId) {
 
-    if (this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
+    if (this.subscriptionInfo.subscriptionActive) {
       this.subscriptionService.updateStripeSubscription(priceId).subscribe((r) => {
-        console.log("response from update Stripe Subscription", r)
-        this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+        if (subscriptionChange.direction == 'downgrade') {
+          this.router.navigate(['./', { outlets: { view: ['subscription-downgrade-success'] } }]);
+        } else {
+          this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
+        }
+      }, e => {
+        console.log("error: ", e)
+        this.loading = false;
+        this.openPaymentErrorDialog(e)
       })
-    } else if (!this.subscriptionInfo.subscriptionActive && this.subscriptionInfo.subscriptionType != 'none') {
-      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${selectedSubscriptionType}` } }]);
+    } else if (!this.subscriptionInfo.subscriptionActive) {
+      this.router.navigate([{ outlets: { primary: 'dashboard', view: `payment/${subscriptionChange.selectedSubscriptionType}` } }]);
     }
   }
 }

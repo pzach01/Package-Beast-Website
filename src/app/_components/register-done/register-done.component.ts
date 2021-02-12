@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+declare let gtag: Function;
 
 @Component({
   selector: 'app-register-done',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterDoneComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'UA-111683104-2',
+          {
+            'page_path': event.urlAfterRedirects
+          }
+        );
+      }
+    })
+  }
 
   ngOnInit(): void {
   }

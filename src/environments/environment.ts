@@ -4,8 +4,24 @@
 
 export const environment = {
   production: false,
-  SITE_TITLE: 'Package Beast Development',
-  API_BASE_URI: 'https://api.packagebeast.com'
+  SITE_TITLE: 'Package Beast Development Yo!',
+  API_BASE_URI: 'https://developmentapi.packagebeast.com',
+  stripePublishableKey: 'pk_test_51I76dqE5mpXPYa9nEGmBuvigp0Vjs8LFIUkwEk2cnFEFPVHvqmH6nXJ6RA8SrjBjKRu7K7c0jZC23LdP01p5SzpF00XAVLBhGF',
+  standardSubscription: {
+    priceId: 'price_1I76eoE5mpXPYa9nlFHK60Ge',
+    productId: 'prod_IiXkLvo2tLRuCi',
+    price: 10
+  },
+  premiumSubscription: {
+    priceId: 'price_1I76fUE5mpXPYa9ncmIy6tbY',
+    productId: 'prod_IiXkKw7qe4Dt7l',
+    price: 30
+  },
+  beastModeSubscription: {
+    priceId: 'price_1I76gPE5mpXPYa9nzbdm3s9f',
+    productId: 'prod_IiXlcdTHpmbQHR',
+    price: 50
+  }
 };
 
 /*

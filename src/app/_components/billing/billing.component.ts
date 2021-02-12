@@ -23,8 +23,7 @@ export class BillingComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     this.subscriptionsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
-      this.subscriptionInfo = subscriptionInfo; console.log("subscriptionInfo", subscriptionInfo);
-
+      this.subscriptionInfo = subscriptionInfo;
     })
   }
 
@@ -45,7 +44,6 @@ export class BillingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((subscriptionInfo: SubscriptionInfo) => {
       if (subscriptionInfo) {
-        console.log("sub returned", subscriptionInfo)
         this.subscriptionsService.getSubscriptionInfo().subscribe((subscriptionInfo) => this.subscriptionInfo = subscriptionInfo)
       }
     });
@@ -53,7 +51,6 @@ export class BillingComponent implements OnInit {
 
   //cancelSubscription() {
   // this.subscriptionsService.cancelSubscription().subscribe(result => {
-  //   console.log('subscription canceled ', result);
   //   this.subscriptionsService.getSubscriptionInfo().subscribe(subscriptionInfo => this.subscriptionInfo = subscriptionInfo);
   // })
   //this.openConfirmSubscriptionCancelation()

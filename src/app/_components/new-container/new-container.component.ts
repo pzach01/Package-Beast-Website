@@ -62,10 +62,12 @@ export class NewContainerComponent implements OnInit {
 
     this.newContainer = new Container(this.newContainerForm.value)
     this.loading = true;
-    this.containersService.postContainer(this.newContainer).subscribe(newContainer =>
-      this.newContainerRef.close(newContainer),
+    this.newContainer.units = this.units
+    this.containersService.postContainer(this.newContainer).subscribe(newContainer => {
+      this.newContainerRef.close(newContainer)
+    },
       error => {
-        console.log("yoyou"); this.close(); this.openCreateFailDialog();
+        this.close(); this.openCreateFailDialog();
       })
   }
 

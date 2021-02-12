@@ -5,6 +5,11 @@ import { StripeService, Elements, Element as StripeElement, ElementsOptions } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentMethodData, PaymentIntent } from 'ngx-stripe/lib/interfaces/payment-intent'
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
+import { SubscriptionChange } from 'src/app/_models/subscription-change';
+import { subscriptionType } from 'src/app/_models/subscription-info'
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentErrorDialogComponent } from '../payment-error-dialog/payment-error-dialog.component';
+
 
 
 @Component({
@@ -15,7 +20,7 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 export class PaymentComponent implements OnInit {
 
   loading: boolean = false;
-  subscriptionType: string;
+  subscriptionType: subscriptionType;
   // subscriptionTypeUI: string;
   priceId: string;
   productId: string;
@@ -23,6 +28,7 @@ export class PaymentComponent implements OnInit {
   card: any;
   p: PaymentIntent
   stripeError = "";
+  country = "US";
 
 
   // optional parameters
@@ -37,36 +43,23 @@ export class PaymentComponent implements OnInit {
     private fb: FormBuilder,
     private stripeService: StripeService,
     private subscriptonsService: SubscriptionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public paymentErrorDialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.subscriptionType = params['subscriptionType'];
-      switch (this.subscriptionType) {
-        case "standard":
-          this.productId = "prod_HzHvyINf9uyaxv";
-          this.priceId = "price_1HPJLlJWFTMXIZUoMH26j2EB";
-          //  this.subscriptionTypeUI = "Standard"
-          break;
-        case "premium":
-          this.productId = "prod_HzHxDGJSZDQ8GI";
-          this.priceId = "price_1HPJNoJWFTMXIZUo60gNaXlm";
-          //  this.subscriptionTypeUI = "Premium"
-          break;
-        case "beastMode":
-          this.productId = "prod_HzHy8kP263Pqzp";
-          this.priceId = "price_1HPJOLJWFTMXIZUoGcXhTnax";
-          //  this.subscriptionTypeUI = "Beast Mode"
-          break;
-      }
+      const subscriptionChange = new SubscriptionChange(this.subscriptionType, 'none')
+      this.priceId = subscriptionChange.priceId
+      this.productId = subscriptionChange.productId
     })
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
       addressLine1: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      zip: ['', [Validators.required]],
+      // zip: ['', [Validators.required]],
     });
     this.stripeService.elements(this.elementsOptions)
       .subscribe(elements => {
@@ -97,14 +90,12 @@ export class PaymentComponent implements OnInit {
           this.card.mount('#card-element');
           this.card.addEventListener('change', ({ error }) => {
             if (error) {
-              console.log("error", error.message);
               this.stripeError = error.message
             } else {
               this.stripeError = ""
             }
           })
         }
-
       });
   }
 
@@ -114,21 +105,22 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentMethod() {
+    this.loading = true;
     const name = this.stripeTest.get('name').value;
     const addressLine1 = this.stripeTest.get('addressLine1').value;
     const city = this.stripeTest.get('city').value;
     const state = this.stripeTest.get('state').value;
-    const zip = this.stripeTest.get('zip').value;
+    // const zip = this.stripeTest.get('zip').value;
 
     const payment_intent_data: PaymentMethodData = {
       billing_details: {
         name: name,
         address: {
           city: city,
-          country: "US",
+          country: this.country,
           line1: addressLine1,
           line2: "",
-          postal_code: zip,
+          postal_code: "",
           state: state
         }
       },
@@ -137,35 +129,49 @@ export class PaymentComponent implements OnInit {
 
     this.stripeService.createPaymentMethod("card", this.card, payment_intent_data).subscribe(result => {
       if (result.error) {
-        console.error('got stripe error', result.error);
+        this.loading = false
         // this.stripeError = result.error.message
       } else {
-        console.log('Create payment method succeeded', result);
         this.subscriptonsService.getSubscriptionInfo().subscribe(subscriptionInfo => {
-          this.loading = true;
-          console.log("subActive?", subscriptionInfo.subscriptionActive)
           subscriptionInfo.subscriptionActive ? this.retrySubscription(result.paymentMethod.id) : this.createSubscription(result.paymentMethod.id, this.priceId)
         })
       }
     });
   }
 
+  openPaymentErrorDialog(error): void {
+    const dialogRef = this.paymentErrorDialog.open(PaymentErrorDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { error },
+    });
+  }
+
   createSubscription(paymentMethodId, priceId) {
     this.subscriptonsService.createSubscription(paymentMethodId, priceId).subscribe(result => {
-      console.log("New Subscription", result);
       this.router.navigate(['./', { outlets: { view: ['payment-success'] } }])
-    });
+    }, e => {
+      console.log("error from create subscription: ", e)
+      this.openPaymentErrorDialog(e)
+      this.loading = false
+    }
+    );
   }
 
   retrySubscription(paymentMethodId) {
     this.subscriptonsService.retrySubscription(paymentMethodId).subscribe(result => {
-      console.log("Retry Subscription", result);
-      this.router.navigate(['./', { outlets: { view: ['payment-success'] } }]);
-    })
+      this.router.navigate(['./', { outlets: { view: ['payment-method-change-success'] } }]);
+    }, e => {
+      console.log("error from retry subscription: ", e)
+      this.openPaymentErrorDialog(e)
+      this.loading = false
+    }
+
+    )
   }
 
   cancelSubscription() {
-    this.subscriptonsService.cancelSubscription().subscribe(result => console.log("sub canceled", result))
+    this.subscriptonsService.cancelSubscription().subscribe(result => { })
   }
 
 }

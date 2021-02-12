@@ -16,12 +16,20 @@ export class ItemsSelectionComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['select', 'sku', 'description', 'qty'];
   selection = new SelectionModel<Item>(true, []);
+  userHasItems: boolean = true;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private itemsservice: ItemsService) { }
 
   ngOnInit(): void {
-    this.itemsservice.getAll().subscribe(items => { this.items = items; this.dataSource = new MatTableDataSource(items); this.dataSource.sort = this.sort; })
+    this.itemsservice.getAll().subscribe(items => {
+      if (items.length == 0) {
+        this.userHasItems = false
+      }
+      this.items = items;
+      this.dataSource = new MatTableDataSource(items);
+      this.dataSource.sort = this.sort;
+    })
   }
 
   applyFilter(event: Event) {

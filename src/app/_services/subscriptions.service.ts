@@ -37,14 +37,11 @@ export class SubscriptionsService {
         // store subscription details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentSubscriptionInfo', JSON.stringify(subscriptionInfo));
         this.currentSubscriptionInfoSubject.next(subscriptionInfo);
-        console.log("hey, Pedro subscriptionInfo:", subscriptionInfo)
-        console.log("hey, Pedro subscriptionInfoValue:", this.currentSubscriptionInfoValue)
         return subscriptionInfo;
       }));
   }
 
   updateStripeSubscription(priceId: string): Observable<any> {
-    console.log("priceId", priceId)
     return this.http.put<any>(`${environment.API_BASE_URI}/payment/updateStripeSubscription/`, { priceId });
   }
 

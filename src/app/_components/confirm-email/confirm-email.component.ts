@@ -16,7 +16,6 @@ export class ConfirmEmailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.key = params['key'];
-      console.log(this.key)
       this.confirmAccount(this.key)
     })
   }
@@ -26,7 +25,6 @@ export class ConfirmEmailComponent implements OnInit {
       .subscribe(
         () => { this.accountStatus = "active" },
         error => {
-          console.log("error", error)
           this.accountStatus = "error"
         })
   }

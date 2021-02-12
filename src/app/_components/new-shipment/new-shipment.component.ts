@@ -32,6 +32,8 @@ export class NewShipmentComponent implements OnInit {
   timeoutDuration = 30;
   fastForwardtimeoutDuration = 2;
   dwellTime = 1000; //ms
+  allowAnalysis: boolean = false;
+  title: string = "My New Shipment";
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
   ) { }
@@ -42,6 +44,20 @@ export class NewShipmentComponent implements OnInit {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
+    this.checkItemsAndContainersSelected();
+    console.log(this.allowAnalysis)
+    console.log(this.selectedItems)
+    console.log(this.selectedContainers)
+  }
+
+  checkItemsAndContainersSelected() {
+    if (this.selectedContainers != null && this.selectedItems != null) {
+      if (this.selectedContainers.length == 0 || this.selectedItems.length == 0) {
+        this.allowAnalysis = false
+      } else {
+        this.allowAnalysis = true
+      }
+    }
   }
 
   startSpinner() {
@@ -61,7 +77,6 @@ export class NewShipmentComponent implements OnInit {
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
-        console.log("new shipment", shipment)
         this.newShipmentRef.close(shipment)
       }
     }, 200)
@@ -91,7 +106,7 @@ export class NewShipmentComponent implements OnInit {
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
-    console.log("nnn", this.shipment)
+    this.shipment.title = this.title;
 
     this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();

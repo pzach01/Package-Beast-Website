@@ -1,10 +1,16 @@
-<div class="d-flex overflow-auto view-container">
+<div class="scrollable-view-container">
     <div *ngIf="loading" class="container-fluid">
+        <div class="row my-3">
+            <div class="col text-center">
+                <h3>Processing Request</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col text-center">
                 <div class="d-flex justify-content-center py-5">
                     <mat-spinner color="accent"></mat-spinner>
                 </div>
+                <p>Please wait while we process your request.</p>
             </div>
         </div>
     </div>
@@ -23,7 +29,7 @@
                         </mat-card-header>
                         <mat-card-content>
                             <div class="description">
-                                <p>Great for online sellers and small business that typically have less than 50
+                                <p>Great for online sellers and small businesses that typically have less than 50
                                     shipments
                                     per
                                     month</p>
@@ -76,11 +82,11 @@
                         </mat-card-header>
                         <mat-card-content>
                             <div class="description">
-                                <p>A perfect option for those wanting premium value for those shipping between 5 and 10
-                                    packages
-                                    every day. The premium subscription allows additional shipments, inventory items,
+                                <p>The premium subscription allows additional shipments, inventory items,
                                     and
-                                    shipping containers.</p>
+                                    shipping containers and is a perfect option for those shipping between 5 and 10
+                                    packages
+                                    every day. </p>
                             </div>
                             <h2>$30 / month</h2>
                             <div class="banner-container">
@@ -172,5 +178,6 @@
                 </div>
             </div>
         </div>
+        <mat-error>{{stripeError}}</mat-error>
     </div>
 </div>

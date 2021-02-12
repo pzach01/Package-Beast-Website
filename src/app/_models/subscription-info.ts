@@ -1,3 +1,4 @@
+export type subscriptionType = "none" | "trial" | "standard" | "premium" | "beastMode";
 export class SubscriptionInfo {
     public containersAllowed: number;
     public containersUsed: number;
@@ -7,6 +8,7 @@ export class SubscriptionInfo {
     public shipmentsUsed: number;
     public subscriptionActive: boolean;
     public paymentUpToDate: boolean;
-    public subscriptionType: "none" | "trial" | "standard" | "premium" | "beastMode";
+    public subscriptionType: subscriptionType;
     public subscriptionExpirationTime: number;
+    public subscriptionUpdateInProgress: boolean;
 }

@@ -27,9 +27,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   clickedItem: Item;
   shipment: Shipment;
   dataSource;
+  rendererWidthPercent: number = 0.67;
   renderer = new THREE.WebGLRenderer({ antialias: true });
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, (.67 * window.innerWidth) / (this.vhPercent * window.innerHeight), 1, 10000);
+  camera = new THREE.PerspectiveCamera(75, (this.rendererWidthPercent * window.innerWidth) / (this.vhPercent * window.innerHeight), 1, 10000);
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
   controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -50,9 +51,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   rotationAngle: number = 0;
 
-  constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) {
-
-  }
+  constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
@@ -68,7 +67,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.renderer.setSize((.67 * window.innerWidth), this.vhPercent * window.innerHeight);
+    this.onWindowResize()
+    // this.renderer.setSize((.67 * window.innerWidth), this.vhPercent * window.innerHeight);
     this.renderer.setClearColor(0xffffff, 1);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
     this.generateItemCubes();
@@ -82,6 +82,19 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
     this.rendererContainer.nativeElement.addEventListener('keydown', this.keyDown.bind(this))
   }
+
+  onWindowResize(event?) {
+    console.log(window.innerWidth)
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    if (window.innerWidth <= 768) {
+      this.rendererWidthPercent = 1;
+    } else {
+      this.rendererWidthPercent = .67;
+    }
+    this.renderer.setSize((this.rendererWidthPercent * window.innerWidth), this.vhPercent * window.innerHeight);
+  }
+
 
   animate() {
     this.hiddenMeshes.forEach(hiddenMesh => {
@@ -108,6 +121,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.handleRotateKeys();
 
     window.requestAnimationFrame(() => this.animate());
+
     // this.mesh.rotation.x += 0.01;
     // this.mesh.rotation.y += 0.02;
 
@@ -116,7 +130,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
 
   keyDown(event) {
     this.keyCode = event.which;
-    console.log("keycode", this.keyCode)
   }
 
   handleRotateKeys() {
@@ -299,10 +312,10 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       var rect = event.target.getBoundingClientRect();
       var x = event.targetTouches[0].pageX - rect.left;
       var y = event.targetTouches[0].pageY - rect.top;
-      this.mouse.x = (x / (.67 * window.innerWidth)) * 2 - 1;
+      this.mouse.x = (x / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (y / (this.vhPercent * window.innerHeight)) * 2 + 1;
     } else if (event.type == "mousedown") {
-      this.mouse.x = (event.offsetX / (.67 * window.innerWidth)) * 2 - 1;
+      this.mouse.x = (event.offsetX / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }
 

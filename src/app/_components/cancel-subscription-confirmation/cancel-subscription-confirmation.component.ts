@@ -21,7 +21,6 @@ export class CancelSubscriptionConfirmationComponent implements OnInit {
 
   cancelSubscription() {
     this.subscriptionService.cancelSubscription().subscribe(result => {
-      console.log('subscription canceled ', result);
       this.cancelSubscriptionRef.close(result);
     })
   }

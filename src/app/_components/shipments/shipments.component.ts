@@ -9,8 +9,6 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
 
-import { ViewportScroller } from '@angular/common';
-
 @Component({
   selector: 'app-shipments',
   templateUrl: './shipments.component.html',
@@ -19,11 +17,13 @@ import { ViewportScroller } from '@angular/common';
 export class ShipmentsComponent implements OnInit {
 
   loading: boolean = true;
+
   shipments: Shipment[];
   dataSource;
-  displayedColumns: string[] = ['created'];
+  displayedColumns: string[] = ['title', 'created'];
   currentUser = this.authenticationService.currentUserValue;
   dateTimeFormat = this.currentUser.dateTimeFormat
+  userHasShipments: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -37,8 +37,11 @@ export class ShipmentsComponent implements OnInit {
     this.shipmentsservice.getAll().subscribe(shipments => {
       this.loading = false;
       this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
+      this.sort.disableClear = true;
+      this.doesUserHaveShipments()
       this.dataSource.filterPredicate =
-        (data: any, filter: string) => !filter || this.transformDate(data.created).includes(filter)
+        (data: any, filter: string) => !filter || data.title.toString().toLowerCase().includes(filter) ||
+          this.transformDate(data.created).includes(filter)
     })
   }
   // ngAfterViewChecked(): void {
@@ -57,7 +60,12 @@ export class ShipmentsComponent implements OnInit {
       if (newShipment) {
         this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id] } }]);
       }
+      this.doesUserHaveShipments();
     });
+  }
+
+  doesUserHaveShipments() {
+    this.dataSource.data.length == 0 ? this.userHasShipments = false : this.userHasShipments = true
   }
 
   applyFilter(event: Event) {
