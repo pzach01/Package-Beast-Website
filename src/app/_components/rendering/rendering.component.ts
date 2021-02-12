@@ -8,6 +8,7 @@ import { Container } from 'src/app/_models/container';
 import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
 import { AuthenticationService } from 'src/app/_services';
 import { MatTableDataSource } from '@angular/material/table';
+import { User } from 'src/app/_models/user';
 
 
 @Component({
@@ -54,7 +55,14 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    this.authenticationService.currentUser.subscribe((currentUser) => {
+      if (currentUser) { this.currentUser = currentUser } else {
+        this.currentUser = new User();
+        this.currentUser.units = "in"
+        this.currentUser.disableFillContainerAnimation = false;
+        this.currentUser.animationSpeed = 50;
+      }
+    })
     this.step = this.items.filter(item => item.container == this.container.id).length;
     this.totalSteps = this.items.filter(item => item.container == this.container.id).length;
     this.dataSource = new MatTableDataSource(this.items);

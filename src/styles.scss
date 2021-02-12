@@ -228,6 +228,11 @@ a.mat-list-item.disabled{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+.demo-container {
+    background-color: rgb(240, 173, 48);
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .tbl-container::-webkit-scrollbar {
     display: none;
