@@ -77,7 +77,8 @@ import { environment } from '../environments/environment';
 import { PaymentErrorDialogComponent } from './_components/payment-error-dialog/payment-error-dialog.component';
 import { PaymentMethodChangeSuccessComponent } from './_components/payment-method-change-success/payment-method-change-success.component';
 import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component';
-import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component'
+import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component';
+import { DemoComponent } from './demo/demo.component'
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -220,7 +221,8 @@ const appRoutes: Routes = [
     PaymentErrorDialogComponent,
     PaymentMethodChangeSuccessComponent,
     SubscriptionDowngradeSuccessComponent,
-    EditUserInformationComponent],
+    EditUserInformationComponent,
+    DemoComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(

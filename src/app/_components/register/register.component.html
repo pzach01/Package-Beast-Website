@@ -23,7 +23,21 @@
                     </h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row pb-5 pt-2">
+                <div class="col">
+                    <h5 class="lead">You tell us what inventory you are shipping. We show you the best way to
+                        ship it.</h5>
+                    <h5 class="lead">Go ahead, play with the <strong>interactive demo</strong> below!</h5>
+                </div>
+            </div>
+
+            <div class="row py-5 demo-container">
+                <div class="col">
+                    <app-demo></app-demo>
+                </div>
+
+            </div>
+            <!-- <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col text-center">
                     <iframe style="display: block;" width="100%" height="315"
@@ -31,15 +45,10 @@
                 </div>
                 <div class="col-md-3"></div>
             </div>
-            <div class="row py-5">
-                <div class="col">
-                    <h5 class="centered lead">Ship in the smallest box. Period.</h5>
-                </div>
-            </div>
+
 
             <div class="row p-0">
                 <div class="col p-0">
-                    <!-- <div style="height: 35vh;"> -->
                     <mat-carousel timings="500ms ease-in" [autoplay]="true" interval="3200" color="accent" slides="3"
                         [loop]="true" [hideArrows]="false" [hideIndicators]="true" [useKeyboard]="true"
                         [useMouseWheel]="false" orientation="ltr" [maintainAspectRatio]="false" slideHeight="300px">
@@ -88,19 +97,21 @@
                         </mat-carousel-slide>
                     </mat-carousel>
                 </div>
-                <!-- </div> -->
             </div>
+             -->
         </div>
     </div>
 
     <div class="container-fluid justify-content-center">
         <div class="row justify-content-center">
             <div class="col-md-6 full-width p-5">
+
                 <mat-card class="pt-5 px-5 text-center mat-elevation-z24">
                     <mat-card-header class="d-flex justify-content-center">
                         <mat-card-title>
                             <h1>Signup now!</h1>
                             <h3>Free 2 week trial</h3>
+                            <h3>$10/mo after that</h3>
                             <h4>No credit card required at signup</h4>
                         </mat-card-title>
                     </mat-card-header>
