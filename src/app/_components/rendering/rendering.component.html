@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-sm-12 col-md-6">
             <div class="row">
-                <p class="ml-3 mt-0 mb-0 mr-0 p-0"><strong>Container</strong> SKU: {{container.sku}} | Description:
+                <p class="ml-3 mt-0 mb-0 mr-0 p-0 text-left"><strong>Container</strong> SKU: {{container.sku}} |
+                    Description:
                     {{container.description}} | Dimensions:
                     {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}} x
                     {{container.zDim | units: container.units: currentUser.units | number:'1.0-3'}} x
@@ -11,7 +12,8 @@
             </div>
             <div class="row">
                 <ng-container *ngIf="clickedItem">
-                    <p class="ml-3 mt-0 mb-0 mr-0 p-0"><strong>Selected Item</strong> SKU: {{clickedItem.sku}} |
+                    <p class="ml-3 mt-0 mb-0 mr-0 p-0 text-left"><strong>Selected Item</strong> SKU: {{clickedItem.sku}}
+                        |
                         Description:
                         {{clickedItem.description}} |
                         Dimensions:
@@ -22,7 +24,7 @@
                 </ng-container>
                 <ng-container *ngIf="!clickedItem">
                     <div class="ml-3">
-                        <p class="m-0 p-0">Select an item to display item details</p>
+                        <p class="m-0 p-0">Select an item to display item details.</p>
                     </div>
                 </ng-container>
             </div>
@@ -30,9 +32,9 @@
         <div class="col-sm-12 col-md-6">
             <div class="row">
                 <div class="col">
-                    <div class="d-flex flex-row mt-3 mb-3">
-                        <div class="empty-space d-none d-md-block"></div>
-                        <div class="px-3">
+                    <div class="d-flex flex-row mt-3 mb-3 justify-content-start justify-content-md-end">
+                        <!-- <div class="empty-space"></div> -->
+                        <div class="pl-md-3 pr-3">
                             <button mat-raised-button color="accent" (click)="resetView()">Reset
                                 View</button>
                         </div>
@@ -41,8 +43,11 @@
                                 <mat-icon aria-hidden="false" aria-label="Previous">skip_previous</mat-icon>
                             </button>
                         </div>
-                        <div>
-                            <p class="px-3 newButton verticalCenter">Item {{step}} of {{totalSteps}}</p>
+                        <div class="justify-content-center align-self-center px-3 d-none d-md-block">
+                            Item {{step}} of {{totalSteps}}
+                        </div>
+                        <div class="justify-content-center align-self-center px-3 d-md-none">
+                            Item {{step}}/{{totalSteps}}
                         </div>
                         <div>
                             <button mat-raised-button color="accent" (click)="nextItem()">
