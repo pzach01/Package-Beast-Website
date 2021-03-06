@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
 
             }, (error) => {
-                alert(JSON.stringify(error, undefined, 2));
+                console.log(JSON.stringify(error, undefined, 2));
             });
     }
 
