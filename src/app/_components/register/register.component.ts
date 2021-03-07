@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     public googleInit() {
         gapi.load('auth2', () => {
             this.auth2 = gapi.auth2.init({
-                client_id: '1085639833940-62ucutrkvt8iu46a544kb5dcm9j8qi54.apps.googleusercontent.com',
+                client_id: '1085639833940-huu83eh91v26dcpkt8qvu1or4ikr0t1n.apps.googleusercontent.com',
                 cookiepolicy: 'single_host_origin',
                 scope: 'profile email'
             });
@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 console.log('Image URL: ' + profile.getImageUrl());
                 console.log('Email: ' + profile.getEmail());
                 //YOUR CODE HERE
-
 
             }, (error) => {
                 console.log(JSON.stringify(error, undefined, 2));
