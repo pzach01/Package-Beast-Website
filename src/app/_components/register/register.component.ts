@@ -1,4 +1,4 @@
-﻿import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+﻿import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { AlertService, AuthenticationService } from '../../_services';
 declare const gapi: any;
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
+    loadedText = "hello world"
     faFacebookSquare = faFacebookSquare;
     faTwitterSquare = faTwitterSquare;
     faYoutubeSquare = faYoutubeSquare;
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) { }
 
     public auth2: any;
@@ -56,7 +57,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             }, (error) => {
                 console.log(JSON.stringify(error, undefined, 2));
             });
-
     }
 
     ngOnInit() {
@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.googleInit();
-        this.cdr.detectChanges();
+        // this.cdr.detectChanges();
     }
 
     // convenience getter for easy access to form fields
