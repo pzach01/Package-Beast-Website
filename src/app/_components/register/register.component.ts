@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     public attachSignin(element) {
         this.auth2.attachClickHandler(element, {},
             (googleUser) => {
+
                 let profile = googleUser.getBasicProfile();
                 console.log('Token || ' + googleUser.getAuthResponse().id_token);
                 console.log('ID: ' + profile.getId());
@@ -53,8 +54,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 //YOUR CODE HERE
 
             }, (error) => {
-                alert(JSON.stringify(error, undefined, 2));
+                console.log(JSON.stringify(error, undefined, 2));
             });
+
     }
 
     ngOnInit() {
@@ -71,8 +73,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.cdr.detectChanges();
         this.googleInit();
+        this.cdr.detectChanges();
     }
 
     // convenience getter for easy access to form fields
