@@ -1,7 +1,4 @@
-﻿<p>{{loadedText}}</p>
-<button (click)="signInWithGoogle()">Google</button>
-
-<!-- <div class="registration-container overflow-auto">
+﻿<div class="registration-container overflow-auto">
     <div class="jumbotron jumbotron-fluid text-center p-0">
         <div class="container-fluid">
             <div class="row">
@@ -146,12 +143,17 @@
                                                 Only available in US, Canada, and Mexico
                                             </div>
                                         </div>
-
                                     </div>
                                 </mat-card-actions>
                             </div>
                         </form>
-
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <button mat-raised-button (click)="signInWithGoogle()">Login with Google</button>
+                                </div>
+                            </div>
+                        </div>
                     </mat-card-content>
                 </mat-card>
 
@@ -180,4 +182,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
