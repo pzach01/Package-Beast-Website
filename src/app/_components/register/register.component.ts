@@ -7,7 +7,9 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { AlertService, AuthenticationService } from '../../_services';
 
-declare const gapi: any;
+import { SocialAuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
     loadedText = "hello world"
@@ -29,35 +31,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
         private cdr: ChangeDetectorRef,
+        private authService: SocialAuthService
     ) { }
-
-    public auth2: any;
-    public googleInit() {
-        gapi.load('auth2', () => {
-            this.auth2 = gapi.auth2.init({
-                client_id: '1085639833940-huu83eh91v26dcpkt8qvu1or4ikr0t1n.apps.googleusercontent.com',
-                cookiepolicy: 'single_host_origin',
-                scope: 'profile email',
-            });
-            this.attachSignin(document.getElementById('googleBtn'));
-        });
-    }
-    public attachSignin(element) {
-        this.auth2.attachClickHandler(element, {},
-            (googleUser) => {
-
-                let profile = googleUser.getBasicProfile();
-                console.log('Token || ' + googleUser.getAuthResponse().id_token);
-                console.log('ID: ' + profile.getId());
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail());
-                //YOUR CODE HERE
-
-            }, (error) => {
-                console.log(JSON.stringify(error, undefined, 2));
-            });
-    }
 
     ngOnInit() {
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -72,9 +47,14 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         });
     }
 
+    signInWithGoogle(): void {
+        console.log("clicked")
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+
     ngAfterViewInit(): void {
-        this.googleInit();
-        // this.cdr.detectChanges();
+        // this.googleInit();
+        this.cdr.detectChanges();
     }
 
     // convenience getter for easy access to form fields

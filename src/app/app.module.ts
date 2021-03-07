@@ -80,6 +80,12 @@ import { SubscriptionDowngradeSuccessComponent } from './_components/subscriptio
 import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component';
 import { DemoComponent } from './demo/demo.component'
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
+
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
   //Authentication redirect guard redirects to dashboard if user is authenticated
@@ -260,6 +266,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
+    SocialLoginModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [
@@ -286,7 +293,21 @@ const appRoutes: Routes = [
     DatePipe,
     UnitsPipe,
     VolumeUnitsPipe,
-    DecimalPipe
+    DecimalPipe,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1085639833940-huu83eh91v26dcpkt8qvu1or4ikr0t1n.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent],
   exports: []
