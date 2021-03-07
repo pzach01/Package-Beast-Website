@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     public attachSignin(element) {
         this.auth2.attachClickHandler(element, {},
             (googleUser) => {
-
                 let profile = googleUser.getBasicProfile();
                 console.log('Token || ' + googleUser.getAuthResponse().id_token);
                 console.log('ID: ' + profile.getId());
