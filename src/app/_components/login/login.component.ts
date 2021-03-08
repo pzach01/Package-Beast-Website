@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../_services';
+import { SocialAuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private authService: SocialAuthService
     ) { }
 
     ngOnInit() {
@@ -34,6 +38,14 @@ export class LoginComponent implements OnInit {
     }
 
     loginFailValidator(): void { }
+
+    signInWithGoogle(): void {
+        console.log("clicked")
+        const googleLoginOptions = {
+            scope: 'profile email'
+        }
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    }
 
     formControlValueChanged() {
         this.loginForm.get('email').valueChanges.subscribe(

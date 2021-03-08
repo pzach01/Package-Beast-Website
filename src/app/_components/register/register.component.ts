@@ -54,10 +54,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     signInWithGoogle(): void {
         console.log("clicked")
-        // const googleLoginOptions = {
-        //     scope: 'profile email'
-        // }
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+        const googleLoginOptions = {
+            scope: 'profile email'
+        }
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
 
     ngAfterViewInit(): void {
