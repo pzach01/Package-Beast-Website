@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private authService: SocialAuthService
     ) { }
 
+
     ngOnInit() {
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.registerForm = this.formBuilder.group({
@@ -45,10 +46,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }, {
             validator: MustMatch('password1', 'password2')
         });
+
+        this.authService.authState.subscribe((user) => {
+            console.log(user)
+        });
     }
 
     signInWithGoogle(): void {
         console.log("clicked")
+        // const googleLoginOptions = {
+        //     scope: 'profile email'
+        // }
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     }
 
