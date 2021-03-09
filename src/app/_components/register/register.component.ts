@@ -55,7 +55,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     signInWithGoogle(): void {
         console.log("clicked")
         const googleLoginOptions = {
-            scope: 'profile email'
+            scope: 'profile email',
+            redirect_uri: 'https://development.packagebeast.com/login'
         }
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
