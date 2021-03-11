@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     loginFailValidator(): void { }
 
     signInWithGoogle(): void {
-        console.log("clicked")
+        this.loginWithGoogleClicked = true;
         const googleLoginOptions = {
             scope: 'profile email',
             redirect_uri: "https://development.packagebeast.com/login",

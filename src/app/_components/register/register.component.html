@@ -138,19 +138,26 @@
                                                     Login!</a>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-12">
                                                 Only available in US, Canada, and Mexico
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </mat-card-actions>
                             </div>
                         </form>
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col">
-                                    <button mat-raised-button (click)="signInWithGoogle()">Login with Google</button>
+                                    <a (click)="signInWithGoogle()" class="btn btn-outline-dark" role="button"
+                                        style="text-transform:none; width:50%">
+                                        <img width="20px" style="margin-bottom:3px; margin-right:5px"
+                                            alt="Google sign-in"
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                        Login with Google
+                                    </a>
+                                    <!-- <button id="customBtn" (click)="signInWithGoogle()">Login with Google</button> -->
                                 </div>
                             </div>
                         </div>
