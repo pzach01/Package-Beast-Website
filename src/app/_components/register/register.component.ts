@@ -49,6 +49,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
         this.authService.authState.subscribe((user) => {
             console.log(user)
+            this.authenticationService.socialLogin(user.authToken).subscribe(() =>
+                this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                })
+            )
         });
     }
 

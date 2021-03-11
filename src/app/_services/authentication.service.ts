@@ -106,4 +106,16 @@ export class AuthenticationService {
                 return u;
             }));
     }
+
+    socialLogin(access_token: string) {
+        return this.http.post<any>(`${environment.API_BASE_URI}/social-login/google/`, { access_token })
+            .pipe(map(token => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentToken', JSON.stringify(token));
+                this.currentTokenSubject.next(token);
+                return token;
+            })).pipe(mergeMap(() => {
+                return this.subscriptionService.getSubscriptionInfo()
+            }));
+    }
 }
