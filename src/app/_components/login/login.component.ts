@@ -11,7 +11,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-logi
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
 export class LoginComponent implements OnInit {
-
+    loginWithGoogleClicked: boolean = false;
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -35,6 +35,16 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.formControlValueChanged();
+
+        this.authService.authState.subscribe((user) => {
+            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+                if (this.loginWithGoogleClicked) {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                    })
+                }
+            })
+        });
     }
 
     loginFailValidator(): void { }

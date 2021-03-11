@@ -12,7 +12,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-logi
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
-    loadedText = "hello world"
+    loginWithGoogleClicked: boolean = false;
     faFacebookSquare = faFacebookSquare;
     faTwitterSquare = faTwitterSquare;
     faYoutubeSquare = faYoutubeSquare;
@@ -48,16 +48,19 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         });
 
         this.authService.authState.subscribe((user) => {
-            this.authenticationService.socialLogin(user.authToken).subscribe(() =>
-                this.authenticationService.getUser().pipe(first()).subscribe(() => {
-                    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
-                })
-            )
+            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+                if (this.loginWithGoogleClicked) {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                    })
+                }
+            })
         });
     }
 
     signInWithGoogle(): void {
         console.log("clicked")
+        this.loginWithGoogleClicked = true;
         const googleLoginOptions = {
             scope: 'profile email'
         }
