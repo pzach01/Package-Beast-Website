@@ -301,7 +301,7 @@ const appRoutes: Routes = [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com'
+              environment.GOOGLE_CLIENT_ID_URI
             )
           }
         ]
