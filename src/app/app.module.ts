@@ -81,10 +81,8 @@ import { EditUserInformationComponent } from './_components/edit-user-informatio
 import { DemoComponent } from './demo/demo.component'
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { WeightUnitsPipe } from './_helpers';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -228,7 +226,8 @@ const appRoutes: Routes = [
     PaymentMethodChangeSuccessComponent,
     SubscriptionDowngradeSuccessComponent,
     EditUserInformationComponent,
-    DemoComponent],
+    DemoComponent,
+    WeightUnitsPipe],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(

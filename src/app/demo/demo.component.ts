@@ -37,7 +37,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 4.0,
       "zCenter": 3.0,
       "units": "in",
-      "masterItemId": 1137, "qty": 1
+      "masterItemId": 1137, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1153,
@@ -55,7 +57,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 4.0,
       "zCenter": 9.0,
       "units": "in",
-      "masterItemId": 1137, "qty": 1
+      "masterItemId": 1137, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1154,
@@ -73,7 +77,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 12.0,
       "zCenter": 2.0,
       "units": "in",
-      "masterItemId": 1137, "qty": 1
+      "masterItemId": 1137, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1155,
@@ -91,7 +97,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 12.0,
       "zCenter": 6.0,
       "units": "in",
-      "masterItemId": 1137, "qty": 1
+      "masterItemId": 1137, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1156,
@@ -109,7 +117,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 12.0,
       "zCenter": 10.0,
       "units": "in",
-      "masterItemId": 1137, "qty": 1
+      "masterItemId": 1137, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1157,
@@ -127,7 +137,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 2.5,
       "zCenter": 10.5,
       "units": "in",
-      "masterItemId": 1134, "qty": 1
+      "masterItemId": 1134, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1158,
@@ -145,7 +157,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 4.0,
       "zCenter": 1.5,
       "units": "in",
-      "masterItemId": 1135, "qty": 1
+      "masterItemId": 1135, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1159,
@@ -163,7 +177,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 4.0,
       "zCenter": 4.5,
       "units": "in",
-      "masterItemId": 1135, "qty": 1
+      "masterItemId": 1135, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1160,
@@ -181,7 +197,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 4.0,
       "zCenter": 7.5,
       "units": "in",
-      "masterItemId": 1135, "qty": 1
+      "masterItemId": 1135, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1161,
@@ -199,7 +217,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 10.0,
       "zCenter": 2.0,
       "units": "in",
-      "masterItemId": 1136, "qty": 1
+      "masterItemId": 1136, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1162,
@@ -217,7 +237,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 10.0,
       "zCenter": 6.0,
       "units": "in",
-      "masterItemId": 1136, "qty": 1
+      "masterItemId": 1136, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1163,
@@ -235,7 +257,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 10.5,
       "zCenter": 9.5,
       "units": "in",
-      "masterItemId": 1134, "qty": 1
+      "masterItemId": 1134, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1164,
@@ -253,7 +277,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 14.0,
       "zCenter": 2.0,
       "units": "in",
-      "masterItemId": 1136, "qty": 1
+      "masterItemId": 1136, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     },
     {
       "id": 1165,
@@ -271,7 +297,9 @@ export class DemoComponent implements OnInit {
       "yCenter": 14.0,
       "zCenter": 6.0,
       "units": "in",
-      "masterItemId": 1136, "qty": 1
+      "masterItemId": 1136, "qty": 1,
+      "weight": 1,
+      "weightUnits": "lb"
     }
   ]
   constructor() { }

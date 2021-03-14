@@ -16,6 +16,8 @@ export class Item {
   public units: string;
   public qty: number;
   public masterItemId: number;
+  public weight: number;
+  public weightUnits: string;
   public constructor(init?: Partial<Item>) {
     Object.assign(this, init);
   }

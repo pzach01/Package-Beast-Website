@@ -20,6 +20,18 @@
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="standard">
+            <mat-label>Weight Units</mat-label>
+            <mat-select [(value)]="weightUnits" (selectionChange)="save()">
+                <mat-option value="lb">
+                    Pounds
+                </mat-option>
+                <mat-option value="kg">
+                    Kilograms
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
             <mat-label>Date/Time Format</mat-label>
             <mat-select [(value)]="dateTimeFormat" (selectionChange)="save()">
                 <mat-option value="MMM d, yyyy, h:mm aa">

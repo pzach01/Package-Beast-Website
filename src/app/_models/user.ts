@@ -5,6 +5,7 @@
     last_name: string;
     subscriptionType: string;
     units: string;
+    weightUnits: string;
     dateTimeFormat: string;
     multiBinPack: boolean;
     disableFillContainerAnimation: boolean;

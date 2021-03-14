@@ -16,6 +16,7 @@ export class EditItemComponent implements OnInit {
   submitted = false;
   loading = false;
   units = this.editItem.units;
+  weightUnits = this.editItem.weightUnits
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +35,9 @@ export class EditItemComponent implements OnInit {
       description: [this.editItem.description, [Validators.required]],
       length: [this.editItem.length, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
       width: [this.editItem.width, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      height: [this.editItem.height, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+      height: [this.editItem.height, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      weight: [this.editItem.weight, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+
     });
   }
 
@@ -62,6 +65,7 @@ export class EditItemComponent implements OnInit {
 
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
     this.editItem.units = this.units
+    this.editItem.weightUnits = this.weightUnits
     this.loading = true;
     this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close({ deletedItem: null, editedItem: editItem }))
   }

@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
+  weightUnits = this.currentUser.weightUnits
   dateTimeFormat = this.currentUser.dateTimeFormat
   multiBinPack = this.currentUser.multiBinPack
   disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
@@ -51,6 +52,7 @@ export class SettingsComponent implements OnInit {
     this.save$ = numAttempts.subscribe(() => {
       this.authenticationService.updateUser({
         units: this.units, dateTimeFormat: this.dateTimeFormat,
+        weightUnits: this.weightUnits,
         multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
         disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
         animationSpeed: this.animationSpeed

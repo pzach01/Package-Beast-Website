@@ -42,6 +42,20 @@
                 <mat-option value="mm">Millimeters</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <mat-label>Weight</mat-label>
+            <input matInput [formControl]="newItemForm.get('weight')" placeholder="1.2">
+            <mat-error *ngIf="newItemForm.get('weight').hasError('required') && submitted">
+                Weight is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Weight Units</mat-label>
+            <mat-select [(value)]="weightUnits">
+                <mat-option value="lb">Pounds</mat-option>
+                <mat-option value="kg">Kilograms</mat-option>
+            </mat-select>
+        </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions>

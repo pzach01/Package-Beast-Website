@@ -19,6 +19,8 @@ export class NewItemComponent implements OnInit {
   loading = false;
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
+  weight = 0;
+  weightUnits = this.currentUser.weightUnits;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +41,8 @@ export class NewItemComponent implements OnInit {
       description: ['', [Validators.required]],
       height: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
       length: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      width: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+      width: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      weight: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
     });
   }
 
@@ -63,6 +66,10 @@ export class NewItemComponent implements OnInit {
 
     this.newItem = new Item(this.newItemForm.value)
     this.newItem.units = this.units
+
+    this.newItem.weight = this.weight
+    this.newItem.weightUnits = this.weightUnits
+
     this.itemsService.postItem(this.newItem).subscribe(newItem => {
       this.newItemRef.close(newItem);
     }, error => { this.close(); this.openCreateFailDialog(); }
