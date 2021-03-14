@@ -13,4 +13,10 @@
     animationSpeed: number;
     usersTermsOfServiceRevision: number;
     termsOfServiceRevision: number;
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    stateProvince: string;
+    country: string;
+    postalCode: string;
 }
