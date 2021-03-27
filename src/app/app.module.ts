@@ -83,6 +83,8 @@ import { DemoComponent } from './demo/demo.component'
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { WeightUnitsPipe } from './_helpers';
+import { ShipFromComponent } from './_components/ship-from/ship-from.component';
+import { ShipToComponent } from './_components/ship-to/ship-to.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -227,7 +229,9 @@ const appRoutes: Routes = [
     SubscriptionDowngradeSuccessComponent,
     EditUserInformationComponent,
     DemoComponent,
-    WeightUnitsPipe],
+    WeightUnitsPipe,
+    ShipFromComponent,
+    ShipToComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
