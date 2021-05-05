@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/_models';
+import { Address } from 'src/app/_models/address';
 import { AuthenticationService } from 'src/app/_services';
 
 @Component({
@@ -17,12 +18,12 @@ export class ShipFromComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.addressForm = this.formBuilder.group({
-      first_name: [this.currentUser.first_name],
-      last_name: [this.currentUser.last_name],
+      name: [this.currentUser.first_name + ' ' + this.currentUser.last_name],
+      phoneNumber: [''],
       addressLine1: [this.currentUser.addressLine1],
       addressLine2: [this.currentUser.addressLine2],
       city: [this.currentUser.city],
-      stateProvince: [this.currentUser.stateProvince],
+      stateProvinceCode: [this.currentUser.stateProvince],
       country: [this.currentUser.country],
       postalCode: [this.currentUser.postalCode]
     });

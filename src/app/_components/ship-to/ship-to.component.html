@@ -6,6 +6,15 @@
         <div class="col">
             <form [formGroup]="addressForm" autocomplete="off">
                 <mat-form-field class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('name')" placeholder="Name">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('phoneNumber')"
+                        placeholder="Phone Number">
+                </mat-form-field>
+                <mat-form-field class="full-width">
                     <mat-label>Address Line 1</mat-label>
                     <input type="text" matInput [formControl]="addressForm.get('addressLine1')"
                         placeholder="Address Line 1">
@@ -21,7 +30,7 @@
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>State/Province</mat-label>
-                    <input type="text" matInput [formControl]="addressForm.get('stateProvince')"
+                    <input type="text" matInput [formControl]="addressForm.get('stateProvinceCode')"
                         placeholder="State/Province">
                 </mat-form-field>
                 <mat-form-field class="full-width">

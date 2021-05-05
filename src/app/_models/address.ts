@@ -1,8 +1,12 @@
 export class Address {
+    name: string;
+    phoneNumber: string;
     addressLine1: string;
     addressLine2: string;
     city: string;
-    stateProvince: string;
+    stateProvinceCode: string;
     postalCode: string
-    subscriptionType: string;
+    public constructor(init?: Partial<Address>) {
+        Object.assign(this, init);
+    }
 }

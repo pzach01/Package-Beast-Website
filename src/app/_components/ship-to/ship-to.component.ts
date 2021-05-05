@@ -17,12 +17,12 @@ export class ShipToComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.addressForm = this.formBuilder.group({
-      first_name: [""],
-      last_name: [""],
+      name: [""],
+      phoneNumber: [""],
       addressLine1: [""],
       addressLine2: [""],
       city: [""],
-      stateProvince: [""],
+      stateProvinceCode: [""],
       country: [""],
       postalCode: [""]
     });

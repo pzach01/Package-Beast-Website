@@ -85,6 +85,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { WeightUnitsPipe } from './_helpers';
 import { ShipFromComponent } from './_components/ship-from/ship-from.component';
 import { ShipToComponent } from './_components/ship-to/ship-to.component';
+import { QuoteListComponent } from './_components/quote-list/quote-list.component';
+import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -110,8 +112,12 @@ const appRoutes: Routes = [
   {
     path: 'shipments/:id',
     outlet: 'view',
-    component: ShipmentDetailComponent,
-    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard],
+    children: [
+      { path: '', component: ShipmentDetailComponent },
+      { path: 'quotes', component: QuoteListComponent },
+      { path: 'quotes/:quoteId', component: ArrangementDetailComponent }
+    ]
   },
   {
     path: 'inventory',
@@ -231,7 +237,9 @@ const appRoutes: Routes = [
     DemoComponent,
     WeightUnitsPipe,
     ShipFromComponent,
-    ShipToComponent],
+    ShipToComponent,
+    QuoteListComponent,
+    ArrangementDetailComponent],
   imports: [
     MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -287,7 +295,7 @@ const appRoutes: Routes = [
     CancelSubscriptionConfirmationComponent,
     ReviewPaymentDialogComponent,
     PaymentErrorDialogComponent,
-    ChangePasswordCompleteDialogComponent
+    ChangePasswordCompleteDialogComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
