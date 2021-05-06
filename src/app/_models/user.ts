@@ -3,6 +3,7 @@
     email: string;
     first_name: string;
     last_name: string;
+    phoneNumber: string;
     subscriptionType: string;
     units: string;
     weightUnits: string;

@@ -22,6 +22,14 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('phoneNumber')"
+                placeholder="Phone Number">
+            <mat-error *ngIf="changeUserInformationForm.get('phoneNumber').hasError('required')">
+                Phone number is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
             <mat-label>Address Line 1</mat-label>
             <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('addressLine1')"
                 placeholder="Address Line 1">

@@ -19,7 +19,7 @@ export class ShipFromComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.addressForm = this.formBuilder.group({
       name: [this.currentUser.first_name + ' ' + this.currentUser.last_name],
-      phoneNumber: [''],
+      phoneNumber: [this.currentUser.phoneNumber],
       addressLine1: [this.currentUser.addressLine1],
       addressLine2: [this.currentUser.addressLine2],
       city: [this.currentUser.city],
