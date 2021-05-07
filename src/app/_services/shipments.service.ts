@@ -36,6 +36,12 @@ export class ShipmentsService {
     return this.http.post<Shipment>(`${environment.API_BASE_URI}/shipments/`, shipment);
   }
 
+  setLastSelectedQuote(shipment: Shipment, quote: Quote): Observable<Shipment> {
+    console.log('sss', shipment)
+    console.log('qqq', quote)
+    return this.http.patch<Shipment>(`${environment.API_BASE_URI}/shipments/${shipment.id}/`, { "lastSelectedQuoteId": quote.id });
+  }
+
   deleteArrangement(arrangement: Arrangement): Observable<Shipment> {
     return this.http.delete<Shipment>(`${environment.API_BASE_URI}/arrangements/${arrangement.id}/`);
   }

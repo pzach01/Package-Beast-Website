@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Quote } from 'src/app/_models/quote';
 import { Shipment } from 'src/app/_models/shipment';
 import { faUps } from '@fortawesome/free-brands-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 
@@ -16,7 +17,8 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 })
 export class QuoteListComponent implements OnInit {
   faUps = faUps;
-  displayedColumns: string[] = ["carrier", "cost", "daysToShip", "serviceDescription"];
+  faCheckCircle = faCheckCircle;
+  displayedColumns: string[] = ["selectedIcon", "carrier", "cost", "daysToShip", "serviceDescription"];
   dataSource;
   loading: boolean = false
   userHasQuotes = true
@@ -44,7 +46,10 @@ export class QuoteListComponent implements OnInit {
   }
 
   openQuoteDetail(quote: Quote) {
-    console.log(quote)
-    this.router.navigate(['./', { outlets: { view: ['shipments', +this.route.parent.snapshot.params['id'], 'quotes', quote.id] } }]);
+    this.shipment.subscribe(shipment => {
+      this.shipmentsService.setLastSelectedQuote(shipment, quote).subscribe(() => {
+        this.router.navigate(['./', { outlets: { view: ['shipments', +this.route.parent.snapshot.params['id'], 'quotes', quote.id] } }]);
+      }), e => console.log(e)
+    })
   }
 }
