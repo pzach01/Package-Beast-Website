@@ -5,6 +5,7 @@ import { Timestamp } from 'src/app/_models/timestamp'
 import { environment } from 'src/environments/environment'
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
 
 
 @Component({
@@ -16,6 +17,8 @@ export class SettingsComponent implements OnInit {
   envTitle = environment.SITE_TITLE;
   saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
+  faUps = faUps
+  faUsps = faUsps
   units = this.currentUser.units
   weightUnits = this.currentUser.weightUnits
   dateTimeFormat = this.currentUser.dateTimeFormat
@@ -23,6 +26,8 @@ export class SettingsComponent implements OnInit {
   disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
   disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
   animationSpeed = this.currentUser.animationSpeed
+  includeUpsContainers = this.currentUser.includeUpsContainers
+  includeUspsContainers = this.currentUser.includeUspsContainers
   buildTimestamp = Timestamp.timestamp;
   save$: Subscription
 
@@ -53,9 +58,12 @@ export class SettingsComponent implements OnInit {
       this.authenticationService.updateUser({
         units: this.units, dateTimeFormat: this.dateTimeFormat,
         weightUnits: this.weightUnits,
-        multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
+        multiBinPack: this.multiBinPack,
+        disableFillContainerAnimation: this.disableFillContainerAnimation,
         disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
-        animationSpeed: this.animationSpeed
+        animationSpeed: this.animationSpeed,
+        includeUpsContainers: this.includeUpsContainers,
+        includeUspsContainers: this.includeUspsContainers
       })
         .subscribe(() => { this.saveStatusText = "Settings Saved!" })
     })

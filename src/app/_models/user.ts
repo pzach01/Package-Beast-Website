@@ -20,4 +20,6 @@
     stateProvince: string;
     country: string;
     postalCode: string;
+    includeUpsContainers: boolean;
+    includeUspsContainers: boolean;
 }

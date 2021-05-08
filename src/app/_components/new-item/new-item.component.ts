@@ -19,7 +19,6 @@ export class NewItemComponent implements OnInit {
   loading = false;
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
-  weight = 0;
   weightUnits = this.currentUser.weightUnits;
 
   constructor(
@@ -59,15 +58,16 @@ export class NewItemComponent implements OnInit {
     this.newItemForm.controls.height.setValue(evaluate(this.newItemForm.controls.height.value))
     this.newItemForm.controls.length.setValue(evaluate(this.newItemForm.controls.length.value))
     this.newItemForm.controls.width.setValue(evaluate(this.newItemForm.controls.width.value))
+    this.newItemForm.controls.weight.setValue(evaluate(this.newItemForm.controls.weight.value))
     //remove errors
     this.newItemForm.controls.height.setErrors(null)
     this.newItemForm.controls.length.setErrors(null)
     this.newItemForm.controls.width.setErrors(null)
+    this.newItemForm.controls.weight.setErrors(null)
 
     this.newItem = new Item(this.newItemForm.value)
     this.newItem.units = this.units
 
-    this.newItem.weight = this.weight
     this.newItem.weightUnits = this.weightUnits
 
     this.itemsService.postItem(this.newItem).subscribe(newItem => {

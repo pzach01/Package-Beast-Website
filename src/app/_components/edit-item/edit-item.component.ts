@@ -58,10 +58,14 @@ export class EditItemComponent implements OnInit {
     this.editItemForm.controls.height.setValue(evaluate(this.editItemForm.controls.height.value))
     this.editItemForm.controls.length.setValue(evaluate(this.editItemForm.controls.length.value))
     this.editItemForm.controls.width.setValue(evaluate(this.editItemForm.controls.width.value))
+    this.editItemForm.controls.weight.setValue(evaluate(this.editItemForm.controls.weight.value))
+
     //remove errors
     this.editItemForm.controls.height.setErrors(null)
     this.editItemForm.controls.length.setErrors(null)
     this.editItemForm.controls.width.setErrors(null)
+    this.editItemForm.controls.weight.setErrors(null)
+
 
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
     this.editItem.units = this.units
