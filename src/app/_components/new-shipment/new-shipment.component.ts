@@ -7,8 +7,6 @@ import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { delay } from 'rxjs/operators';
-import { timer } from 'rxjs/internal/observable/timer';
 import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 import { ShipFromComponent } from '../ship-from/ship-from.component';
 import { ShipToComponent } from '../ship-to/ship-to.component';
@@ -124,6 +122,8 @@ export class NewShipmentComponent implements OnInit {
     this.shipment.lastSelectedQuoteId = 0;
     this.shipment.shipFromAddress = this.shipFromAddress;
     this.shipment.shipToAddress = this.shipToAddress;
+    this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
+    this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
 
     this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();

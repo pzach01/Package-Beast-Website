@@ -17,6 +17,8 @@ export class Shipment {
     public timeout: boolean;
     public timeoutDuration: number;
     public quotes: Quote[];
+    public includeUpsContainers: boolean;
+    public includeUspsContainers: boolean;
     public constructor(init?: Partial<Shipment>) {
         Object.assign(this, init);
     }

@@ -37,8 +37,6 @@ export class ShipmentsService {
   }
 
   setLastSelectedQuote(shipment: Shipment, quote: Quote): Observable<Shipment> {
-    console.log('sss', shipment)
-    console.log('qqq', quote)
     return this.http.patch<Shipment>(`${environment.API_BASE_URI}/shipments/${shipment.id}/`, { "lastSelectedQuoteId": quote.id });
   }
 
