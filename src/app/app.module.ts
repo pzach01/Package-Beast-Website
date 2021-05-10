@@ -83,7 +83,11 @@ import { DemoComponent } from './demo/demo.component'
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+<<<<<<< HEAD
 import { WeightUnitsPipe } from './_helpers/weight-units.pipe';
+=======
+import { WeightUnitsPipe } from './_helpers';
+>>>>>>> development
 import { ShipFromComponent } from './_components/ship-from/ship-from.component';
 import { ShipToComponent } from './_components/ship-to/ship-to.component';
 import { QuoteListComponent } from './_components/quote-list/quote-list.component';
