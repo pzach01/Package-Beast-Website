@@ -21,6 +21,44 @@
                 Last name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('phoneNumber')"
+                placeholder="Phone Number">
+            <mat-error *ngIf="changeUserInformationForm.get('phoneNumber').hasError('required')">
+                Phone number is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Address Line 1</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('addressLine1')"
+                placeholder="Address Line 1">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Address Line 2</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('addressLine2')"
+                placeholder="Address Line 2">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>City</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('city')"
+                placeholder="City">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>State/Province</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('stateProvince')"
+                placeholder="State/Province">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Country</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('country')"
+                placeholder="Country">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Postal Code</mat-label>
+            <input (keyup)="save()" type="text" matInput [formControl]="changeUserInformationForm.get('postalCode')"
+                placeholder="Postal Code">
+        </mat-form-field>
     </form>
     <div class="d-flex justify-content-start mb-3">
         <p class="text-danger m-0 p-0">{{saveStatusText}}</p>

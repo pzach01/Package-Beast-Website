@@ -22,7 +22,14 @@ export class EditUserInformationComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.changeUserInformationForm = this.formBuilder.group({
       first_name: [this.currentUser.first_name],
-      last_name: [this.currentUser.last_name]
+      last_name: [this.currentUser.last_name],
+      phoneNumber: [this.currentUser.phoneNumber],
+      addressLine1: [this.currentUser.addressLine1],
+      addressLine2: [this.currentUser.addressLine2],
+      city: [this.currentUser.city],
+      stateProvince: [this.currentUser.stateProvince],
+      country: [this.currentUser.country],
+      postalCode: [this.currentUser.postalCode]
     });
   }
 
@@ -37,7 +44,14 @@ export class EditUserInformationComponent implements OnInit {
 
       this.authenticationService.updateUser({
         first_name: this.changeUserInformationForm.get('first_name').value,
-        last_name: this.changeUserInformationForm.get('last_name').value
+        last_name: this.changeUserInformationForm.get('last_name').value,
+        phoneNumber: this.changeUserInformationForm.get('phoneNumber').value,
+        addressLine1: this.changeUserInformationForm.get('addressLine1').value,
+        addressLine2: this.changeUserInformationForm.get('addressLine2').value,
+        city: this.changeUserInformationForm.get('city').value,
+        stateProvince: this.changeUserInformationForm.get('stateProvince').value,
+        country: this.changeUserInformationForm.get('country').value,
+        postalCode: this.changeUserInformationForm.get('postalCode').value
       })
         .subscribe(() => this.saveStatusText = "Settings Saved!")
     })

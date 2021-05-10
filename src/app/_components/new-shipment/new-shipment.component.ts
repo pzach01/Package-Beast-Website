@@ -7,9 +7,10 @@ import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { delay } from 'rxjs/operators';
-import { timer } from 'rxjs/internal/observable/timer';
 import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
+import { ShipFromComponent } from '../ship-from/ship-from.component';
+import { ShipToComponent } from '../ship-to/ship-to.component';
+import { Address } from 'src/app/_models/address';
 
 @Component({
   selector: 'app-new-shipment',
@@ -21,11 +22,15 @@ export class NewShipmentComponent implements OnInit {
   @ViewChild(ItemsSelectionComponent) itemsSelectionComponent: ItemsSelectionComponent;
   @ViewChild(ContainersSelectionComponent) containersSelectionComponent: ContainersSelectionComponent;
   @ViewChild(ReviewShipmentComponent) reviewShipmentComponent: ReviewShipmentComponent;
+  @ViewChild(ShipFromComponent) shipFromComponent: ShipFromComponent;
+  @ViewChild(ShipToComponent) shipToComponent: ShipToComponent;
 
   selectedItems: Item[];
   selectedContainers: Container[];
   multiBinPack: boolean = false;
   shipment: Shipment = new Shipment();
+  shipFromAddress: Address
+  shipToAddress: Address
   loading = false;
   interval;
   spinnerValue = 0;
@@ -43,6 +48,9 @@ export class NewShipmentComponent implements OnInit {
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
+    this.shipFromAddress = new Address(this.shipFromComponent.addressForm.value)
+    this.shipToAddress = new Address(this.shipToComponent.addressForm.value)
+
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.checkItemsAndContainersSelected();
     console.log(this.allowAnalysis)
@@ -98,6 +106,10 @@ export class NewShipmentComponent implements OnInit {
     let shipmentItems: Item[] = []
     this.selectedItems.forEach(selectedItem => {
       for (let index = 0; index < selectedItem.qty; index++) {
+        //If statement probably not necessary
+        if (selectedItem.weight <= 0) {
+          selectedItem.weight = 1;
+        }
         shipmentItems.push(selectedItem)
       }
     });
@@ -107,11 +119,17 @@ export class NewShipmentComponent implements OnInit {
     this.shipment.multiBinPack = this.multiBinPack;
     this.shipment.timeoutDuration = 30;
     this.shipment.title = this.title;
+    this.shipment.lastSelectedQuoteId = 0;
+    this.shipment.shipFromAddress = this.shipFromAddress;
+    this.shipment.shipToAddress = this.shipToAddress;
+    this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
+    this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
 
-    this.shipmentsService.postArrangement(this.shipment).subscribe(shipment => {
+    this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
       this.pauseSpinnerInterval();
       this.fastForwardSpinner(shipment)
     }, error => {
+      console.log(error)
       if (error.detail == "Not found.") {
         this.close(); this.openCreateFailDialog();
       }

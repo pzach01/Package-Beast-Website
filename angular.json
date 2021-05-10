@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "package-beast-website": {
+    "Package-Beast-Website": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/package-beast-website",
+            "outputPath": "dist/Package-Beast-Website",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -35,29 +35,6 @@
             "scripts": []
           },
           "configurations": {
-            "development": {
-              "fileReplacements": [],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            },
             "production": {
               "fileReplacements": [
                 {
@@ -68,7 +45,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -91,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "package-beast-website:build"
+            "browserTarget": "Package-Beast-Website:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "package-beast-website:build:production"
+              "browserTarget": "Package-Beast-Website:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "package-beast-website:build"
+            "browserTarget": "Package-Beast-Website:build"
           }
         },
         "test": {
@@ -117,8 +93,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -141,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "package-beast-website:serve"
+            "devServerTarget": "Package-Beast-Website:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "package-beast-website:serve:production"
+              "devServerTarget": "Package-Beast-Website:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "package-beast-website"
+  "defaultProject": "Package-Beast-Website"
 }

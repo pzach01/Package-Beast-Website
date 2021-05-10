@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
+import { StripeService } from "ngx-stripe";
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaymentMethodData, PaymentIntent } from 'ngx-stripe/lib/interfaces/payment-intent'
+import { CreatePaymentMethodCardData, CreatePaymentMethodData, PaymentIntent, StripeElements, StripeElementsOptions } from '@stripe/stripe-js'
 import { SubscriptionsService } from 'src/app/_services/subscriptions.service'
 import { SubscriptionChange } from 'src/app/_models/subscription-change';
 import { subscriptionType } from 'src/app/_models/subscription-info'
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentErrorDialogComponent } from '../payment-error-dialog/payment-error-dialog.component';
-
-
 
 @Component({
   selector: 'app-payment',
@@ -24,7 +22,7 @@ export class PaymentComponent implements OnInit {
   // subscriptionTypeUI: string;
   priceId: string;
   productId: string;
-  elements: Elements;
+  elements: StripeElements;
   card: any;
   p: PaymentIntent
   stripeError = "";
@@ -32,7 +30,7 @@ export class PaymentComponent implements OnInit {
 
 
   // optional parameters
-  elementsOptions: ElementsOptions = {
+  elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
 
@@ -112,7 +110,7 @@ export class PaymentComponent implements OnInit {
     const state = this.stripeTest.get('state').value;
     // const zip = this.stripeTest.get('zip').value;
 
-    const payment_intent_data: PaymentMethodData = {
+    const payment_intent_data: CreatePaymentMethodCardData = {
       billing_details: {
         name: name,
         address: {
@@ -124,10 +122,11 @@ export class PaymentComponent implements OnInit {
           state: state
         }
       },
-      metadata: []
+      type: "card",
+      card: this.card
     }
 
-    this.stripeService.createPaymentMethod("card", this.card, payment_intent_data).subscribe(result => {
+    this.stripeService.createPaymentMethod(payment_intent_data).subscribe(result => {
       if (result.error) {
         this.loading = false
         // this.stripeError = result.error.message

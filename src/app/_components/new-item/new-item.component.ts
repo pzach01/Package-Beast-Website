@@ -19,6 +19,7 @@ export class NewItemComponent implements OnInit {
   loading = false;
   currentUser = this.authenticationService.currentUserValue;
   units = this.currentUser.units
+  weightUnits = this.currentUser.weightUnits;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +40,8 @@ export class NewItemComponent implements OnInit {
       description: ['', [Validators.required]],
       height: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
       length: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      width: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+      width: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      weight: ['', [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
     });
   }
 
@@ -56,13 +58,18 @@ export class NewItemComponent implements OnInit {
     this.newItemForm.controls.height.setValue(evaluate(this.newItemForm.controls.height.value))
     this.newItemForm.controls.length.setValue(evaluate(this.newItemForm.controls.length.value))
     this.newItemForm.controls.width.setValue(evaluate(this.newItemForm.controls.width.value))
+    this.newItemForm.controls.weight.setValue(evaluate(this.newItemForm.controls.weight.value))
     //remove errors
     this.newItemForm.controls.height.setErrors(null)
     this.newItemForm.controls.length.setErrors(null)
     this.newItemForm.controls.width.setErrors(null)
+    this.newItemForm.controls.weight.setErrors(null)
 
     this.newItem = new Item(this.newItemForm.value)
     this.newItem.units = this.units
+
+    this.newItem.weightUnits = this.weightUnits
+
     this.itemsService.postItem(this.newItem).subscribe(newItem => {
       this.newItemRef.close(newItem);
     }, error => { this.close(); this.openCreateFailDialog(); }

@@ -4,11 +4,14 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../_services';
+import { SocialAuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
 
 export class LoginComponent implements OnInit {
-
+    loginWithGoogleClicked: boolean = false;
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private authService: SocialAuthService
     ) { }
 
     ngOnInit() {
@@ -31,9 +35,28 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.formControlValueChanged();
+
+        this.authService.authState.subscribe((user) => {
+            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+                if (this.loginWithGoogleClicked) {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                    })
+                }
+            })
+        });
     }
 
     loginFailValidator(): void { }
+
+    signInWithGoogle(): void {
+        this.loginWithGoogleClicked = true;
+        const googleLoginOptions = {
+            scope: 'profile email',
+            redirect_uri: "https://development.packagebeast.com/login",
+        }
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+    }
 
     formControlValueChanged() {
         this.loginForm.get('email').valueChanges.subscribe(

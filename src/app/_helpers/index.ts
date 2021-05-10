@@ -7,3 +7,4 @@ export * from './units.pipe';
 export * from './volume-units.pipe'
 export * from './subscription.guard'
 export * from './terms-of-service.guard'
+export * from './weight-units.pipe'

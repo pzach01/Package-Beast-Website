@@ -1,0 +1,48 @@
+<div class="d-flex flex-fill justify-content-center mb-3">
+    <h2>Ship From</h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="addressForm" autocomplete="off">
+                <mat-form-field class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('name')" placeholder="Name">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('phoneNumber')"
+                        placeholder="Phone Number">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Address Line 1</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('addressLine1')"
+                        placeholder="Address Line 1">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Address Line 2</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('addressLine2')"
+                        placeholder="Address Line 2">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>City</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('city')" placeholder="City">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>State/Province</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('stateProvinceCode')"
+                        placeholder="State/Province">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Country</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('country')" placeholder="Country">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Postal Code</mat-label>
+                    <input type="text" matInput [formControl]="addressForm.get('postalCode')" placeholder="Postal Code">
+                </mat-form-field>
+            </form>
+
+        </div>
+    </div>
+</div>

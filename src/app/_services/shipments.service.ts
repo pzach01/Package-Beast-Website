@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Shipment } from '../_models/shipment';
 import { environment } from 'src/environments/environment';
+import { Arrangement } from '../_models/arrangement';
+import { Quote } from '../_models/quote';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +13,34 @@ export class ShipmentsService {
 
   constructor(private http: HttpClient) { }
   getAll(): Observable<Shipment[]> {
-    return this.http.get<Shipment[]>(`${environment.API_BASE_URI}/arrangements/`);
+    return this.http.get<Shipment[]>(`${environment.API_BASE_URI}/shipments/`);
   }
   getShipmentById(shipmentId: number): Observable<Shipment> {
-    return this.http.get<Shipment>(`${environment.API_BASE_URI}/arrangements/${shipmentId}/`);
+    return this.http.get<Shipment>(`${environment.API_BASE_URI}/shipments/${shipmentId}/`);
   }
-  postArrangement(shipment: Shipment): Observable<Shipment> {
-    return this.http.post<Shipment>(`${environment.API_BASE_URI}/arrangements/`, shipment);
+
+  getArrangementById(arrangementID: number): Observable<Arrangement> {
+    return this.http.get<Arrangement>(`${environment.API_BASE_URI}/arrangements/${arrangementID}/`);
   }
-  deleteArrangement(shipment: Shipment): Observable<Shipment> {
-    return this.http.delete<Shipment>(`${environment.API_BASE_URI}/arrangements/${shipment.id}/`);
+
+  getQuoteById(quoteId: number): Observable<Quote> {
+    return this.http.get<Quote>(`${environment.API_BASE_URI}/quotes/${quoteId}/`);
+  }
+
+  postArrangement(arrangement: Arrangement): Observable<Arrangement> {
+    return this.http.post<Arrangement>(`${environment.API_BASE_URI}/arrangements/`, arrangement);
+  }
+
+  postShipment(shipment: Shipment): Observable<Shipment> {
+    console.log('shipment', shipment)
+    return this.http.post<Shipment>(`${environment.API_BASE_URI}/shipments/`, shipment);
+  }
+
+  setLastSelectedQuote(shipment: Shipment, quote: Quote): Observable<Shipment> {
+    return this.http.patch<Shipment>(`${environment.API_BASE_URI}/shipments/${shipment.id}/`, { "lastSelectedQuoteId": quote.id });
+  }
+
+  deleteArrangement(arrangement: Arrangement): Observable<Shipment> {
+    return this.http.delete<Shipment>(`${environment.API_BASE_URI}/arrangements/${arrangement.id}/`);
   }
 }

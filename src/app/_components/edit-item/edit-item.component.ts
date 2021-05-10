@@ -16,6 +16,7 @@ export class EditItemComponent implements OnInit {
   submitted = false;
   loading = false;
   units = this.editItem.units;
+  weightUnits = this.editItem.weightUnits
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +35,9 @@ export class EditItemComponent implements OnInit {
       description: [this.editItem.description, [Validators.required]],
       length: [this.editItem.length, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
       width: [this.editItem.width, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
-      height: [this.editItem.height, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+      height: [this.editItem.height, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]],
+      weight: [this.editItem.weight, [Validators.required, Validators.pattern(/^[0-9|.|+|-|*|\/]*$/)]]
+
     });
   }
 
@@ -55,13 +58,18 @@ export class EditItemComponent implements OnInit {
     this.editItemForm.controls.height.setValue(evaluate(this.editItemForm.controls.height.value))
     this.editItemForm.controls.length.setValue(evaluate(this.editItemForm.controls.length.value))
     this.editItemForm.controls.width.setValue(evaluate(this.editItemForm.controls.width.value))
+    this.editItemForm.controls.weight.setValue(evaluate(this.editItemForm.controls.weight.value))
+
     //remove errors
     this.editItemForm.controls.height.setErrors(null)
     this.editItemForm.controls.length.setErrors(null)
     this.editItemForm.controls.width.setErrors(null)
+    this.editItemForm.controls.weight.setErrors(null)
+
 
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
     this.editItem.units = this.units
+    this.editItem.weightUnits = this.weightUnits
     this.loading = true;
     this.itemsService.putItem(this.editItem).subscribe(editItem => this.editItemRef.close({ deletedItem: null, editedItem: editItem }))
   }

@@ -1,0 +1,90 @@
+<div class="view-container container d-flex flex-column overflow-hidden">
+    <div class="row mb-3 mt-3 no-shrink">
+        <div class="col text-center">
+            <h3>{{(shipment | async)?.title}} Quotes</h3>
+        </div>
+    </div>
+
+    <div class="row no-shrink">
+        <div class="col">
+            <p class="pt-5" *ngIf="!userHasQuotes && !loading">You have no quotes defined. To create a quote,
+                first create
+                at least one inventory item and one shipping container. Then, create a quote by
+                selecting "New Quote" above.</p>
+            <!-- <mat-form-field *ngIf="userHasQuotes && !loading" class="full-width">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Title or Date">
+            </mat-form-field> -->
+        </div>
+    </div>
+    <div [ngClass]='userHasQuotes && !loading ? "d-flex overflow-hidden": "d-none"'>
+
+        <div class="tbl-container w-100">
+            <table mat-table [dataSource]="dataSource" matSortActive="created" matSort class="mat-elevation-z8"
+                matSortDirection="desc">
+
+                <ng-container matColumnDef="selectedIcon">
+                    <th mat-header-cell *matHeaderCellDef>Selected</th>
+                    <td mat-cell *matCellDef="let quote">
+                        <fa-icon class="faCheckCircle" *ngIf="quote.id===(shipment | async)?.lastSelectedQuoteId"
+                            size="2x" [icon]="faCheckCircle"></fa-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        ID
+                    </th>
+                    <td mat-cell *matCellDef="let quote">
+                        {{quote.id}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="carrier">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Carrier</th>
+                    <td mat-cell *matCellDef="let quote">
+                        <fa-icon *ngIf="quote.carrier=='UPS'" size="2x" [icon]="faUps"></fa-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="cost">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Cost
+                    </th>
+                    <td mat-cell *matCellDef="let quote">
+                        ${{quote.cost}}
+                    </td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="daysToShip">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Days to Ship
+                    </th>
+                    <td mat-cell *matCellDef="let quote">
+                        {{quote.daysToShip}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="serviceDescription">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Service</th>
+                    <td mat-cell *matCellDef="let quote">
+                        {{quote.serviceDescription}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <!-- <tr [class.newOrEdited]="quote.id===(shipment | async)?.lastSelectedQuoteId" mat-row
+                    (click)="openQuoteDetail(quote)" *matRowDef="let quote; columns: displayedColumns;">
+                </tr> -->
+                <tr mat-row (click)="openQuoteDetail(quote)" *matRowDef="let quote; columns: displayedColumns;">
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center pt-5" *ngIf="loading" style="height: 50vh;">
+        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
+    </div>
+</div>

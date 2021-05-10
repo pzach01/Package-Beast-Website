@@ -17,5 +17,6 @@ export const environment = {
     priceId: 'price_1ICTkQJWFTMXIZUoyuuGwYpc',
     productId: 'prod_Io5w0g0GolhS70',
     price: 50
-  }
+  },
+  GOOGLE_CLIENT_ID_URI: '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com'
 };

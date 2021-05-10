@@ -48,7 +48,6 @@ export class ShipmentsComponent implements OnInit {
   //   document.querySelector('mat-sidenav-content').scrollTop = 100;
   // }
 
-
   openDialog(): void {
     const dialogRef = this.newShipmentDialog.open(NewShipmentComponent, {
       panelClass: 'custom-dialog-container',
@@ -58,7 +57,7 @@ export class ShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
-        this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id] } }]);
+        this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id, 'quotes'] } }]);
       }
       this.doesUserHaveShipments();
     });
@@ -74,6 +73,7 @@ export class ShipmentsComponent implements OnInit {
   }
 
   openShipmentDetail(shipment: Shipment) {
-    this.router.navigate(['./', { outlets: { view: ['shipments', shipment.id] } }]);
+    //this.router.navigate(['./', { outlets: { view: ['shipments', shipment.id] } }]);
+    this.router.navigate(['./', { outlets: { view: ['shipments', shipment.id, 'quotes'] } }], { state: { shipment: shipment } });
   }
 }

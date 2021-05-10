@@ -5,7 +5,9 @@ import { Timestamp } from 'src/app/_models/timestamp'
 import { environment } from 'src/environments/environment'
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-
+import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
+import { faClock } from '@fortawesome/free-regular-svg-icons'
+import { faRuler } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-settings',
@@ -16,12 +18,19 @@ export class SettingsComponent implements OnInit {
   envTitle = environment.SITE_TITLE;
   saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
+  faRuler = faRuler
+  faClock = faClock
+  faUps = faUps
+  faUsps = faUsps
   units = this.currentUser.units
+  weightUnits = this.currentUser.weightUnits
   dateTimeFormat = this.currentUser.dateTimeFormat
   multiBinPack = this.currentUser.multiBinPack
   disableFillContainerAnimation = this.currentUser.disableFillContainerAnimation
   disablePreviousNextItemAnimation = this.currentUser.disablePreviousNextItemAnimation
   animationSpeed = this.currentUser.animationSpeed
+  includeUpsContainers = this.currentUser.includeUpsContainers
+  includeUspsContainers = this.currentUser.includeUspsContainers
   buildTimestamp = Timestamp.timestamp;
   save$: Subscription
 
@@ -51,9 +60,13 @@ export class SettingsComponent implements OnInit {
     this.save$ = numAttempts.subscribe(() => {
       this.authenticationService.updateUser({
         units: this.units, dateTimeFormat: this.dateTimeFormat,
-        multiBinPack: this.multiBinPack, disableFillContainerAnimation: this.disableFillContainerAnimation,
+        weightUnits: this.weightUnits,
+        multiBinPack: this.multiBinPack,
+        disableFillContainerAnimation: this.disableFillContainerAnimation,
         disablePreviousNextItemAnimation: this.disablePreviousNextItemAnimation,
-        animationSpeed: this.animationSpeed
+        animationSpeed: this.animationSpeed,
+        includeUpsContainers: this.includeUpsContainers,
+        includeUspsContainers: this.includeUspsContainers
       })
         .subscribe(() => { this.saveStatusText = "Settings Saved!" })
     })

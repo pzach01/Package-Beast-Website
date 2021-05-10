@@ -1,4 +1,4 @@
-﻿import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+﻿import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -7,8 +7,12 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { AlertService, AuthenticationService } from '../../_services';
 
+import { SocialAuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
+    loginWithGoogleClicked: boolean = false;
     faFacebookSquare = faFacebookSquare;
     faTwitterSquare = faTwitterSquare;
     faYoutubeSquare = faYoutubeSquare;
@@ -20,15 +24,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     serverPasswordError: string = "";
     serverRecaptchaError: string = "";
 
-
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private authService: SocialAuthService
     ) { }
+
 
     ngOnInit() {
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -41,9 +46,29 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }, {
             validator: MustMatch('password1', 'password2')
         });
+
+        this.authService.authState.subscribe((user) => {
+            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+                if (this.loginWithGoogleClicked) {
+                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
+                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                    })
+                }
+            })
+        });
+    }
+
+    signInWithGoogle(): void {
+        console.log("clicked")
+        this.loginWithGoogleClicked = true;
+        const googleLoginOptions = {
+            scope: 'profile email'
+        }
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
 
     ngAfterViewInit(): void {
+        // this.googleInit();
         this.cdr.detectChanges();
     }
 

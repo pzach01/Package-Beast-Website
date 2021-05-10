@@ -44,6 +44,7 @@ import { ReviewShipmentComponent } from './_components/review-shipment/review-sh
 import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
 import { RenderingComponent } from './_components/rendering/rendering.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BillingComponent } from './_components/billing/billing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSliderModule } from '@angular/material/slider';
@@ -67,7 +68,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { CreateFailDialogComponent } from './_components/create-fail-dialog/create-fail-dialog.component';
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
+// import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
@@ -79,6 +80,14 @@ import { PaymentMethodChangeSuccessComponent } from './_components/payment-metho
 import { SubscriptionDowngradeSuccessComponent } from './_components/subscription-downgrade-success/subscription-downgrade-success.component';
 import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component';
 import { DemoComponent } from './demo/demo.component'
+
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { WeightUnitsPipe } from './_helpers/weight-units.pipe';
+import { ShipFromComponent } from './_components/ship-from/ship-from.component';
+import { ShipToComponent } from './_components/ship-to/ship-to.component';
+import { QuoteListComponent } from './_components/quote-list/quote-list.component';
+import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -104,8 +113,12 @@ const appRoutes: Routes = [
   {
     path: 'shipments/:id',
     outlet: 'view',
-    component: ShipmentDetailComponent,
-    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard],
+    children: [
+      { path: '', component: ShipmentDetailComponent },
+      { path: 'quotes', component: QuoteListComponent },
+      { path: 'quotes/:quoteId', component: ArrangementDetailComponent }
+    ]
   },
   {
     path: 'inventory',
@@ -222,9 +235,14 @@ const appRoutes: Routes = [
     PaymentMethodChangeSuccessComponent,
     SubscriptionDowngradeSuccessComponent,
     EditUserInformationComponent,
-    DemoComponent],
+    DemoComponent,
+    WeightUnitsPipe,
+    ShipFromComponent,
+    ShipToComponent,
+    QuoteListComponent,
+    ArrangementDetailComponent],
   imports: [
-    MatCarouselModule.forRoot(),
+    // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       {
@@ -256,10 +274,12 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     FontAwesomeModule,
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
+    SocialLoginModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [
@@ -277,7 +297,7 @@ const appRoutes: Routes = [
     CancelSubscriptionConfirmationComponent,
     ReviewPaymentDialogComponent,
     PaymentErrorDialogComponent,
-    ChangePasswordCompleteDialogComponent
+    ChangePasswordCompleteDialogComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -286,7 +306,21 @@ const appRoutes: Routes = [
     DatePipe,
     UnitsPipe,
     VolumeUnitsPipe,
-    DecimalPipe
+    DecimalPipe,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              environment.GOOGLE_CLIENT_ID_URI
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent],
   exports: []

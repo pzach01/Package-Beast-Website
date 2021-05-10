@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AuthenticationService } from 'src/app/_services';
 import { UnitsPipe, VolumeUnitsPipe } from 'src/app/_helpers';
 import { DecimalPipe } from '@angular/common';
+import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
 
 @Component({
   selector: 'app-containers-selection',
@@ -14,9 +15,12 @@ import { DecimalPipe } from '@angular/common';
   styleUrls: ['./containers-selection.component.scss']
 })
 export class ContainersSelectionComponent implements OnInit {
-
+  faUps = faUps
+  faUsps = faUsps
   currentUser = this.authenticationService.currentUserValue;
   containers: Container[];
+  includeUpsContainers: boolean = this.currentUser.includeUpsContainers;
+  includeUspsContainers: boolean = this.currentUser.includeUspsContainers;
   dataSource;
   displayedColumns: string[] = ['select', 'sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
   selection = new SelectionModel<Container>(true, []);
@@ -26,7 +30,8 @@ export class ContainersSelectionComponent implements OnInit {
   constructor(private containersservice: ContainersService, private authenticationService: AuthenticationService, private unitsPipe: UnitsPipe, private volumeUnitsPipe: VolumeUnitsPipe, private decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    console.log('currentUser', this.currentUser)
+    this.authenticationService.currentUser.subscribe((currentUser) => { this.currentUser = currentUser; this.includeUpsContainers = currentUser.includeUpsContainers; this.includeUspsContainers = currentUser.includeUspsContainers })
     this.containersservice.getAll().subscribe(containers => {
       if (containers.length == 0) {
         this.userHasContainers = false

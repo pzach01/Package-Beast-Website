@@ -14,13 +14,15 @@ export class ReviewShipmentComponent implements OnChanges, OnInit {
   @Input() selectedContainers: Container[];
   currentUser = this.authenticationService.currentUserValue;
   multiBinPack: boolean = this.currentUser.multiBinPack;
-  itemsDataSource = new MatTableDataSource(this.selectedItems);
-  containersDataSource = new MatTableDataSource(this.selectedContainers);
+  itemsDataSource;
+  containersDataSource;
   itemsDisplayedColumns: string[] = ['sku', 'description', 'qty'];
   containersDisplayedColumns: string[] = ['sku', 'description', 'xDim', 'zDim', 'yDim', 'volume'];
   constructor(private authenticationService: AuthenticationService) { }
   allowAnalysis: boolean = false;
   ngOnInit() {
+    this.itemsDataSource = new MatTableDataSource(this.selectedItems);
+    this.containersDataSource = new MatTableDataSource(this.selectedContainers);
     this.checkItemsAndContainersSelected()
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
   }
