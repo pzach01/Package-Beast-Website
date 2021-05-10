@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment'
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
-
+import { faClock } from '@fortawesome/free-regular-svg-icons'
+import { faRuler } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +18,8 @@ export class SettingsComponent implements OnInit {
   envTitle = environment.SITE_TITLE;
   saveStatusText: string = "Settings Saved!"
   currentUser = this.authenticationService.currentUserValue;
+  faRuler = faRuler
+  faClock = faClock
   faUps = faUps
   faUsps = faUsps
   units = this.currentUser.units

@@ -44,6 +44,7 @@ import { ReviewShipmentComponent } from './_components/review-shipment/review-sh
 import { ShipmentDetailComponent } from './_components/shipment-detail/shipment-detail.component';
 import { RenderingComponent } from './_components/rendering/rendering.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BillingComponent } from './_components/billing/billing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSliderModule } from '@angular/material/slider';
@@ -273,6 +274,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     FontAwesomeModule,
     MatSliderModule,
     MatProgressBarModule,

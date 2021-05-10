@@ -3,19 +3,38 @@
     <h2 *ngIf="!userHasContainers">No shipping containers have been created!</h2>
 </div>
 
-<div class="d-flex justify-content-start mb-3">
-    <mat-checkbox [checked]="includeUpsContainers" (change)="includeUpsContainers=!includeUpsContainers">
-        <fa-icon class="icon mx-2" size="2x" [icon]="faUps"> </fa-icon>
-        Include flat-rate and standard UPS shipping containers in quotes {{includeUpsContainers}}
-    </mat-checkbox>
-</div>
+<mat-accordion>
+    <!-- #enddocregion basic-panel -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                3rd Party Shipping Containers
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+                Panel Description
+            </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div class="d-flex justify-content-start mb-3">
+            <mat-checkbox [checked]="includeUpsContainers" (change)="includeUpsContainers=!includeUpsContainers">
+                <fa-icon class="icon mx-2" size="2x" [icon]="faUps"> </fa-icon>
+                Include flat-rate and standard UPS shipping containers in quotes
+            </mat-checkbox>
+        </div>
 
-<div class="d-flex justify-content-start mb-3">
-    <mat-checkbox [checked]="includeUspsContainers" (change)="includeUspsContainers=!includeUspsContainers">
-        <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
-        Include flat-rate and standard USPS shipping containers in quotes {{includeUspsContainers}}
-    </mat-checkbox>
-</div>
+        <div class="d-flex justify-content-start mb-3">
+            <mat-checkbox [checked]="includeUspsContainers" (change)="includeUspsContainers=!includeUspsContainers">
+                <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
+                Include flat-rate and standard USPS shipping containers in quotes
+            </mat-checkbox>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+        Use of this source code is governed by an MIT-style license that
+        can be found in the LICENSE file at http://angular.io/license -->
+
 
 <!-- <button class="btn btn-primary" (click)="openDialog()">New Container</button> -->
 

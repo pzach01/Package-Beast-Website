@@ -4,91 +4,156 @@
             <h3>Settings</h3>
         </div>
 
-        <mat-form-field class="full-width" appearance="standard">
-            <mat-label>Units</mat-label>
-            <mat-select [(value)]="units" (selectionChange)="save()">
-                <mat-option value="in">
-                    Inches
-                </mat-option>
-                <mat-option value="cm">
-                    Centimeters
-                </mat-option>
-                <mat-option value="mm">
-                    Millimeters
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="full-width" appearance="standard">
-            <mat-label>Weight Units</mat-label>
-            <mat-select [(value)]="weightUnits" (selectionChange)="save()">
-                <mat-option value="lb">
-                    Pounds
-                </mat-option>
-                <mat-option value="kg">
-                    Kilograms
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="full-width" appearance="standard">
-            <mat-label>Date/Time Format</mat-label>
-            <mat-select [(value)]="dateTimeFormat" (selectionChange)="save()">
-                <mat-option value="MMM d, yyyy, h:mm aa">
-                    Jan 1, 2020, 1:00 PM
-                </mat-option>
-                <mat-option value="MMM d, yyyy, HHmm">
-                    Jan 1, 2020, 1300
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
         <!-- <div class="full-width">
         <mat-checkbox [checked]="multiBinPack" (change)="multiBinPack=!multiBinPack">
             Pack items in multiple containers to minimize total shipping volume
         </mat-checkbox>
     </div> -->
 
-        <div class="d-flex justify-content-start mb-3">
-            <mat-checkbox [checked]="disableFillContainerAnimation"
-                (change)="disableFillContainerAnimation=!disableFillContainerAnimation; save()">Disable container fill
-                animation
-            </mat-checkbox>
-        </div>
 
-        <div class="d-flex justify-content-start mb-3">
-            <mat-checkbox [checked]="disablePreviousNextItemAnimation"
-                (change)="disablePreviousNextItemAnimation=!disablePreviousNextItemAnimation; save()">Disable
-                previous/next item
-                animation
-            </mat-checkbox>
-        </div>
 
-        <div class="d-flex justify-content-start mb-3">
-            <span>Animation speed:<span *ngIf="disableFillContainerAnimation && disablePreviousNextItemAnimation">
-                    disabled</span><span *ngIf="!disableFillContainerAnimation || !disablePreviousNextItemAnimation">
-                    {{animationSpeed}}</span>
-                <mat-slider [disabled]="disableFillContainerAnimation && disablePreviousNextItemAnimation"
-                    (change)="save()" [max]="100" [min]="1" [step]="1" [thumbLabel]="true" [(ngModel)]="animationSpeed">
-                </mat-slider>
-            </span>
-        </div>
+        <mat-accordion>
 
-        <div class="d-flex justify-content-start mb-3">
-            <mat-checkbox [checked]="includeUpsContainers"
-                (change)="includeUpsContainers=!includeUpsContainers; save()">
-                <fa-icon class="icon mx-2" size="2x" [icon]="faUps"> </fa-icon>
-                Include flat-rate and standard UPS shipping containers in quotes
-            </mat-checkbox>
-        </div>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>
+                            <fa-icon class="icon mr-2" size="2x" [icon]="faRuler"> </fa-icon>
+                            Units Settings
+                        </span>
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                        Panel Description
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
 
-        <div class="d-flex justify-content-start mb-3">
-            <mat-checkbox [checked]="includeUspsContainers"
-                (change)="includeUspsContainers=!includeUspsContainers; save()">
-                <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
-                Include flat-rate and standard USPS shipping containers in quotes
-            </mat-checkbox>
-        </div>
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Units</mat-label>
+                    <mat-select [(value)]="units" (selectionChange)="save()">
+                        <mat-option value="in">
+                            Inches
+                        </mat-option>
+                        <mat-option value="cm">
+                            Centimeters
+                        </mat-option>
+                        <mat-option value="mm">
+                            Millimeters
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Weight Units</mat-label>
+                    <mat-select [(value)]="weightUnits" (selectionChange)="save()">
+                        <mat-option value="lb">
+                            Pounds
+                        </mat-option>
+                        <mat-option value="kg">
+                            Kilograms
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>
+                            <fa-icon class="icon mr-2" size="2x" [icon]="faClock"> </fa-icon>
+                            Time Settings
+                        </span>
+                    </mat-panel-title>
+
+                    <!-- <mat-panel-description>
+                        Panel Description
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Date/Time Format</mat-label>
+                    <mat-select [(value)]="dateTimeFormat" (selectionChange)="save()">
+                        <mat-option value="MMM d, yyyy, h:mm aa">
+                            Jan 1, 2020, 1:00 PM
+                        </mat-option>
+                        <mat-option value="MMM d, yyyy, HHmm">
+                            Jan 1, 2020, 1300
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span>
+                            <fa-icon class="icon" size="2x" [icon]="faUps"> </fa-icon>
+                            <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
+
+                            3rd Party Shipping Container Settings
+                        </span>
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <div class="d-flex justify-content-start mb-3">
+                    <mat-checkbox [checked]="includeUpsContainers"
+                        (change)="includeUpsContainers=!includeUpsContainers; save()">
+                        <fa-icon class="icon mx-2" size="2x" [icon]="faUps"> </fa-icon>
+                        Include flat-rate and standard UPS shipping containers in quotes
+                    </mat-checkbox>
+                </div>
+
+                <div class="d-flex justify-content-start mb-3">
+                    <mat-checkbox [checked]="includeUspsContainers"
+                        (change)="includeUspsContainers=!includeUspsContainers; save()">
+                        <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
+                        Include flat-rate and standard USPS shipping containers in quotes
+                    </mat-checkbox>
+                </div>
+
+
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Animation Settings
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                        Panel Description
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <div class="d-flex justify-content-start mb-3">
+                    <mat-checkbox [checked]="disableFillContainerAnimation"
+                        (change)="disableFillContainerAnimation=!disableFillContainerAnimation; save()">Disable
+                        container fill
+                        animation
+                    </mat-checkbox>
+                </div>
+
+                <div class="d-flex justify-content-start mb-3">
+                    <mat-checkbox [checked]="disablePreviousNextItemAnimation"
+                        (change)="disablePreviousNextItemAnimation=!disablePreviousNextItemAnimation; save()">Disable
+                        previous/next item
+                        animation
+                    </mat-checkbox>
+                </div>
+
+                <div class="d-flex justify-content-start mb-3">
+                    <span>Animation speed:<span
+                            *ngIf="disableFillContainerAnimation && disablePreviousNextItemAnimation">
+                            disabled</span><span
+                            *ngIf="!disableFillContainerAnimation || !disablePreviousNextItemAnimation">
+                            {{animationSpeed}}</span>
+                        <mat-slider [disabled]="disableFillContainerAnimation && disablePreviousNextItemAnimation"
+                            (change)="save()" [max]="100" [min]="1" [step]="1" [thumbLabel]="true"
+                            [(ngModel)]="animationSpeed">
+                        </mat-slider>
+                    </span>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
 
 
         <div class="d-flex justify-content-start mb-3">
