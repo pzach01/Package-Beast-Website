@@ -12,7 +12,6 @@
   },
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@angular/animations": "~11.2.13",
     "@angular/cdk": "^11.2.12",
     "@angular/common": "~11.2.13",
@@ -39,35 +38,6 @@
     "threejs-meshline": "^2.0.12",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
-=======
-    "@angular/animations": "~9.1.4",
-    "@angular/cdk": "^9.2.2",
-    "@angular/common": "~9.1.4",
-    "@angular/compiler": "~9.1.4",
-    "@angular/core": "~9.1.4",
-    "@angular/forms": "~9.1.4",
-    "@angular/material": "^9.2.2",
-    "@angular/platform-browser": "~9.1.4",
-    "@angular/platform-browser-dynamic": "~9.1.4",
-    "@angular/router": "~9.1.4",
-    "@fortawesome/angular-fontawesome": "^0.6.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.29",
-    "@fortawesome/free-brands-svg-icons": "^5.14.0",
-    "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.13.1",
-    "@ngbmodule/material-carousel": "^0.7.1",
-    "@stripe/stripe-js": "^1.11.0",
-    "angularx-social-login": "^3.5.4",
-    "bootstrap": "^4.4.1",
-    "mathjs": "^7.0.1",
-    "ng-recaptcha": "^6.0.2",
-    "ngx-stripe": "9.0.3",
-    "rxjs": "~6.5.4",
-    "three": "^0.117.1",
-    "threejs-meshline": "^2.0.11",
-    "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
->>>>>>> development
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.12",
