@@ -2,7 +2,7 @@
     <mat-sidenav-container fullscreen [hasBackdrop]="false">
         <mat-sidenav class="drawer-edge" #snav position="start" mode="side" opened="true" fixedTopGap="0"
             fixedInViewport="true">
-            <mat-nav-list class="mr-1">
+            <mat-nav-list class="me-1">
                 <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'inventory' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCube"></fa-icon> Inventory

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-6">
             <div class="row">
-                <p class="ml-3 mt-0 mb-0 mr-0 p-0 text-left"><strong>Container</strong> SKU: {{container.sku}} |
+                <p class="ms-3 mt-0 mb-0 me-0 p-0 text-left"><strong>Container</strong> SKU: {{container.sku}} |
                     Description:
                     {{container.description}} | Dimensions:
                     {{container.yDim | units: container.units: currentUser.units | number:'1.0-3'}} x
@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                 <ng-container *ngIf="clickedItem">
-                    <p class="ml-3 mt-0 mb-0 mr-0 p-0 text-left"><strong>Selected Item</strong> SKU: {{clickedItem.sku}}
+                    <p class="ms-3 mt-0 mb-0 me-0 p-0 text-left"><strong>Selected Item</strong> SKU: {{clickedItem.sku}}
                         |
                         Description:
                         {{clickedItem.description}} |
@@ -23,7 +23,7 @@
                         {{currentUser.units}}</p>
                 </ng-container>
                 <ng-container *ngIf="!clickedItem">
-                    <div class="ml-3">
+                    <div class="ms-3">
                         <p class="m-0 p-0">Select an item to display item details.</p>
                     </div>
                 </ng-container>
