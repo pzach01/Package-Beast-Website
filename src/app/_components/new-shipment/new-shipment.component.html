@@ -40,7 +40,7 @@
             mat-raised-button (click)="stepper.next()" type="button">Next</button>
         <button *ngIf="stepper.selectedIndex == 4" class="empty-space" [disabled]="loading || !allowAnalysis"
             color="primary" mat-raised-button (click)="analyze()" type="button">Analyze</button>
-        <div class="pl-2 pr-2" *ngIf=loading>
+        <div class="ps-2 pe-2" *ngIf=loading>
             <mat-progress-spinner mode="determinate" [value]="spinnerValue" color="accent">
             </mat-progress-spinner>
             <div class="percent-complete">{{spinnerValue | number: '1.0-0'}}%</div>

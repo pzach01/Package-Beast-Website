@@ -15,8 +15,8 @@
         </div>
     </div>
     <div *ngIf="!loading" class="container-fluid">
-        <div class="row pr-lg-3">
-            <div class="col-lg-4 pr-lg-0">
+        <div class="row pe-lg-3">
+            <div class="col-lg-4 pe-lg-0">
                 <div class="pt-3">
                     <mat-card class="pricing-card"
                         [ngClass]="{'selectedSubscriptionType': subscriptionType === 'standard' && subscriptionInfo.subscriptionActive}">
@@ -68,7 +68,7 @@
                     </mat-card>
                 </div>
             </div>
-            <div class="col-lg-4 pr-lg-0">
+            <div class="col-lg-4 pe-lg-0">
                 <div class="pt-3">
                     <mat-card class="pricing-card"
                         [ngClass]="{'selectedSubscriptionType': subscriptionType === 'premium' && subscriptionInfo.subscriptionActive}">
@@ -124,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 pr-lg-0">
+            <div class="col-lg-4 pe-lg-0">
                 <div class="py-3">
                     <mat-card class="pricing-card"
                         [ngClass]="{'selectedSubscriptionType': subscriptionType === 'beastMode'}">
