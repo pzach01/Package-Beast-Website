@@ -8,9 +8,9 @@ describe('TermsOfServiceDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TermsOfServiceDialogComponent ]
+      declarations: [TermsOfServiceDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

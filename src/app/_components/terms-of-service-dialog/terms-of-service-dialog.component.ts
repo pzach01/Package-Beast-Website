@@ -19,6 +19,7 @@ export class TermsOfServiceDialogComponent implements OnInit {
     this.authenticationService.updateUser({
       usersTermsOfServiceRevision: this.authenticationService.currentUserValue.termsOfServiceRevision
     }).subscribe(() => this.termsOfServiceDialogRef.close());
+
   }
 
 }
