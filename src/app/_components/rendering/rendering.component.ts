@@ -1,15 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Shipment } from 'src/app/_models/shipment';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
-import { MeshLine, MeshLineMaterial } from 'threejs-meshline'
 import { AuthenticationService } from 'src/app/_services';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/_models/user';
-
 
 @Component({
   selector: 'app-rendering',
@@ -85,14 +83,13 @@ export class RenderingComponent implements OnInit, AfterViewInit {
     this.setCameraAndControls();
     this.animate();
     this.rendererContainer.nativeElement
-      .addEventListener('mousedown', this.onMouseOrTouch.bind(this));
+      .addEventListener('pointerdown', this.onMouseOrTouch.bind(this));
     this.rendererContainer.nativeElement
       .addEventListener('touchstart', this.onMouseOrTouch.bind(this));
     this.rendererContainer.nativeElement.addEventListener('keydown', this.keyDown.bind(this))
   }
 
   onWindowResize(event?) {
-    console.log(window.innerWidth)
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     if (window.innerWidth <= 768) {
@@ -216,12 +213,23 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   drawLineFromVertices(v1, v2, color, lineWidth) {
+    const material = new THREE.LineBasicMaterial({ color: color });
     const vertices = [v1, v2]
-    const line = new MeshLine();
-    line.setVertices(vertices);
-    const lineMaterial = new MeshLineMaterial({ color: new THREE.Color(color), useMap: 0, lineWidth: lineWidth })
-    return new THREE.Mesh(line, lineMaterial)
-
+    const geometry = new THREE.BufferGeometry().setFromPoints(vertices)
+    const line = new THREE.Line(geometry, material);
+    return line
+    // const vertices = [v1, v2]
+    // console.log(vertices, color, lineWidth)
+    // let geometry = new THREE.BufferGeometry();
+    // geometry.vertices.push(vertices)
+    // let line = new MeshLine()
+    // console.log(line)
+    // console.log(vertices)
+    // line.points = geometry
+    // console.log('a', line)
+    // const lineMaterial = new MeshLineMaterial({ color: new THREE.Color(color), useMap: 0, lineWidth: lineWidth })
+    // console.log(lineMaterial)
+    // return new THREE.Mesh(line)
   }
 
   generateContainerCube() {
@@ -322,7 +330,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       var y = event.targetTouches[0].pageY - rect.top;
       this.mouse.x = (x / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (y / (this.vhPercent * window.innerHeight)) * 2 + 1;
-    } else if (event.type == "mousedown") {
+    } else if (event.type == "pointerdown") {
+      console.log('hello')
       this.mouse.x = (event.offsetX / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }
