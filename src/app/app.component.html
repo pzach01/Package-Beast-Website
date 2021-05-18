@@ -1,9 +1,18 @@
 <!-- main app container -->
 <div class="app-full-height" *ngIf="currentUser">
-    <app-dashboard></app-dashboard>
+    <div>Hello User</div>
 </div>
 
 <!-- main app container  -->
 <div class="app-full-height" *ngIf="!currentUser">
-    <router-outlet></router-outlet>
+    <div>No user</div>
 </div>
+
+<!-- main app container -->
+<!-- <div class="app-full-height" *ngIf="currentUser">
+    <app-dashboard></app-dashboard>
+</div>
+
+<div class="app-full-height" *ngIf="!currentUser">
+    <router-outlet></router-outlet>
+</div> -->
