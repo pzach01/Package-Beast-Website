@@ -92,7 +92,8 @@ import { ArrangementDetailComponent } from './_components/arrangement-detail/arr
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
   //Authentication redirect guard redirects to dashboard if user is authenticated
-  { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
+  // { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: '', component: RegisterComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'register', redirectTo: '' },
   { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
