@@ -3,27 +3,27 @@
         <mat-sidenav class="drawer-edge" #snav position="start" mode="side" opened="true" fixedTopGap="0"
             fixedInViewport="true">
             <mat-nav-list class="me-1">
-                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'inventory' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCube"></fa-icon> Inventory
                 </a>
-                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'containers' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faBoxOpen"></fa-icon>Containers
                 </a>
-                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'shipments' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faTruck"></fa-icon>Shipments
                 </a>
-                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'settings' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCog"></fa-icon>Settings
                 </a>
-                <a [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
                     [routerLink]="[{ outlets: { view: 'billing' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCC"></fa-icon>Billing
                 </a>
-                <a mat-list-item routerLinkActive="active" (click)="logout()">
+                <a [disableRipple]="true" mat-list-item routerLinkActive="active" (click)="logout()">
                     <fa-icon class="nav-icon p-1" [icon]="faSignOutAlt"></fa-icon>Logout
                 </a>
             </mat-nav-list>

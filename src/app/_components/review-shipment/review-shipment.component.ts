@@ -27,8 +27,12 @@ export class ReviewShipmentComponent implements OnChanges, OnInit {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
   }
   ngOnChanges() {
-    this.itemsDataSource.data = this.selectedItems;
-    this.containersDataSource.data = this.selectedContainers;
+    if (this.selectedItems != null) {
+      this.itemsDataSource.data = this.selectedItems;
+    }
+    if (this.selectedContainers != null) {
+      this.containersDataSource.data = this.selectedContainers;
+    }
     this.checkItemsAndContainersSelected()
   }
   checkItemsAndContainersSelected() {

@@ -30,7 +30,6 @@ export class ContainersSelectionComponent implements OnInit {
   constructor(private containersservice: ContainersService, private authenticationService: AuthenticationService, private unitsPipe: UnitsPipe, private volumeUnitsPipe: VolumeUnitsPipe, private decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
-    console.log('currentUser', this.currentUser)
     this.authenticationService.currentUser.subscribe((currentUser) => { this.currentUser = currentUser; this.includeUpsContainers = currentUser.includeUpsContainers; this.includeUspsContainers = currentUser.includeUspsContainers })
     this.containersservice.getAll().subscribe(containers => {
       if (containers.length == 0) {
