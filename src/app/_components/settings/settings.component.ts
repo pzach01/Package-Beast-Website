@@ -7,7 +7,7 @@ import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
 import { faClock } from '@fortawesome/free-regular-svg-icons'
-import { faRuler } from '@fortawesome/free-solid-svg-icons'
+import { faRuler, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-settings',
@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit {
   faClock = faClock
   faUps = faUps
   faUsps = faUsps
+  faSpinner = faSpinner
   units = this.currentUser.units
   weightUnits = this.currentUser.weightUnits
   dateTimeFormat = this.currentUser.dateTimeFormat

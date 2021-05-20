@@ -53,6 +53,8 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.onWindowResize()
+
     this.authenticationService.currentUser.subscribe((currentUser) => {
       if (currentUser) { this.currentUser = currentUser } else {
         this.currentUser = new User();
@@ -73,7 +75,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.onWindowResize()
     // this.renderer.setSize((.67 * window.innerWidth), this.vhPercent * window.innerHeight);
     this.renderer.setClearColor(0xffffff, 1);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
@@ -90,6 +91,7 @@ export class RenderingComponent implements OnInit, AfterViewInit {
   }
 
   onWindowResize(event?) {
+    console.log("resize")
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     if (window.innerWidth <= 768) {
@@ -331,7 +333,6 @@ export class RenderingComponent implements OnInit, AfterViewInit {
       this.mouse.x = (x / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (y / (this.vhPercent * window.innerHeight)) * 2 + 1;
     } else if (event.type == "pointerdown") {
-      console.log('hello')
       this.mouse.x = (event.offsetX / (this.rendererWidthPercent * window.innerWidth)) * 2 - 1;
       this.mouse.y = - (event.offsetY / (this.vhPercent * window.innerHeight)) * 2 + 1;
     }

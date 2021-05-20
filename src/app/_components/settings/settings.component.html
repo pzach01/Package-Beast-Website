@@ -10,16 +10,13 @@
         </mat-checkbox>
     </div> -->
 
-
-
         <mat-accordion>
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <span>
                             <fa-icon class="icon me-2" size="2x" [icon]="faRuler"> </fa-icon>
-                            Units Settings
+                            Units
                         </span>
                     </mat-panel-title>
                     <!-- <mat-panel-description>
@@ -61,7 +58,7 @@
                     <mat-panel-title>
                         <span>
                             <fa-icon class="icon me-2" size="2x" [icon]="faClock"> </fa-icon>
-                            Time Settings
+                            Time
                         </span>
                     </mat-panel-title>
 
@@ -87,11 +84,15 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <span>
+                        <span class="d-none d-sm-block">
                             <fa-icon class="icon" size="2x" [icon]="faUps"> </fa-icon>
                             <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
-
-                            3rd Party Shipping Container Settings
+                            3rd Party Shipping Containers
+                        </span>
+                        <span class="d-block d-sm-none">
+                            <fa-icon class="icon" size="2x" [icon]="faUps"> </fa-icon>
+                            <fa-icon class="icon mx-2" size="2x" [icon]="faUsps"> </fa-icon>
+                            3rd Party Containers
                         </span>
                     </mat-panel-title>
                     <!-- <mat-panel-description>
@@ -118,7 +119,10 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        Animation Settings
+                        <span>
+                            <fa-icon class="icon" size="2x me-2" [icon]="faSpinner"> </fa-icon>
+                            Animation
+                        </span>
                     </mat-panel-title>
                     <!-- <mat-panel-description>
                         Panel Description
@@ -156,7 +160,7 @@
         </mat-accordion>
 
 
-        <div class="d-flex justify-content-start mb-3">
+        <div class="d-flex justify-content-start my-3">
             <p class="text-danger m-0 p-0">{{saveStatusText}}</p>
         </div>
         <div class="d-flex justify-content-start mb-3">
