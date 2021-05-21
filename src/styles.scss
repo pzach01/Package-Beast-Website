@@ -104,13 +104,14 @@ input:-webkit-autofill:active  {
     border-width: 1px;
  }
 
-.close {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    min-width: auto;
-    font-size: 36px;
+ .close-button{
+    float: right;
+    top:-24px;
+    right:-24px;
   }
+  .mat-button-focus-overlay {
+    background-color: transparent!important;
+}
 
 .mat-row:hover {
     background-color: lightgray;

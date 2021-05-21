@@ -1,5 +1,6 @@
-<button *ngIf="!data.forceAgree" type="button" class="close" mat-button mat-dialog-close aria-label="Close"><span
-        aria-hidden="true">×</span></button>
+<button *ngIf="!data.forceAgree" mat-icon-button mat-dialog-close class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
 <h2 mat-dialog-title>Terms of Service Statement</h2>
 <mat-dialog-content class="mat-typography">
     <h3>Last Updated January 1, 2021.</h3>
