@@ -1,7 +1,7 @@
+<button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
 <div class="fixActionRow">
-    <button mat-icon-button class="close-button" (click)="close()">
-        <mat-icon class="close-icon" color="warn">close</mat-icon>
-    </button>
     <h1 mat-dialog-title>
         <mat-form-field class="full-width">
             <mat-label>Title</mat-label>
@@ -33,7 +33,6 @@
             </mat-step>
         </mat-horizontal-stepper>
     </mat-dialog-content>
-    <div class="empty-space"></div>
 
     <mat-dialog-actions>
         <button *ngIf="stepper.selectedIndex > 0" class="empty-space" [disabled]="loading" color="primary"
@@ -47,9 +46,8 @@
             </mat-progress-spinner>
             <div class="percent-complete">{{spinnerValue | number: '1.0-0'}}%</div>
         </div>
-
-        <mat-progress-bar style="height: 10px;" class="py-3" color="accent" mode="determinate" [value]="spinnerValue">
-        </mat-progress-bar>
+        <!-- <mat-progress-bar style="height: 10px;" class="py-3" color="accent" mode="determinate" [value]="spinnerValue">
+        </mat-progress-bar> -->
 
     </mat-dialog-actions>
 
