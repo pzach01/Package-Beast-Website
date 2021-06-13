@@ -45,6 +45,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Carrier</th>
                     <td mat-cell *matCellDef="let quote">
                         <fa-icon *ngIf="quote.carrier=='UPS'" size="2x" [icon]="faUps"></fa-icon>
+                        <fa-icon *ngIf="quote.carrier=='USPS'" size="2x" [icon]="faUsps"></fa-icon>
                     </td>
                 </ng-container>
 

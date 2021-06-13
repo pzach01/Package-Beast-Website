@@ -1,5 +1,39 @@
+@import '../../../theme.scss';
+
 .percent-complete {
     position:relative; 
     top: -60px; 
     left: 30px;
 }
+
+//   ::ng-deep .mat-stepper-horizontal {
+//       background-color: pink;
+//       height:100vh;
+//       position:relative;
+//       overflow: hidden;
+//     }
+
+// ::ng-deep .mat-horizontal-stepper-header-container
+// {
+//   overflow-x: auto;
+// }
+// ::ng-deep .mat-horizontal-stepper-header
+// {
+//   min-width: fit-content;
+// }
+
+//    ::ng-deep .mat-horizontal-content-container {
+//        background-color: green;
+//        position: relative;
+//        height: 100vh;
+//        overflow: hidden;
+//      }
+
+// ::ng-deep .mat-horizontal-stepper-header-container {
+//       background-color: turquoise;
+//     }
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: mat-color($app-accent);
+    overflow: hidden;
+    }

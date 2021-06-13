@@ -8,6 +8,7 @@
     <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="SKU or Description">
 </mat-form-field>
 
+
 <div class="d-flex flex-column justify-content-center mb-3">
     <div class="d-flex flex-row overflow-hidden">
         <div *ngIf="!userHasItems">
@@ -15,7 +16,7 @@
                 shipment. Select
                 "Inventory" in the main menu to create an inventory item.</p>
         </div>
-        <div [ngClass]='userHasItems ? "tbl-container w-100": "d-none"'>
+        <div [ngClass]='userHasItems ? "selection-tbl-container w-100": "d-none"'>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                 <ng-container matColumnDef="select">

@@ -4,10 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of } from 'rxjs';
 import { Quote } from 'src/app/_models/quote';
 import { Shipment } from 'src/app/_models/shipment';
-import { faUps } from '@fortawesome/free-brands-svg-icons'
+import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { ShipmentsService } from 'src/app/_services/shipments.service';
-import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -17,6 +17,7 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 })
 export class QuoteListComponent implements OnInit {
   faUps = faUps;
+  faUsps = faUsps;
   faCheckCircle = faCheckCircle;
   displayedColumns: string[] = ["selectedIcon", "carrier", "cost", "daysToShip", "serviceDescription"];
   dataSource;

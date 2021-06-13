@@ -107,8 +107,11 @@ const appRoutes: Routes = [
   {
     path: 'shipments',
     outlet: 'view',
-    component: ShipmentsComponent,
-    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard]
+    canActivate: [AuthGuard, SubscriptionGuard, TermsOfServiceGuard],
+    children: [
+      { path: '', component: ShipmentsComponent },
+      { path: 'new', component: NewShipmentComponent }
+    ]
   },
   {
     path: 'shipments/:id',
