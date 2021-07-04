@@ -88,6 +88,7 @@ import { ShipFromComponent } from './_components/ship-from/ship-from.component';
 import { ShipToComponent } from './_components/ship-to/ship-to.component';
 import { QuoteListComponent } from './_components/quote-list/quote-list.component';
 import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
+import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirect/shippo-oauth-redirect.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -101,6 +102,7 @@ const appRoutes: Routes = [
   { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'shippo-oauth-redirect', component: ShippoOauthRedirectComponent, pathMatch: 'full', canActivate: [] },
 
   //Routes that REQUIRE authentication
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -243,7 +245,8 @@ const appRoutes: Routes = [
     ShipFromComponent,
     ShipToComponent,
     QuoteListComponent,
-    ArrangementDetailComponent],
+    ArrangementDetailComponent,
+    ShippoOauthRedirectComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(

@@ -18,5 +18,6 @@ export const environment = {
     productId: 'prod_Io5w0g0GolhS70',
     price: 50
   },
-  GOOGLE_CLIENT_ID_URI: '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com'
+  GOOGLE_CLIENT_ID_URI: '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com',
+  SHIPPO_CLIENT_ID: 'e6468f67b8e84c71b9f5592fd029724a'
 };

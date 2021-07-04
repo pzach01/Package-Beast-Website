@@ -22,7 +22,8 @@ export const environment = {
     productId: 'prod_IiXlcdTHpmbQHR',
     price: 50
   },
-  GOOGLE_CLIENT_ID_URI: '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com'
+  GOOGLE_CLIENT_ID_URI: '1085639833940-5rtpdadme2qql89234lc94jifv1lg30d.apps.googleusercontent.com',
+  SHIPPO_CLIENT_ID: 'bf2c8e4685b44c3dbf35b8aa3cb2df5e'
 };
 
 /*
