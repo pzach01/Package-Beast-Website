@@ -8,7 +8,7 @@ import { SubscriptionsService } from 'src/app/_services/subscriptions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceDialogComponent } from 'src/app/_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { PrivacyPolicyDialogComponent } from '../privacy-policy-dialog/privacy-policy-dialog.component';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   faCC = faCreditCard;
   firstName = this.currentUser.first_name
   paymentUpToDate: boolean;
+  shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=YOUR_RANDOM_STRING`;
 
   constructor(
     private router: Router,
