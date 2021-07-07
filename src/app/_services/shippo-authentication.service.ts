@@ -18,7 +18,7 @@ export class ShippoAuthenticationService {
   }
 
   authenticate(code: string) {
-    return this.http.post<any>(`{environment.API_BASE_URI}/shippo-oauth-access-token/'`, { code })
+    return this.http.post<any>(`${environment.API_BASE_URI}/shippo-oauth-access-token/'`, { code })
       .pipe(map(res => {
         if (res.access_token) {
           // store user token in local storage to use for future shippo api calls
