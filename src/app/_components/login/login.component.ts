@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=YOUR_RANDOM_STRING`;
 
     constructor(
         private formBuilder: FormBuilder,
