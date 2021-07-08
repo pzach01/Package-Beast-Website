@@ -1,9 +1,7 @@
-import { Component } from "@angular/core";
-
-import { Timestamp } from 'src/app/_models/timestamp'
-
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './_services';
 import { User } from './_models';
+import { NavigationEnd, Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -14,10 +12,17 @@ export class AppComponent {
   currentUser: User;
 
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService, private router: Router
   ) {
     // this.formatViewHeight();
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
+  ngOnInit(): void {
+    this.router.events.subscribe((routerEvent) => {
+      if (routerEvent instanceof NavigationEnd) {
+        console.log(routerEvent.url)
+      }
+    })
   }
   formatViewHeight() {
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
