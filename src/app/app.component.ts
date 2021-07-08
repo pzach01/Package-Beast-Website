@@ -10,6 +10,7 @@ import { NavigationEnd, Router } from "@angular/router";
 })
 export class AppComponent {
   currentUser: User;
+  shippoRedirect: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService, private router: Router
@@ -22,6 +23,11 @@ export class AppComponent {
       if (routerEvent instanceof NavigationEnd) {
         console.log("route", routerEvent.url)
         console.log("route minus params", routerEvent.url.split('?')[0])
+        if (routerEvent.url.split('?')[0] == "/shippo-oauth-redirect") {
+          this.shippoRedirect = true;
+        } else {
+          this.shippoRedirect = false
+        }
       }
     })
   }
