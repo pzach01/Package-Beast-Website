@@ -20,7 +20,8 @@ export class AppComponent {
   ngOnInit(): void {
     this.router.events.subscribe((routerEvent) => {
       if (routerEvent instanceof NavigationEnd) {
-        console.log(routerEvent.url)
+        console.log("route", routerEvent.url)
+        console.log("route minus params", routerEvent.url.split('?')[0])
       }
     })
   }
