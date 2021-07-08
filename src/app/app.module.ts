@@ -102,7 +102,7 @@ const appRoutes: Routes = [
   { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
-  { path: 'shippo-oauth-redirect', redirectTo: 'dashboard(view:inventory)', component: ShippoOauthRedirectComponent, pathMatch: 'full', canActivate: [] },
+  { path: 'shippo-oauth-redirect', component: ShippoOauthRedirectComponent, pathMatch: 'full', canActivate: [] },
 
   //Routes that REQUIRE authentication
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
