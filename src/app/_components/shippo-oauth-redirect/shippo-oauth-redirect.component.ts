@@ -9,13 +9,12 @@ import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentica
 })
 export class ShippoOauthRedirectComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoAuthenticationService) { console.log("hello 1") }
+  constructor(private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoAuthenticationService) { }
 
   code: string;
   state: string;
   error: string;
   ngOnInit(): void {
-    console.log('Hello 2')
     this.code = this.route.snapshot.queryParamMap.get('code');
     this.state = this.route.snapshot.queryParamMap.get('state');
     this.error = this.route.snapshot.queryParamMap.get('error');
@@ -26,10 +25,10 @@ export class ShippoOauthRedirectComponent implements OnInit {
   }
   sendCode() {
     this.shippoAuthenticationService.authenticate(this.code).subscribe((r) => {
-      console.log('r', r);
-      // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+      console.log('response: ', r);
+      this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
     }, error => {
-      // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+      this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
       console.log('eeerrrooorrr', error)
     })
   }

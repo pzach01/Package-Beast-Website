@@ -61,8 +61,7 @@ export class DashboardComponent implements OnInit {
       panelClass: 'custom-dialog-container',
       width: '100%'
     });
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
   logout() {

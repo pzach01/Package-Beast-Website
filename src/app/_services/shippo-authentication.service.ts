@@ -25,7 +25,7 @@ export class ShippoAuthenticationService {
           localStorage.setItem('currentShippoAccessToken', JSON.stringify(res.access_token));
           this.currentShippoAccessTokenSubject.next(res.access_token);
         }
-        console.log('res from shippo-auth-service', res)
+        console.log('response from shippo-auth-service', res)
         return res;
       }));
   }
