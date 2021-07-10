@@ -15,16 +15,17 @@ export class ShippoOauthRedirectComponent implements OnInit {
   state: string;
   error: string;
   ngOnInit(): void {
-    this.code = this.route.snapshot.queryParamMap.get('code');
-    this.state = this.route.snapshot.queryParamMap.get('state');
-    this.error = this.route.snapshot.queryParamMap.get('error');
+    const code = this.route.snapshot.queryParamMap.get('code');
+    const state = this.route.snapshot.queryParamMap.get('state');
+    const error = this.route.snapshot.queryParamMap.get('error');
 
-    console.log('code', this.code)
-    console.log('state', this.state)
-    console.log('error', this.error)
+    console.log('code', code)
+    console.log('state', state)
+    console.log('error', error)
+    this.sendCode(code)
   }
-  sendCode() {
-    this.shippoAuthenticationService.authenticate(this.code).subscribe((r) => {
+  sendCode(code) {
+    this.shippoAuthenticationService.authenticate(code).subscribe((r) => {
       console.log('response: ', r);
       this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
     }, error => {
