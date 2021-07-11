@@ -6,7 +6,6 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../_services';
 import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from "angularx-social-login";
-import { environment } from 'src/environments/environment';
 
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=YOUR_RANDOM_STRING`;
 
     constructor(
         private formBuilder: FormBuilder,
