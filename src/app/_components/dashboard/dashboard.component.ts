@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
   faCC = faCreditCard;
   firstName = this.currentUser.first_name
   paymentUpToDate: boolean;
-  shippoLoginUrl: string;
 
   constructor(
     private router: Router,
@@ -44,8 +43,6 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const state = this.shipoAuthenticationService.createShippoRandomString(40)
-    this.shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
     this.authenticationService.currentUser.subscribe(x => { this.currentUser = x; this.firstName = x.first_name });
     this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate);
   }
@@ -71,5 +68,12 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate([{ outlets: { primary: 'login', view: null } }]);
+  }
+
+  shippoLogin() {
+    const state = this.shipoAuthenticationService.createShippoRandomString(40)
+    const shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
+    console.log("navigate to shippo login")
+    window.location.href = shippoLoginUrl
   }
 }
