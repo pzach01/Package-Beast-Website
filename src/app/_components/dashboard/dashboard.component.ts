@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceDialogComponent } from 'src/app/_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { PrivacyPolicyDialogComponent } from '../privacy-policy-dialog/privacy-policy-dialog.component';
 import { environment } from 'src/environments/environment';
+import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,20 +31,23 @@ export class DashboardComponent implements OnInit {
   faCC = faCreditCard;
   firstName = this.currentUser.first_name
   paymentUpToDate: boolean;
-  shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=YOUR_RANDOM_STRING`;
+  shippoLoginUrl: string;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private subscriptionService: SubscriptionsService,
     public termsOfServiceDialog: MatDialog,
-    public privacyPolicyDialog: MatDialog
+    public privacyPolicyDialog: MatDialog,
+    private shipoAuthenticationService: ShippoAuthenticationService
   ) { }
 
 
   ngOnInit(): void {
+    const state = this.shipoAuthenticationService.createShippoRandomString(40)
+    this.shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
     this.authenticationService.currentUser.subscribe(x => { this.currentUser = x; this.firstName = x.first_name });
-    this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate)
+    this.subscriptionService.currentSubscriptionInfo.subscribe(currentSubscription => this.paymentUpToDate = currentSubscription.paymentUpToDate);
   }
 
   openTermsOfServiceDialog() {

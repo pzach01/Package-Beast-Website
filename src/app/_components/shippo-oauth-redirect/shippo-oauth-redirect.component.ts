@@ -22,7 +22,10 @@ export class ShippoOauthRedirectComponent implements OnInit {
     console.log('code', code)
     console.log('state', state)
     console.log('error', error)
-    this.sendCode(code)
+
+    if (this.shippoAuthenticationService.currentShippoRandomStringValue == state) {
+      this.sendCode(code)
+    }
   }
   sendCode(code) {
     this.shippoAuthenticationService.authenticate(code).subscribe((r) => {

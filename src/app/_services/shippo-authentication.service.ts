@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,31 @@ export class ShippoAuthenticationService {
 
   private currentShippoAccessTokenSubject: BehaviorSubject<string>;
   public currentShippoAccessToken: Observable<string>;
+  private currentShippoRandomStringSubject: BehaviorSubject<string>;
+  public currentShippoRandomString: Observable<string>;
 
   constructor(private http: HttpClient) {
     this.currentShippoAccessTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('currentShippoAccessToken')));
     this.currentShippoAccessToken = this.currentShippoAccessTokenSubject.asObservable();
+    this.currentShippoRandomStringSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('currentShippoRandomString')));
+    this.currentShippoRandomString = this.currentShippoAccessTokenSubject.asObservable();
+  }
+
+  public get currentShippoRandomStringValue(): string {
+    return this.currentShippoRandomStringSubject.value;
+  }
+
+  createShippoRandomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
+    }
+    localStorage.setItem('currentShippoRandomString', JSON.stringify(result));
+    this.currentShippoRandomStringSubject.next(result);
+    return result;
   }
 
   authenticate(code: string) {
