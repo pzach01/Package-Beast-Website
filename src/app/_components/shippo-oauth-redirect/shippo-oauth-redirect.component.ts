@@ -23,6 +23,8 @@ export class ShippoOauthRedirectComponent implements OnInit {
     console.log('state', state)
     console.log('error', error)
 
+    console.log("currentRandomStringValue: ", this.shippoAuthenticationService.currentShippoRandomStringValue)
+
     if (this.shippoAuthenticationService.currentShippoRandomStringValue == state) {
       this.sendCode(code)
     }
