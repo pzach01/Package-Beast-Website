@@ -18,7 +18,7 @@ export class ShippoAuthenticationService {
     this.currentShippoAccessTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('currentShippoAccessToken')));
     this.currentShippoAccessToken = this.currentShippoAccessTokenSubject.asObservable();
     this.currentShippoRandomStringSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('currentShippoRandomString')));
-    this.currentShippoRandomString = this.currentShippoAccessTokenSubject.asObservable();
+    this.currentShippoRandomString = this.currentShippoRandomStringSubject.asObservable();
   }
 
   public get currentShippoRandomStringValue(): string {
