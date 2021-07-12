@@ -10,6 +10,8 @@ import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.compone
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -44,7 +46,7 @@ export class ArrangementDetailComponent implements OnInit {
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
+  constructor(private shipoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -155,5 +157,12 @@ export class ArrangementDetailComponent implements OnInit {
   delete() {
     this.submitted = true;
     this.openConfirmDeleteDialog()
+  }
+
+  shippoLogin() {
+    const state = this.shipoAuthenticationService.createShippoRandomString(40)
+    const shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
+    console.log("navigate to shippo login")
+    window.location.href = shippoLoginUrl
   }
 }

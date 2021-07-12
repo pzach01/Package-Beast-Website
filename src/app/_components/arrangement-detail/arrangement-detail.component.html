@@ -16,6 +16,22 @@
             </mat-tab>
             <mat-tab *ngIf="i==nonEmptyContainers.length-1">
                 <ng-template mat-tab-label>
+                    Shipping Label
+                </ng-template>
+                <div class="container py-5">
+                    <div class="d-flex justify-content-center align-items-center"
+                        style="border-style: dotted; height: 50vh">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <h1 class="py-3">Shipping Label</h1>
+                            <p>Shipping labels are provided through our third party partner, Shippo.</p>
+                            <p>To purchase, display, and print shipping labels through Package Beast, create a Shippo
+                                account <a [routerLink]="" (click)="shippoLogin()">here</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab *ngIf="i==nonEmptyContainers.length-1">
+                <ng-template mat-tab-label>
                     Shipment Details
                 </ng-template>
 
