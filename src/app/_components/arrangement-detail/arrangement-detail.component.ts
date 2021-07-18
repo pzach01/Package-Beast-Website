@@ -12,6 +12,8 @@ import { MatSort } from '@angular/material/sort';
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
 import { environment } from 'src/environments/environment';
+import { ShippoTransaction } from 'src/app/_models/shippo-transaction';
+import { Quote } from 'src/app/_models/quote';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class ArrangementDetailComponent implements OnInit {
 
   currentUser = this.authenticationService.currentUserValue;
   arrangement: Arrangement;
+  quote: Quote;
   timeout: boolean = false;
   items: Item[];
   nonEmptyContainersDataSource: MatTableDataSource<any>;
@@ -46,7 +49,7 @@ export class ArrangementDetailComponent implements OnInit {
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private shipoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
+  constructor(private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -56,8 +59,11 @@ export class ArrangementDetailComponent implements OnInit {
     console.log(this.route.snapshot.params['quoteId'])
 
     this.shipmentsService.getQuoteById(quoteId).subscribe(quote => {
+      console.log("quote", quote)
       const arrangement = quote.arrangement
       this.arrangement = arrangement;
+      this.quote = quote;
+      console.log("arrangement", arrangement)
       this.timeout = arrangement.timeout;
       this.containers = arrangement.containers;
       this.items = arrangement.items;
@@ -160,9 +166,13 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   shippoLogin() {
-    const state = this.shipoAuthenticationService.createShippoRandomString(40)
+    const state = this.shippoAuthenticationService.createShippoRandomString(40)
     const shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
     console.log("navigate to shippo login")
     window.location.href = shippoLoginUrl
+  }
+
+  createShippoTransaction() {
+    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => console.log(transaction))
   }
 }

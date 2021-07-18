@@ -66,7 +66,6 @@ export class EditItemComponent implements OnInit {
     this.editItemForm.controls.width.setErrors(null)
     this.editItemForm.controls.weight.setErrors(null)
 
-
     this.editItem = { ...this.editItem, ...this.editItemForm.value }
     this.editItem.units = this.units
     this.editItem.weightUnits = this.weightUnits

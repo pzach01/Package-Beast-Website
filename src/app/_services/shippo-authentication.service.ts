@@ -51,4 +51,7 @@ export class ShippoAuthenticationService {
       }));
   }
 
+  createTransaction(rateId: string) {
+    return this.http.post<any>(`${environment.API_BASE_URI}/shippo-transaction/`, { rateId })
+  }
 }
