@@ -56,6 +56,7 @@ export class ArrangementDetailComponent implements OnInit {
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     const quoteId = +this.route.snapshot.params['quoteId']; // (+) converts string 'id' to a number
 
+    console.log(this.currentUser)
     console.log(this.route.snapshot.params['quoteId'])
 
     this.shipmentsService.getQuoteById(quoteId).subscribe(quote => {
@@ -173,6 +174,6 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   createShippoTransaction() {
-    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => console.log(transaction))
+    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => this.quote.shippoTransaction = transaction)
   }
 }

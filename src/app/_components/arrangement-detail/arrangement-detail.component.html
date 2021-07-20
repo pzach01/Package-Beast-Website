@@ -19,16 +19,24 @@
                     Shipping Label
                 </ng-template>
                 <div class="container py-5">
-                    <div class="d-flex justify-content-center align-items-center"
+                    <div *ngIf="!quote.shippoTransaction" class="d-flex justify-content-center align-items-center"
                         style="border-style: dotted; height: 50vh">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <h1 class="py-3">Shipping Label</h1>
-                            <p>Shipping labels are provided through our third party partner, Shippo.</p>
-                            <p>To purchase, display, and print shipping labels through Package Beast, create a Shippo
+                            <p *ngIf="!currentUser.userHasShippoAccount">Shipping labels are provided through our third
+                                party partner, Shippo.</p>
+                            <p *ngIf="!currentUser.userHasShippoAccount">To purchase, display, and print shipping labels
+                                through Package Beast, create a Shippo
                                 account <a [routerLink]="" (click)="shippoLogin()">here</a>.</p>
-                            <a [routerLink]="" (click)="createShippoTransaction()">Purchase Shipping Label</a>
+                            <a *ngIf="currentUser.userHasShippoAccount" [routerLink]=""
+                                (click)="createShippoTransaction()">Purchase Shipping Label</a>
                         </div>
                     </div>
+                    <div>{{quote.shippoTransaction.label_url}}</div>
+                    <pdf-viewer [src]="quote.shippoTransaction.label_url" [render-text]="true" style="display: block;">
+                    </pdf-viewer>
+                    <!-- <embed *ngIf="quote.shippoTransaction" ng-src="{{quote.shippoTransaction.label_url}}" width="800px"
+                        height="400px" /> -->
                 </div>
             </mat-tab>
             <mat-tab *ngIf="i==nonEmptyContainers.length-1">

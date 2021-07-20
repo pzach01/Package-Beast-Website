@@ -22,4 +22,5 @@
     postalCode: string;
     includeUpsContainers: boolean;
     includeUspsContainers: boolean;
+    userHasShippoAccount: boolean;
 }
