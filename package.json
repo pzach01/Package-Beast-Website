@@ -32,7 +32,6 @@
     "bootstrap": "^5.0.0",
     "mathjs": "^9.3.2",
     "ng-recaptcha": "^7.0.1",
-    "ng2-pdf-viewer": "^7.0.1",
     "ngx-stripe": "^11.0.0",
     "rxjs": "~6.6.0",
     "three": "^0.125.2",

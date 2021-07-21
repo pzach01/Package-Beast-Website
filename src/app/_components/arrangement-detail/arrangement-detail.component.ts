@@ -14,7 +14,7 @@ import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentica
 import { environment } from 'src/environments/environment';
 import { ShippoTransaction } from 'src/app/_models/shippo-transaction';
 import { Quote } from 'src/app/_models/quote';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-arrangement-detail',
@@ -45,11 +45,13 @@ export class ArrangementDetailComponent implements OnInit {
   arrangementId: number;
   submitted = false;
   loading = true;
+  labelHtml: SafeHtml
+
   @ViewChildren('nonEmptyContainersTableSort') nonEmptyContainersTableSorts: QueryList<MatSort>;
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
+  constructor(private sanitizer: DomSanitizer, private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -64,6 +66,8 @@ export class ArrangementDetailComponent implements OnInit {
       const arrangement = quote.arrangement
       this.arrangement = arrangement;
       this.quote = quote;
+      if (quote.shippoTransaction) { this.renderLabel() }
+
       console.log("arrangement", arrangement)
       this.timeout = arrangement.timeout;
       this.containers = arrangement.containers;
@@ -133,7 +137,6 @@ export class ArrangementDetailComponent implements OnInit {
         this.openarrangementAlertDialog();
       }
     })
-
   }
 
 
@@ -174,6 +177,11 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   createShippoTransaction() {
-    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => this.quote.shippoTransaction = transaction)
+    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel() })
+  }
+
+  renderLabel() {
+    // return `<div>${this.quote.shippoTransaction.label_url}</div>`;
+    this.labelHtml = this.sanitizer.bypassSecurityTrustHtml(`<embed src="${this.quote.shippoTransaction.label_url}" width="800px" height="600px" />`);
   }
 }

@@ -32,9 +32,8 @@
                                 (click)="createShippoTransaction()">Purchase Shipping Label</a>
                         </div>
                     </div>
-                    <div>{{quote.shippoTransaction.label_url}}</div>
-                    <pdf-viewer [src]="quote.shippoTransaction.label_url" [render-text]="true" style="display: block;">
-                    </pdf-viewer>
+                    <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
+                    <div *ngIf="quote.shippoTransaction" [innerHtml]="labelHtml"></div>
                     <!-- <embed *ngIf="quote.shippoTransaction" ng-src="{{quote.shippoTransaction.label_url}}" width="800px"
                         height="400px" /> -->
                 </div>

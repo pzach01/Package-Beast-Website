@@ -89,7 +89,6 @@ import { ShipToComponent } from './_components/ship-to/ship-to.component';
 import { QuoteListComponent } from './_components/quote-list/quote-list.component';
 import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
 import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirect/shippo-oauth-redirect.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -287,7 +286,6 @@ const appRoutes: Routes = [
     // MatProgressBarModule,
     MatMenuModule,
     SocialLoginModule,
-    PdfViewerModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [
