@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_services';
 import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentica
 })
 export class ShippoOauthRedirectComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoAuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoAuthenticationService) { }
 
   code: string;
   state: string;
@@ -32,7 +33,9 @@ export class ShippoOauthRedirectComponent implements OnInit {
   sendCode(code) {
     this.shippoAuthenticationService.authenticate(code).subscribe((r) => {
       console.log('response: ', r);
-      this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+      this.authenticationService.getUser().subscribe(() => {
+        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+      })
     }, error => {
       this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
       console.log('eeerrrooorrr', error)
