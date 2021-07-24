@@ -1,0 +1,13 @@
+<button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<h1 mat-dialog-title class="text-danger">Confirm Label Purchase</h1>
+<mat-dialog-content>
+    <h6>Purchase shipping label for {{data.price}}?</h6>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="createLabel()" type="button">Yes</button>
+    <button mat-raised-button mat-dialog-close type="button">Cancel</button>
+</mat-dialog-actions>

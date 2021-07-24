@@ -89,6 +89,7 @@ import { ShipToComponent } from './_components/ship-to/ship-to.component';
 import { QuoteListComponent } from './_components/quote-list/quote-list.component';
 import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
 import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirect/shippo-oauth-redirect.component';
+import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-dialog/confirm-label-creation-dialog.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -246,7 +247,8 @@ const appRoutes: Routes = [
     ShipToComponent,
     QuoteListComponent,
     ArrangementDetailComponent,
-    ShippoOauthRedirectComponent],
+    ShippoOauthRedirectComponent,
+    ConfirmLabelCreationDialogComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(

@@ -7,7 +7,7 @@ import { Container } from 'src/app/_models/container';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from 'src/app/_services';
 import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { ShippoTransaction } from 'src/app/_models/shippo-transaction';
 import { Quote } from 'src/app/_models/quote';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { ConfirmLabelCreationDialogComponent } from 'src/app/confirm-label-creation-dialog/confirm-label-creation-dialog.component';
 
 @Component({
   selector: 'app-arrangement-detail',
@@ -45,13 +46,14 @@ export class ArrangementDetailComponent implements OnInit {
   arrangementId: number;
   submitted = false;
   loading = true;
+  loadingShippingLabel: boolean = false;
   labelHtml: SafeHtml
 
   @ViewChildren('nonEmptyContainersTableSort') nonEmptyContainersTableSorts: QueryList<MatSort>;
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private sanitizer: DomSanitizer, private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog) { }
+  constructor(private sanitizer: DomSanitizer, private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -177,7 +179,24 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   createShippoTransaction() {
-    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel() })
+    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
+  }
+
+  openCreateShippoLabelTransactionCofirmDialog(): void {
+    const dialogRef = this.confirmShippoLabelDialog.open(ConfirmLabelCreationDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { price: `$${this.quote.cost}` }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.purchase) {
+          this.loadingShippingLabel = true;
+          this.createShippoTransaction()
+        }
+      }
+    })
   }
 
   renderLabel() {
