@@ -203,4 +203,8 @@ export class ArrangementDetailComponent implements OnInit {
     // return `<div>${this.quote.shippoTransaction.label_url}</div>`;
     this.labelHtml = this.sanitizer.bypassSecurityTrustHtml(`<embed src="${this.quote.shippoTransaction.label_url}" width="800px" height="600px" />`);
   }
+
+  goToLabelUrl() {
+    window.location.href = this.quote.shippoTransaction.label_url
+  }
 }

@@ -37,7 +37,9 @@
                         </div>
                     </div>
                     <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
-                    <div *ngIf="quote.shippoTransaction" [innerHtml]="labelHtml"></div>
+                    <div *ngIf="quote.shippoTransaction" [innerHtml]="labelHtml">
+                        <a [routerLink]="" (click)="goToLabelUrl()">here</a>
+                    </div>
                     <!-- <embed *ngIf="quote.shippoTransaction" ng-src="{{quote.shippoTransaction.label_url}}" width="800px"
                         height="400px" /> -->
                 </div>
