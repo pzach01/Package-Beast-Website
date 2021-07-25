@@ -69,11 +69,4 @@ export class DashboardComponent implements OnInit {
     this.authenticationService.logout();
     this.router.navigate([{ outlets: { primary: 'login', view: null } }]);
   }
-
-  shippoLogin() {
-    const state = this.shipoAuthenticationService.createShippoRandomString(40)
-    const shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
-    console.log("navigate to shippo login")
-    window.location.href = shippoLoginUrl
-  }
 }
