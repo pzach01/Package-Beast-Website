@@ -37,7 +37,9 @@
                         </div>
                     </div>
                     <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
-                    <div *ngIf="quote.shippoTransaction" [innerHtml]="labelHtml"></div>
+                    <div *ngIf="quote.shippoTransaction && !quote.shippoTransaction.status!='ERROR'"
+                        [innerHtml]="labelHtml"></div>
+                    <div *ngIf="quote.shippoTransaction.status=='ERROR'">!!!SHIPPO ERROR!!!</div>
                     <!-- <a [routerLink]="" (click)="goToLabelUrl()">Shipping Label</a> -->
 
                     <!-- <embed *ngIf="quote.shippoTransaction" ng-src="{{quote.shippoTransaction.label_url}}" width="800px"
