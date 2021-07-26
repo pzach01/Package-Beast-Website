@@ -201,7 +201,7 @@ export class ArrangementDetailComponent implements OnInit {
 
   renderLabel() {
     // return `<div>${this.quote.shippoTransaction.label_url}</div>`;
-    this.labelHtml = this.sanitizer.bypassSecurityTrustHtml(`<object data="${this.quote.shippoTransaction.label_url}" type="application/pdf" width="800px" height="600px"><embed src="${this.quote.shippoTransaction.label_url}"/><a [routerLink]="" (click)="goToLabelUrl()">Shipping Label</a></object>`);
+    this.labelHtml = this.sanitizer.bypassSecurityTrustHtml(`<object data="${this.quote.shippoTransaction.label_url}" type="application/pdf" width="800px" height="600px"><a href="${this.quote.shippoTransaction.label_url}">Shipping Label</a></object>`);
   }
 
   goToLabelUrl() {
