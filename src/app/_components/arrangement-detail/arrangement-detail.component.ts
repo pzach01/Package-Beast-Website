@@ -207,4 +207,9 @@ export class ArrangementDetailComponent implements OnInit {
   goToLabelUrl() {
     window.location.href = this.quote.shippoTransaction.label_url
   }
+
+  cancelTransaction() {
+    this.shippoAuthenticationService.cancelTransaction();
+    console.log('Transaction cancelled, yo!')
+  }
 }

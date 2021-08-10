@@ -36,15 +36,24 @@
                         </div>
                     </div>
                     <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
-                    <div *ngIf="quote.shippoTransaction?.trackingNumber">
+
+                    <div class="d-flex justify-content-between" *ngIf="quote.shippoTransaction?.trackingNumber">
                         <p>Tracking Number: <a target="_blank" rel="noopener noreferrer"
                                 href="{{quote.shippoTransaction.trackingUrlProvider}}">{{quote.shippoTransaction.trackingNumber}}</a>
                         </p>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button">
+                            <mat-icon class="scale-icon">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="cancelTransaction()" mat-menu-item>
+                                <mat-icon>cancel</mat-icon>
+                                <span>Cancel Shipment & Return Label</span>
+                            </button>
+                        </mat-menu>
                     </div>
                     <div *ngIf="quote.shippoTransaction?.status!='ERROR'" [innerHtml]="labelHtml"></div>
                     <div class="d-flex flex-column justify-content-start"
-                        *ngIf="quote.shippoTransaction?.messages[0].code=='Expired'">
-
+                        *ngIf="quote.shippoTransaction?.messages[0]?.code=='Expired'">
                         <h3>Quote Expired</h3>
                         <p>A shipping label could not be purchased because the quote has expired. Please
                             create a new shipment to obtain new shipping quotes.</p>
