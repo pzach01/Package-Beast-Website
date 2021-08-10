@@ -13,6 +13,10 @@ export class ShippoTransaction {
     objectUpdated: string;
     objectId: string;
     objectOwner: string;
+    rate: string;
+    trackingNumber: string;
+    trackingStatus: string;
+    trackingUrlProvider: string;
     test: string;
     shippoRateId: string
 }

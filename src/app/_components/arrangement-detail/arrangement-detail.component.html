@@ -37,6 +37,11 @@
                         </div>
                     </div>
                     <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
+                    <div *ngIf="quote.shippoTransaction?.trackingNumber">
+                        <p>Tracking Number: <a target="_blank" rel="noopener noreferrer"
+                                href="{{quote.shippoTransaction.trackingUrlProvider}}">{{quote.shippoTransaction.trackingNumber}}</a>
+                        </p>
+                    </div>
                     <div *ngIf="quote.shippoTransaction?.status!='ERROR'" [innerHtml]="labelHtml"></div>
                     <div class="d-flex justify-content-center" *ngIf="quote.shippoTransaction?.status=='ERROR'">
                         <h3>!!!SHIPPO ERROR!!!</h3>
