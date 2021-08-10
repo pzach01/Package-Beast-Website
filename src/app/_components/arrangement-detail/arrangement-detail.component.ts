@@ -179,7 +179,7 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   createShippoTransaction() {
-    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId).subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
+    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId, 'PDF').subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
   }
 
   openCreateShippoLabelTransactionCofirmDialog(): void {
