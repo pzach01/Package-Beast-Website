@@ -10,7 +10,7 @@ import { ShipmentAlertComponent } from '../shipment-alert/shipment-alert.compone
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
-import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
+import { ShippoService } from 'src/app/_services/shippo.service';
 import { environment } from 'src/environments/environment';
 import { ShippoTransaction } from 'src/app/_models/shippo-transaction';
 import { Quote } from 'src/app/_models/quote';
@@ -53,7 +53,7 @@ export class ArrangementDetailComponent implements OnInit {
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private sanitizer: DomSanitizer, private shippoAuthenticationService: ShippoAuthenticationService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog) { }
+  constructor(private sanitizer: DomSanitizer, private shippoService: ShippoService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -172,14 +172,14 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   shippoLogin() {
-    const state = this.shippoAuthenticationService.createShippoRandomString(40)
+    const state = this.shippoService.createShippoRandomString(40)
     const shippoLoginUrl = `https://goshippo.com/oauth/authorize?response_type=code&client_id=${environment.SHIPPO_CLIENT_ID}&scope=*&state=${state}`;
     console.log("navigate to shippo login")
     window.location.href = shippoLoginUrl
   }
 
   createShippoTransaction() {
-    this.shippoAuthenticationService.createTransaction(this.quote.shippoRateId, 'PDF').subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
+    this.shippoService.createTransaction(this.quote.shippoRateId, 'PDF').subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
   }
 
   openCreateShippoLabelTransactionCofirmDialog(): void {
@@ -208,8 +208,9 @@ export class ArrangementDetailComponent implements OnInit {
     window.location.href = this.quote.shippoTransaction.label_url
   }
 
-  cancelTransaction() {
-    this.shippoAuthenticationService.cancelTransaction();
-    console.log('Transaction cancelled, yo!')
+  refundTransaction() {
+    this.shippoService.refundTransaction(this.quote.shippoTransaction.id).subscribe(() =>
+      console.log('Transaction cancelled, yo!')
+    );
   }
 }

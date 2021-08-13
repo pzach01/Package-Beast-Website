@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ShippoAuthenticationService {
+export class ShippoService {
 
   private currentShippoAccessTokenSubject: BehaviorSubject<string>;
   public currentShippoAccessToken: Observable<string>;
@@ -55,5 +55,7 @@ export class ShippoAuthenticationService {
     return this.http.post<any>(`${environment.API_BASE_URI}/shippo-transaction/`, { rateId, labelFileType })
   }
 
-  cancelTransaction() { }
+  refundTransaction(transactionId: number) {
+    return this.http.post<any>(`${environment.API_BASE_URI}/refund-shippo-transaction/`, { transactionId })
+  }
 }

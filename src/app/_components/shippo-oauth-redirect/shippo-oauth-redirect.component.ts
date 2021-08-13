@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
-import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
+import { ShippoService } from 'src/app/_services/shippo.service';
 
 @Component({
   selector: 'app-shippo-oauth-redirect',
@@ -10,7 +10,7 @@ import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentica
 })
 export class ShippoOauthRedirectComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoAuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private shippoAuthenticationService: ShippoService) { }
 
   code: string;
   state: string;

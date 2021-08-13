@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceDialogComponent } from 'src/app/_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { PrivacyPolicyDialogComponent } from '../privacy-policy-dialog/privacy-policy-dialog.component';
 import { environment } from 'src/environments/environment';
-import { ShippoAuthenticationService } from 'src/app/_services/shippo-authentication.service';
+import { ShippoService } from 'src/app/_services/shippo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
     private subscriptionService: SubscriptionsService,
     public termsOfServiceDialog: MatDialog,
     public privacyPolicyDialog: MatDialog,
-    private shipoAuthenticationService: ShippoAuthenticationService
   ) { }
 
 

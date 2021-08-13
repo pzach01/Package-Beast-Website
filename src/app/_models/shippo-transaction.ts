@@ -5,6 +5,7 @@ export class ShippoMessage {
 }
 
 export class ShippoTransaction {
+    id: number;
     label_url: string;
     messages: ShippoMessage[];
     objectState: string;
