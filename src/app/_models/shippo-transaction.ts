@@ -1,3 +1,5 @@
+import { ShippoRefund } from "./shippo-refund";
+
 export class ShippoMessage {
     code: string;
     source: string;
@@ -15,6 +17,7 @@ export class ShippoTransaction {
     objectId: string;
     objectOwner: string;
     rate: string;
+    shippoRefund: ShippoRefund;
     trackingNumber: string;
     trackingStatus: string;
     trackingUrlProvider: string;

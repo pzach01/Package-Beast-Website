@@ -37,7 +37,8 @@
                     </div>
                     <!-- <div>{{quote.shippoTransaction.label_url}}</div> -->
 
-                    <div class="d-flex justify-content-between" *ngIf="quote.shippoTransaction?.trackingNumber">
+                    <div class="d-flex justify-content-between"
+                        *ngIf="quote.shippoTransaction?.trackingNumber && quote.shippoTransaction?.shippoRefund==null">
                         <p>Tracking Number: <a target="_blank" rel="noopener noreferrer"
                                 href="{{quote.shippoTransaction.trackingUrlProvider}}">{{quote.shippoTransaction.trackingNumber}}</a>
                         </p>
@@ -51,13 +52,18 @@
                             </button>
                         </mat-menu>
                     </div>
-                    <div *ngIf="quote.shippoTransaction?.status!='ERROR'" [innerHtml]="labelHtml"></div>
+                    <div *ngIf="quote.shippoTransaction?.status!='ERROR' && quote.shippoTransaction?.shippoRefund==null"
+                        [innerHtml]="labelHtml"></div>
                     <div class="d-flex flex-column justify-content-start"
                         *ngIf="quote.shippoTransaction?.messages[0]?.code=='Expired'">
                         <h3>Quote Expired</h3>
                         <p>A shipping label could not be purchased because the quote has expired. Please
                             create a new shipment to obtain new shipping quotes.</p>
-
+                    </div>
+                    <div class="d-flex flex-column justify-content-start"
+                        *ngIf="quote.shippoTransaction?.shippoRefund!=null">
+                        <h3>Label Refunded</h3>
+                        <p>This shipment has been cancelled and the shipping label has been refunded.</p>
                     </div>
                     <!-- <a [routerLink]="" (click)="goToLabelUrl()">Shipping Label</a> -->
 

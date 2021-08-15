@@ -209,8 +209,12 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   refundTransaction() {
-    this.shippoService.refundTransaction(this.quote.shippoTransaction.id).subscribe(() =>
+    this.shippoService.refundTransaction(this.quote.shippoTransaction.id).subscribe((refund) => {
+      this.quote.shippoTransaction.shippoRefund = refund
+      console.log(this.quote)
       console.log('Transaction cancelled, yo!')
+    }
+
     );
   }
 }
