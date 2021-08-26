@@ -58,4 +58,8 @@ export class ShippoService {
   refundTransaction(transactionId: number) {
     return this.http.post<any>(`${environment.API_BASE_URI}/refund-shippo-transaction/`, { transactionId })
   }
+
+  refreshQuote(quoteId: number) {
+    return this.http.put<any>(`${environment.API_BASE_URI}/quotes/refresh/`, { quoteId })
+  }
 }

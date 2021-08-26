@@ -179,7 +179,14 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   createShippoTransaction() {
-    this.shippoService.createTransaction(this.quote.shippoRateId, 'PDF').subscribe((transaction: ShippoTransaction) => { this.quote.shippoTransaction = transaction; this.renderLabel(); this.loadingShippingLabel = false })
+    this.shippoService.createTransaction(this.quote.shippoRateId, 'PDF').subscribe((transaction: ShippoTransaction) => {
+      this.quote.shippoTransaction = transaction;
+      this.renderLabel();
+      this.loadingShippingLabel = false
+    }, e => {
+      console.log('error', e)
+    }
+    )
   }
 
   openCreateShippoLabelTransactionCofirmDialog(): void {
@@ -214,7 +221,13 @@ export class ArrangementDetailComponent implements OnInit {
       console.log(this.quote)
       console.log('Transaction cancelled, yo!')
     }
-
     );
+  }
+
+  refreshQuote() {
+    this.shippoService.refreshQuote(this.quote.id).subscribe((quote) => {
+      this.quote = quote;
+      console.log(quote);
+    })
   }
 }
