@@ -225,6 +225,7 @@ export class ArrangementDetailComponent implements OnInit {
   }
 
   refreshQuote() {
+    console.log('refresh')
     this.shippoService.refreshQuote(this.quote.id).subscribe((quote) => {
       this.quote = quote;
       console.log(quote);
