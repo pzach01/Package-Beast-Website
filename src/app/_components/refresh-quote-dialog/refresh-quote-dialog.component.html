@@ -1,0 +1,13 @@
+<button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<h1 mat-dialog-title class="text-danger">Quote Expired</h1>
+<mat-dialog-content>
+    <h6>The quote for this shipment has expired. Please refresh quote below to receive a new quote.</h6>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="refreshQuote()" type="button">Refresh Quote</button>
+    <button mat-raised-button mat-dialog-close type="button">Cancel</button>
+</mat-dialog-actions>

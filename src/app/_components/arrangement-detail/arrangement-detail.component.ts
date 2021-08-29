@@ -16,6 +16,7 @@ import { ShippoTransaction } from 'src/app/_models/shippo-transaction';
 import { Quote } from 'src/app/_models/quote';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { ConfirmLabelCreationDialogComponent } from 'src/app/confirm-label-creation-dialog/confirm-label-creation-dialog.component';
+import { RefreshQuoteDialogComponent } from '../refresh-quote-dialog/refresh-quote-dialog.component';
 
 @Component({
   selector: 'app-arrangement-detail',
@@ -53,7 +54,7 @@ export class ArrangementDetailComponent implements OnInit {
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private sanitizer: DomSanitizer, private shippoService: ShippoService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog) { }
+  constructor(private sanitizer: DomSanitizer, private shippoService: ShippoService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog, public refreshQuoteDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -183,6 +184,7 @@ export class ArrangementDetailComponent implements OnInit {
       this.quote.shippoTransaction = transaction;
       this.renderLabel();
       this.loadingShippingLabel = false
+      console.log(this.quote)
     }, e => {
       console.log('error', e)
     }
@@ -201,6 +203,21 @@ export class ArrangementDetailComponent implements OnInit {
         if (data.purchase) {
           this.loadingShippingLabel = true;
           this.createShippoTransaction()
+        }
+      }
+    })
+  }
+
+  openRefreshQuoteDialog() {
+    const dialogRef = this.refreshQuoteDialog.open(RefreshQuoteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.refresh) {
+          this.refreshQuote()
         }
       }
     })
@@ -226,8 +243,10 @@ export class ArrangementDetailComponent implements OnInit {
 
   refreshQuote() {
     console.log('refresh')
+    this.loadingShippingLabel = true;
     this.shippoService.refreshQuote(this.quote.id).subscribe((quote) => {
       this.quote = quote;
+      this.loadingShippingLabel = false;
       console.log(quote);
     })
   }

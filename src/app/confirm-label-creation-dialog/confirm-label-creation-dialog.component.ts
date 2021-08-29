@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-label-creation-dialog',
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ConfirmLabelCreationDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public confirmLabelCreationRef: MatDialogRef<ConfirmLabelCreationDialogComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public confirmLabelCreationRef: MatDialogRef<ConfirmLabelCreationDialogComponent>) { }
 
   ngOnInit(): void {
   }

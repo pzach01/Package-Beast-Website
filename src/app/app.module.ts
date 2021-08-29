@@ -90,6 +90,7 @@ import { QuoteListComponent } from './_components/quote-list/quote-list.componen
 import { ArrangementDetailComponent } from './_components/arrangement-detail/arrangement-detail.component';
 import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirect/shippo-oauth-redirect.component';
 import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-dialog/confirm-label-creation-dialog.component';
+import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/refresh-quote-dialog.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -248,7 +249,8 @@ const appRoutes: Routes = [
     QuoteListComponent,
     ArrangementDetailComponent,
     ShippoOauthRedirectComponent,
-    ConfirmLabelCreationDialogComponent],
+    ConfirmLabelCreationDialogComponent,
+    RefreshQuoteDialogComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -306,7 +308,8 @@ const appRoutes: Routes = [
     ReviewPaymentDialogComponent,
     PaymentErrorDialogComponent,
     ChangePasswordCompleteDialogComponent,
-    ConfirmLabelCreationDialogComponent
+    ConfirmLabelCreationDialogComponent,
+    RefreshQuoteDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
