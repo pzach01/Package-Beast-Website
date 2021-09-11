@@ -11,7 +11,6 @@ import { AuthenticationService } from 'src/app/_services';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/_models';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-shipments',

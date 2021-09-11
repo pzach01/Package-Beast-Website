@@ -20,8 +20,8 @@
     <div [ngClass]='userHasQuotes && !loading ? "d-flex overflow-hidden": "d-none"'>
 
         <div class="tbl-container w-100">
-            <table mat-table [dataSource]="dataSource" matSortActive="created" matSort class="mat-elevation-z8"
-                matSortDirection="desc">
+            <table mat-table [dataSource]="dataSource" matSortActive="cost" matSort class="mat-elevation-z8"
+                matSortDirection="asc">
 
                 <ng-container matColumnDef="selectedIcon">
                     <th mat-header-cell *matHeaderCellDef>Selected</th>
