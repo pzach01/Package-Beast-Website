@@ -9,6 +9,8 @@ import { EditContainerComponent } from 'src/app/_components/edit-container/edit-
 import { AuthenticationService } from 'src/app/_services';
 import { UnitsPipe, VolumeUnitsPipe } from 'src/app/_helpers';
 import { DecimalPipe } from '@angular/common';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-containers',
@@ -17,7 +19,9 @@ import { DecimalPipe } from '@angular/common';
 })
 export class ContainersComponent implements OnInit {
   loading: boolean = true;
+  containers$: Observable<Container[]>;
   containers: Container[];
+  CONTAINERS_CACHE_KEY: string;
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'yDim', 'zDim', 'xDim', 'volume'];
   currentUser = this.authenticationService.currentUserValue;
@@ -29,9 +33,15 @@ export class ContainersComponent implements OnInit {
   constructor(private containersservice: ContainersService, public newContainerDialog: MatDialog, private authenticationService: AuthenticationService, private unitsPipe: UnitsPipe, private volumeUnitsPipe: VolumeUnitsPipe, private decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    this.authenticationService.currentUser.subscribe((currentUser) => {
+      this.currentUser = currentUser; this.CONTAINERS_CACHE_KEY = `containers-${this.currentUser.id}`
+    })
 
-    this.containersservice.getAll().subscribe(containers => {
+    this.containers$ = this.containersservice.getAll().pipe(map(shipments => shipments))
+    this.CONTAINERS_CACHE_KEY = `containers-${this.currentUser.id}`
+    this.containers$ = this.containers$.pipe(startWith(JSON.parse(localStorage[this.CONTAINERS_CACHE_KEY] || '[]')))
+
+    this.containers$.subscribe(containers => {
       this.loading = false; this.containers = containers;
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
@@ -57,6 +67,14 @@ export class ContainersComponent implements OnInit {
         this.decimalPipe.transform(this.unitsPipe.transform(data.zDim, data.units, this.currentUser.units), '1.0-3').toString().includes(filter) ||
         this.decimalPipe.transform(this.volumeUnitsPipe.transform(data.volume, data.units, this.currentUser.units), '1.1-1').toString().includes(filter)
     })
+
+    this.containers$.subscribe(containers => {
+      this.updateCache(containers)
+    })
+  }
+
+  updateCache(containers) {
+    localStorage[this.CONTAINERS_CACHE_KEY] = JSON.stringify(containers)
   }
 
   doesUserHaveContainers() {
@@ -75,6 +93,7 @@ export class ContainersComponent implements OnInit {
         this.dataSource._updateChangeSubscription();
         this.newOrEditedContainer = newContainer;
         this.doesUserHaveContainers()
+        this.updateCache(this.dataSource.data)
       }
     });
   }
@@ -100,6 +119,7 @@ export class ContainersComponent implements OnInit {
           this.dataSource._updateChangeSubscription();
           this.newOrEditedContainer = editedContainer;
           this.doesUserHaveContainers()
+          this.updateCache(this.dataSource.data)
         }
 
         if (data.deletedContainer) {
@@ -107,7 +127,7 @@ export class ContainersComponent implements OnInit {
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedContainer.id);
           this.dataSource._updateChangeSubscription();
           this.doesUserHaveContainers()
-          console.log(this.userHasContainers)
+          this.updateCache(this.dataSource.data)
         }
       }
     });

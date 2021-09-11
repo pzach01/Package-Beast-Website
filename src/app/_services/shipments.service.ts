@@ -5,6 +5,7 @@ import { Shipment } from '../_models/shipment';
 import { environment } from 'src/environments/environment';
 import { Arrangement } from '../_models/arrangement';
 import { Quote } from '../_models/quote';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ShipmentsService {
 
   constructor(private http: HttpClient) { }
   getAll(): Observable<Shipment[]> {
-    return this.http.get<Shipment[]>(`${environment.API_BASE_URI}/shipments/`);
+    console.log('fetching shipments')
+    return this.http.get<Shipment[]>(`${environment.API_BASE_URI}/shipments/`).pipe(map(res => res), shareReplay(1));
   }
   getShipmentById(shipmentId: number): Observable<Shipment> {
     return this.http.get<Shipment>(`${environment.API_BASE_URI}/shipments/${shipmentId}/`);

@@ -9,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/_services';
 import { UnitsPipe } from 'src/app/_helpers';
 import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -17,6 +19,8 @@ import { DecimalPipe } from '@angular/common';
 })
 export class ItemsComponent implements OnInit {
   loading: boolean = true;
+  items$: Observable<Item[]>;
+  ITEMS_CACHE_KEY: string;
   items: Item[];
   dataSource;
   displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
@@ -30,9 +34,13 @@ export class ItemsComponent implements OnInit {
   constructor(private itemsService: ItemsService, public newItemDialog: MatDialog, private authenticationService: AuthenticationService, private unitsPipe: UnitsPipe, private decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
+    this.authenticationService.currentUser.subscribe((currentUser) => { this.currentUser = currentUser; this.ITEMS_CACHE_KEY = `items-${this.currentUser.id}` })
 
-    this.itemsService.getAll().subscribe(items => {
+    this.items$ = this.itemsService.getAll().pipe(map(shipments => shipments))
+    this.ITEMS_CACHE_KEY = `items-${this.currentUser.id}`
+    this.items$ = this.items$.pipe(startWith(JSON.parse(localStorage[this.ITEMS_CACHE_KEY] || '[]')))
+
+    this.items$.subscribe(items => {
       this.loading = false;
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
@@ -58,6 +66,14 @@ export class ItemsComponent implements OnInit {
         this.decimalPipe.transform(this.unitsPipe.transform(data.width, data.units, this.currentUser.units), '1.0-3').toString().includes(filter) ||
         this.decimalPipe.transform(this.unitsPipe.transform(data.height, data.units, this.currentUser.units), '1.0-3').toString().includes(filter)
     })
+
+    this.items$.subscribe(items => {
+      this.updateCache(items)
+    })
+  }
+
+  updateCache(items) {
+    localStorage[this.ITEMS_CACHE_KEY] = JSON.stringify(items)
   }
 
   doesUserHaveItems() {
@@ -76,6 +92,7 @@ export class ItemsComponent implements OnInit {
         this.dataSource._updateChangeSubscription();
         this.newOrEditedItem = newItem;
         this.doesUserHaveItems()
+        this.updateCache(this.dataSource.data)
       }
     });
   }
@@ -102,12 +119,14 @@ export class ItemsComponent implements OnInit {
           this.newOrEditedItem = editedItem;
           this.dataSource.sort = this.sort
           this.doesUserHaveItems()
+          this.updateCache(this.dataSource.data)
         }
         if (data.deletedItem) {
           const deletedItem = data.deletedItem
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== deletedItem.id);
           this.dataSource._updateChangeSubscription();
           this.doesUserHaveItems()
+          this.updateCache(this.dataSource.data)
         }
       }
     });

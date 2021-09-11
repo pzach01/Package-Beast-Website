@@ -8,6 +8,10 @@ import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/_models';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-shipments',
@@ -19,9 +23,11 @@ export class ShipmentsComponent implements OnInit {
   loading: boolean = true;
 
   shipments: Shipment[];
+  shipments$: Observable<Shipment[]>
+  SHIPMENTS_CACHE_KEY: string;
   dataSource;
   displayedColumns: string[] = ['title', 'created'];
-  currentUser = this.authenticationService.currentUserValue;
+  currentUser: User = this.authenticationService.currentUserValue;
   dateTimeFormat = this.currentUser.dateTimeFormat
   userHasShipments: boolean = false;
 
@@ -33,16 +39,32 @@ export class ShipmentsComponent implements OnInit {
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
   }
   ngOnInit(): void {
-    this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
-    this.shipmentsservice.getAll().subscribe(shipments => {
+    this.authenticationService.currentUser.subscribe((currentUser) => { this.currentUser = currentUser; this.SHIPMENTS_CACHE_KEY = `shipments${this.currentUser.id}` })
+    this.shipments$ = this.shipmentsservice.getAll().pipe(map(shipments => shipments))
+    this.SHIPMENTS_CACHE_KEY = `shipments-${this.currentUser.id}`
+    this.shipments$ = this.shipments$.pipe(startWith(JSON.parse(localStorage[this.SHIPMENTS_CACHE_KEY] || '[]')))
+
+    this.shipments$.subscribe(shipments => {
+      console.log(shipments)
       this.loading = false;
-      this.shipments = shipments; this.dataSource = new MatTableDataSource(shipments); this.dataSource.sort = this.sort;
+      this.shipments = shipments;
+      this.dataSource = new MatTableDataSource(shipments);
+      this.dataSource.sort = this.sort;
       this.sort.disableClear = true;
       this.doesUserHaveShipments()
       this.dataSource.filterPredicate =
         (data: any, filter: string) => !filter || data.title.toString().toLowerCase().includes(filter) ||
           this.transformDate(data.created).includes(filter)
     })
+
+    this.shipments$.subscribe(shipments => {
+      this.updateCache(shipments)
+    })
+
+  }
+
+  updateCache(shipments) {
+    localStorage[this.SHIPMENTS_CACHE_KEY] = JSON.stringify(shipments)
   }
   // ngAfterViewChecked(): void {
   //   document.querySelector('mat-sidenav-content').scrollTop = 100;
