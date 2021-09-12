@@ -19,7 +19,7 @@ export class QuoteListComponent implements OnInit {
   faUps = faUps;
   faUsps = faUsps;
   faCheckCircle = faCheckCircle;
-  displayedColumns: string[] = ["selectedIcon", "carrier", "cost", "daysToShip", "serviceDescription"];
+  displayedColumns: string[] = ["selectedIcon", "carrier", "cost", "daysToShip", "serviceDescription", "containerSku", "containerDescription"];
   dataSource;
   loading: boolean = false
   userHasQuotes = true

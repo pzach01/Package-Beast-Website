@@ -76,6 +76,20 @@
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="containerSku">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Container SKU</th>
+                    <td mat-cell *matCellDef="let quote">
+                        {{quote.arrangement.containers[0].sku}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="containerDescription">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Container Description</th>
+                    <td mat-cell *matCellDef="let quote">
+                        {{quote.arrangement.containers[0].description}}
+                    </td>
+                </ng-container>
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <!-- <tr [class.newOrEdited]="quote.id===(shipment | async)?.lastSelectedQuoteId" mat-row
                     (click)="openQuoteDetail(quote)" *matRowDef="let quote; columns: displayedColumns;">
