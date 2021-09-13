@@ -63,7 +63,7 @@ export class ShipmentsComponent implements OnInit {
   }
 
   updateCache(shipments) {
-    localStorage[this.SHIPMENTS_CACHE_KEY] = JSON.stringify(shipments)
+    localStorage[this.SHIPMENTS_CACHE_KEY] = JSON.stringify(shipments.slice(-20))
   }
   // ngAfterViewChecked(): void {
   //   document.querySelector('mat-sidenav-content').scrollTop = 100;
