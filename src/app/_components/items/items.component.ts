@@ -73,7 +73,7 @@ export class ItemsComponent implements OnInit {
   }
 
   updateCache(items) {
-    localStorage[this.ITEMS_CACHE_KEY] = JSON.stringify(items.slice(-200))
+    localStorage[this.ITEMS_CACHE_KEY] = JSON.stringify(items.sort((a, b) => a.id - b.id).slice(-200))
   }
 
   doesUserHaveItems() {

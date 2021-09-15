@@ -69,7 +69,7 @@ export class ContainersComponent implements OnInit {
     })
 
     this.containers$.subscribe(containers => {
-      this.updateCache(containers.slice(-200))
+      this.updateCache(containers.sort((a, b) => a.id - b.id).slice(-200))
     })
   }
 
