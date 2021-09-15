@@ -1,7 +1,7 @@
 <div class="view-container container d-flex flex-column overflow-hidden">
     <div class="row mb-3 mt-3 no-shrink">
         <div class="col text-center">
-            <h3>{{(shipment | async)?.title}} Quotes</h3>
+            <h3>{{shipment?.title}} Quotes</h3>
         </div>
     </div>
 
@@ -26,8 +26,8 @@
                 <ng-container matColumnDef="selectedIcon">
                     <th mat-header-cell *matHeaderCellDef>Selected</th>
                     <td mat-cell *matCellDef="let quote">
-                        <fa-icon class="faCheckCircle" *ngIf="quote.id===(shipment | async)?.lastSelectedQuoteId"
-                            size="2x" [icon]="faCheckCircle"></fa-icon>
+                        <fa-icon class="faCheckCircle" *ngIf="quote.id===shipment?.lastSelectedQuoteId" size="2x"
+                            [icon]="faCheckCircle"></fa-icon>
                     </td>
                 </ng-container>
 
