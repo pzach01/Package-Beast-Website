@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services';
-import { map, startWith } from 'rxjs/operators';
+import { map, skip, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/_models';
 
@@ -45,7 +45,7 @@ export class ShipmentsComponent implements OnInit {
 
     this.shipments$.subscribe(shipments => {
       console.log(shipments)
-      this.loading = false;
+
       this.shipments = shipments;
       this.dataSource = new MatTableDataSource(shipments);
       this.dataSource.sort = this.sort;
@@ -56,7 +56,8 @@ export class ShipmentsComponent implements OnInit {
           this.transformDate(data.created).includes(filter)
     })
 
-    this.shipments$.subscribe(shipments => {
+    this.shipments$.pipe(skip(1)).subscribe(shipments => {
+      this.loading = false;
       this.updateCache(shipments)
     })
 

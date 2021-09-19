@@ -51,7 +51,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { VolumeUnitsPipe } from './_helpers';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentComponent } from './_components/payment/payment.component';
-// import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ResetPasswordComponent } from './_components/reset-password/reset-password.component';
 import { ResetPasswordDoneComponent } from './_components/reset-password-done/reset-password-done.component';
 import { ResetPasswordConfirmComponent } from './_components/reset-password-confirm/reset-password-confirm.component';
@@ -287,7 +287,7 @@ const appRoutes: Routes = [
     MatExpansionModule,
     FontAwesomeModule,
     MatSliderModule,
-    // MatProgressBarModule,
+    MatProgressBarModule,
     MatMenuModule,
     SocialLoginModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),

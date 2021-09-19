@@ -1,3 +1,9 @@
+<div *ngIf="loading" style="position: fixed; top: 0; right: 0; left: 0">
+    <div>
+        <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+    </div>
+</div>
+
 <div class="view-container container d-flex flex-column overflow-hidden">
     <div class="row mb-3 mt-3 no-shrink">
         <div class="col-md-3 col-sm-0"></div>
@@ -5,9 +11,12 @@
             <h3>Shipments</h3>
         </div>
         <div class="col-md-3 col-sm-12 text-right"><button class="newButton" mat-raised-button color="accent"
-                (click)="openDialog()" type="button" [disabled]="loading">New
+                (click)="openDialog()" type="button">New
                 Shipment</button></div>
     </div>
+    <!-- <div class="d-flex justify-content-center pt-5" *ngIf="loading" style="height: 50vh;">
+        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
+    </div> -->
 
     <div class="row no-shrink">
         <div class="col">
@@ -15,13 +24,13 @@
                 first create
                 at least one inventory item and one shipping container. Then, create a shipment by
                 selecting "New Shipment" above.</p>
-            <mat-form-field *ngIf="userHasShipments && !loading" class="full-width">
+            <mat-form-field *ngIf="userHasShipments" class="full-width">
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" autocomplete="off" placeholder="Title or Date">
             </mat-form-field>
         </div>
     </div>
-    <div [ngClass]='userHasShipments && !loading ? "d-flex overflow-hidden": "d-none"'>
+    <div [ngClass]='userHasShipments ? "d-flex overflow-hidden": "d-none"'>
 
         <div class="tbl-container w-100">
             <table mat-table [dataSource]="dataSource" matSortActive="created" matSort class="mat-elevation-z8"
@@ -54,7 +63,5 @@
             </table>
         </div>
     </div>
-    <div class="d-flex justify-content-center pt-5" *ngIf="loading" style="height: 50vh;">
-        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
-    </div>
+
 </div>

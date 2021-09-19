@@ -1,3 +1,9 @@
+<div *ngIf="loading" style="position: fixed; top: 0; right: 0; left: 0">
+    <div>
+        <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+    </div>
+</div>
+
 <div class="view-container container d-flex flex-column overflow-hidden">
     <div class="row mb-3 mt-3 no-shrink">
         <div class="col-md-3 col-sm-0"></div>
@@ -5,7 +11,7 @@
             <h3>Shipping Containers</h3>
         </div>
         <div class="col-md-3 col-sm-12 text-right"><button class="newButton" mat-raised-button color="accent"
-                (click)="openDialog()" type="button" [disabled]="loading">New
+                (click)="openDialog()" type="button">New
                 Container</button></div>
     </div>
 
@@ -16,14 +22,14 @@
             <p class="pt-5" *ngIf="!userHasContainers && !loading">You have no shipping containers defined. Create one
                 by selecting
                 "New Container" above.</p>
-            <mat-form-field [ngClass]='userHasContainers && !loading ? "": "d-none"' class="full-width">
+            <mat-form-field [ngClass]='userHasContainers ? "": "d-none"' class="full-width">
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" autocomplete="off"
                     placeholder="SKU, Description, or Dimension">
             </mat-form-field>
         </div>
     </div>
-    <div [ngClass]='userHasContainers && !loading ? "d-flex overflow-hidden": "d-none"'>
+    <div [ngClass]='userHasContainers ? "d-flex overflow-hidden": "d-none"'>
         <div class="tbl-container w-100">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
@@ -87,8 +93,5 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div class="d-flex justify-content-center pt-5" *ngIf="loading" style="height: 50vh;">
-        <mat-spinner color="accent" *ngIf="loading"></mat-spinner>
     </div>
 </div>

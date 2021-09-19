@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/_services';
 import { UnitsPipe } from 'src/app/_helpers';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, skip, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -41,7 +41,6 @@ export class ItemsComponent implements OnInit {
     this.items$ = this.items$.pipe(startWith(JSON.parse(localStorage[this.ITEMS_CACHE_KEY] || '[]')))
 
     this.items$.subscribe(items => {
-      this.loading = false;
       this.items = items;
       this.dataSource = new MatTableDataSource(items);
       this.dataSource.sort = this.sort;
@@ -67,7 +66,8 @@ export class ItemsComponent implements OnInit {
         this.decimalPipe.transform(this.unitsPipe.transform(data.height, data.units, this.currentUser.units), '1.0-3').toString().includes(filter)
     })
 
-    this.items$.subscribe(items => {
+    this.items$.pipe(skip(1)).subscribe(items => {
+      this.loading = false;
       this.updateCache(items)
     })
   }

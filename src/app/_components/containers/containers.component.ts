@@ -9,7 +9,7 @@ import { EditContainerComponent } from 'src/app/_components/edit-container/edit-
 import { AuthenticationService } from 'src/app/_services';
 import { UnitsPipe, VolumeUnitsPipe } from 'src/app/_helpers';
 import { DecimalPipe } from '@angular/common';
-import { map, startWith } from 'rxjs/operators';
+import { map, skip, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -42,7 +42,7 @@ export class ContainersComponent implements OnInit {
     this.containers$ = this.containers$.pipe(startWith(JSON.parse(localStorage[this.CONTAINERS_CACHE_KEY] || '[]')))
 
     this.containers$.subscribe(containers => {
-      this.loading = false; this.containers = containers;
+      this.containers = containers;
       this.dataSource = new MatTableDataSource(containers);
       this.dataSource.sort = this.sort;
       this.doesUserHaveContainers()
@@ -68,13 +68,14 @@ export class ContainersComponent implements OnInit {
         this.decimalPipe.transform(this.volumeUnitsPipe.transform(data.volume, data.units, this.currentUser.units), '1.1-1').toString().includes(filter)
     })
 
-    this.containers$.subscribe(containers => {
-      this.updateCache(containers.sort((a, b) => a.id - b.id).slice(-200))
+    this.containers$.pipe(skip(1)).subscribe(containers => {
+      this.loading = false;
+      this.updateCache(containers)
     })
   }
 
   updateCache(containers) {
-    localStorage[this.CONTAINERS_CACHE_KEY] = JSON.stringify(containers)
+    localStorage[this.CONTAINERS_CACHE_KEY] = JSON.stringify(containers.sort((a, b) => a.id - b.id).slice(-200))
   }
 
   doesUserHaveContainers() {
