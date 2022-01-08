@@ -68,6 +68,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { CreateFailDialogComponent } from './_components/create-fail-dialog/create-fail-dialog.component';
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 // import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -91,6 +92,7 @@ import { ArrangementDetailComponent } from './_components/arrangement-detail/arr
 import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirect/shippo-oauth-redirect.component';
 import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-dialog/confirm-label-creation-dialog.component';
 import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/refresh-quote-dialog.component';
+import { DevelopersComponent } from './_components/developers/developers.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -193,6 +195,12 @@ const appRoutes: Routes = [
     component: ChangePasswordComponent,
     canActivate: [AuthGuard, TermsOfServiceGuard]
   },
+  {
+    path: 'developers',
+    outlet: 'view',
+    component: DevelopersComponent,
+    canActivate: [AuthGuard, TermsOfServiceGuard]
+  },
   { path: "**", redirectTo: '' }
 ];
 
@@ -250,7 +258,8 @@ const appRoutes: Routes = [
     ArrangementDetailComponent,
     ShippoOauthRedirectComponent,
     ConfirmLabelCreationDialogComponent,
-    RefreshQuoteDialogComponent],
+    RefreshQuoteDialogComponent,
+    DevelopersComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -290,6 +299,7 @@ const appRoutes: Routes = [
     MatProgressBarModule,
     MatMenuModule,
     SocialLoginModule,
+    ClipboardModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   entryComponents: [

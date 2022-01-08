@@ -51,6 +51,10 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['./', { outlets: { view: ['edit-user-information'] } }]);
   }
 
+  goToDevelopers() {
+    this.router.navigate(['./', { outlets: { view: ['developers'] } }]);
+  }
+
   save() {
     if (this.save$ != undefined) {
       this.save$.unsubscribe();

@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="d-flex justify-content-center mb-3 mt-3">
+        <h3>Developers</h3>
+    </div>
+
+    <div>
+        <p class="me-3" style="display: inline-block;"><strong>API Key: </strong>
+            {{token.key[0]+token.key[1]+token.key[2]+'...'+token.key[token.key.length-1]}}</p>
+        <button mat-raised-button color="accent" [cdkCopyToClipboard]="token.key">
+
+            <fa-icon class="icon me-2" size="1x" [icon]="faCopy">
+            </fa-icon>
+            Copy API Key to Clipboard
+        </button>
+    </div>
+
+</div>
