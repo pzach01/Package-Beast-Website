@@ -78,9 +78,12 @@ export class ShipmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
+        console.log('returned shipment after post', newShipment)
         this.router.navigate(['./', { outlets: { view: ['shipments', newShipment.id, 'quotes'] } }]);
+        console.log('testPeter1')
       }
       this.doesUserHaveShipments();
+      console.log('testPeter2')
     });
   }
 

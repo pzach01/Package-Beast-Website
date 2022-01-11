@@ -34,7 +34,7 @@ export class ShipmentsService {
   }
 
   postShipment(shipment: Shipment): Observable<Shipment> {
-    console.log('shipment', shipment)
+    console.log('shipment before post', shipment)
     return this.http.post<Shipment>(`${environment.API_BASE_URI}/shipments/`, shipment);
   }
 
