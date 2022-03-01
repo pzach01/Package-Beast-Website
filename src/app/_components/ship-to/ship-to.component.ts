@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services';
 
@@ -17,14 +17,14 @@ export class ShipToComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.addressForm = this.formBuilder.group({
-      name: [""],
-      phoneNumber: [""],
-      addressLine1: [""],
-      addressLine2: [""],
-      city: [""],
-      stateProvinceCode: [""],
-      country: [""],
-      postalCode: [""]
+      name: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      addressLine1: ['', [Validators.required]],
+      addressLine2: [''],
+      city: ['', [Validators.required]],
+      stateProvinceCode: ['', [Validators.required]],
+      country: [''],
+      postalCode: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 

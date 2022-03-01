@@ -11,6 +11,7 @@ import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dia
 import { ShipFromComponent } from '../ship-from/ship-from.component';
 import { ShipToComponent } from '../ship-to/ship-to.component';
 import { Address } from 'src/app/_models/address';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-new-shipment',
@@ -39,6 +40,7 @@ export class NewShipmentComponent implements OnInit {
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
+  stepper: MatStepper
 
   constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
   ) { }
@@ -98,43 +100,54 @@ export class NewShipmentComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  analyze() {
-    this.startSpinner()
-    this.loading = true;
-    this.shipment.containers = this.selectedContainers;
+  analyze(stepper: MatStepper) {
 
-    let shipmentItems: Item[] = []
-    this.selectedItems.forEach(selectedItem => {
-      for (let index = 0; index < selectedItem.qty; index++) {
-        //If statement probably not necessary
-        if (selectedItem.weight <= 0) {
-          selectedItem.weight = 1;
-        }
-        shipmentItems.push(selectedItem)
-      }
-    });
-    this.shipment.items = shipmentItems;
-
-    this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
-    this.shipment.multiBinPack = this.multiBinPack;
-    this.shipment.timeoutDuration = 30;
-    this.shipment.title = this.newShipmentTitle;
-    this.shipment.lastSelectedQuoteId = 0;
-    this.shipment.shipFromAddress = this.shipFromAddress;
-    this.shipment.shipToAddress = this.shipToAddress;
-    this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
-    this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
-
-    this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
-      this.pauseSpinnerInterval();
-      this.fastForwardSpinner(shipment)
-    }, error => {
-      console.log(error)
-      if (error.detail == "Not found.") {
-        this.close(); this.openCreateFailDialog();
-      }
+    if (!this.shipFromComponent.addressForm.valid) {
+      stepper.selectedIndex = 0;
+      this.shipFromComponent.addressForm.markAllAsTouched()
     }
-    )
+    else if (!this.shipToComponent.addressForm.valid) {
+      stepper.selectedIndex = 1;
+      this.shipToComponent.addressForm.markAllAsTouched()
+    }
+    else {
+      this.startSpinner()
+      this.loading = true;
+      this.shipment.containers = this.selectedContainers;
+
+      let shipmentItems: Item[] = []
+      this.selectedItems.forEach(selectedItem => {
+        for (let index = 0; index < selectedItem.qty; index++) {
+          //If statement probably not necessary
+          if (selectedItem.weight <= 0) {
+            selectedItem.weight = 1;
+          }
+          shipmentItems.push(selectedItem)
+        }
+      });
+      this.shipment.items = shipmentItems;
+
+      this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
+      this.shipment.multiBinPack = this.multiBinPack;
+      this.shipment.timeoutDuration = 30;
+      this.shipment.title = this.newShipmentTitle;
+      this.shipment.lastSelectedQuoteId = 0;
+      this.shipment.shipFromAddress = this.shipFromAddress;
+      this.shipment.shipToAddress = this.shipToAddress;
+      this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
+      this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
+
+      this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
+        this.pauseSpinnerInterval();
+        this.fastForwardSpinner(shipment)
+      }, error => {
+        console.log(error)
+        if (error.detail == "Not found.") {
+          this.close(); this.openCreateFailDialog();
+        }
+      }
+      )
+    }
   }
 
   openCreateFailDialog(): void {

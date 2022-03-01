@@ -52,7 +52,7 @@
             <button *ngIf="stepper.selectedIndex < 4" class="empty-space" [disabled]="loading" color="primary"
                 mat-raised-button (click)="stepper.next()" type="button">Next</button>
             <button *ngIf="stepper.selectedIndex == 4" class="empty-space" [disabled]="loading || !allowAnalysis"
-                color="primary" mat-raised-button (click)="analyze()" type="button">Analyze</button>
+                color="primary" mat-raised-button (click)="analyze(stepper)" type="button">Analyze</button>
             <div class="ps-2 pe-2" *ngIf=loading>
                 <mat-progress-spinner mode="determinate" [value]="spinnerValue" color="accent">
                 </mat-progress-spinner>
