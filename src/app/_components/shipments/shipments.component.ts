@@ -60,7 +60,7 @@ export class ShipmentsComponent implements OnInit {
       this.loading = false;
       this.updateCache(shipments)
     })
-
+    console.log('hey, peter')
   }
 
   updateCache(shipments) {
