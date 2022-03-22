@@ -79,6 +79,16 @@
                     </td>
                 </ng-container>
 
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Weight ({{currentUser.weightUnits}})
+                    </th>
+                    <td mat-cell *matCellDef="let item">
+                        {{item.weight | weightUnits: item.weightUnits: currentUser.weightUnits | number:'1.0-3'}}
+                    </td>
+                </ng-container>
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr [class.newOrEdited]="item===newOrEditedItem" mat-row (click)="openEditItemDialog(item)"
                     *matRowDef="let item; columns: displayedColumns;">

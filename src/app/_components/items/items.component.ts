@@ -23,7 +23,7 @@ export class ItemsComponent implements OnInit {
   ITEMS_CACHE_KEY: string;
   items: Item[];
   dataSource;
-  displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height'];
+  displayedColumns: string[] = ['sku', 'description', 'length', 'width', 'height', 'weight'];
   currentUser = this.authenticationService.currentUserValue;
   newOrEditedItem: Item;
   userHasItems: boolean = false;
