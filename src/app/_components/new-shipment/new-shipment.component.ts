@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ItemsSelectionComponent } from '../items-selection/items-selection.component';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
@@ -42,7 +42,7 @@ export class NewShipmentComponent implements OnInit {
   newShipmentTitle: string = "My New Shipment";
   stepper: MatStepper
 
-  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
+  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog, private el: ElementRef
   ) { }
 
   ngOnInit() { }
@@ -100,15 +100,32 @@ export class NewShipmentComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  scrollToErrorField() {
+
+    const firstElementWithError = document.querySelector('textarea.ng-invalid, input.ng-invalid, select.ng-invalid')
+
+    if (firstElementWithError) {
+      console.log(firstElementWithError)
+      firstElementWithError.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      });
+    }
+
+  }
+
   analyze(stepper: MatStepper) {
 
     if (!this.shipFromComponent.addressForm.valid) {
       stepper.selectedIndex = 0;
       this.shipFromComponent.addressForm.markAllAsTouched()
+      this.scrollToErrorField()
     }
     else if (!this.shipToComponent.addressForm.valid) {
       stepper.selectedIndex = 1;
       this.shipToComponent.addressForm.markAllAsTouched()
+      this.scrollToErrorField()
     }
     else {
       this.startSpinner()
