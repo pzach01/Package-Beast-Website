@@ -11,3 +11,7 @@ export class Container {
     Object.assign(this, init);
   }
 }
+
+export class ThirdPartyContainer extends Container {
+  public supplier: string;
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ItemsSelectionComponent } from '../items-selection/items-selection.component';
 import { Item } from 'src/app/_models/item';
-import { Container } from 'src/app/_models/container';
+import { Container, ThirdPartyContainer } from 'src/app/_models/container';
 import { ContainersSelectionComponent } from 'src/app/_components/containers-selection/containers-selection.component';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
@@ -12,6 +12,7 @@ import { ShipFromComponent } from '../ship-from/ship-from.component';
 import { ShipToComponent } from '../ship-to/ship-to.component';
 import { Address } from 'src/app/_models/address';
 import { MatStepper } from '@angular/material/stepper';
+import { ContainersService } from 'src/app/_services/containers.service';
 
 @Component({
   selector: 'app-new-shipment',
@@ -42,10 +43,16 @@ export class NewShipmentComponent implements OnInit {
   newShipmentTitle: string = "My New Shipment";
   stepper: MatStepper
 
-  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog, private el: ElementRef
+  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog, private el: ElementRef
   ) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+
+    this.containersService.getAllThirdPartyContainers().subscribe((thirdPartyContainers => {
+      this.containersSelectionComponent.thirdPartyContainers = thirdPartyContainers
+      console.log(thirdPartyContainers)
+    }))
+  }
 
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;

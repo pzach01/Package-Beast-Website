@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Container } from '../_models/container';
+import { Container, ThirdPartyContainer } from '../_models/container';
 import { environment } from 'src/environments/environment'
 
 @Injectable({
@@ -12,6 +12,10 @@ export class ContainersService {
   constructor(private http: HttpClient) { }
   getAll(): Observable<Container[]> {
     return this.http.get<Container[]>(`${environment.API_BASE_URI}/containers/`);
+  }
+
+  getAllThirdPartyContainers(): Observable<ThirdPartyContainer[]> {
+    return this.http.get<ThirdPartyContainer[]>(`${environment.API_BASE_URI}/third-party-containers/`);
   }
 
   postContainer(container: Container): Observable<Container> {
