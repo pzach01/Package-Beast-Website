@@ -4,7 +4,7 @@
 </div>
 
 <div class="mb-3">
-    <mat-accordion>
+    <mat-accordion #accordion="matAccordion">
         <!-- #enddocregion basic-panel -->
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -47,7 +47,8 @@
                 shipment. Select
                 "Containers" in the main menu to create an shipping container.</p>
         </div>
-        <div [ngClass]='userHasContainers ? "containers-selection-tbl-container w-100": "d-none"'>
+        <div (scroll)="accordion.closeAll()"
+            [ngClass]='userHasContainers ? "containers-selection-tbl-container w-100": "d-none"'>
 
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 flex-fill">
 

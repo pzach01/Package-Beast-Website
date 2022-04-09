@@ -92,6 +92,7 @@ export class ContainersSelectionComponent implements OnInit {
     const UPSContainers = this.thirdPartyContainers.filter(thirdPartyContainer => thirdPartyContainer.supplier == 'UPS')
     if (this.includeUpsContainers) {
       this.dataSource.data = this.dataSource.data.concat(UPSContainers)
+      UPSContainers.forEach(c => this.selection.select(c))
     } else {
       this.dataSource.data = this.dataSource.data.filter(ar => !UPSContainers.find(rm => (rm.id === ar.id)))
     }
@@ -101,6 +102,7 @@ export class ContainersSelectionComponent implements OnInit {
     const USPSContainers = this.thirdPartyContainers.filter(thirdPartyContainer => thirdPartyContainer.supplier == 'USPS')
     if (this.includeUspsContainers) {
       this.dataSource.data = this.dataSource.data.concat(USPSContainers)
+      USPSContainers.forEach(c => this.selection.select(c))
     } else {
       this.dataSource.data = this.dataSource.data.filter(ar => !USPSContainers.find(rm => (rm.id === ar.id)))
     }
