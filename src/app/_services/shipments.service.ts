@@ -45,4 +45,8 @@ export class ShipmentsService {
   deleteArrangement(arrangement: Arrangement): Observable<Shipment> {
     return this.http.delete<Shipment>(`${environment.API_BASE_URI}/arrangements/${arrangement.id}/`);
   }
+
+  deleteShipment(shipment: Shipment): Observable<Shipment> {
+    return this.http.delete<Shipment>(`${environment.API_BASE_URI}/shipments/${shipment.id}/`);
+  }
 }
