@@ -44,7 +44,8 @@ export class ShipmentsComponent implements OnInit {
     this.shipments$ = this.shipments$.pipe(startWith(JSON.parse(localStorage[this.SHIPMENTS_CACHE_KEY] || '[]')))
 
     this.shipments$.subscribe(shipments => {
-      console.log(shipments)
+      shipments = shipments.filter((shipment) => shipment.validAddress == true)
+
 
       this.shipments = shipments;
       this.dataSource = new MatTableDataSource(shipments);
@@ -60,7 +61,6 @@ export class ShipmentsComponent implements OnInit {
       this.loading = false;
       this.updateCache(shipments)
     })
-    console.log('hey, peter')
   }
 
   updateCache(shipments) {

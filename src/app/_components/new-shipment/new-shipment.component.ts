@@ -7,12 +7,12 @@ import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 import { ShipFromComponent } from '../ship-from/ship-from.component';
 import { ShipToComponent } from '../ship-to/ship-to.component';
 import { Address } from 'src/app/_models/address';
 import { MatStepper } from '@angular/material/stepper';
 import { ContainersService } from 'src/app/_services/containers.service';
+import { InvalidAddressDialogComponent } from '../invalid-address-dialog/invalid-address-dialog.component';
 
 @Component({
   selector: 'app-new-shipment',
@@ -43,8 +43,7 @@ export class NewShipmentComponent implements OnInit {
   newShipmentTitle: string = "My New Shipment";
   stepper: MatStepper
 
-  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog, private el: ElementRef
-  ) { }
+  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public invalidAddressDialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -94,9 +93,27 @@ export class NewShipmentComponent implements OnInit {
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
-        this.newShipmentRef.close(shipment)
+        if (shipment) {
+          if (shipment.validAddress) {
+            console.log('valid');
+            console.log(shipment)
+            this.newShipmentRef.close(shipment)
+          } else {
+            console.log('invalid');
+            console.log(shipment)
+            this.openInvalidAddressDialog()
+          };
+        }
       }
     }, 200)
+  }
+
+  openInvalidAddressDialog(): void {
+    const dialogRef = this.invalidAddressDialog.open(InvalidAddressDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: "shipToAddress" },
+    });
   }
 
   pauseSpinnerInterval() {
@@ -123,6 +140,7 @@ export class NewShipmentComponent implements OnInit {
   }
 
   analyze(stepper: MatStepper) {
+    this.spinnerValue = 0;
 
     if (!this.shipFromComponent.addressForm.valid) {
       stepper.selectedIndex = 0;
@@ -175,7 +193,7 @@ export class NewShipmentComponent implements OnInit {
   }
 
   openCreateFailDialog(): void {
-    const dialogRef = this.createFailDialog.open(CreateFailDialogComponent, {
+    const dialogRef = this.invalidAddressDialog.open(InvalidAddressDialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
       data: { type: "shipment" },

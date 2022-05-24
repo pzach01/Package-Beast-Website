@@ -93,6 +93,7 @@ import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirec
 import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-dialog/confirm-label-creation-dialog.component';
 import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/refresh-quote-dialog.component';
 import { DevelopersComponent } from './_components/developers/developers.component';
+import { InvalidAddressDialogComponent } from './_components/invalid-address-dialog/invalid-address-dialog.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -259,7 +260,8 @@ const appRoutes: Routes = [
     ShippoOauthRedirectComponent,
     ConfirmLabelCreationDialogComponent,
     RefreshQuoteDialogComponent,
-    DevelopersComponent],
+    DevelopersComponent,
+    InvalidAddressDialogComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -319,7 +321,8 @@ const appRoutes: Routes = [
     PaymentErrorDialogComponent,
     ChangePasswordCompleteDialogComponent,
     ConfirmLabelCreationDialogComponent,
-    RefreshQuoteDialogComponent
+    RefreshQuoteDialogComponent,
+    InvalidAddressDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
