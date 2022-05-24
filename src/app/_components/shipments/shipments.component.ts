@@ -44,9 +44,6 @@ export class ShipmentsComponent implements OnInit {
     this.shipments$ = this.shipments$.pipe(startWith(JSON.parse(localStorage[this.SHIPMENTS_CACHE_KEY] || '[]')))
 
     this.shipments$.subscribe(shipments => {
-      shipments = shipments.filter((shipment) => shipment.validAddress == true)
-
-
       this.shipments = shipments;
       this.dataSource = new MatTableDataSource(shipments);
       this.dataSource.sort = this.sort;
