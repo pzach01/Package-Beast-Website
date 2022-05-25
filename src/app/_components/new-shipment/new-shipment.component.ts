@@ -86,7 +86,7 @@ export class NewShipmentComponent implements OnInit {
     }, 200)
   }
 
-  fastForwardSpinner(shipment?) {
+  fastForwardSpinner(shipment?: Shipment) {
     this.spinnerValue = 100;
     this.interval = setInterval(() => {
       this.dwellTime = this.dwellTime - 200
@@ -94,7 +94,7 @@ export class NewShipmentComponent implements OnInit {
         this.pauseSpinnerInterval();
         this.loading = false;
         if (shipment) {
-          if (shipment.validAddress) {
+          if (shipment.validFromAddress && shipment.validToAddress) {
             console.log('valid');
             console.log(shipment)
             this.newShipmentRef.close(shipment)
