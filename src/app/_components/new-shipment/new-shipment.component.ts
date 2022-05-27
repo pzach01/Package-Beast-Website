@@ -42,6 +42,7 @@ export class NewShipmentComponent implements OnInit {
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
   stepper: MatStepper
+  @ViewChild('stepper') myStepper: MatStepper;
 
   constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public invalidAddressDialog: MatDialog) { }
 
@@ -95,24 +96,24 @@ export class NewShipmentComponent implements OnInit {
         this.loading = false;
         if (shipment) {
           if (shipment.validFromAddress && shipment.validToAddress) {
-            console.log('valid');
-            console.log(shipment)
             this.newShipmentRef.close(shipment)
-          } else {
-            console.log('invalid');
-            console.log(shipment)
-            this.openInvalidAddressDialog()
+          } else if (shipment.validFromAddress && !shipment.validToAddress) {
+            this.openInvalidAddressDialog('toAddress')
+            this.myStepper.selectedIndex = 1;
+          } else if (!shipment.validFromAddress && shipment.validToAddress) {
+            this.myStepper.selectedIndex = 0;
+            this.openInvalidAddressDialog('fromAddress')
           };
         }
       }
     }, 200)
   }
 
-  openInvalidAddressDialog(): void {
+  openInvalidAddressDialog(invalidAddressType: string): void {
     const dialogRef = this.invalidAddressDialog.open(InvalidAddressDialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
-      data: { type: "shipToAddress" },
+      data: { type: invalidAddressType },
     });
   }
 
