@@ -13,6 +13,7 @@ import { Address } from 'src/app/_models/address';
 import { MatStepper } from '@angular/material/stepper';
 import { ContainersService } from 'src/app/_services/containers.service';
 import { InvalidAddressDialogComponent } from '../invalid-address-dialog/invalid-address-dialog.component';
+import { NewShipmentErrorDialogComponent } from '../new-shipment-error-dialog/new-shipment-error-dialog.component';
 
 @Component({
   selector: 'app-new-shipment',
@@ -44,7 +45,7 @@ export class NewShipmentComponent implements OnInit {
   stepper: MatStepper
   @ViewChild('stepper') myStepper: MatStepper;
 
-  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public invalidAddressDialog: MatDialog) { }
+  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public invalidAddressDialog: MatDialog, public newShipmentErrorDialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -95,14 +96,20 @@ export class NewShipmentComponent implements OnInit {
         this.pauseSpinnerInterval();
         this.loading = false;
         if (shipment) {
-          if (shipment.validFromAddress && shipment.validToAddress) {
+          if (shipment.validFromAddress && shipment.validToAddress && shipment.fitAllArrangementPossibleAPriori && shipment.arrangementFittingAllItemsFound) {
             this.newShipmentRef.close(shipment)
-          } else if (shipment.validFromAddress && !shipment.validToAddress) {
+          } else if (!shipment.validToAddress) {
             this.openInvalidAddressDialog('toAddress')
             this.myStepper.selectedIndex = 1;
-          } else if (!shipment.validFromAddress && shipment.validToAddress) {
+          } else if (!shipment.validFromAddress) {
             this.myStepper.selectedIndex = 0;
             this.openInvalidAddressDialog('fromAddress')
+          } else if (!shipment.fitAllArrangementPossibleAPriori) {
+            this.myStepper.selectedIndex = 2;
+            this.openNewShipmentErrorDialog('fitAllArrangementPossibleAPriori')
+          } else if (!shipment.arrangementFittingAllItemsFound) {
+            this.myStepper.selectedIndex = 2;
+            this.openNewShipmentErrorDialog('arrangementFittingAllItemsFound')
           };
         }
       }
@@ -116,6 +123,15 @@ export class NewShipmentComponent implements OnInit {
       data: { type: invalidAddressType },
     });
   }
+
+  openNewShipmentErrorDialog(errorType: string): void {
+    const dialogRef = this.newShipmentErrorDialog.open(NewShipmentErrorDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: errorType },
+    });
+  }
+
 
   pauseSpinnerInterval() {
     clearInterval(this.interval);

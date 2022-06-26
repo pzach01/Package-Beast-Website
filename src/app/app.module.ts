@@ -6,7 +6,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor, GeneralRetryInterceptor, UnitsPipe, SubscriptionGuard, TermsOfServiceGuard } from './_helpers';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
-
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./_components/login"
 import { RegisterComponent } from "./_components/register"
@@ -94,6 +93,7 @@ import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-di
 import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/refresh-quote-dialog.component';
 import { DevelopersComponent } from './_components/developers/developers.component';
 import { InvalidAddressDialogComponent } from './_components/invalid-address-dialog/invalid-address-dialog.component';
+import { NewShipmentErrorDialogComponent } from './_components/new-shipment-error-dialog/new-shipment-error-dialog.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -261,7 +261,8 @@ const appRoutes: Routes = [
     ConfirmLabelCreationDialogComponent,
     RefreshQuoteDialogComponent,
     DevelopersComponent,
-    InvalidAddressDialogComponent],
+    InvalidAddressDialogComponent,
+    NewShipmentErrorDialogComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -322,7 +323,8 @@ const appRoutes: Routes = [
     ChangePasswordCompleteDialogComponent,
     ConfirmLabelCreationDialogComponent,
     RefreshQuoteDialogComponent,
-    InvalidAddressDialogComponent
+    InvalidAddressDialogComponent,
+    NewShipmentErrorDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
