@@ -100,7 +100,9 @@
                 <!-- <tr [class.newOrEdited]="quote.id===(shipment | async)?.lastSelectedQuoteId" mat-row
                     (click)="openQuoteDetail(quote)" *matRowDef="let quote; columns: displayedColumns;">
                 </tr> -->
-                <tr mat-row (click)="openQuoteDetail(quote)" *matRowDef="let quote; columns: displayedColumns;">
+                <tr mat-row *matRowDef="let quote; columns: displayedColumns;"
+                    (click)="(!labelPurchased || (labelPurchased && quote.shippoTransaction != null)) && openQuoteDetail(quote)"
+                    [ngStyle]="labelPurchased && quote.shippoTransaction == null && {'background-color': 'darkgrey', 'cursor': 'default'}">
                 </tr>
             </table>
         </div>

@@ -25,6 +25,14 @@ export class QuoteListComponent implements OnInit {
   shipment: Shipment;
   loading: boolean = false
   userHasQuotes = true
+  labelPurchased: boolean = false;
+  randomColor: string = 'blue';
+
+  myStyles = {
+    fontSize: '3em',
+    backgroundColor: 'pink',
+    color: 'maroon'
+  }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -45,19 +53,13 @@ export class QuoteListComponent implements OnInit {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
-
-        const labelPurchased = shipment.quotes.filter(quote => quote.shippoTransaction != null).length;
-        console.log('lp', labelPurchased)
-        if (labelPurchased) {
-          this.dataSource = new MatTableDataSource(shipment.quotes.filter(quote => quote.shippoTransaction != null));
-        } else {
-          this.dataSource = new MatTableDataSource(shipment.quotes.filter(quote => quote.shippoTransaction == null));
-        }
+        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction != null).length);
+        console.log('lp', this.labelPurchased)
+        this.dataSource = new MatTableDataSource(shipment.quotes);
         this.dataSource.sort = this.sort;
       }
     })
   }
-
   openQuoteDetail(quote: Quote) {
 
     this.shipmentsService.setLastSelectedQuote(this.shipment, quote).subscribe(() => {
