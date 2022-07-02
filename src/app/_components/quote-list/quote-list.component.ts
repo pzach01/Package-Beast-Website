@@ -45,7 +45,14 @@ export class QuoteListComponent implements OnInit {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
-        this.dataSource = new MatTableDataSource(shipment.quotes);
+
+        const labelPurchased = shipment.quotes.filter(quote => quote.shippoTransaction != null).length;
+        console.log('lp', labelPurchased)
+        if (labelPurchased) {
+          this.dataSource = new MatTableDataSource(shipment.quotes.filter(quote => quote.shippoTransaction != null));
+        } else {
+          this.dataSource = new MatTableDataSource(shipment.quotes.filter(quote => quote.shippoTransaction == null));
+        }
         this.dataSource.sort = this.sort;
       }
     })
