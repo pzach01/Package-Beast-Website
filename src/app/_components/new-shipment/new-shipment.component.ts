@@ -37,7 +37,7 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  timeoutDuration = 35;
+  timeoutDuration = 70;
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
