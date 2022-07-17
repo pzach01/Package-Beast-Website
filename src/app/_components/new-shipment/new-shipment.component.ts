@@ -37,8 +37,7 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  timeoutDuration = 30;
-  fastForwardtimeoutDuration = 2;
+  timeoutDuration = 35;
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
@@ -78,6 +77,13 @@ export class NewShipmentComponent implements OnInit {
     }
   }
 
+  // run every 200 ms:
+  //t = t + (20/30)
+
+  // (20/30)/(1/5)*30 = 100
+  // To give a little extra time for server to respond, increase timeoutDuration higher than 30 seconds
+
+
   startSpinner() {
     this.interval = setInterval(() => {
       this.spinnerValue = this.spinnerValue + 20 / this.timeoutDuration
@@ -96,6 +102,7 @@ export class NewShipmentComponent implements OnInit {
         this.pauseSpinnerInterval();
         this.loading = false;
         if (shipment) {
+          console.log('xshipment:', shipment)
           if (shipment.validFromAddress && shipment.validToAddress && shipment.fitAllArrangementPossibleAPriori && shipment.arrangementFittingAllItemsFound) {
             this.newShipmentRef.close(shipment)
           } else if (!shipment.validToAddress) {
