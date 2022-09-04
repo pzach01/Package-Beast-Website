@@ -5,7 +5,7 @@
 
     <div *ngIf="currentUser.userHasShippoAccount">
         <p>You currently have a Shippo account linked to this Package Beast account. To un-link this Shippo account from
-            your Package Beast account, click here.</p>
+            your Package Beast account: <a [routerLink]="" (click)="unlinkShippoAccount()">Unlink Shippo Account</a></p>
     </div>
 
     <div *ngIf="!currentUser.userHasShippoAccount">

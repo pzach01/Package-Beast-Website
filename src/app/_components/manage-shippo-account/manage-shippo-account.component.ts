@@ -26,4 +26,10 @@ export class ManageShippoAccountComponent implements OnInit {
     window.location.href = shippoLoginUrl
   }
 
+  unlinkShippoAccount() {
+    this.authenticationService.updateUser({
+      shippoAccessToken: ""
+    }).subscribe(() => console.log('Unlinked Shippo account'));
+  }
+
 }
