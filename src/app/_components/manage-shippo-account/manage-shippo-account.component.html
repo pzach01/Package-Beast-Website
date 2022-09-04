@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="d-flex justify-content-center mb-3 mt-3">
+        <h3>Manage Shippo Account</h3>
+    </div>
+
+    <div *ngIf="currentUser.userHasShippoAccount">
+        <p>You currently have a Shippo account linked to this Package Beast account. To un-link this Shippo account from
+            your Package Beast account, click here.</p>
+    </div>
+
+    <div *ngIf="!currentUser.userHasShippoAccount">
+        <p>No Shippo account is linked to this Package Beast account. Please link a Shippo account to your Package Beast
+            account: <a [routerLink]="" (click)="shippoLogin()">Shippo Login</a></p>
+    </div>
+
+
+</div>

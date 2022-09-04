@@ -94,6 +94,8 @@ import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/
 import { DevelopersComponent } from './_components/developers/developers.component';
 import { InvalidAddressDialogComponent } from './_components/invalid-address-dialog/invalid-address-dialog.component';
 import { NewShipmentErrorDialogComponent } from './_components/new-shipment-error-dialog/new-shipment-error-dialog.component';
+import { RegisterShippoAccountComponent } from './_components/register-shippo-account/register-shippo-account.component';
+import { ManageShippoAccountComponent } from './_components/manage-shippo-account/manage-shippo-account.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -202,6 +204,12 @@ const appRoutes: Routes = [
     component: DevelopersComponent,
     canActivate: [AuthGuard, TermsOfServiceGuard]
   },
+  {
+    path: 'manage-shippo-account',
+    outlet: 'view',
+    component: ManageShippoAccountComponent,
+    canActivate: [AuthGuard, TermsOfServiceGuard]
+  },
   { path: "**", redirectTo: '' }
 ];
 
@@ -262,7 +270,9 @@ const appRoutes: Routes = [
     RefreshQuoteDialogComponent,
     DevelopersComponent,
     InvalidAddressDialogComponent,
-    NewShipmentErrorDialogComponent],
+    NewShipmentErrorDialogComponent,
+    RegisterShippoAccountComponent,
+    ManageShippoAccountComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
