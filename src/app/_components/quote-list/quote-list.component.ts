@@ -49,7 +49,7 @@ export class QuoteListComponent implements OnInit {
     //   const shipmentId = +this.route.parent.snapshot.params['id'];
     //   this.shipment = this.shipmentsService.getShipmentById(shipmentId)
     // }
-    this.shipmentsService.getShipmentById(shipmentId).subscribe(shipment => {
+    this.shipmentsService.getSimpleShipmentById(shipmentId).subscribe(shipment => {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
