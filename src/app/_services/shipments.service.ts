@@ -18,7 +18,7 @@ export class ShipmentsService {
     return this.http.get<Shipment[]>(`${environment.API_BASE_URI}/simpleshipments/`).pipe(map(res => res), shareReplay(1));
   }
   getSimpleShipmentById(shipmentId: number): Observable<Shipment> {
-    return this.http.get<Shipment>(`${environment.API_BASE_URI}/simple-shipment/${shipmentId}/`);
+    return this.http.get<Shipment>(`${environment.API_BASE_URI}/simpleshipments/${shipmentId}/`);
   }
 
   getArrangementById(arrangementID: number): Observable<Arrangement> {
