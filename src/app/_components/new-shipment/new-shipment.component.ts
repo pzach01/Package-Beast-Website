@@ -203,13 +203,16 @@ export class NewShipmentComponent implements OnInit {
       }, error => {
         console.log(error)
         if (error.detail == "Not found.") {
+          this.fastForwardSpinner()
           this.close(); this.openCreateFailDialog();
         } else if (error.message == 'invalid to address') {
-          this.openInvalidAddressDialog('toAddress')
+          this.fastForwardSpinner();
+          this.openInvalidAddressDialog('toAddress');
           this.myStepper.selectedIndex = 1;
         } else if (error.message == 'invalid from address') {
+          this.fastForwardSpinner();
+          this.openInvalidAddressDialog('fromAddress');
           this.myStepper.selectedIndex = 0;
-          this.openInvalidAddressDialog('fromAddress')
         }
       }
       )
