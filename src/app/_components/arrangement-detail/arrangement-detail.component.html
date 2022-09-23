@@ -67,11 +67,11 @@
                         *ngIf="quote.shippoTransaction?.messages[0]?.code=='Expired'">
                         <h3>Shipping Label Purchase Failed</h3>
                         <p>A shipping label could not be purchased because the quote has expired. Please
-                            click "refresh quote" below to obtain a new quote.</p>
-                        <div class="col-md-3 col-sm-12 text-right">
+                            create a new shipment to receive new quotes.</p>
+                        <!-- <div class="col-md-3 col-sm-12 text-right">
                             <button class="newButton" mat-raised-button color="accent" (click)="refreshQuote()"
                                 type="button">Refresh Quote</button>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div class="d-flex flex-column justify-content-start"
@@ -290,12 +290,6 @@
                     minimize total shipping volume
                 </mat-checkbox> -->
 
-                    <div class="d-flex justify-content-start mb-3">
-                        <div class="row pt-3 ps-3">
-                            <button mat-raised-button color="warn" (click)="delete()" type="button">Delete
-                                Shipment</button>
-                        </div>
-                    </div>
                 </div>
 
             </mat-tab>

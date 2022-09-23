@@ -6,7 +6,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor, GeneralRetryInterceptor, UnitsPipe, SubscriptionGuard, TermsOfServiceGuard } from './_helpers';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
-
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./_components/login"
 import { RegisterComponent } from "./_components/register"
@@ -93,6 +92,10 @@ import { ShippoOauthRedirectComponent } from './_components/shippo-oauth-redirec
 import { ConfirmLabelCreationDialogComponent } from './confirm-label-creation-dialog/confirm-label-creation-dialog.component';
 import { RefreshQuoteDialogComponent } from './_components/refresh-quote-dialog/refresh-quote-dialog.component';
 import { DevelopersComponent } from './_components/developers/developers.component';
+import { InvalidAddressDialogComponent } from './_components/invalid-address-dialog/invalid-address-dialog.component';
+import { NewShipmentErrorDialogComponent } from './_components/new-shipment-error-dialog/new-shipment-error-dialog.component';
+import { RegisterShippoAccountComponent } from './_components/register-shippo-account/register-shippo-account.component';
+import { ManageShippoAccountComponent } from './_components/manage-shippo-account/manage-shippo-account.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -201,6 +204,12 @@ const appRoutes: Routes = [
     component: DevelopersComponent,
     canActivate: [AuthGuard, TermsOfServiceGuard]
   },
+  {
+    path: 'manage-shippo-account',
+    outlet: 'view',
+    component: ManageShippoAccountComponent,
+    canActivate: [AuthGuard, TermsOfServiceGuard]
+  },
   { path: "**", redirectTo: '' }
 ];
 
@@ -259,7 +268,11 @@ const appRoutes: Routes = [
     ShippoOauthRedirectComponent,
     ConfirmLabelCreationDialogComponent,
     RefreshQuoteDialogComponent,
-    DevelopersComponent],
+    DevelopersComponent,
+    InvalidAddressDialogComponent,
+    NewShipmentErrorDialogComponent,
+    RegisterShippoAccountComponent,
+    ManageShippoAccountComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
@@ -319,12 +332,14 @@ const appRoutes: Routes = [
     PaymentErrorDialogComponent,
     ChangePasswordCompleteDialogComponent,
     ConfirmLabelCreationDialogComponent,
-    RefreshQuoteDialogComponent
+    RefreshQuoteDialogComponent,
+    InvalidAddressDialogComponent,
+    NewShipmentErrorDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: GeneralRetryInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: GeneralRetryInterceptor, multi: true },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfXg8wZAAAAAL481GmZ10s8aADR_-poyzCHRrcG' },
     DatePipe,
     UnitsPipe,

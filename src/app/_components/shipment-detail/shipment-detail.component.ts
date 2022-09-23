@@ -51,7 +51,7 @@ export class ShipmentDetailComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.shipmentId = +params['id']; // (+) converts string 'id' to a number
-      this.shipmentsService.getShipmentById(this.shipmentId).subscribe(shipment => {
+      this.shipmentsService.getSimpleShipmentById(this.shipmentId).subscribe(shipment => {
         this.shipment = shipment;
         this.timeout = shipment.timeout;
         this.containers = shipment.containers;

@@ -1,0 +1,26 @@
+<button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<!-- <h1 mat-dialog-title class="text-danger">Invalid address!</h1> -->
+<h1 *ngIf="data.type == 'fitAllArrangementPossibleAPriori'" mat-dialog-title class="text-danger">
+    Items do NOT Fit!</h1>
+<h1 *ngIf="data.type == 'arrangementFittingAllItemsFound'" mat-dialog-title class="text-danger">
+    Items do NOT Fit!</h1>
+
+
+<mat-dialog-content>
+    <!-- <h6 *ngIf="data.type == 'item'">Update your subscription to increase your allowed inventory items.</h6>
+    <h6 *ngIf="data.type == 'container'">Update your subscription to increase your allowed shipping containers.</h6>
+    <h6 *ngIf="data.type == 'shipment'">Update your subscription to increase your allowed monthly shipments.</h6> -->
+    <h6 *ngIf="data.type == 'fitAllArrangementPossibleAPriori'">The selected items do not fit into the largest selected
+        shipping container. Select a larger shipping container or remove inventory items.</h6>
+    <h6 *ngIf="data.type == 'arrangementFittingAllItemsFound'">We were unable to find a way to package the selected
+        inventory items into the selected shipping containers. Select a larger shipping container or remove inventory
+        items.</h6>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close type="button">Close</button>
+</mat-dialog-actions>

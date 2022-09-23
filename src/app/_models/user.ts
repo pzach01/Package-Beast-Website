@@ -22,5 +22,6 @@
     postalCode: string;
     includeUpsContainers: boolean;
     includeUspsContainers: boolean;
+    shippoAccessToken: string;
     userHasShippoAccount: boolean;
 }

@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ItemsSelectionComponent } from '../items-selection/items-selection.component';
 import { Item } from 'src/app/_models/item';
-import { Container } from 'src/app/_models/container';
+import { Container, ThirdPartyContainer } from 'src/app/_models/container';
 import { ContainersSelectionComponent } from 'src/app/_components/containers-selection/containers-selection.component';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { ReviewShipmentComponent } from '../review-shipment/review-shipment.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
 import { ShipFromComponent } from '../ship-from/ship-from.component';
 import { ShipToComponent } from '../ship-to/ship-to.component';
 import { Address } from 'src/app/_models/address';
+import { MatStepper } from '@angular/material/stepper';
+import { ContainersService } from 'src/app/_services/containers.service';
+import { InvalidAddressDialogComponent } from '../invalid-address-dialog/invalid-address-dialog.component';
+import { NewShipmentErrorDialogComponent } from '../new-shipment-error-dialog/new-shipment-error-dialog.component';
 
 @Component({
   selector: 'app-new-shipment',
@@ -34,16 +37,22 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  timeoutDuration = 30;
-  fastForwardtimeoutDuration = 2;
+  timeoutDuration = 70;
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
+  stepper: MatStepper
+  @ViewChild('stepper') myStepper: MatStepper;
 
-  constructor(private shipmentsService: ShipmentsService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public createFailDialog: MatDialog
-  ) { }
+  constructor(private shipmentsService: ShipmentsService, private containersService: ContainersService, public newShipmentRef: MatDialogRef<NewShipmentComponent>, public invalidAddressDialog: MatDialog, public newShipmentErrorDialog: MatDialog) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+
+    this.containersService.getAllThirdPartyContainers().subscribe((thirdPartyContainers => {
+      this.containersSelectionComponent.thirdPartyContainers = thirdPartyContainers
+      console.log(thirdPartyContainers)
+    }))
+  }
 
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
@@ -68,6 +77,13 @@ export class NewShipmentComponent implements OnInit {
     }
   }
 
+  // run every 200 ms:
+  //t = t + (20/30)
+
+  // (20/30)/(1/5)*30 = 100
+  // To give a little extra time for server to respond, increase timeoutDuration higher than 30 seconds
+
+
   startSpinner() {
     this.interval = setInterval(() => {
       this.spinnerValue = this.spinnerValue + 20 / this.timeoutDuration
@@ -78,17 +94,45 @@ export class NewShipmentComponent implements OnInit {
     }, 200)
   }
 
-  fastForwardSpinner(shipment?) {
+  fastForwardSpinner(shipment?: Shipment) {
     this.spinnerValue = 100;
     this.interval = setInterval(() => {
       this.dwellTime = this.dwellTime - 200
       if (this.dwellTime < 0) {
         this.pauseSpinnerInterval();
         this.loading = false;
-        this.newShipmentRef.close(shipment)
+        if (shipment) {
+          console.log('xshipment:', shipment)
+          if (shipment.validFromAddress && shipment.validToAddress && shipment.fitAllArrangementPossibleAPriori && shipment.arrangementFittingAllItemsFound) {
+            this.newShipmentRef.close(shipment)
+          } else if (!shipment.fitAllArrangementPossibleAPriori) {
+            this.myStepper.selectedIndex = 2;
+            this.openNewShipmentErrorDialog('fitAllArrangementPossibleAPriori')
+          } else if (!shipment.arrangementFittingAllItemsFound) {
+            this.myStepper.selectedIndex = 2;
+            this.openNewShipmentErrorDialog('arrangementFittingAllItemsFound')
+          };
+        }
       }
     }, 200)
   }
+
+  openInvalidAddressDialog(invalidAddressType: string): void {
+    const dialogRef = this.invalidAddressDialog.open(InvalidAddressDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: invalidAddressType },
+    });
+  }
+
+  openNewShipmentErrorDialog(errorType: string): void {
+    const dialogRef = this.newShipmentErrorDialog.open(NewShipmentErrorDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: errorType },
+    });
+  }
+
 
   pauseSpinnerInterval() {
     clearInterval(this.interval);
@@ -98,47 +142,85 @@ export class NewShipmentComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  analyze() {
-    this.startSpinner()
-    this.loading = true;
-    this.shipment.containers = this.selectedContainers;
+  scrollToErrorField() {
 
-    let shipmentItems: Item[] = []
-    this.selectedItems.forEach(selectedItem => {
-      for (let index = 0; index < selectedItem.qty; index++) {
-        //If statement probably not necessary
-        if (selectedItem.weight <= 0) {
-          selectedItem.weight = 1;
-        }
-        shipmentItems.push(selectedItem)
-      }
-    });
-    this.shipment.items = shipmentItems;
+    const firstElementWithError = document.querySelector('textarea.ng-invalid, input.ng-invalid, select.ng-invalid')
 
-    this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
-    this.shipment.multiBinPack = this.multiBinPack;
-    this.shipment.timeoutDuration = 30;
-    this.shipment.title = this.newShipmentTitle;
-    this.shipment.lastSelectedQuoteId = 0;
-    this.shipment.shipFromAddress = this.shipFromAddress;
-    this.shipment.shipToAddress = this.shipToAddress;
-    this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
-    this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
-
-    this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
-      this.pauseSpinnerInterval();
-      this.fastForwardSpinner(shipment)
-    }, error => {
-      console.log(error)
-      if (error.detail == "Not found.") {
-        this.close(); this.openCreateFailDialog();
-      }
+    if (firstElementWithError) {
+      console.log(firstElementWithError)
+      firstElementWithError.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      });
     }
-    )
+
+  }
+
+  analyze(stepper: MatStepper) {
+    this.spinnerValue = 0;
+
+    if (!this.shipFromComponent.addressForm.valid) {
+      stepper.selectedIndex = 0;
+      this.shipFromComponent.addressForm.markAllAsTouched()
+      this.scrollToErrorField()
+    }
+    else if (!this.shipToComponent.addressForm.valid) {
+      stepper.selectedIndex = 1;
+      this.shipToComponent.addressForm.markAllAsTouched()
+      this.scrollToErrorField()
+    }
+    else {
+      this.startSpinner()
+      this.loading = true;
+      this.shipment.containers = this.selectedContainers;
+
+      let shipmentItems: Item[] = []
+      this.selectedItems.forEach(selectedItem => {
+        for (let index = 0; index < selectedItem.qty; index++) {
+          //If statement probably not necessary
+          if (selectedItem.weight <= 0) {
+            selectedItem.weight = 1;
+          }
+          shipmentItems.push(selectedItem)
+        }
+      });
+      this.shipment.items = shipmentItems;
+
+      this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
+      this.shipment.multiBinPack = this.multiBinPack;
+      this.shipment.timeoutDuration = 30;
+      this.shipment.title = this.newShipmentTitle;
+      this.shipment.lastSelectedQuoteId = 0;
+      this.shipment.shipFromAddress = this.shipFromAddress;
+      this.shipment.shipToAddress = this.shipToAddress;
+      this.shipment.includeUpsContainers = this.containersSelectionComponent.includeUpsContainers;
+      this.shipment.includeUspsContainers = this.containersSelectionComponent.includeUspsContainers;
+
+      this.shipmentsService.postShipment(this.shipment).subscribe(shipment => {
+        this.pauseSpinnerInterval();
+        this.fastForwardSpinner(shipment)
+      }, error => {
+        console.log(error)
+        if (error.detail == "Not found.") {
+          this.fastForwardSpinner()
+          this.close(); this.openCreateFailDialog();
+        } else if (error.message == 'invalid to address') {
+          this.fastForwardSpinner();
+          this.openInvalidAddressDialog('toAddress');
+          this.myStepper.selectedIndex = 1;
+        } else if (error.message == 'invalid from address') {
+          this.fastForwardSpinner();
+          this.openInvalidAddressDialog('fromAddress');
+          this.myStepper.selectedIndex = 0;
+        }
+      }
+      )
+    }
   }
 
   openCreateFailDialog(): void {
-    const dialogRef = this.createFailDialog.open(CreateFailDialogComponent, {
+    const dialogRef = this.invalidAddressDialog.open(InvalidAddressDialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%',
       data: { type: "shipment" },

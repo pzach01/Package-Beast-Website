@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ContainersService } from 'src/app/_services/containers.service';
-import { Container } from 'src/app/_models/container';
+import { Container, ThirdPartyContainer } from 'src/app/_models/container';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -19,6 +19,7 @@ export class ContainersSelectionComponent implements OnInit {
   faUsps = faUsps
   currentUser = this.authenticationService.currentUserValue;
   containers: Container[];
+  thirdPartyContainers: ThirdPartyContainer[];
   includeUpsContainers: boolean = this.currentUser.includeUpsContainers;
   includeUspsContainers: boolean = this.currentUser.includeUspsContainers;
   dataSource;
@@ -84,6 +85,28 @@ export class ContainersSelectionComponent implements OnInit {
 
   toggle(toggledRow) {
     this.selection.toggle(toggledRow)
+  }
+
+  toggleUpsContainers() {
+    this.includeUpsContainers = !this.includeUpsContainers
+    const UPSContainers = this.thirdPartyContainers.filter(thirdPartyContainer => thirdPartyContainer.supplier == 'UPS')
+    if (this.includeUpsContainers) {
+      this.dataSource.data = this.dataSource.data.concat(UPSContainers)
+      UPSContainers.forEach(c => this.selection.select(c))
+    } else {
+      this.dataSource.data = this.dataSource.data.filter(ar => !UPSContainers.find(rm => (rm.id === ar.id)))
+    }
+  }
+  toggleUspsContainers() {
+    this.includeUspsContainers = !this.includeUspsContainers
+    const USPSContainers = this.thirdPartyContainers.filter(thirdPartyContainer => thirdPartyContainer.supplier == 'USPS')
+    if (this.includeUspsContainers) {
+      this.dataSource.data = this.dataSource.data.concat(USPSContainers)
+      USPSContainers.forEach(c => this.selection.select(c))
+    } else {
+      this.dataSource.data = this.dataSource.data.filter(ar => !USPSContainers.find(rm => (rm.id === ar.id)))
+    }
+
   }
 }
 

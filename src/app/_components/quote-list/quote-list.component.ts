@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, of } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Quote } from 'src/app/_models/quote';
 import { Shipment } from 'src/app/_models/shipment';
 import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 
 @Component({
@@ -24,10 +25,18 @@ export class QuoteListComponent implements OnInit {
   shipment: Shipment;
   loading: boolean = false
   userHasQuotes = true
+  labelPurchased: boolean = false;
+  randomColor: string = 'blue';
+
+  myStyles = {
+    fontSize: '3em',
+    backgroundColor: 'pink',
+    color: 'maroon'
+  }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private shipmentsService: ShipmentsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private shipmentsService: ShipmentsService, private route: ActivatedRoute, private router: Router, public confirmDeleteItemDialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -40,21 +49,45 @@ export class QuoteListComponent implements OnInit {
     //   const shipmentId = +this.route.parent.snapshot.params['id'];
     //   this.shipment = this.shipmentsService.getShipmentById(shipmentId)
     // }
-    this.shipmentsService.getShipmentById(shipmentId).subscribe(shipment => {
+    this.shipmentsService.getSimpleShipmentById(shipmentId).subscribe(shipment => {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
+        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction != null).length);
+        console.log('lp', this.labelPurchased)
         this.dataSource = new MatTableDataSource(shipment.quotes);
         this.dataSource.sort = this.sort;
       }
     })
   }
-
   openQuoteDetail(quote: Quote) {
 
     this.shipmentsService.setLastSelectedQuote(this.shipment, quote).subscribe(() => {
       this.router.navigate(['./', { outlets: { view: ['shipments', +this.route.parent.snapshot.params['id'], 'quotes', quote.id] } }]);
     }), e => console.log(e)
 
+  }
+
+  openConfirmDeleteDialog(): void {
+    const dialogRef = this.confirmDeleteItemDialog.open(ConfirmDeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%',
+      data: { type: 'shipment' }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (data.delete) {
+          this.shipmentsService.deleteShipment(this.shipment).subscribe(() =>
+            this.router.navigate(['./', { outlets: { view: ['shipments'] } }])
+          )
+        }
+      }
+    })
+  }
+
+  delete() {
+    console.log('Delete delete')
+    this.openConfirmDeleteDialog()
   }
 }

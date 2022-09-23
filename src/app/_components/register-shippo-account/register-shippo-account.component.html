@@ -1,0 +1,13 @@
+<button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<h1 mat-dialog-title class="text-danger">Shippo account required!</h1>
+<mat-dialog-content>
+    <h6>A shippo account is required to create shipments. Please login to your Shippo account to proceed.</h6>
+    <h6><a [routerLink]="" (click)="shippoLogin()">Shippo Login</a></h6>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close type="button">Dismiss</button>
+</mat-dialog-actions>

@@ -8,7 +8,7 @@ import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome
 import { AlertService, AuthenticationService } from '../../_services';
 
 import { SocialAuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {

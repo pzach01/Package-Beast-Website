@@ -3,6 +3,7 @@ import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { Shipment } from 'src/app/_models/shipment';
 import { MatDialog } from '@angular/material/dialog';
 import { NewShipmentComponent } from 'src/app/_components/new-shipment/new-shipment.component';
+import { RegisterShippoAccountComponent } from '../register-shippo-account/register-shippo-account.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
@@ -32,7 +33,7 @@ export class ShipmentsComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private shipmentsservice: ShipmentsService, public newShipmentDialog: MatDialog, public registerShippoAccountDialog: MatDialog, private datePipe: DatePipe, private router: Router, private authenticationService: AuthenticationService) { }
 
   transformDate(date) {
     return this.datePipe.transform(date, this.dateTimeFormat).trim().toLowerCase();
@@ -44,8 +45,6 @@ export class ShipmentsComponent implements OnInit {
     this.shipments$ = this.shipments$.pipe(startWith(JSON.parse(localStorage[this.SHIPMENTS_CACHE_KEY] || '[]')))
 
     this.shipments$.subscribe(shipments => {
-      console.log(shipments)
-
       this.shipments = shipments;
       this.dataSource = new MatTableDataSource(shipments);
       this.dataSource.sort = this.sort;
@@ -60,7 +59,6 @@ export class ShipmentsComponent implements OnInit {
       this.loading = false;
       this.updateCache(shipments)
     })
-
   }
 
   updateCache(shipments) {
@@ -70,12 +68,18 @@ export class ShipmentsComponent implements OnInit {
   //   document.querySelector('mat-sidenav-content').scrollTop = 100;
   // }
 
-  openDialog(): void {
+  createNewShipment() {
+    console.log(this.currentUser)
+    if (this.currentUser.userHasShippoAccount) {
+      this.openNewShipmentDialog();
+    } else { this.openRegisterShippoAccountDialog() }
+  }
+
+  openNewShipmentDialog(): void {
     const dialogRef = this.newShipmentDialog.open(NewShipmentComponent, {
       panelClass: 'custom-dialog-container',
       width: '100%'
     });
-
     dialogRef.afterClosed().subscribe(newShipment => {
       if (newShipment) {
         console.log('returned shipment after post', newShipment)
@@ -84,6 +88,14 @@ export class ShipmentsComponent implements OnInit {
       }
       this.doesUserHaveShipments();
       console.log('testPeter2')
+    });
+  }
+
+  openRegisterShippoAccountDialog() {
+    console.log('no shippo account. create one')
+    const dialogRef = this.newShipmentDialog.open(RegisterShippoAccountComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '100%'
     });
   }
 

@@ -1,0 +1,20 @@
+<button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<!-- <h1 mat-dialog-title class="text-danger">Invalid address!</h1> -->
+<h1 *ngIf="data.type == 'toAddress'" mat-dialog-title class="text-danger">Invalid ship to address!</h1>
+<h1 *ngIf="data.type == 'fromAddress'" mat-dialog-title class="text-danger">Invalid ship from address!</h1>
+
+
+<mat-dialog-content>
+    <!-- <h6 *ngIf="data.type == 'item'">Update your subscription to increase your allowed inventory items.</h6>
+    <h6 *ngIf="data.type == 'container'">Update your subscription to increase your allowed shipping containers.</h6>
+    <h6 *ngIf="data.type == 'shipment'">Update your subscription to increase your allowed monthly shipments.</h6> -->
+    <h6>We are unable to generate quotes for the specified address. Please verify and correct the address.</h6>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close type="button">Close</button>
+</mat-dialog-actions>

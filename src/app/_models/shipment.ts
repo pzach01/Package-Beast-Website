@@ -19,6 +19,10 @@ export class Shipment {
     public quotes: Quote[];
     public includeUpsContainers: boolean;
     public includeUspsContainers: boolean;
+    public validFromAddress: boolean;
+    public validToAddress: boolean;
+    public fitAllArrangementPossibleAPriori: boolean;
+    public arrangementFittingAllItemsFound: boolean;
     public constructor(init?: Partial<Shipment>) {
         Object.assign(this, init);
     }
