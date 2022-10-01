@@ -96,13 +96,14 @@ import { InvalidAddressDialogComponent } from './_components/invalid-address-dia
 import { NewShipmentErrorDialogComponent } from './_components/new-shipment-error-dialog/new-shipment-error-dialog.component';
 import { RegisterShippoAccountComponent } from './_components/register-shippo-account/register-shippo-account.component';
 import { ManageShippoAccountComponent } from './_components/manage-shippo-account/manage-shippo-account.component';
+import { HomePageComponent } from './_components/home-page/home-page.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
   //Authentication redirect guard redirects to dashboard if user is authenticated
-  { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: '', component: HomePageComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedRedirectGuard] },
-  { path: 'register', redirectTo: '' },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
@@ -272,7 +273,8 @@ const appRoutes: Routes = [
     InvalidAddressDialogComponent,
     NewShipmentErrorDialogComponent,
     RegisterShippoAccountComponent,
-    ManageShippoAccountComponent],
+    ManageShippoAccountComponent,
+    HomePageComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(

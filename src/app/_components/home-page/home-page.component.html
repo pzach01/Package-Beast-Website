@@ -1,0 +1,67 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav d-block d-md-none" mode="side" position="end">
+        <mat-nav-list class="me-1">
+            <a mat-list-item (click)="goToLogin()">
+                Login
+            </a>
+            <a mat-list-item (click)="goToRegister()">
+                Register
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-toolbar>
+        <div class="me-3">
+            <img id="toolbar-logo" src="../../../assets/PackageBeastNoPhrase.png" alt="pbLogo">
+        </div>
+        <span class="toolbar-spacer d-block d-md-none"></span>
+
+        <button mat-icon-button (click)="drawer.toggle()" class="d-block d-md-none"
+            aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <button mat-button class="d-none d-md-block" aria-label="pricing">
+            Pricing
+        </button>
+        <button mat-button class="d-none d-md-block" aria-label="features">
+            Features
+        </button>
+        <button mat-button class="d-none d-md-block" aria-label="products">
+            Products
+        </button>
+        <span class="toolbar-spacer d-none d-md-block"></span>
+        <button (click)="goToLogin()" mat-button class="d-none d-md-block" aria-label="login button">
+            Login
+        </button>
+        <button (click)="goToRegister()" mat-button class="d-none d-md-block" aria-label="register button">
+            Create an Account
+        </button>
+
+    </mat-toolbar>
+
+    <div class="container-fluid">
+        <div class="row pt-5 pb-5">
+            <div class="col">
+                <img class="d-block m-auto" id="rendering-image" src="../../assets/PackageBeastRendering.webp"
+                    alt="rendering-image">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-5">
+                <h6>test test</h6>
+                <p>Here lies a bunch of text. It is super awesome text. please read it. Yes, yes, let's make it longer,
+                    shall we? Yes we shall! This tests the responsiveness on different screen sizes! Oh joy!</p>
+            </div>
+            <div class="col p-5">
+                <h6>test test</h6>
+                <p>Here lies a bunch of text. It is super awesome text. please read it. Yes, yes, let's make it longer,
+                    shall we? Yes we shall! This tests the responsiveness on different screen sizes! Oh joy!</p>
+            </div>
+            <div class="col p-5">
+                <h6>test test</h6>
+                <p>Here lies a bunch of text. It is super awesome text. please read it. Yes, yes, let's make it longer,
+                    shall we? Yes we shall! This tests the responsiveness on different screen sizes! Oh joy!</p>
+            </div>
+        </div>
+    </div>
+</mat-drawer-container>
