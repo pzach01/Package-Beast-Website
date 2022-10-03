@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
+
 
 @Component({
   selector: 'app-home-page',
@@ -7,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+  faFacebookSquare = faFacebookSquare;
+  faTwitterSquare = faTwitterSquare;
+  faYoutubeSquare = faYoutubeSquare;
 
   constructor(private router: Router) { }
 
