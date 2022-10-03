@@ -2,25 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-pricing',
+  templateUrl: './pricing.component.html',
+  styleUrls: ['./pricing.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class PricingComponent implements OnInit {
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
   goToRegister() {
     this.router.navigate(['/register']);
   }
   goToLogin() {
     this.router.navigate(['/login']);
-  }
-  goHome() {
-    this.router.navigate(['/']);
   }
   goToPricing() {
     this.router.navigate(['/pricing']);
@@ -28,4 +24,8 @@ export class HomePageComponent implements OnInit {
   goToFeatures() {
     this.router.navigate(['/features']);
   }
+  goHome() {
+    this.router.navigate(['/']);
+  }
+
 }

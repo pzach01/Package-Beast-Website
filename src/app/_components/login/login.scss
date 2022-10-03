@@ -6,10 +6,18 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    top: 0; 
-    left: 0; 
-  
+    top: 0;
+    left: 0;
+
     /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
+}
+
+.create-account-toolbar {
+    background-color: orange;
+}
+
+.create-account-drawer {
+    color: orange;
 }
