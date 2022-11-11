@@ -68,7 +68,7 @@ import { CreateFailDialogComponent } from './_components/create-fail-dialog/crea
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-// import { MatCarouselModule } from '@ngbmodule/material-carousel';
+//import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
