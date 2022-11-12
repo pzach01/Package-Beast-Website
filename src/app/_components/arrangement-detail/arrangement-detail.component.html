@@ -65,8 +65,9 @@
 
                     <div class="d-flex flex-column justify-content-start"
                         *ngIf="quote.shippoTransaction?.messages[0]?.code=='Expired'">
-                        <h3>Shipping Label Purchase Failed</h3>
-                        <p>A shipping label could not be purchased because the quote has expired. Please
+                        <h3 class="text-danger">Shipping Label Purchase Failed</h3>
+                        <p>A shipping label could not be purchased because the <span class="text-danger">quote has
+                                expired.</span> Please
                             create a new shipment to receive new quotes.</p>
                         <!-- <div class="col-md-3 col-sm-12 text-right">
                             <button class="newButton" mat-raised-button color="accent" (click)="refreshQuote()"
@@ -94,7 +95,7 @@
                     Shipment Details
                 </ng-template>
 
-                <div class="container py-5">
+                <div class="container">
                     <!-- <div class="d-flex row justify-content-center my-3">
                         <h1>{{arrangement.title}} Details</h1>
                     </div> -->

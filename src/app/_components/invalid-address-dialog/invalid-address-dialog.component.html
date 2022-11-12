@@ -7,6 +7,7 @@
 <h1 *ngIf="data.type == 'fromAddress'" mat-dialog-title class="text-danger">Invalid ship from address!</h1>
 <h1 *ngIf="data.type == 'sameFromAndToAddresses'" mat-dialog-title class="text-danger">Identical "Ship From" and "Ship
     To" addresses</h1>
+<h1 *ngIf="data.type == 'overweight'" mat-dialog-title class="text-danger">Overweight shipment</h1>
 
 
 <mat-dialog-content>
@@ -14,6 +15,7 @@
         specified address. Please verify and correct the address.</h6>
     <h6 *ngIf="data.type == 'sameFromAndToAddresses'">"Ship from" and "ship to" addresses are identical. Please verify
         and try again.</h6>
+    <h6 *ngIf="data.type == 'overweight'">Total weight of items must be less than 70 lbs.</h6>
 </mat-dialog-content>
 
 <mat-dialog-actions>

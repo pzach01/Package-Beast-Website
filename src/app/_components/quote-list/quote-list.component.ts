@@ -53,7 +53,7 @@ export class QuoteListComponent implements OnInit {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
-        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction != null).length);
+        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction?.objectState == 'VALID').length);
         console.log('lp', this.labelPurchased)
         this.dataSource = new MatTableDataSource(shipment.quotes);
         this.dataSource.sort = this.sort;
