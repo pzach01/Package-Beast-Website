@@ -215,7 +215,7 @@ export class NewShipmentComponent implements OnInit {
         } else if (error.message == 'same from and to addresses') {
           this.openInvalidAddressDialog('sameFromAndToAddresses');
           this.myStepper.selectedIndex = 0;
-        } else if (error.message == 'shipment total weight exceeds limit of 70 lbs') {
+        } else if (error.message == 'shipment total weight exceeds limit of 150 lbs') {
           this.openInvalidAddressDialog('overweight');
           this.myStepper.selectedIndex = 2;
         }
