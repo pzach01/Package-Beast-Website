@@ -1,10 +1,4 @@
 <div class="view-container overflow-auto">
-    <ng-container *ngIf="timeout">
-        <div class="container justify-content-start mb-3">
-            <h6 *ngIf="timeout" class="pt-3">No shipment details found</h6>
-        </div>
-    </ng-container>
-
 
     <mat-tab-group>
         <ng-container *ngFor="let c of nonEmptyContainers; let i=index">

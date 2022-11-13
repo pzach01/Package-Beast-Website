@@ -14,6 +14,10 @@ export class ContainersService {
     return this.http.get<Container[]>(`${environment.API_BASE_URI}/containers/`);
   }
 
+  getAnalysedContainersFromShipmentId(shipmentId: number): Observable<Container[]> {
+    return this.http.get<Container[]>(`${environment.API_BASE_URI}/analysed-containers/?shipment=${shipmentId}`);
+  }
+
   getAllThirdPartyContainers(): Observable<ThirdPartyContainer[]> {
     return this.http.get<ThirdPartyContainer[]>(`${environment.API_BASE_URI}/third-party-containers/`);
   }
