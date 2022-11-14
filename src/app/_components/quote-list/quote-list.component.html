@@ -1,14 +1,16 @@
 <div class="view-container container d-flex flex-column overflow-hidden">
-    <div class="row mb-3 mt-3 no-shrink">
-
-
-        <div class="col-md-3 col-sm-0"></div>
-        <div class="col-md-6 col-sm-12 text-center">
+    <div *ngIf="!loading" class="row mb-3 mt-3 no-shrink">
+        <!-- <div class="col-md-3 col-sm-0"></div> -->
+        <div class="col-md-3 col-2">
+            <button mat-icon-button color="accent" (click)="backToShipments()" type="button">
+                <fa-icon size="2x" [icon]="faArrowLeft"></fa-icon>
+            </button>
+        </div>
+        <div class="col-md-6 col-10 text-center">
             <h3>{{shipment?.title}} Quotes</h3>
         </div>
-        <div class="col-md-3 col-sm-12 text-right"><button class="newButton" mat-raised-button color="warn"
+        <div class="col-md-3 col-12 text-right"><button class="newButton" mat-raised-button color="warn"
                 (click)="delete()" type="button">Delete Shipment</button></div>
-
     </div>
 
     <div class="row no-shrink">
