@@ -57,8 +57,12 @@ export class NewShipmentComponent implements OnInit {
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
-    this.shipFromAddress = new Address(this.shipFromComponent.addressForm.value)
-    this.shipToAddress = new Address(this.shipToComponent.addressForm.value)
+    this.shipFromAddress = new Address(this.shipFromComponent.addressForm.value);
+    this.shipToAddress = new Address(this.shipToComponent.addressForm.value);
+    //Hack... Wasn't pulling this in from 'disabled formgroup
+    this.shipFromAddress.country = "United States";
+    this.shipToAddress.country = "United States";
+
 
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.checkItemsAndContainersSelected();

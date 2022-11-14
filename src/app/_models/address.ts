@@ -5,7 +5,8 @@ export class Address {
     addressLine2: string;
     city: string;
     stateProvinceCode: string;
-    postalCode: string
+    postalCode: string;
+    country: string;
     public constructor(init?: Partial<Address>) {
         Object.assign(this, init);
     }

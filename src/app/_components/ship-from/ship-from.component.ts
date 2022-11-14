@@ -26,6 +26,7 @@ export class ShipFromComponent implements OnInit {
       country: [this.currentUser.country],
       postalCode: [this.currentUser.postalCode, [Validators.required, Validators.minLength(5)]]
     });
+    this.addressForm.controls['country'].disable();
   }
 
 }
