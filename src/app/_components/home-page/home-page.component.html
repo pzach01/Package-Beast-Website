@@ -5,7 +5,7 @@
                 Login
             </a>
             <a class="create-account-drawer" mat-list-item (click)="goToRegister()">
-                Create an Account
+                Sign Up
             </a>
             <a mat-list-item (click)="goToFeatures()">
                 Features
@@ -44,14 +44,78 @@
         </button>
         <button (click)="goToRegister()" mat-button class="create-account-toolbar d-none d-md-block"
             aria-label="register button">
-            Create an Account
+            Sign Up
         </button>
 
     </mat-toolbar>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col text-right">
+
+        <div class="row pt-3">
+            <div class="col">
+                <h1 class="text-center">The world's best shipping optimization software.</h1>
+            </div>
+        </div>
+        <div class="row pt-5 pb-3">
+            <div class="col">
+                <img style="max-width: 100%;" class="d-block m-auto" id="renderingimage2"
+                    src="../../assets/OptimizedBox.webp" alt="opt-box-image">
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-3 d-none d-md-block"></div>
+            <div class="col">
+                <h5>The world's most advanced shipping software lets you shop rates, pack your inventory in the smallest
+                    box possible, and print shipping labels.</h5>
+            </div>
+            <div class="col-3 d-none d-md-block"></div>
+        </div>
+        <div class="row pb-3">
+            <div class="col d-flex justify-content-center">
+                <button (click)="goToRegister()" mat-button class="create-account-toolbar big-button"
+                    aria-label="register button">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+
+        <div class="row home-page-row">
+            <div class="col-sm p-3 text-center">
+                <h5>Shipping optimization</h5>
+                <p class="py-3">Package Beast's revolutionary algorithm shows you how to perfectly pack your inventory.
+                </p>
+                <img #renderingimage1 style="max-width: 100%;"
+                    [className]="animaterenderingimage ? 'rendering-image-animation d-block m-auto py-3 ':'rendering-image d-block m-auto py-3 '"
+                    id="renderingimage1" src="../../assets/PackageBeastRendering.webp" alt="renderingimage1">
+            </div>
+            <div class="col-sm p-3 text-center">
+                <h5>Get the lowest shipping rates</h5>
+                <p class="py-3">Real-time, competitive quotes from USPS, UPS, and FedEx make sure you get the fasted
+                    shipping at the
+                    lowest cost.</p>
+                <img style="max-width: 100%;" class="d-block m-auto" id="rendering-image" src="../../assets/Quotes.webp"
+                    alt="quote-image">
+            </div>
+        </div>
+        <div class="row mb-5 home-page-row">
+            <div class="col-sm p-3 text-center">
+                <h5>Purchase and print discount shipping labels</h5>
+                <p class="py-3">Purchase your preferred shipping label with one click.
+                </p>
+                <img style="max-width: 80%;" class="d-block m-auto py-3" id="rendering-image"
+                    src="../../assets/ShippingLabel.webp" alt="comp-with-box-image">
+            </div>
+            <div class="col-sm p-3 text-center comp-with-box-container">
+                <h5>Track shipments</h5>
+                <p class="py-3">Package Beast provides your tracking information and saves it to your web portal.
+                </p>
+                <img #compwithbox style="max-width: 80%;"
+                    [className]="animatecompbox ? 'comp-with-box-animation d-block m-auto py-3 ':'comp-with-box d-block m-auto py-3 '"
+                    id="compwithboximage" src="../../assets/CompWBox.webp" alt="comp-with-box-image">
+            </div>
+        </div>
+        <div class="row py-3 toolbar">
+            <div class="col text-center">
                 <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/PackageBeast">
                     <fa-icon class="btn p-1" [icon]="faFacebookSquare" size="2x"></fa-icon>
                 </a>
@@ -62,59 +126,6 @@
                     href="https://www.youtube.com/channel/UCoPVEg9Wj-Fdaa1J0EJtVkQ?view_as=subscriber">
                     <fa-icon class="btn p-1" [icon]="faYoutubeSquare" size="2x"></fa-icon>
                 </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h4 class="text-center">The world's only shipping optimization software.</h4>
-            </div>
-        </div>
-        <div class="row pt-5 pb-3">
-            <div class="col">
-                <img style="max-width: 50%;" class="d-block m-auto" id="rendering-image"
-                    src="../../assets/PackageBeastRendering.webp" alt="rendering-image">
-            </div>
-        </div>
-        <div class="row pb-5">
-            <div class="col-3 d-none d-md-block"></div>
-            <div class="col">
-                <h5>The world's most advanced shipping software lets you shop rates, pack your inventory in the smallest
-                    box possible, and print shipping labels.</h5>
-            </div>
-            <div class="col-3 d-none d-md-block"></div>
-
-        </div>
-        <div class="row home-page-row">
-            <div class="col-sm p-3 text-center">
-                <h5>Shipping optimization</h5>
-                <p class="py-3">Package Beast's revolutionary algorithm shows you how to perfectly pack your inventory.
-                </p>
-                <img style="max-width: 100%;" class="d-block m-auto" id="rendering-image"
-                    src="../../assets/OptimizedBox.webp" alt="opt-box-image">
-            </div>
-            <div class="col-sm p-3 text-center">
-                <h5>Get the lowest shipping rates</h5>
-                <p class="py-3">Real-time, competitive quotes from USPS, UPS, and FedEx make sure you get the fasted
-                    shipping at the
-                    lowest cost.</p>
-                <img style="max-width: 100%;" class="d-block m-auto" id="rendering-image" src="../../assets/Quotes.webp"
-                    alt="quote-image">
-            </div>
-
-        </div>
-        <div class="row mb-5 home-page-row">
-            <div class="col-sm p-3 text-center">
-                <h5>Purchase and print discount shipping labels</h5>
-                <p class="py-3">Purchase your preferred shipping label with one click.
-                </p>
-                <img style="max-width: 80%;" class="d-block m-auto py-3" id="rendering-image"
-                    src="../../assets/ShippingLabel.webp" alt="comp-with-box-image">
-            </div>
-            <div class="col-sm p-3 text-center">
-                <h5>Track shipments</h5>
-                <p class="py-3">Package Beast provides your tracking information and saves it to your web portal.</p>
-                <img style="max-width: 80%;" class="d-block m-auto py-3" id="rendering-image"
-                    src="../../assets/CompWBox.webp" alt="comp-with-box-image">
             </div>
         </div>
     </div>

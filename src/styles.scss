@@ -423,11 +423,71 @@ a.mat-list-item.disabled {
 }
 
 .toolbar {
-    background-color: #bfdee6;
+    background-color: #f5f6f6;
     border-bottom: 1px solid rgb(44, 37, 37);
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.big-button {
+    width: 200px;
+    height: 50px;
+    align-self: center;
+}
+
+.comp-with-box-container {
+    overflow: hidden;
+}
+
+.comp-with-box {
+    opacity: 0;
+}
+
+.comp-with-box-animation {
+    animation-name: animate-from-right;
+    position: relative;
+    animation-duration: 2s;
+}
+
+@keyframes animate-from-right {
+    0% {
+        left: 500px;
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        left: 0px;
+    }
+}
+
+.rendering-image-container {
+    overflow: hidden;
+}
+
+.rendering-image {
+    opacity: 0;
+}
+
+.rendering-image-animation {
+    animation-name: explode-animation;
+    position: relative;
+    animation-duration: 1s;
+}
+
+@keyframes explode-animation {
+    0% {
+        // left: -500px;
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+        // left: 0px;
+    }
 }
 
 // .os {
