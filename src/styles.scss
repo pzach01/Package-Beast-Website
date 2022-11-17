@@ -508,12 +508,14 @@ a.mat-list-item.disabled {
     0% {
         // left: -500px;
         -webkit-transform: scale(0, 0);
-        -webkit-opacity: 1;
+        // -webkit-opacity: 1;
+        -webkit-visibility: hidden;
     }
 
     100% {
-        -webkit-opacity: 1;
+        // -webkit-opacity: 1;
         -webkit-transform: scale(1, 1);
+        -webkit-visibility: visible;
         // left: 0px;
     }
 }
