@@ -479,12 +479,12 @@ a.mat-list-item.disabled {
 }
 
 .rendering-image {
-    opacity: 0;
+    // opacity: 0;
+    visibility: hidden;
 }
 
 .rendering-image-animation {
     animation-name: explode-animation;
-    position: relative;
     animation-duration: 1s;
 }
 
@@ -492,11 +492,13 @@ a.mat-list-item.disabled {
     0% {
         // left: -500px;
         transform: scale(0, 0);
-        opacity: 1;
+        // opacity: 1;
+        visibility: visible;
     }
 
     100% {
-        opacity: 1;
+        // opacity: 1;
+        visibility: visible;
         transform: scale(1, 1);
         // left: 0px;
     }
