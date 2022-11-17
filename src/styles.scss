@@ -462,6 +462,18 @@ a.mat-list-item.disabled {
     }
 }
 
+@-webkit-keyframes animate-from-right {
+    0% {
+        -webkit-left: 500px;
+        -webkit-opacity: 1;
+    }
+
+    100% {
+        -webkit-opacity: 1;
+        -webkit-left: 0px;
+    }
+}
+
 .rendering-image-container {
     overflow: hidden;
 }
@@ -486,6 +498,20 @@ a.mat-list-item.disabled {
     100% {
         opacity: 1;
         transform: scale(1, 1);
+        // left: 0px;
+    }
+}
+
+@-webkit-keyframes explode-animation {
+    0% {
+        // left: -500px;
+        -webkit-transform: scale(0, 0);
+        -webkit-opacity: 1;
+    }
+
+    100% {
+        -webkit-opacity: 1;
+        -webkti-transform: scale(1, 1);
         // left: 0px;
     }
 }
