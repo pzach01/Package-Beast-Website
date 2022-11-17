@@ -447,7 +447,7 @@ a.mat-list-item.disabled {
 .comp-with-box-animation {
     animation-name: animate-from-right;
     position: relative;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 
 @keyframes animate-from-right {
@@ -464,13 +464,13 @@ a.mat-list-item.disabled {
 
 @-webkit-keyframes animate-from-right {
     0% {
-        -webkit-left: 500px;
+        left: 500px;
         -webkit-opacity: 1;
     }
 
     100% {
         -webkit-opacity: 1;
-        -webkit-left: 0px;
+        left: 0px;
     }
 }
 
@@ -509,13 +509,14 @@ a.mat-list-item.disabled {
         // left: -500px;
         -webkit-transform: scale(0, 0);
         // -webkit-opacity: 1;
-        -webkit-visibility: hidden;
+
+        visibility: visible;
     }
 
     100% {
         // -webkit-opacity: 1;
         -webkit-transform: scale(1, 1);
-        -webkit-visibility: visible;
+        visibility: visible;
         // left: 0px;
     }
 }
