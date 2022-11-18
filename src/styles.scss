@@ -480,18 +480,20 @@ a.mat-list-item.disabled {
 
 .rendering-image {
     // opacity: 0;
+    transform: scale(.1, .1);
     visibility: hidden;
 }
 
 .rendering-image-animation {
     animation-name: explode-animation;
     animation-duration: 1s;
+    -webkit-animation-duration: 1s;
 }
 
 @keyframes explode-animation {
     0% {
         // left: -500px;
-        transform: scale(0, 0);
+        transform: scale(.1, .1);
         // opacity: 1;
         visibility: visible;
     }
@@ -507,9 +509,8 @@ a.mat-list-item.disabled {
 @-webkit-keyframes explode-animation {
     0% {
         // left: -500px;
-        -webkit-transform: scale(0, 0);
+        -webkit-transform: scale(.1, .1);
         // -webkit-opacity: 1;
-
         visibility: visible;
     }
 
