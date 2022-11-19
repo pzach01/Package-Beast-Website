@@ -487,6 +487,7 @@ a.mat-list-item.disabled {
 .rendering-image-animation {
     animation-name: explode-animation;
     animation-duration: 1s;
+    -webkit-animation-name: explode-animation;
     -webkit-animation-duration: 1s;
 }
 
