@@ -487,8 +487,8 @@ a.mat-list-item.disabled {
 .rendering-image-animation {
     animation-name: explode-animation;
     animation-duration: 6s;
-    -webkit-animation-name: explode-animation;
-    -webkit-animation-duration: 6s;
+    // -webkit-animation-name: explode-animation;
+    // -webkit-animation-duration: 6s;
 }
 
 @keyframes explode-animation {
@@ -507,21 +507,21 @@ a.mat-list-item.disabled {
     }
 }
 
-@-webkit-keyframes explode-animation {
-    0% {
-        // left: -500px;
-        -webkit-transform: scale(.1, .1);
-        // -webkit-opacity: 1;
-        // visibility: visible;
-    }
+// @-webkit-keyframes explode-animation {
+//     0% {
+//         // left: -500px;
+//         -webkit-transform: scale(.1, .1);
+//         // -webkit-opacity: 1;
+//         // visibility: visible;
+//     }
 
-    100% {
-        // -webkit-opacity: 1;
-        -webkit-transform: scale(1, 1);
-        // visibility: visible;
-        // left: 0px;
-    }
-}
+//     100% {
+//         // -webkit-opacity: 1;
+//         -webkit-transform: scale(1, 1);
+//         // visibility: visible;
+//         // left: 0px;
+//     }
+// }
 
 // .os {
 //     overflow: scroll;
