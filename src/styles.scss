@@ -481,7 +481,7 @@ a.mat-list-item.disabled {
 .rendering-image {
     // opacity: 0;
     transform: scale(.1, .1);
-    visibility: hidden;
+    // visibility: hidden;
 }
 
 .rendering-image-animation {
@@ -496,12 +496,12 @@ a.mat-list-item.disabled {
         // left: -500px;
         transform: scale(.1, .1);
         // opacity: 1;
-        visibility: visible;
+        // visibility: visible;
     }
 
     100% {
         // opacity: 1;
-        visibility: visible;
+        // visibility: visible;
         transform: scale(1, 1);
         // left: 0px;
     }
