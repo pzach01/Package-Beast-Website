@@ -495,8 +495,9 @@ a.mat-list-item.disabled {
 
 .rendering-image-animation {
     animation-name: explode-animation;
-    transform: scale(.1, .1);
-    -webkit-transform: scale(.1, .1);
+    animation-fill-mode: forwards;
+    // transform: scale(.1, .1);
+    // -webkit-transform: scale(.1, .1);
     animation-duration: 3s;
     width: 100%;
     height: auto;
