@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { interval, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements AfterContentChecked {
+export class HomePageComponent implements OnInit {
 
   faFacebookSquare = faFacebookSquare;
   faTwitterSquare = faTwitterSquare;
@@ -28,7 +28,7 @@ export class HomePageComponent implements AfterContentChecked {
     }
   }
 
-  ngAfterContentChecked(): void {
+  ngOnInit(): void {
     const source = interval(200);
     this.$checkInView = source.subscribe(() => {
       if (this.isElementInViewport(this.compwithbox.nativeElement)) {

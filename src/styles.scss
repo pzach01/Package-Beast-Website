@@ -485,8 +485,8 @@ a.mat-list-item.disabled {
 
 .rendering-image {
     // opacity: 0;
-    transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
+    transform: scale(.1, .1);
+    -webkit-transform: scale(.1, .1);
     // max-width: 100%;
     width: 100%;
     height: auto;
@@ -495,6 +495,8 @@ a.mat-list-item.disabled {
 
 .rendering-image-animation {
     animation-name: explode-animation;
+    transform: scale(.1, .1);
+    -webkit-transform: scale(.1, .1);
     animation-duration: 3s;
     width: 100%;
     height: auto;
