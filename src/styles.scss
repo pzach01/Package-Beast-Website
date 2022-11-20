@@ -442,12 +442,16 @@ a.mat-list-item.disabled {
 
 .comp-with-box {
     opacity: 0;
+    width: 80%;
+    height: auto;
 }
 
 .comp-with-box-animation {
     animation-name: animate-from-right;
     position: relative;
     animation-duration: 1s;
+    width: 80%;
+    height: auto;
 }
 
 @keyframes animate-from-right {
@@ -476,19 +480,23 @@ a.mat-list-item.disabled {
 
 .rendering-image-container {
     overflow: hidden;
+    background-color: pink;
 }
 
 .rendering-image {
     // opacity: 0;
     transform: scale(.1, .1);
+    // max-width: 100%;
     width: 100%;
-    height: 100%;
+    height: auto;
     // visibility: hidden;
 }
 
 .rendering-image-animation {
     animation-name: explode-animation;
     animation-duration: 3s;
+    width: 100%;
+    height: auto;
     // -webkit-animation-name: explode-animation;
     // -webkit-animation-duration: 6s;
 }
