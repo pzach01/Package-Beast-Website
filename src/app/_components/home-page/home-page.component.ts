@@ -9,7 +9,7 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements AfterContentChecked {
 
   faFacebookSquare = faFacebookSquare;
   faTwitterSquare = faTwitterSquare;
@@ -28,7 +28,7 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngAfterContentChecked(): void {
     const source = interval(200);
     this.$checkInView = source.subscribe(() => {
       if (this.isElementInViewport(this.compwithbox.nativeElement)) {
