@@ -480,7 +480,6 @@ a.mat-list-item.disabled {
 
 .rendering-image-container {
     overflow: hidden;
-    background-color: red;
     width: 100%;
 }
 
@@ -504,13 +503,14 @@ a.mat-list-item.disabled {
 .rendering-image-animation {
     width: 100%;
     height: auto;
+    position: relative;
     // opacity: 1;
     // height: auto;
     transform: scale(1, 1);
-    -webkit-transition: all 1s linear;
-    -moz-transition: all 1s linear;
-    -o-transition: all 1s linear;
-    transition: all 1s linear;
+    -webkit-transition: all 2s linear;
+    -moz-transition: all 2s linear;
+    -o-transition: all 2s linear;
+    transition: all 2s linear;
 }
 
 
