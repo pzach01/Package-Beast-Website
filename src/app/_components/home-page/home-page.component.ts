@@ -29,7 +29,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const source = interval(200);
+    const source = interval(1000);
     this.$checkInView = source.subscribe(() => {
       if (this.isElementInViewport(this.compwithbox.nativeElement)) {
         this.animatecompbox = true
