@@ -5,3 +5,75 @@
 .create-account-drawer {
     color: orange;
 }
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    padding-top: 20px;
+    font-size: large;
+    font-weight: 400;
+    text-align: center;
+}
+
+​ .pricing-card {
+    max-width: 400px;
+}
+
+.pricing-card-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+// .selectedSubscriptionType {
+//   border: solid red 3px;
+// }
+
+.standard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A97142;
+    height: 19vh;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.description {
+    height: 150px;
+}
+
+.banner-container {
+    margin-top: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.banner {
+    background-color: yellow;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px;
+    margin-left: -16px;
+    margin-right: -16px;
+}
+
+
+.premium {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa9ad;
+    height: 19vh;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.beast-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d4af37;
+    height: 19vh;
+    border-radius: 10px;
+    font-size: 25px;
+}

@@ -63,6 +63,12 @@ body {
         transform: scale(1, 1);
     }
 
+    .comp-with-box {
+        opacity: 1;
+        width: 80%;
+        height: auto;
+    }
+
     // No animation on small screens
     .comp-with-box-animation {
         opacity: 1;
@@ -107,6 +113,12 @@ body {
         transition: all 2s linear;
     }
 
+    .comp-with-box {
+        opacity: 0;
+        width: 80%;
+        height: auto;
+    }
+
     .comp-with-box-animation {
         animation-name: animate-from-right;
         position: relative;
@@ -117,7 +129,7 @@ body {
 
     @keyframes animate-from-right {
         0% {
-            left: 300px;
+            left: 600px;
         }
 
         100% {
@@ -127,11 +139,6 @@ body {
     }
 
 
-}
-
-.comp-with-box {
-    width: 80%;
-    height: auto;
 }
 
 button:focus {
