@@ -451,7 +451,7 @@ a.mat-list-item.disabled {
 .minor-view-background {
     // background-color: yel;
     background-image: linear-gradient(to bottom right, teal, rgb(182, 221, 103));
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .first-name:hover {
