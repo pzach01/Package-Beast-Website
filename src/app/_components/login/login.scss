@@ -1,6 +1,6 @@
 .login-container {
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
     background-image: url(Boxes-Falling.webp);
     /* Center and scale the image nicely */
     background-position: center;
@@ -12,12 +12,4 @@
     /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
-}
-
-.create-account-toolbar {
-    background-color: orange;
-}
-
-.create-account-drawer {
-    color: orange;
 }
