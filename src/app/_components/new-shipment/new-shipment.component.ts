@@ -37,7 +37,7 @@ export class NewShipmentComponent implements OnInit {
   loading = false;
   interval;
   spinnerValue = 0;
-  timeoutDuration = 70;
+  timeoutDuration = 30;
   dwellTime = 1000; //ms
   allowAnalysis: boolean = false;
   newShipmentTitle: string = "My New Shipment";
@@ -57,8 +57,12 @@ export class NewShipmentComponent implements OnInit {
   selectionChange() {
     this.selectedItems = this.itemsSelectionComponent.selection.selected;
     this.selectedContainers = this.containersSelectionComponent.selection.selected;
-    this.shipFromAddress = new Address(this.shipFromComponent.addressForm.value)
-    this.shipToAddress = new Address(this.shipToComponent.addressForm.value)
+    this.shipFromAddress = new Address(this.shipFromComponent.addressForm.value);
+    this.shipToAddress = new Address(this.shipToComponent.addressForm.value);
+    //Hack... Wasn't pulling this in from 'disabled formgroup
+    this.shipFromAddress.country = "United States";
+    this.shipToAddress.country = "United States";
+
 
     this.multiBinPack = this.reviewShipmentComponent.multiBinPack;
     this.checkItemsAndContainersSelected();
@@ -202,17 +206,22 @@ export class NewShipmentComponent implements OnInit {
         this.fastForwardSpinner(shipment)
       }, error => {
         console.log(error)
+        this.pauseSpinnerInterval();
+        this.fastForwardSpinner()
         if (error.detail == "Not found.") {
-          this.fastForwardSpinner()
           this.close(); this.openCreateFailDialog();
         } else if (error.message == 'invalid to address') {
-          this.fastForwardSpinner();
           this.openInvalidAddressDialog('toAddress');
           this.myStepper.selectedIndex = 1;
         } else if (error.message == 'invalid from address') {
-          this.fastForwardSpinner();
           this.openInvalidAddressDialog('fromAddress');
           this.myStepper.selectedIndex = 0;
+        } else if (error.message == 'same from and to addresses') {
+          this.openInvalidAddressDialog('sameFromAndToAddresses');
+          this.myStepper.selectedIndex = 0;
+        } else if (error.message == 'shipment total weight exceeds limit of 150 lbs') {
+          this.openInvalidAddressDialog('overweight');
+          this.myStepper.selectedIndex = 2;
         }
       }
       )

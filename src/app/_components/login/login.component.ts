@@ -46,6 +46,22 @@ export class LoginComponent implements OnInit {
             })
         });
     }
+    goToRegister() {
+        this.router.navigate(['/register']);
+    }
+
+    goToLogin() {
+        this.router.navigate(['/login']);
+    }
+    goHome() {
+        this.router.navigate(['/']);
+    }
+    goToPricing() {
+        this.router.navigate(['/pricing']);
+    }
+    goToFeatures() {
+        this.router.navigate(['/features']);
+    }
 
     loginFailValidator(): void { }
 

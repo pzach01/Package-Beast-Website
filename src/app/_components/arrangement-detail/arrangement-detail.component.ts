@@ -1,7 +1,8 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Arrangement } from 'src/app/_models/arrangement'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipmentsService } from 'src/app/_services/shipments.service';
+import { ContainersService } from 'src/app/_services/containers.service';
 import { Item } from 'src/app/_models/item';
 import { Container } from 'src/app/_models/container';
 import { MatTableDataSource } from '@angular/material/table';
@@ -36,6 +37,7 @@ export class ArrangementDetailComponent implements OnInit {
   groupedItemsByMasterId: Item[] = [];
   numberFitItems: number = 0;
   containers: Container[] = [];
+  analyzedContainers: Container[] = [];
   nonEmptyContainers: Container[] = [];
 
   multiBinPack: boolean;
@@ -54,18 +56,28 @@ export class ArrangementDetailComponent implements OnInit {
   @ViewChildren('itemsTableSort') itemsTableSorts: QueryList<MatSort>;
   @ViewChildren('containersTableSort') containersTableSorts: QueryList<MatSort>;
 
-  constructor(private sanitizer: DomSanitizer, private shippoService: ShippoService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog, public refreshQuoteDialog: MatDialog) { }
+  constructor(private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer, private containersService: ContainersService, private shippoService: ShippoService, private route: ActivatedRoute, private shipmentsService: ShipmentsService, private router: Router, private authenticationService: AuthenticationService, public shipmentAlert: MatDialog, public confirmDeleteShipmentDialog: MatDialog, public confirmShippoLabelDialog: MatDialog, public refreshQuoteDialog: MatDialog) { }
 
   ngOnInit() {
-
+    this.activatedRoute.parent.params.subscribe(parentParam => {
+      this.containersService.getAnalysedContainersFromShipmentId(parentParam.id).subscribe(analyzedContainers => {
+        this.analyzedContainers = analyzedContainers;
+        console.log('ac', this.analyzedContainers)
+        this.containersDataSource = new MatTableDataSource(this.analyzedContainers);
+        this.containersTableSorts.changes.subscribe(() => {
+          this.containersDataSource.sort = this.containersTableSorts.first
+        })
+      })
+    })
     this.authenticationService.currentUser.subscribe((currentUser) => this.currentUser = currentUser)
     const quoteId = +this.route.snapshot.params['quoteId']; // (+) converts string 'id' to a number
 
-    console.log(this.currentUser)
-    console.log(this.route.snapshot.params['quoteId'])
-
     this.shipmentsService.getQuoteById(quoteId).subscribe(quote => {
-      console.log("quote", quote)
+
+      // this.containersService.getAnalysedContainersFromShipmentId(quote.shipment.id)
+      // console.log("quote", quote)
+      // console.log("quote.shipment.id", quote.shipment.id)
+
       const arrangement = quote.arrangement
       this.arrangement = arrangement;
       this.quote = quote;
@@ -120,6 +132,7 @@ export class ArrangementDetailComponent implements OnInit {
         return r.set(key, item);
       }, new Map).values()];
 
+
       this.nonEmptyContainersDataSource = new MatTableDataSource(this.nonEmptyContainers);
       this.nonEmptyContainersTableSorts.changes.subscribe(() => {
         this.nonEmptyContainersDataSource.sort = this.nonEmptyContainersTableSorts.first
@@ -131,10 +144,12 @@ export class ArrangementDetailComponent implements OnInit {
         this.itemsDataSource.sort = this.itemsTableSorts.first;
       });
 
-      this.containersDataSource = new MatTableDataSource(this.containers);
-      this.containersTableSorts.changes.subscribe(() => {
-        this.containersDataSource.sort = this.containersTableSorts.first
-      })
+
+
+      // this.containersDataSource = new MatTableDataSource(this.containers);
+      // this.containersTableSorts.changes.subscribe(() => {
+      //   this.containersDataSource.sort = this.containersTableSorts.first
+      // })
 
       if (this.numberFitItems != this.items.length) {
         this.openarrangementAlertDialog();
@@ -251,3 +266,4 @@ export class ArrangementDetailComponent implements OnInit {
     })
   }
 }
+

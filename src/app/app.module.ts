@@ -68,7 +68,7 @@ import { CreateFailDialogComponent } from './_components/create-fail-dialog/crea
 import { ConfirmDeleteDialogComponent } from './_components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ChangePasswordCompleteDialogComponent } from './_components/change-password-complete-dialog/change-password-complete-dialog.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-// import { MatCarouselModule } from '@ngbmodule/material-carousel';
+//import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { TermsOfServiceDialogComponent } from './_components/terms-of-service-dialog/terms-of-service-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PrivacyPolicyDialogComponent } from './_components/privacy-policy-dialog/privacy-policy-dialog.component';
@@ -96,13 +96,18 @@ import { InvalidAddressDialogComponent } from './_components/invalid-address-dia
 import { NewShipmentErrorDialogComponent } from './_components/new-shipment-error-dialog/new-shipment-error-dialog.component';
 import { RegisterShippoAccountComponent } from './_components/register-shippo-account/register-shippo-account.component';
 import { ManageShippoAccountComponent } from './_components/manage-shippo-account/manage-shippo-account.component';
+import { HomePageComponent } from './_components/home-page/home-page.component';
+import { PricingComponent } from './_components/pricing/pricing.component';
+import { FeaturesComponent } from './_components/features/features.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
   //Authentication redirect guard redirects to dashboard if user is authenticated
-  { path: '', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: '', component: HomePageComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthenticatedRedirectGuard] },
-  { path: 'register', redirectTo: '' },
+  { path: 'pricing', component: PricingComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'features', component: FeaturesComponent, canActivate: [AuthenticatedRedirectGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password', component: ResetPasswordComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password/done', component: ResetPasswordDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'reset-password/complete', component: ResetPasswordCompleteComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
@@ -272,7 +277,10 @@ const appRoutes: Routes = [
     InvalidAddressDialogComponent,
     NewShipmentErrorDialogComponent,
     RegisterShippoAccountComponent,
-    ManageShippoAccountComponent],
+    ManageShippoAccountComponent,
+    HomePageComponent,
+    PricingComponent,
+    FeaturesComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(

@@ -58,6 +58,23 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         });
     }
 
+    goToRegister() {
+        this.router.navigate(['/register']);
+    }
+
+    goToLogin() {
+        this.router.navigate(['/login']);
+    }
+    goHome() {
+        this.router.navigate(['/']);
+    }
+    goToPricing() {
+        this.router.navigate(['/pricing']);
+    }
+    goToFeatures() {
+        this.router.navigate(['/features']);
+    }
+
     signInWithGoogle(): void {
         console.log("clicked")
         this.loginWithGoogleClicked = true;

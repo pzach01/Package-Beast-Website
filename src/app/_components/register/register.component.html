@@ -1,192 +1,224 @@
-﻿<div class="registration-container overflow-auto">
-    <div class="jumbotron jumbotron-fluid text-center p-0">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col text-right">
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/PackageBeast">
-                        <fa-icon class="btn p-1" [icon]="faFacebookSquare" size="2x"></fa-icon>
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/packagebeast">
-                        <fa-icon class="btn p-1" [icon]="faTwitterSquare" size="2x"></fa-icon>
-                    </a>
-                    <a target="_blank" rel="noopener noreferrer"
-                        href="https://www.youtube.com/channel/UCoPVEg9Wj-Fdaa1J0EJtVkQ?view_as=subscriber">
-                        <fa-icon class="btn p-1" [icon]="faYoutubeSquare" size="2x"></fa-icon>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h1 class="pb-5">
-                        <img id="logo" src="../../../assets/PackageBeast.png" alt="pbLogo">
-                    </h1>
-                </div>
-            </div>
-            <div class="row pb-5 pt-2">
-                <div class="col">
-                    <h5 class="lead">You tell us what inventory you are shipping. We show you the best way to
-                        ship it.</h5>
-                    <h5 class="lead">Go ahead, play with the <strong>interactive demo</strong> below!</h5>
-                </div>
-            </div>
+﻿<mat-drawer-container class="drawer-container" fullscreen>
+    <mat-drawer #drawer class="example-sidenav d-block d-md-none" mode="over" position="end">
+        <mat-nav-list class="me-1">
+            <a mat-list-item (click)="goToLogin()">
+                Login
+            </a>
+            <a class="create-account-drawer" mat-list-item (click)="goToRegister()">
+                Sign up
+            </a>
+            <a mat-list-item (click)="goToPricing()">
+                Pricing
+            </a>
+            <a mat-list-item (click)="goToFeatures()">
+                Features
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-toolbar class="toolbar">
+        <div class="me-3">
 
-            <div class="row py-5 demo-container">
-                <div class="col">
-                    <app-demo></app-demo>
-                </div>
-
-            </div>
-
+            <a href="javascript:void(0);" (click)="goHome()">
+                <img id="toolbar-logo" src="../../../assets/PackageBeastNoPhrase.png" alt="pbLogo">
+            </a>
         </div>
-    </div>
+        <span class="toolbar-spacer d-block d-md-none"></span>
 
-    <div class="container-fluid justify-content-center">
-        <div class="row justify-content-center">
-            <div class="col-md-6 full-width p-5">
+        <button mat-icon-button (click)="drawer.toggle()" class="d-block d-md-none"
+            aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
 
-                <mat-card class="pt-5 px-5 text-center mat-elevation-z24">
-                    <mat-card-header class="d-flex justify-content-center">
-                        <mat-card-title>
-                            <h1>Signup now!</h1>
-                            <h3>Free 2 week trial</h3>
-                            <h3>$10/mo after that</h3>
-                            <h4>No credit card required at signup</h4>
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                            <div>
-                                <mat-form-field class="full-width">
-                                    <mat-label>Email</mat-label>
-                                    <input type="email" matInput [formControl]="registerForm.get('email')"
-                                        placeholder="Ex. pat@example.com">
-                                    <mat-error *ngIf="registerForm.get('email').hasError('pattern')">
-                                        Please enter a valid email address
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('email').hasError('required')">
-                                        Email is <strong>required</strong>
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('email').hasError('registerFail')">
-                                        {{serverEmailError}}
-                                    </mat-error>
+        <button (click)="goToPricing()" mat-button class="d-none d-md-block" aria-label="pricing">
+            Pricing
+        </button>
+        <button (click)="goToFeatures()" mat-button class="d-none d-md-block" aria-label="features">
+            Features
+        </button>
+        <span class="toolbar-spacer d-none d-md-block"></span>
+        <button (click)="goToLogin()" mat-button class="d-none d-md-block" aria-label="login button">
+            Login
+        </button>
+        <button (click)="goToRegister()" mat-button class="create-account-toolbar d-none d-md-block"
+            aria-label="register button">
+            Sign up
+        </button>
 
-                                </mat-form-field>
-                                <br />
-                                <mat-form-field class="full-width">
-                                    <mat-label>First Name</mat-label>
-                                    <input type="text" matInput [formControl]="registerForm.get('first_name')"
-                                        placeholder="First Name">
-                                    <mat-error *ngIf="registerForm.get('first_name').hasError('required')">
-                                        First name is <strong>required</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                                <br />
-                                <mat-form-field class="full-width">
-                                    <mat-label>Last Name</mat-label>
-                                    <input type="text" matInput [formControl]="registerForm.get('last_name')"
-                                        placeholder="Last Name">
+    </mat-toolbar>
+    <!-- <div class="container-fluid"> -->
+    <div class="registration-container">
+        <!-- <div class="jumbotron jumbotron-fluid text-center p-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="pb-5">
+                                <img id="logo" src="../../../assets/PackageBeast.png" alt="pbLogo">
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 
-                                    <mat-error *ngIf="registerForm.get('last_name').hasError('required')">
-                                        Last name is <strong>required</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                                <br />
-                                <mat-form-field class="full-width">
-                                    <mat-label>Password</mat-label>
-                                    <input type="password" matInput [formControl]="registerForm.get('password1')"
-                                        placeholder="password">
-                                    <mat-error *ngIf="registerForm.get('password1').hasError('required')">
-                                        Password is <strong>required</strong>
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('password1').hasError('minlength')">
-                                        Password must be 8 characters or more
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('password1').hasError('registerFail')">
-                                        {{serverPasswordError}}
-                                    </mat-error>
-                                </mat-form-field>
-                                <br />
-                                <mat-form-field class="full-width">
-                                    <mat-label>Repeat Password</mat-label>
-                                    <input type="password" matInput [formControl]="registerForm.get('password2')"
-                                        placeholder="password">
-                                    <mat-error *ngIf="registerForm.get('password2').hasError('required')">
-                                        Password is <strong>required</strong>
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('password2').hasError('minlength')">
-                                        Password must be 8 characters or more
-                                    </mat-error>
-                                    <mat-error *ngIf="registerForm.get('password2').hasError('mustMatch')">
-                                        Passwords must match
-                                    </mat-error>
+        <div class="container-fluid justify-content-center">
+            <div class="row justify-content-center">
+                <div class="col-md-6 full-width p-5">
 
-                                </mat-form-field>
-                                <mat-card-actions>
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12 pb-3 px-0">
-                                                <button class="full-width" mat-raised-button color="accent"
-                                                    [disabled]="loading">
-                                                    <span *ngIf="loading"
-                                                        class="spinner-border spinner-border-sm me-1"></span>
-                                                    Register
-                                                </button>
+                    <mat-card class="pt-5 px-5 text-center mat-elevation-z24">
+                        <mat-card-header class="d-flex justify-content-center">
+                            <mat-card-title>
+                                <h1>Signup now!</h1>
+                                <h3>Free 2 week trial</h3>
+                                <h3>$10/mo after that</h3>
+                                <h4>No credit card required at signup</h4>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                <div>
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Email</mat-label>
+                                        <input type="email" matInput [formControl]="registerForm.get('email')"
+                                            placeholder="Ex. pat@example.com">
+                                        <mat-error *ngIf="registerForm.get('email').hasError('pattern')">
+                                            Please enter a valid email address
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('email').hasError('required')">
+                                            Email is <strong>required</strong>
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('email').hasError('registerFail')">
+                                            {{serverEmailError}}
+                                        </mat-error>
+
+                                    </mat-form-field>
+                                    <br />
+                                    <mat-form-field class="full-width">
+                                        <mat-label>First Name</mat-label>
+                                        <input type="text" matInput [formControl]="registerForm.get('first_name')"
+                                            placeholder="First Name">
+                                        <mat-error *ngIf="registerForm.get('first_name').hasError('required')">
+                                            First name is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <br />
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Last Name</mat-label>
+                                        <input type="text" matInput [formControl]="registerForm.get('last_name')"
+                                            placeholder="Last Name">
+
+                                        <mat-error *ngIf="registerForm.get('last_name').hasError('required')">
+                                            Last name is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <br />
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Password</mat-label>
+                                        <input type="password" matInput [formControl]="registerForm.get('password1')"
+                                            placeholder="password">
+                                        <mat-error *ngIf="registerForm.get('password1').hasError('required')">
+                                            Password is <strong>required</strong>
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('password1').hasError('minlength')">
+                                            Password must be 8 characters or more
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('password1').hasError('registerFail')">
+                                            {{serverPasswordError}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <br />
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Repeat Password</mat-label>
+                                        <input type="password" matInput [formControl]="registerForm.get('password2')"
+                                            placeholder="password">
+                                        <mat-error *ngIf="registerForm.get('password2').hasError('required')">
+                                            Password is <strong>required</strong>
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('password2').hasError('minlength')">
+                                            Password must be 8 characters or more
+                                        </mat-error>
+                                        <mat-error *ngIf="registerForm.get('password2').hasError('mustMatch')">
+                                            Passwords must match
+                                        </mat-error>
+
+                                    </mat-form-field>
+                                    <mat-card-actions>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12 pb-3 px-0">
+                                                    <button class="full-width" mat-raised-button color="accent"
+                                                        [disabled]="loading">
+                                                        <span *ngIf="loading"
+                                                            class="spinner-border spinner-border-sm me-1"></span>
+                                                        Register
+                                                    </button>
+                                                </div>
+
+                                                <div class=" col-md-6 col-sm-12 px-0">
+                                                    <a routerLink="/login" class="btn btn-link">Already registered?
+                                                        Login!</a>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <a (click)="signInWithGoogle()" class="btn btn-outline-dark"
+                                                        role="button" style="text-transform:none;">
+                                                        <img width="20px" style="margin-bottom:3px; margin-right:5px"
+                                                            alt="Google sign-in"
+                                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                                        Login with Google
+                                                    </a>
+                                                    <!-- <button id="customBtn" (click)="signInWithGoogle()">Login with Google</button> -->
+                                                </div>
                                             </div>
-
-                                            <div class="col-md-8 col-sm-12 text-md-right px-0">
-                                                <a routerLink="/login" class="btn btn-link">Already registered?
-                                                    Login!</a>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="row">
+                                            <!-- <div class="row">
                                             <div class="col-12">
                                                 Only available in US, Canada, and Mexico
                                             </div>
                                         </div> -->
-                                    </div>
-                                </mat-card-actions>
-                            </div>
-                        </form>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col">
-                                    <a (click)="signInWithGoogle()" class="btn btn-outline-dark" role="button"
-                                        style="text-transform:none;">
-                                        <img width="20px" style="margin-bottom:3px; margin-right:5px"
-                                            alt="Google sign-in"
-                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                        Login with Google
-                                    </a>
-                                    <!-- <button id="customBtn" (click)="signInWithGoogle()">Login with Google</button> -->
+                                        </div>
+                                    </mat-card-actions>
                                 </div>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-
+                            </form>
+                            <!-- <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col">
+                                        <a (click)="signInWithGoogle()" class="btn btn-outline-dark" role="button"
+                                            style="text-transform:none;">
+                                            <img width="20px" style="margin-bottom:3px; margin-right:5px"
+                                                alt="Google sign-in"
+                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                            Login with Google
+                                        </a>
+                                        <button id="customBtn" (click)="signInWithGoogle()">Login with Google</button> -->
+                            <!-- </div>
             </div>
-        </div>
+        </div> -->
+                        </mat-card-content>
+                    </mat-card>
 
-    </div>
-    <div class="container-fluid extra-page-scroll"></div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col pt-3">
-                <mat-error class="recaptcha">
-                    {{serverRecaptchaError}}
-                </mat-error>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="footer">
-                    <p class="p-2 m-0">Need Help? Email us at support@packagebeast.com</p>
-                    <p class="p-0 pb-2 m-0">Package Beast
-                        2815 100th St
-                        #346
-                        Urbandale, Iowa 50322</p>
                 </div>
             </div>
+
+        </div>
+        <div class="container-fluid extra-page-scroll"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col pt-3">
+                    <mat-error class="recaptcha">
+                        {{serverRecaptchaError}}
+                    </mat-error>
+                </div>
+            </div>
+            <!-- <div class="row">
+                    <div class="col">
+                        <div class="footer">
+                            <p class="p-2 m-0">Need Help? Email us at support@packagebeast.com</p>
+                            <p class="p-0 pb-2 m-0">Package Beast
+                                2815 100th St
+                                #346
+                                Urbandale, Iowa 50322</p>
+                        </div>
+                    </div>
+                </div> -->
         </div>
     </div>
-</div>
+    <!-- </div> -->
+</mat-drawer-container>

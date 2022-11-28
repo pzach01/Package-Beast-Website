@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Quote } from 'src/app/_models/quote';
 import { Shipment } from 'src/app/_models/shipment';
 import { faUps, faUsps } from '@fortawesome/free-brands-svg-icons'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ShipmentsService } from 'src/app/_services/shipments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
@@ -19,11 +19,12 @@ import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete
 export class QuoteListComponent implements OnInit {
   faUps = faUps;
   faUsps = faUsps;
+  faArrowLeft = faArrowLeft;
   faCheckCircle = faCheckCircle;
   displayedColumns: string[] = ["selectedIcon", "carrier", "cost", "daysToShip", "serviceDescription", "containerSku", "containerDescription"];
   dataSource;
   shipment: Shipment;
-  loading: boolean = false
+  loading: boolean = true;
   userHasQuotes = true
   labelPurchased: boolean = false;
   randomColor: string = 'blue';
@@ -53,8 +54,9 @@ export class QuoteListComponent implements OnInit {
       console.log(shipment)
       if (shipment) {
         this.shipment = shipment
-        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction != null).length);
+        this.labelPurchased = Boolean(shipment.quotes.filter(quote => quote.shippoTransaction?.objectState == 'VALID').length);
         console.log('lp', this.labelPurchased)
+        this.loading = false;
         this.dataSource = new MatTableDataSource(shipment.quotes);
         this.dataSource.sort = this.sort;
       }
@@ -84,6 +86,10 @@ export class QuoteListComponent implements OnInit {
         }
       }
     })
+  }
+
+  backToShipments() {
+    this.router.navigate(['./', { outlets: { view: ['shipments'] } }])
   }
 
   delete() {

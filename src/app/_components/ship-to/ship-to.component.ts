@@ -23,9 +23,10 @@ export class ShipToComponent implements OnInit {
       addressLine2: [''],
       city: ['', [Validators.required]],
       stateProvinceCode: ['', [Validators.required]],
-      country: [''],
+      country: ['United States'],
       postalCode: ['', [Validators.required, Validators.minLength(5)]]
     });
+    this.addressForm.controls['country'].disable();
   }
 
 }

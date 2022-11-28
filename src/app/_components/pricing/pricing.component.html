@@ -1,0 +1,197 @@
+<mat-drawer-container class="drawer-container" fullscreen>
+    <mat-drawer #drawer class="example-sidenav d-block d-md-none" mode="over" position="end">
+        <mat-nav-list class="me-1">
+            <a mat-list-item (click)="goToLogin()">
+                Login
+            </a>
+            <a class="create-account-drawer" mat-list-item (click)="goToRegister()">
+                Sign up
+            </a>
+            <a mat-list-item (click)="goToPricing()">
+                Pricing
+            </a>
+            <a mat-list-item (click)="goToFeatures()">
+                Features
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-toolbar class="toolbar">
+        <div class="me-3">
+
+            <a href="javascript:void(0);" (click)="goHome()">
+                <img id="toolbar-logo" src="../../../assets/PackageBeastNoPhrase.png" alt="pbLogo">
+            </a>
+        </div>
+        <span class="toolbar-spacer d-block d-md-none"></span>
+
+        <button mat-icon-button (click)="drawer.toggle()" class="d-block d-md-none"
+            aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <button (click)="goToPricing()" mat-button class="d-none d-md-block" aria-label="pricing">
+            Pricing
+        </button>
+        <button (click)="goToFeatures()" mat-button class="d-none d-md-block" aria-label="features">
+            Features
+        </button>
+        <span class="toolbar-spacer d-none d-md-block"></span>
+        <button (click)="goToLogin()" mat-button class="d-none d-md-block" aria-label="login button">
+            Login
+        </button>
+        <button (click)="goToRegister()" mat-button class="create-account-toolbar d-none d-md-block"
+            aria-label="register button">
+            Sign up
+        </button>
+
+    </mat-toolbar>
+
+    <div class="container-fluid minor-view-background">
+        <div class="row">
+            <div class="col text-center p-3">
+                <h1>Pricing</h1>
+            </div>
+        </div>
+        <div class="">
+            <div class="container-fluid">
+                <div class="row pe-lg-3">
+                    <div class="col-lg-4 pe-lg-0">
+                        <div class="pt-3">
+                            <mat-card class="pricing-card">
+                                <mat-card-header>
+                                    <!-- <div mat-card-avatar class="pricing-card-header-image"></div> -->
+                                    <mat-card-title>
+                                        <h2 class="pb-3">Standard</h2>
+                                    </mat-card-title>
+                                    <mat-card-subtitle></mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <div class="description">
+                                        <p>Great for online sellers and small businesses that typically have less
+                                            than
+                                            50
+                                            shipments
+                                            per
+                                            month</p>
+                                    </div>
+                                    <h2>$10 / month</h2>
+                                    <div class="banner-container"></div>
+                                    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Standard Photo"> -->
+
+                                    <ul>
+                                        <li>50 Shipments / month</li>
+                                        <li>50 Inventory Items</li>
+                                        <li>50 Shipping Containers</li>
+                                    </ul>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <div class="container">
+                                        <div class="row pt-3 pb-3">
+                                            <div class="col-2"></div>
+                                            <div class="col-8">
+
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pe-lg-0">
+                        <div class="pt-3">
+                            <mat-card class="pricing-card">
+                                <mat-card-header>
+
+                                    <!-- <div mat-card-avatar class="pricing-card-header-image"></div> -->
+                                    <mat-card-title>
+                                        <h2 class="pb-3">Premium</h2>
+                                    </mat-card-title>
+                                    <mat-card-subtitle></mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <div class="description">
+                                        <p>The premium subscription allows additional shipments, inventory items,
+                                            and
+                                            shipping containers and is a perfect option for those shipping between 5
+                                            and
+                                            10
+                                            packages
+                                            every day. </p>
+                                    </div>
+                                    <h2>$30 / month</h2>
+                                    <div class="banner-container">
+                                    </div>
+                                    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Premium Photo"> -->
+
+                                    <ul>
+                                        <li>300 Shipments / month</li>
+                                        <li>300 Inventory Items</li>
+                                        <li>300 Shipping Containers</li>
+                                    </ul>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <div class="container">
+                                        <div class="row pt-3 pb-3">
+                                            <div class="col-2"></div>
+                                            <div class="col-8">
+
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 pe-lg-0">
+                        <div class="py-3">
+                            <mat-card class="pricing-card">
+                                <mat-card-header>
+                                    <!-- <div mat-card-avatar class="pricing-card-header-image"></div> -->
+                                    <mat-card-title>
+                                        <h2 class="pb-3">Beast Mode</h2>
+                                    </mat-card-title>
+                                    <mat-card-subtitle></mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <div class="description">
+                                        <p>The name says it all! Beast Mode is for businesses that ship serious
+                                            volume.
+                                            With
+                                            Beast Mode, your business may create up to 1000 shipments, 5000
+                                            inventory
+                                            items, and
+                                            5000 shipping containers per month.
+                                        </p>
+                                    </div>
+                                    <h2>$50 / month</h2>
+                                    <div class="banner-container">
+                                    </div>
+                                    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Beast Mode Photo"> -->
+
+                                    <ul>
+                                        <li>1000 Shipments / month</li>
+                                        <li>5000 Inventory Items</li>
+                                        <li>5000 Shipping Containers</li>
+                                    </ul>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <div class="container">
+                                        <div class="row pt-3 pb-3">
+                                            <div class="col-2"></div>
+                                            <div class="col-8">
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-drawer-container>

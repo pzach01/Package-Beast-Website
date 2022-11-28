@@ -1,0 +1,69 @@
+<mat-drawer-container class="drawer-container" fullscreen>
+    <mat-drawer #drawer class="example-sidenav d-block d-md-none" mode="over" position="end">
+        <mat-nav-list class="me-1">
+            <a mat-list-item (click)="goToLogin()">
+                Login
+            </a>
+            <a class="create-account-drawer" mat-list-item (click)="goToRegister()">
+                Sign up
+            </a>
+            <a mat-list-item (click)="goToPricing()">
+                Pricing
+            </a>
+            <a mat-list-item (click)="goToFeatures()">
+                Features
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-toolbar class="toolbar">
+        <div class="me-3">
+
+            <a href="javascript:void(0);" (click)="goHome()">
+                <img id="toolbar-logo" src="../../../assets/PackageBeastNoPhrase.png" alt="pbLogo">
+            </a>
+        </div>
+        <span class="toolbar-spacer d-block d-md-none"></span>
+
+        <button mat-icon-button (click)="drawer.toggle()" class="d-block d-md-none"
+            aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <button (click)="goToPricing()" mat-button class="d-none d-md-block" aria-label="pricing">
+            Pricing
+        </button>
+        <button (click)="goToFeatures()" mat-button class="d-none d-md-block" aria-label="features">
+            Features
+        </button>
+        <span class="toolbar-spacer d-none d-md-block"></span>
+        <button (click)="goToLogin()" mat-button class="d-none d-md-block" aria-label="login button">
+            Login
+        </button>
+        <button (click)="goToRegister()" mat-button class="create-account-toolbar d-none d-md-block"
+            aria-label="register button">
+            Create an Account
+        </button>
+
+    </mat-toolbar>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-3 text-center">
+                <h1>Features</h1>
+            </div>
+        </div>
+        <div class="row pt-5 pb-5">
+            <div class="col">
+                <div>
+                    <iframe class="d-block m-auto" style="width: 75vw; min-height: 50vh;"
+                        src="https://www.youtube.com/embed/6UXbIstQxUU" title="Package Beast YouTube Video"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</mat-drawer-container>
