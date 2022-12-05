@@ -3,8 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Container } from 'src/app/_models/container';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
-import { evaluate } from 'mathjs'
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { evaluateDimension, DimensionInput } from 'src/app/_helpers/evaluate-dimension';
 
 
 @Component({
@@ -49,13 +49,25 @@ export class EditContainerComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
 
+    const formControls = [this.editContainerForm.controls.xDim, this.editContainerForm.controls.yDim, this.editContainerForm.controls.zDim]
+    formControls.forEach(control => {
+      let evaluatedDimension: DimensionInput = evaluateDimension(control.value)
+      console.log(evaluatedDimension)
+      if (evaluatedDimension.error == null) {
+        control.setValue(evaluatedDimension.value);
+      } else {
+        const e = evaluatedDimension.error
+        control.setErrors({ [e]: true })
+      }
+    })
+
     // stop here if form is invalid
     if (this.editContainerForm.invalid) { return; }
 
     //evaluate expression
-    this.editContainerForm.controls.xDim.setValue(evaluate(this.editContainerForm.controls.xDim.value))
-    this.editContainerForm.controls.yDim.setValue(evaluate(this.editContainerForm.controls.yDim.value))
-    this.editContainerForm.controls.zDim.setValue(evaluate(this.editContainerForm.controls.zDim.value))
+    // this.editContainerForm.controls.xDim.setValue(evaluate(this.editContainerForm.controls.xDim.value))
+    // this.editContainerForm.controls.yDim.setValue(evaluate(this.editContainerForm.controls.yDim.value))
+    // this.editContainerForm.controls.zDim.setValue(evaluate(this.editContainerForm.controls.zDim.value))
     //remove errors
     this.editContainerForm.controls.xDim.setErrors(null)
     this.editContainerForm.controls.yDim.setErrors(null)
