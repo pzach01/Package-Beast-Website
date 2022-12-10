@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../_services';
 import { SocialAuthService } from 'angularx-social-login';
 import { GoogleLoginProvider } from "angularx-social-login";
+import { environment } from 'src/environments/environment';
 
 
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
@@ -69,7 +70,7 @@ export class LoginComponent implements OnInit {
         this.loginWithGoogleClicked = true;
         const googleLoginOptions = {
             scope: 'profile email',
-            redirect_uri: "https://development.packagebeast.com/login",
+            redirect_uri: `${environment.CLIENT_BASE_URI}}/login`,
         }
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
