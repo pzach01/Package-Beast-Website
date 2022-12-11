@@ -3,9 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
-import { evaluate } from 'mathjs'
 import { AuthenticationService } from 'src/app/_services';
 import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
+import { evaluateDimension, DimensionInput } from 'src/app/_helpers/evaluate-dimension';
 
 
 @Component({
@@ -49,16 +49,28 @@ export class NewItemComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
 
+    const formControls = [this.newItemForm.controls.height, this.newItemForm.controls.length, this.newItemForm.controls.width, this.newItemForm.controls.weight]
+    formControls.forEach(control => {
+      let evaluatedDimension: DimensionInput = evaluateDimension(control.value)
+      console.log(evaluatedDimension)
+      if (evaluatedDimension.error == null) {
+        control.setValue(evaluatedDimension.value);
+      } else {
+        const e = evaluatedDimension.error
+        control.setErrors({ [e]: true })
+      }
+    })
+
     // stop here if form is invalid
     if (this.newItemForm.invalid) {
       return;
     }
 
     //evaluate expression
-    this.newItemForm.controls.height.setValue(evaluate(this.newItemForm.controls.height.value))
-    this.newItemForm.controls.length.setValue(evaluate(this.newItemForm.controls.length.value))
-    this.newItemForm.controls.width.setValue(evaluate(this.newItemForm.controls.width.value))
-    this.newItemForm.controls.weight.setValue(evaluate(this.newItemForm.controls.weight.value))
+    // this.newItemForm.controls.height.setValue(evaluate(this.newItemForm.controls.height.value))
+    // this.newItemForm.controls.length.setValue(evaluate(this.newItemForm.controls.length.value))
+    // this.newItemForm.controls.width.setValue(evaluate(this.newItemForm.controls.width.value))
+    // this.newItemForm.controls.weight.setValue(evaluate(this.newItemForm.controls.weight.value))
     //remove errors
     this.newItemForm.controls.height.setErrors(null)
     this.newItemForm.controls.length.setErrors(null)

@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   SITE_TITLE: 'Package Beast Development Yo!',
   API_BASE_URI: 'https://developmentapi.packagebeast.com',
+  CLIENT_BASE_URI: 'https://development.packagebeast.com',
   stripePublishableKey: 'pk_test_51I76dqE5mpXPYa9nEGmBuvigp0Vjs8LFIUkwEk2cnFEFPVHvqmH6nXJ6RA8SrjBjKRu7K7c0jZC23LdP01p5SzpF00XAVLBhGF',
   standardSubscription: {
     priceId: 'price_1I76eoE5mpXPYa9nlFHK60Ge',

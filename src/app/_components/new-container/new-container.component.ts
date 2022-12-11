@@ -3,9 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Container } from 'src/app/_models/container';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContainersService } from 'src/app/_services/containers.service';
-import { evaluate } from 'mathjs'
 import { AuthenticationService } from 'src/app/_services';
 import { CreateFailDialogComponent } from '../create-fail-dialog/create-fail-dialog.component';
+import { evaluateDimension, DimensionInput } from 'src/app/_helpers/evaluate-dimension';
 
 
 @Component({
@@ -46,15 +46,27 @@ export class NewContainerComponent implements OnInit {
   save() {
     this.submitted = true;
 
+    const formControls = [this.newContainerForm.controls.xDim, this.newContainerForm.controls.yDim, this.newContainerForm.controls.zDim]
+    formControls.forEach(control => {
+      let evaluatedDimension: DimensionInput = evaluateDimension(control.value)
+      console.log(evaluatedDimension)
+      if (evaluatedDimension.error == null) {
+        control.setValue(evaluatedDimension.value);
+      } else {
+        const e = evaluatedDimension.error
+        control.setErrors({ [e]: true })
+      }
+    })
+
     // stop here if form is invalid
     if (this.newContainerForm.invalid) {
       return;
     }
 
     //evaluate expression
-    this.newContainerForm.controls.xDim.setValue(evaluate(this.newContainerForm.controls.xDim.value))
-    this.newContainerForm.controls.yDim.setValue(evaluate(this.newContainerForm.controls.yDim.value))
-    this.newContainerForm.controls.zDim.setValue(evaluate(this.newContainerForm.controls.zDim.value))
+    // this.newContainerForm.controls.xDim.setValue(evaluate(this.newContainerForm.controls.xDim.value))
+    // this.newContainerForm.controls.yDim.setValue(evaluate(this.newContainerForm.controls.yDim.value))
+    // this.newContainerForm.controls.zDim.setValue(evaluate(this.newContainerForm.controls.zDim.value))
     //remove errors
     this.newContainerForm.controls.xDim.setErrors(null)
     this.newContainerForm.controls.yDim.setErrors(null)

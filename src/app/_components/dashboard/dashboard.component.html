@@ -40,7 +40,12 @@
                     </button>
 
                     <img id="logo" src="../../../assets/PackageBeastWhiteNoLogo.png">
-                    <h3 [matMenuTriggerFor]="menu" class="first-name">{{firstName}}</h3>
+
+                    <!-- <fa-icon class="color: green" [icon]="faQuestionCircle"></fa-icon> -->
+
+                    <h3 [matMenuTriggerFor]="menu" class="first-name">
+                        {{firstName}}
+                    </h3>
                     <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
                     <!-- #enddocregion mat-menu-trigger-for -->
                 </mat-toolbar>
@@ -48,7 +53,12 @@
                     <div class="container">
                         <div class="row pt-3">
                             <div class="col">
-                                <p>Need help? Email us at support@packagebeast.com</p>
+                                <p>
+                                    Need help <fa-icon class="" [icon]="faQuestionCircle"></fa-icon> <a [routerLink]=""
+                                        (click)="goToUserGuide()">
+                                        Package Beast User Guide</a>
+                                </p>
+                                <p>Or email us at support@packagebeast.com</p>
                             </div>
                         </div>
                         <div class="row">

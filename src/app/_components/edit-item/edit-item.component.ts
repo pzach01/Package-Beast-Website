@@ -3,8 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Item } from 'src/app/_models/item';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemsService } from 'src/app/_services/items.service';
-import { evaluate } from 'mathjs'
 import { ConfirmDeleteDialogComponent } from 'src/app/_components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { evaluateDimension, DimensionInput } from 'src/app/_helpers/evaluate-dimension';
+
 
 @Component({
   selector: 'app-edit-item',
@@ -50,15 +51,27 @@ export class EditItemComponent implements OnInit {
   save() {
     this.submitted = true;
 
+    const formControls = [this.editItemForm.controls.height, this.editItemForm.controls.length, this.editItemForm.controls.width, this.editItemForm.controls.weight]
+    formControls.forEach(control => {
+      let evaluatedDimension: DimensionInput = evaluateDimension(control.value)
+      console.log(evaluatedDimension)
+      if (evaluatedDimension.error == null) {
+        control.setValue(evaluatedDimension.value);
+      } else {
+        const e = evaluatedDimension.error
+        control.setErrors({ [e]: true })
+      }
+    })
+
     // stop here if form is invalid
     if (this.editItemForm.invalid) {
       return;
     }
     //evaluate expression
-    this.editItemForm.controls.height.setValue(evaluate(this.editItemForm.controls.height.value))
-    this.editItemForm.controls.length.setValue(evaluate(this.editItemForm.controls.length.value))
-    this.editItemForm.controls.width.setValue(evaluate(this.editItemForm.controls.width.value))
-    this.editItemForm.controls.weight.setValue(evaluate(this.editItemForm.controls.weight.value))
+    // this.editItemForm.controls.height.setValue(evaluate(this.editItemForm.controls.height.value))
+    // this.editItemForm.controls.length.setValue(evaluate(this.editItemForm.controls.length.value))
+    // this.editItemForm.controls.width.setValue(evaluate(this.editItemForm.controls.width.value))
+    // this.editItemForm.controls.weight.setValue(evaluate(this.editItemForm.controls.weight.value))
 
     //remove errors
     this.editItemForm.controls.height.setErrors(null)
