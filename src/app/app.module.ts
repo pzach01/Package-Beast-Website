@@ -81,8 +81,8 @@ import { SubscriptionDowngradeSuccessComponent } from './_components/subscriptio
 import { EditUserInformationComponent } from './_components/edit-user-information/edit-user-information.component';
 import { DemoComponent } from './demo/demo.component'
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
+// import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+// import { GoogleLoginProvider } from 'angularx-social-login';
 import { WeightUnitsPipe } from './_helpers/weight-units.pipe';
 import { ShipFromComponent } from './_components/ship-from/ship-from.component';
 import { ShipToComponent } from './_components/ship-to/ship-to.component';
@@ -319,7 +319,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatProgressBarModule,
     MatMenuModule,
-    SocialLoginModule,
+    // SocialLoginModule,
     ClipboardModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
@@ -353,20 +353,20 @@ const appRoutes: Routes = [
     UnitsPipe,
     VolumeUnitsPipe,
     DecimalPipe,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              environment.GOOGLE_CLIENT_ID_URI
-            )
-          }
-        ]
-      } as SocialAuthServiceConfig,
-    }
+    // {
+    //   provide: 'SocialAuthServiceConfig',
+    //   useValue: {
+    //     autoLogin: false,
+    //     providers: [
+    //       {
+    //         id: GoogleLoginProvider.PROVIDER_ID,
+    //         provider: new GoogleLoginProvider(
+    //           environment.GOOGLE_CLIENT_ID_URI
+    //         )
+    //       }
+    //     ]
+    //   } as SocialAuthServiceConfig,
+    // }
   ],
   bootstrap: [AppComponent],
   exports: []

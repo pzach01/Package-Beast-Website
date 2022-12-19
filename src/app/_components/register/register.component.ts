@@ -7,7 +7,7 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { AlertService, AuthenticationService } from '../../_services';
 
-import { SocialAuthService } from "angularx-social-login";
+// import { SocialAuthService } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
         private cdr: ChangeDetectorRef,
-        private authService: SocialAuthService
+        // private authService: SocialAuthService
     ) { }
 
 
@@ -47,15 +47,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             validator: MustMatch('password1', 'password2')
         });
 
-        this.authService.authState.subscribe((user) => {
-            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
-                if (this.loginWithGoogleClicked) {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
-                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
-                    })
-                }
-            })
-        });
+        // this.authService.authState.subscribe((user) => {
+        //     this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+        //         if (this.loginWithGoogleClicked) {
+        //             this.authenticationService.getUser().pipe(first()).subscribe(() => {
+        //                 this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+        //             })
+        //         }
+        //     })
+        // });
     }
 
     goToRegister() {
@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         const googleLoginOptions = {
             scope: 'profile email'
         }
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+        // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
 
     ngAfterViewInit(): void {

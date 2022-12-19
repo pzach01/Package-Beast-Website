@@ -106,13 +106,13 @@ export class AuthenticationService {
             }));
     }
 
-    socialLogin(access_token: string) {
-        return this.http.post<any>(`${environment.API_BASE_URI}/social-login/google/`, { access_token })
-            .pipe(map(token => {
+    socialLogin(token: string) {
+        return this.http.post<any>(`${environment.API_BASE_URI}/accounts/google-login/`, { token })
+            .pipe(map(key => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentToken', JSON.stringify(token));
-                this.currentTokenSubject.next(token);
-                return token;
+                localStorage.setItem('currentToken', JSON.stringify(key));
+                this.currentTokenSubject.next(key);
+                return key;
             })).pipe(mergeMap(() => {
                 return this.subscriptionService.getSubscriptionInfo()
             }));

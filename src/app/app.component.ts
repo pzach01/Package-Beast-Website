@@ -16,7 +16,7 @@ export class AppComponent {
     private authenticationService: AuthenticationService, private router: Router
   ) {
     // this.formatViewHeight();
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => { this.currentUser = x; console.log('x', this.currentUser) });
   }
   ngOnInit(): void {
     this.router.events.subscribe((routerEvent) => {
