@@ -115,7 +115,14 @@ export class LoginComponent implements OnInit {
     googleCallback(response) {
         this.authenticationService.socialLogin(response.credential).subscribe(() => {
             this.authenticationService.getUser().subscribe(() => {
-                this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+                // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+
+                // Not sure why we need to navigate to dashboard like this... Clearly an authentication, guard, or navigation bug.
+                // Maybe a smart person will be able to identify and fix this in the future.
+                // If so, contact Peter and I will by you a beer.
+                // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }])
+                window.location.href = window.location.protocol + '//' + window.location.host + '/dashboard(view:inventory)'
+
             })
         })
     }
