@@ -39,24 +39,19 @@ export class LoginComponent implements OnInit {
         this.formControlValueChanged();
 
 
-        //@ts-ignore
-        window.onGoogleLibraryLoad = () => {
-            //@ts-ignore
-            google.accounts.id.initialize({
-                client_id: environment.GOOGLE_CLIENT_ID_URI,
-                callback: this.googleCallback.bind(this),
-                scope: 'profile email',
-                auto_select: false,
-                cancel_on_tap_outside: true
-            });
+        addEventListener('resize', (event) => {
+            const e = document.getElementById("googleBtnContainer")
+            console.log(e.offsetWidth)
+
             //@ts-ignore
             google.accounts.id.renderButton(
-                document.getElementById("buttonDiv"),
-                { theme: "outline", size: "large" }  // customization attributes
+                document.getElementById("loginwithGoogleButtonDiv"),
+                { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
             );
-            // //@ts-ignore
-            // google.accounts.id.prompt(); // also display the One Tap dialog
-        }
+        })
+
+
+
 
         // this.authService.authState.subscribe((user) => {
         //     this.authenticationService.socialLogin(user.authToken).subscribe(() => {
@@ -128,10 +123,31 @@ export class LoginComponent implements OnInit {
     }
     ngAfterViewInit() {
         // this.googleInit();
-        var s = document.createElement("script");
+        const s = document.createElement("script");
         s.type = "text/javascript";
         s.src = "https://accounts.google.com/gsi/client";
         this.elementRef.nativeElement.appendChild(s);
+
+        const e = document.getElementById("googleBtnContainer")
+
+        //@ts-ignore
+        window.onGoogleLibraryLoad = () => {
+            //@ts-ignore
+            google.accounts.id.initialize({
+                client_id: environment.GOOGLE_CLIENT_ID_URI,
+                callback: this.googleCallback.bind(this),
+                scope: 'profile email',
+                auto_select: false,
+                cancel_on_tap_outside: true
+            });
+            //@ts-ignore
+            google.accounts.id.renderButton(
+                document.getElementById("loginwithGoogleButtonDiv"),
+                { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
+            );
+            // //@ts-ignore
+            // google.accounts.id.prompt(); // also display the One Tap dialog
+        }
     }
 
     goToRegister() {
