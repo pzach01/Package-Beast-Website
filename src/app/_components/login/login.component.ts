@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { Renderer2 } from '@angular/core';
 
 import { AuthenticationService } from '../../_services';
 // import { SocialAuthService } from 'angularx-social-login';
@@ -24,10 +25,18 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         // private authService: SocialAuthService
-        private elementRef: ElementRef
+        private renderer: Renderer2,
     ) { }
 
     ngOnInit() {
+
+        const script = this.renderer.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "https://accounts.google.com/gsi/client";
+        script.defer = true;
+        script.async = true;
+        this.renderer.appendChild(document.body, script);
+
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.loginForm = this.formBuilder.group({
             email: ['', [this.loginFailValidator, Validators.required, Validators.pattern(EMAIL_REGEX)]],
@@ -37,21 +46,6 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.formControlValueChanged();
-
-
-        addEventListener('resize', (event) => {
-            const e = document.getElementById("googleBtnContainer")
-            console.log(e.offsetWidth)
-
-            //@ts-ignore
-            google.accounts.id.renderButton(
-                document.getElementById("loginwithGoogleButtonDiv"),
-                { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
-            );
-        })
-
-
-
 
         // this.authService.authState.subscribe((user) => {
         //     this.authenticationService.socialLogin(user.authToken).subscribe(() => {
@@ -123,12 +117,11 @@ export class LoginComponent implements OnInit {
     }
     ngAfterViewInit() {
         // this.googleInit();
-        const s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "https://accounts.google.com/gsi/client";
-        this.elementRef.nativeElement.appendChild(s);
+        // const s = document.createElement("script");
+        // s.type = "text/javascript";
+        // s.src = "https://accounts.google.com/gsi/client";
+        // this.elementRef.nativeElement.appendChild(s);
 
-        const e = document.getElementById("googleBtnContainer")
 
         //@ts-ignore
         window.onGoogleLibraryLoad = () => {
@@ -140,14 +133,27 @@ export class LoginComponent implements OnInit {
                 auto_select: false,
                 cancel_on_tap_outside: true
             });
-            //@ts-ignore
-            google.accounts.id.renderButton(
-                document.getElementById("loginwithGoogleButtonDiv"),
-                { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
-            );
+            this.formatLoginWithGoogleButton();
             // //@ts-ignore
             // google.accounts.id.prompt(); // also display the One Tap dialog
         }
+
+        addEventListener('resize', (event) => {
+            this.formatLoginWithGoogleButton();
+        })
+
+
+    }
+
+    formatLoginWithGoogleButton() {
+        const e = document.getElementById("googleBtnContainer")
+        console.log(e.offsetWidth)
+
+        //@ts-ignore
+        google.accounts.id.renderButton(
+            document.getElementById("loginwithGoogleButtonDiv"),
+            { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
+        );
     }
 
     goToRegister() {
