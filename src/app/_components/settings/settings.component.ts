@@ -57,6 +57,8 @@ export class SettingsComponent implements OnInit {
 
   goToUserGuide() {
     console.log('HELP ME!')
+    this.router.navigate(['./', { outlets: { view: ['user-guide'] } }]);
+
   }
 
   manageShippoAccount() {

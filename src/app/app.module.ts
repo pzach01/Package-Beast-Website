@@ -99,6 +99,7 @@ import { ManageShippoAccountComponent } from './_components/manage-shippo-accoun
 import { HomePageComponent } from './_components/home-page/home-page.component';
 import { PricingComponent } from './_components/pricing/pricing.component';
 import { FeaturesComponent } from './_components/features/features.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
 
 const appRoutes: Routes = [
   //Routes that do NOT REQUIRE authentication
@@ -114,8 +115,8 @@ const appRoutes: Routes = [
   { path: 'reset-password/confirm/:uid/:token', component: ResetPasswordConfirmComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'confirm-email/:key', component: ConfirmEmailComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   { path: 'register-done', component: RegisterDoneComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
-  { path: 'shippo-oauth-redirect', component: ShippoOauthRedirectComponent, pathMatch: 'full', canActivate: [] },
-
+  { path: 'shippo-oauth-redirect', component: ShippoOauthRedirectComponent, pathMatch: 'full' },
+  { path: 'user-guide', component: UserGuideComponent, pathMatch: 'full', canActivate: [AuthenticatedRedirectGuard] },
   //Routes that REQUIRE authentication
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   {
@@ -189,6 +190,12 @@ const appRoutes: Routes = [
     path: 'payment/:subscriptionType',
     outlet: 'view',
     component: PaymentComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user-guide',
+    outlet: 'view',
+    component: UserGuideComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -280,7 +287,8 @@ const appRoutes: Routes = [
     ManageShippoAccountComponent,
     HomePageComponent,
     PricingComponent,
-    FeaturesComponent],
+    FeaturesComponent,
+    UserGuideComponent],
   imports: [
     // MatCarouselModule.forRoot(),
     RouterModule.forRoot(
