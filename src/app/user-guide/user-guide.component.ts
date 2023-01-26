@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserGuideComponent implements OnInit {
 
+  isIos: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+    this.isIos = this.isIOS()
   }
 
+  isIOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+      // iPad on iOS 13 detection
+      || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
 }

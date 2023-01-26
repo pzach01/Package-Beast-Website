@@ -71,7 +71,4 @@ export class DashboardComponent implements OnInit {
   goToUserGuide() {
     this.router.navigate([{ outlets: { primary: 'dashboard', view: 'user-guide' } }]);
   }
-  openFile() {
-    window.open('/assets/PB 5 How to Guide Power Point.pdf', '_blank')
-  }
 }
