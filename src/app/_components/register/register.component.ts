@@ -1,4 +1,4 @@
-﻿import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
+﻿import { AfterViewInit, ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -7,8 +7,9 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { AlertService, AuthenticationService } from '../../_services';
 
-import { SocialAuthService } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+// import { SocialAuthService } from "angularx-social-login";
+import { environment } from 'src/environments/environment';
+
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
@@ -31,11 +32,20 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
         private cdr: ChangeDetectorRef,
-        private authService: SocialAuthService
+        private renderer: Renderer2,
+        // private authService: SocialAuthService
     ) { }
 
 
     ngOnInit() {
+
+        const script = this.renderer.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "https://accounts.google.com/gsi/client";
+        script.defer = true;
+        script.async = true;
+        this.renderer.appendChild(document.body, script);
+
         const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.registerForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
@@ -47,15 +57,31 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             validator: MustMatch('password1', 'password2')
         });
 
-        this.authService.authState.subscribe((user) => {
-            this.authenticationService.socialLogin(user.authToken).subscribe(() => {
-                if (this.loginWithGoogleClicked) {
-                    this.authenticationService.getUser().pipe(first()).subscribe(() => {
-                        this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
-                    })
-                }
+
+        // this.authService.authState.subscribe((user) => {
+        //     this.authenticationService.socialLogin(user.authToken).subscribe(() => {
+        //         if (this.loginWithGoogleClicked) {
+        //             this.authenticationService.getUser().pipe(first()).subscribe(() => {
+        //                 this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+        //             })
+        //         }
+        //     })
+        // });
+    }
+
+    googleCallback(response) {
+        this.authenticationService.socialLogin(response.credential).subscribe(() => {
+            this.authenticationService.getUser().subscribe(() => {
+                // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }]);
+
+                // Not sure why we need to navigate to dashboard like this... Clearly an authentication, guard, or navigation bug.
+                // Maybe a smart person will be able to identify and fix this in the future.
+                // If so, contact Peter and I will by you a beer.
+                // this.router.navigate([{ outlets: { primary: 'dashboard', view: 'inventory' } }])
+                window.location.href = window.location.protocol + '//' + window.location.host + '/dashboard(view:inventory)'
+
             })
-        });
+        })
     }
 
     goToRegister() {
@@ -81,12 +107,42 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         const googleLoginOptions = {
             scope: 'profile email'
         }
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
+        // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, googleLoginOptions);
     }
 
     ngAfterViewInit(): void {
         // this.googleInit();
         this.cdr.detectChanges();
+
+        //@ts-ignore
+        window.onGoogleLibraryLoad = () => {
+            //@ts-ignore
+            google.accounts.id.initialize({
+                client_id: environment.GOOGLE_CLIENT_ID_URI,
+                callback: this.googleCallback.bind(this),
+                scope: 'profile email',
+                auto_select: false,
+                cancel_on_tap_outside: true
+            });
+            this.formatLoginWithGoogleButton();
+            //@ts-ignore
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+
+        addEventListener('resize', (event) => {
+            this.formatLoginWithGoogleButton();
+        })
+    }
+
+    formatLoginWithGoogleButton() {
+        const e = document.getElementById("googleBtnContainer")
+        console.log(e.offsetWidth)
+
+        //@ts-ignore
+        google.accounts.id.renderButton(
+            document.getElementById("loginwithGoogleButtonDiv"),
+            { theme: "outline", size: "large", logo_alignment: "center", width: e.offsetWidth }  // customization attributes
+        );
     }
 
     // convenience getter for easy access to form fields

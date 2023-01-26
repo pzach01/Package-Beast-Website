@@ -68,5 +68,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([{ outlets: { primary: 'login', view: null } }]);
   }
 
-  goToUserGuide() { console.log("help") }
+  goToUserGuide() {
+    this.router.navigate([{ outlets: { primary: 'dashboard', view: 'user-guide' } }]);
+  }
 }

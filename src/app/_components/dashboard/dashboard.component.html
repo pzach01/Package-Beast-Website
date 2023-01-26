@@ -23,6 +23,10 @@
                     [routerLink]="[{ outlets: { view: 'billing' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
                     <fa-icon class="nav-icon p-1" [icon]="faCC"></fa-icon>Billing
                 </a>
+                <a [disableRipple]="true" [disabled]="!paymentUpToDate" mat-list-item routerLinkActive="active"
+                    [routerLink]="[{ outlets: { view: 'user-guide' } }]" [ngClass]="{'disabled': !paymentUpToDate}">
+                    <fa-icon class="nav-icon p-1" [icon]="faQuestionCircle"></fa-icon>Help
+                </a>
                 <a [disableRipple]="true" mat-list-item routerLinkActive="active" (click)="logout()">
                     <fa-icon class="nav-icon p-1" [icon]="faSignOutAlt"></fa-icon>Logout
                 </a>
