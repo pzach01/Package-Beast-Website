@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-guide',
@@ -8,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class UserGuideComponent implements OnInit {
 
   isIos: boolean = false;
+  screenSmallOrXs: boolean = false;
   constructor() { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenSmallOrXs = this.isSmallOrXsScreen();
+  }
 
   ngOnInit(): void {
     this.isIos = this.isIOS()
+    this.screenSmallOrXs = this.isSmallOrXsScreen()
+  }
+
+  isSmallOrXsScreen(): boolean {
+    if (window.innerWidth < 768) { return true }
   }
 
   isIOS() {

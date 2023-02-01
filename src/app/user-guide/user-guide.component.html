@@ -1,18 +1,17 @@
 <div class="view-container container-fluid d-flex flex-column">
     <div class="row no-shrink text-center">
         <div class="col text-center">
-            <div *ngIf="isIos" class="p-3">
+            <div *ngIf="isIos || screenSmallOrXs" class="p-3">
                 <p>
                     <!-- <object style="height: 92vh; width: 100%;" type="application/pdf"
-                    data="/assets/PB 5 How to Guide Power Point.pdf"></object> -->
-                    <a href="/assets/PB 5 How to Guide Power Point.pdf" target="_blank">User Guide</a>
+                    data="/assets/User Guide.pdf"></object> -->
+                    <a href="/assets/User Guide.pdf" target="_blank">User Guide</a>
                 </p>
             </div>
 
 
-            <div *ngIf="!isIos" style="width: 100%; height: 92vh;">
-                <iframe src="/assets/PB 5 How to Guide Power Point.pdf" style="width:100%; height:92vh;"
-                    frameborder="0"></iframe>
+            <div *ngIf="!isIos && !screenSmallOrXs" style="width: 100%; height: 92vh;">
+                <iframe src="/assets/User Guide.pdf" style="width:100%; height:92vh;" frameborder="0"></iframe>
             </div>
         </div>
     </div>
