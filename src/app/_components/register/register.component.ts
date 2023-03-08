@@ -1,5 +1,5 @@
 ﻿import { AfterViewInit, ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { MustMatch } from '../../_helpers/must-match'
@@ -9,7 +9,7 @@ import { AlertService, AuthenticationService } from '../../_services';
 
 // import { SocialAuthService } from "angularx-social-login";
 import { environment } from 'src/environments/environment';
-
+declare let gtag: Function;
 
 @Component({ styleUrls: ['register.component.scss'], templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit, AfterViewInit {
@@ -27,14 +27,28 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,
+        public router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private recaptchaV3Service: ReCaptchaV3Service,
         private cdr: ChangeDetectorRef,
         private renderer: Renderer2,
         // private authService: SocialAuthService
-    ) { }
+    ) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                gtag('config', 'UA-111683104-2',
+                    {
+                        'page_path': event.urlAfterRedirects
+                    }
+                );
+                gtag('config', 'AW-445804472'),
+                {
+                    'page_path': event.urlAfterRedirects
+                };
+            }
+        })
+    }
 
 
     ngOnInit() {
