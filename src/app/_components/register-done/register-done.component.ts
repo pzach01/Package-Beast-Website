@@ -17,6 +17,10 @@ export class RegisterDoneComponent implements OnInit {
             'page_path': event.urlAfterRedirects
           }
         );
+        gtag('config', 'AW-445804472'),
+        {
+          'page_path': event.urlAfterRedirects
+        };
       }
     })
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { faFacebookSquare, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
 import { interval, Subscription } from 'rxjs';
-
+declare let gtag: Function;
 
 @Component({
   selector: 'app-home-page',
@@ -18,7 +18,21 @@ export class HomePageComponent implements OnInit {
   animaterenderingimage = false;
   $checkInView: Subscription;
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'UA-111683104-2',
+          {
+            'page_path': event.urlAfterRedirects
+          }
+        );
+        gtag('config', 'AW-445804472'),
+        {
+          'page_path': event.urlAfterRedirects
+        };
+      }
+    })
+  }
 
   @ViewChild('compwithbox') compwithbox: ElementRef;
   @ViewChild('renderingimage1') renderingimage1: ElementRef;

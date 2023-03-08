@@ -1,6 +1,6 @@
-﻿import { Component, ElementRef, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Renderer2 } from '@angular/core';
 
@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../_services';
 // import { SocialAuthService } from 'angularx-social-login';
 // import { GoogleLoginProvider } from "angularx-social-login";
 import { environment } from 'src/environments/environment';
+declare let gtag: Function;
 
 declare const gapi: any;
 @Component({ selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.scss'] })
@@ -19,14 +20,30 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
 
+
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router,
+        public router: Router,
         private authenticationService: AuthenticationService,
         // private authService: SocialAuthService
         private renderer: Renderer2,
-    ) { }
+    ) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                gtag('config', 'UA-111683104-2',
+                    {
+                        'page_path': event.urlAfterRedirects
+                    }
+                );
+                gtag('config', 'AW-445804472'),
+                {
+                    'page_path': event.urlAfterRedirects
+                };
+            }
+        })
+    }
 
     ngOnInit() {
 
